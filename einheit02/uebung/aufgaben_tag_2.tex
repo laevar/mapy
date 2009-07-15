@@ -1,0 +1,206 @@
+%----------------------------------------------------------------
+%  Einführung in MATLAB
+% 
+% Blockpraktikum Sommer 2007
+% (2 Wochen)
+%----------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage{german, a4}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage[ansinew]{inputenc}
+\usepackage{exscale}
+\usepackage{theorem}
+\usepackage[dvips]{graphics}
+%\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\usepackage{color}
+\usepackage{times}                  % Postscript font!!!
+\parindent0cm % Absätze nicht einrücken 
+
+%-- Selbstdefinierte Befehle und Parametereinstellungen ------------------------
+\setlength{\headheight}{1.1\baselineskip}
+\setlength{\textheight}{22cm}       
+\setlength{\textwidth}{15cm}
+\setlength{\topmargin}{-2cm} %oberer Rand bis Kopfzeile angehoben
+\setlength{\oddsidemargin}{0.5cm} %linker Rand f"ur ungerade Seiten
+
+
+%---- neue Umgebung für Aufgaben
+\theoremstyle{break}
+\theoremheaderfont{\Large \bf}
+\theorembodyfont{\normalfont}
+
+
+% Definieren einer neuen Farbe
+\definecolor{light-gray}{gray}{.9}
+
+\newcounter{zaehler}     % neuen Zähler einführen
+\stepcounter{zaehler}    % Zähler einen hochzählen
+
+
+
+
+\newenvironment{aufg}%
+%---- Header
+{\begin{samepage}
+\colorbox{light-gray}{                         % Box in gray
+ \makebox[\textwidth]{                           % Box in linewidth
+\bf \color{red} Aufgabe \arabic{zaehler} :}}\\[0.2cm]       % Header
+\begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
+\begin{minipage}{13.5cm}}                         
+%-----  foot
+{\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
+\\[0.2cm] 
+\begin{minipage}{0.1cm} \end{minipage} 
+\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
+\stepcounter{zaehler}                           % increase counter
+ \end{samepage}%
+}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------
+
+%--------------------------------------------------- Header
+\begin{center}
+{\LARGE \bf Einf\"uhrung in MATLAB }\\
+%{\LARGE \bf (Blockveranstaltung)}\\
+%SS 2007\\[0.8cm]
+\end{center}
+\begin{minipage}{6cm}
+Dr. G. Rapin,\\
+%Th. Wassong\\
+\end{minipage} \hfill 
+\begin{minipage}{2cm}
+{\bf Einheit 2}\\
+%31.07.2007
+\end{minipage}\\[1cm]
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{aufg}
+Starten Sie das Programm
+\verb+plot_poly+. Der Graph welchen Polynoms wird dargestellt?
+Erklären Sie das Programm \verb+ausw_poly2+.
+\end{aufg}
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{aufg}
+Stellen Sie das Polynom 
+\[ p(x)= x^5-4x^4 -10x^3 +40x^2 +9x -36\]
+ grafisch dar. Wo sind die Nullstellen?
+\end{aufg}
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{aufg}
+Starten Sie das Programm \verb+randwertaufgabe+. Berechnen
+  Sie die Lösung der Randwert-Aufgabe für die rechte Seite $f=16 \pi^2 \sin( 4 \pi
+  x)$. Erraten Sie die Lösung!
+\end{aufg}
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{aufg}
+Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
+  deren Durchschnitt berechnet und zurückgibt.
+\end{aufg}
+\newpage
+\begin{aufg}
+Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
+  $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
+{\tiny \[ V:= \left(\begin{array}{ccccc} 
+1 & x_1 & x_1^2 & \hdots & x_1^{n-1}\\
+1 & x_2 & x_2^2 & \hdots & x_2^{n-1}\\
+\vdots & \vdots & \vdots & \vdots & \vdots\\
+1 & x_n & x_n^2 & \hdots & x_n^{n-1}\\
+\end{array} \right)  \]}
+berechnet und zurückgibt. \\
+
+\underline{Hinweis:} \verb+V=A.^B+. mit
+{\tiny \[
+A:= \left(\begin{array}{ccccc} 
+x_1 & x_1 & x_1 & \hdots & x_1\\
+x_2 & x_2 & x_2 & \hdots & x_2\\
+\vdots & \vdots & \vdots & \vdots & \vdots\\
+x_n & x_n & x_n & \hdots & x_n\\ \end{array} 
+\right) , \quad B:= 
+ \left(\begin{array}{ccccc} 
+0 & 1 & 2 & \hdots & n-1\\
+0 & 1 & 2 & \hdots & n-1\\
+\vdots & \vdots & \vdots & \vdots & \vdots\\
+0 & 1 & 2 & \hdots & n-1\\
+\end{array} 
+\right)
+\]}
+\end{aufg}
+
+\begin{aufg}
+Lösen Sie n\"aherungsweise die Fixpunktgleichung
+\[ x_f=exp(-x_f). \]
+\end{aufg}
+
+\begin{aufg}
+Berechnen Sie eine Nullstelle von 
+\[ f(x) = \cos^2(x) -x. \]
+\end{aufg}
+%
+%-----------------------------------------------------------
+%
+\begin{aufg}
+Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
+  Hilbert-Matrix $H=(h_{ij})_{i,j=1}^n$ mit $h_{ij}=\frac{1}{i+j-1}$
+  berechnet. Berechnen Sie $H^{-1}$ für $n=4$. 
+\end{aufg}
+%
+%-----------------------------------------------------------
+%
+\newpage
+\begin{aufg}
+ Berechnen Sie die Nullstellen von 
+\[ x^2-2, \quad x^2-2x+1, \quad x^2 -4x +10. \]
+\end{aufg}
+%
+%-----------------------------------------------------------
+%
+\begin{aufg}
+Die Fibonacci-Folge ist definiert durch
+\[ f_1:=1, \quad f_2:=1, \quad f_{k+2}:=f_{k+1}+f_k, \ k \in \mathbb{N}.
+\]
+Schreiben Sie ein Programm, das 
+{\tiny \[ g_{k}:= \frac{f_{k+1}}{f_k}, \quad k \in \mathbb{N} \]}
+berechnet. Stoppen Sie, falls {\tiny $|g_{k}-g_{k+1}| \leq TOL$}. 
+Geben Sie für $TOL=10^{-3}$ und  $TOL=10^{-4}$ das entsprechende $k$
+und das entsprechende $g_k$ an.\\
+
+{\it Hinweis}: Benutzen Sie eine \verb+while+-Schleife.
+\end{aufg}
+%
+%-----------------------------------------------------------
+\begin{aufg}
+Seien $y_1,y_2$ zwei Punkte im $\mathbb{R}^2$. Wir betrachten die Strecke mit
+Endpunkten $y_1$ und $y_2$. Wir ersetzen  diese Strecke durch 4 Strecken 
+$\overline{y_1 z_1}$, $\overline{z_1 z_2}$, $\overline{z_2 z_3}$,
+$\overline{z_3 y_2}$ mit Endpunkten $z_1=\frac23 y_1 + \frac13 y_2$,
+$z_3=\frac13 y_1 + \frac23 y_2$ und 
+\[ z_2 = \frac{\sqrt{3}}{6} \left( \begin{array}{cc}
+0 & 1 \\ -1 & 0 \\
+\end{array} \right)
+(y_1 - y_2) + \frac12 (y_1 + y_2). \]
+Analog zum Beispiel des Sierpinski-Dreiecks soll jede neue Teilstrecke
+wiederum mittels der gleichen Prozedur durch 4 Strecken ersetzt werden. 
+Schreiben Sie ein Programm, dass
+diese Prozedur $k$-mal wiederholt und das Ergebnis plottet.
+\end{aufg}
+
+%-------------------------------------------------------------------------------
+\end{document}
+%-------------------------------------------------------------------------------

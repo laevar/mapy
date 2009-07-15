@@ -1,0 +1,217 @@
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
+
+\usepackage{fontspec}
+%,xunicode,xltxtra}
+\usepackage[ngerman]{babel}
+\selectlanguage{ngerman}
+
+
+\usepackage[svgnames,hyperref]{xcolor} %color definitions
+%\usepackage{tikz}
+%\usetikzlibrary{shadows}
+%\usetikzlibrary{fit}
+%\usetikzlibrary{shapes}
+%\usetikzlibrary{backgrounds}
+
+
+\usepackage{amsmath}
+%\usepackage{latexsym}
+\usepackage[psamsfonts]{amssymb}
+\usepackage{theorem}
+\usepackage{mcode}
+%\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\parindent0cm % Abs�tze nicht einr�cken 
+
+%---- neue Umgebung f�r Aufgaben
+\theoremstyle{break}
+\theoremheaderfont{\Large \bf}
+\theorembodyfont{\normalfont}
+
+
+% Definieren einer neuen Farbe
+\definecolor{light-gray}{gray}{.9}
+
+\newcounter{zaehler}     % neuen Z�hler einf�hren
+\stepcounter{zaehler}    % Z�hler einen hochz�hlen
+
+\newenvironment{aufg}%
+%---- Header
+{\begin{samepage}
+\colorbox{light-gray}{                         % Box in gray
+ \makebox[\textwidth]{                           % Box in linewidth
+\bf \color{red} Aufgabe \arabic{zaehler} :}}\\[0.2cm]       % Header
+\begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
+\begin{minipage}{12.5cm}}
+%-----  foot
+{\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
+\\[0.2cm] 
+%\begin{minipage}{0.1cm} \end{minipage} 
+%\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
+\stepcounter{zaehler}                           % increase counter
+ \end{samepage}%
+}
+
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------
+
+%--------------------------------------------------- Header
+\begin{center}
+\textbf{\LARGE Einf\"uhrung in MATLAB }\\
+%{\LARGE \bf (Blockveranstaltung)}\\SS 2007\\[0.8cm]
+\end{center}
+\begin{minipage}{6cm}
+Dr. J. Schulz\\
+\end{minipage} \hfill 
+\begin{minipage}{2cm}
+\textbf{Einheit 1}\\
+%30.07.2007
+\end{minipage}\\[1cm]
+%-----------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------
+\emph{Hinweis:} Alle Aufgaben (bis auf Aufgabe 7) sollen ohne Verwendung von
+Schleifen gel\"ost werden.\\
+ 
+
+\begin{aufg}
+Finde die Lösung $x$ von $Ax=b$ mit 
+\[ A:=\left( \begin{array}{cccc} 
+2 & 3 & 4 & 5 \\ 
+1 &    1 &    1 &    1\\
+1 &    0 &    1 &    0 \\
+9 &     3 &    2 &    1
+\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
+14\\
+     4\\
+     2\\
+    15
+\end{array} \right) . \] 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Finde die Lösung $x$ von $Ax=b$ mit 
+{ \[ A:=\left( \begin{array}{ccc} 
+1 & 2 & 3 \\ 
+4 &    5 &    6\\
+7 &    8 &    9  
+\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
+6\\
+     15\\
+     24
+\end{array} \right) . \] }
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Sind die folgenden Vektoren linear unabhängig?
+{ \[
+v_1=
+\left( \begin{array}{c} 0 \\ 1 \\ 0 \\ 1 \end{array} \right), 
+\ v_2=
+\left( \begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \end{array} \right),
+\ v_3=
+ \left( \begin{array}{c} 1 \\ 0 \\ 1 \\  0\end{array} \right),
+\ v_4=
+ \left( \begin{array}{c} 0 \\ 0 \\ 1 \\ 1 \end{array} \right)
+. \] }
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Geben Sie die folgende Zeile ein: 
+\begin{lstlisting}
+>>  x=1e-15; ((1+x)-1)/x
+\end{lstlisting} 
+Wie interpretieren Sie das Ergebnis? 
+(Testen Sie auch \lstinline!x=1e-16!!)
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Berechnen Sie $\sum_{j=2}^{1000} \frac{1}{log(j)j}$ und
+  $\sum_{j=1}^{1000} \frac{1}{j}$.
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Welchen Grenzwert hat $\frac{1}{\pi^2} \sum_{j=1}^\infty
+\frac{1}{j^2}$?
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Betrachten Sie die Mandelbrot-Menge in $[-1,-0.4]\times
+[-0.6,0]$!
+\end{aufg}
+\newpage
+%--------------------------------------------------
+\begin{aufg}
+ Interpretieren Sie das Ergebnis der Eingabe 
+\begin{lstlisting}
+>> a=100:2:200; b=[1 4 10]; a(b)
+\end{lstlisting}
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Erzeugen Sie die $(100 \times 100)$ - Matrix 
+{ 
+\[ \left( \begin{array} {ccccccc}
+ 2 & -1 &  & &   0 \\
+-1 & 2  & -1 &    & \\ 
+   & \ddots & \ddots & \ddots   &\\
+   & &  -1 & 2  & -1  \\ 
+0 &  &    & -1 & 2 \\
+\end{array} \right) \]
+}
+und berechnen Sie ihre Determinante.
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Zerlegen Sie das Intervall $[0,1]$ durch 
+  \lstinline!0:(1/101):1!. Berechnen Sie mit Hilfe von 
+Finiten Differenzen eine approx. Lösung von
+{
+\begin{eqnarray*}
+-u''(x) & = & 1, \quad x \in (0,1)\\
+u(0) & = & u(1) =0
+\end{eqnarray*}}
+\vspace*{-0.5cm}
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Erzeugen Sie eine Hilbert Matrix der Größe $50$. (Befehl
+  \lstinline!hilb!) Addieren
+  Sie die Einträge der dritten Spalte! 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Berechnen Sie die Frobenius-Norm 
+\[ \|A \|_F := \sqrt{ \sum_{i,j=1}^n a_{ij}^2 }, \quad A=(a_{ij}) \in
+\mathbb{R}^{n \times n}  \]
+der Vandermode Matrix 
+\lstinline!vander(0:0.02:1)! 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Ändern Sie in Aufgabe 10 die rechte Seite $1$ in
+  $\sin(4 \pi x)$ und berechnen Sie eine Näherungslösung. 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Berechnen Sie die Eigenwerte und Eigenvektoren der Matrix
+{\tiny
+\[ A = \left( \begin{array}{cccc}
+30 & 1 & 2 & 3\\
+4 & 15 & -4 & -2\\
+-1 & 0 & 3 & 5\\
+-3 & 5 & 0 & -1 \end{array}
+\right) \]
+} 
+Bestimmen Sie auch die $QR$-Zerlegung.
+\end{aufg}
+
+\begin{aufg}
+Sei \lstinline!A=hilb(n)! und \lstinline!x=ones(n,1)!. Berechnen Sie
+  für $n=5$ und $n=15$ den Vektor $b=A*x$, \lstinline!norm(x-A\b)! und die Kondition
+  von $A$. Was stellen Sie fest? Erklären Sie das Ergebnis!
+\end{aufg}
+%-------------------------------------------------------------------------------
+\end{document}
+%-------------------------------------------------------------------------------

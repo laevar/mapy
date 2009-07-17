@@ -1,33 +1,29 @@
-%----------------------------------------------------------------
-%  Einführung in MATLAB
-% 
-% Blockpraktikum Sommer 2007
-% (2 Wochen)
-%----------------------------------------------------------------
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
 
-\documentclass[12pt]{article}
-\usepackage{german, a4}
+\usepackage[psamsfonts]{amssymb}
 \usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{amssymb}
-\usepackage[ansinew]{inputenc}
-\usepackage{exscale}
+%\usepackage{latexsym}
 \usepackage{theorem}
-\usepackage[dvips]{graphics}
+
+
+%\usepackage{fontspec,xunicode,xltxtra}
+\usepackage[ngerman]{babel}
+\selectlanguage{ngerman}
+
+
+\usepackage[svgnames,hyperref]{xcolor} %color definitions
+%\usepackage{tikz}
+%\usetikzlibrary{shadows}
+%\usetikzlibrary{fit}
+%\usetikzlibrary{shapes}
+%\usetikzlibrary{backgrounds}
+
+
+\usepackage{mcode}
 %\usepackage{pstricks,pst-node,pst-text,pst-3d}
-\usepackage{color}
-\usepackage{times}                  % Postscript font!!!
-\parindent0cm % Absätze nicht einrücken 
+\parindent0cm % Absï¿½tze nicht einrï¿½cken 
 
-%-- Selbstdefinierte Befehle und Parametereinstellungen ------------------------
-\setlength{\headheight}{1.1\baselineskip}
-\setlength{\textheight}{22cm}       
-\setlength{\textwidth}{15cm}
-\setlength{\topmargin}{-2cm} %oberer Rand bis Kopfzeile angehoben
-\setlength{\oddsidemargin}{0.5cm} %linker Rand f"ur ungerade Seiten
-
-
-%---- neue Umgebung für Aufgaben
+%---- neue Umgebung fï¿½r Aufgaben
 \theoremstyle{break}
 \theoremheaderfont{\Large \bf}
 \theorembodyfont{\normalfont}
@@ -36,11 +32,8 @@
 % Definieren einer neuen Farbe
 \definecolor{light-gray}{gray}{.9}
 
-\newcounter{zaehler}     % neuen Zähler einführen
-\stepcounter{zaehler}    % Zähler einen hochzählen
-
-
-
+\newcounter{zaehler}     % neuen Zï¿½hler einfï¿½hren
+\stepcounter{zaehler}    % Zï¿½hler einen hochzï¿½hlen
 
 \newenvironment{aufg}%
 %---- Header
@@ -49,16 +42,15 @@
  \makebox[\textwidth]{                           % Box in linewidth
 \bf \color{red} Aufgabe \arabic{zaehler} :}}\\[0.2cm]       % Header
 \begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
-\begin{minipage}{13.5cm}}                         
+\begin{minipage}{12.5cm}}
 %-----  foot
 {\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
 \\[0.2cm] 
-\begin{minipage}{0.1cm} \end{minipage} 
-\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
+%\begin{minipage}{0.1cm} \end{minipage} 
+%\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
 \stepcounter{zaehler}                           % increase counter
  \end{samepage}%
 }
-
 
 %-------------------------------------------------------------------------------
 \begin{document}
@@ -66,26 +58,20 @@
 
 %--------------------------------------------------- Header
 \begin{center}
-{\LARGE \bf Einf\"uhrung in MATLAB }\\
-%{\LARGE \bf (Blockveranstaltung)}\\
-%SS 2007\\[0.8cm]
+\textbf{\LARGE Einf\"uhrung in MATLAB }\\
 \end{center}
 \begin{minipage}{6cm}
-Dr. G. Rapin,\\
-%Th. Wassong\\
+Dr. J. Schulz\\
 \end{minipage} \hfill 
 \begin{minipage}{2cm}
-{\bf Einheit 2}\\
-%31.07.2007
+\textbf{Einheit 2}\\
+%30.07.2007
 \end{minipage}\\[1cm]
 
-%----------------------------
-% Folie 
-%----------------------------
 \begin{aufg}
 Starten Sie das Programm
-\verb+plot_poly+. Der Graph welchen Polynoms wird dargestellt?
-Erklären Sie das Programm \verb+ausw_poly2+.
+\lstinline!plot_poly!. Der Graph welchen Polynoms wird dargestellt?
+ErklÃ¤ren Sie das Programm \lstinline!ausw_poly2!.
 \end{aufg}
 
 %----------------------------
@@ -101,9 +87,9 @@ Stellen Sie das Polynom
 % Folie 
 %----------------------------
 \begin{aufg}
-Starten Sie das Programm \verb+randwertaufgabe+. Berechnen
-  Sie die Lösung der Randwert-Aufgabe für die rechte Seite $f=16 \pi^2 \sin( 4 \pi
-  x)$. Erraten Sie die Lösung!
+Starten Sie das Programm \lstinline!randwertaufgabe!. Berechnen
+  Sie die LÃ¶sung der Randwert-Aufgabe fÃ¼r die rechte Seite $f=16 \pi^2 \sin( 4 \pi
+  x)$. Erraten Sie die LÃ¶sung!
 \end{aufg}
 
 %----------------------------
@@ -111,7 +97,7 @@ Starten Sie das Programm \verb+randwertaufgabe+. Berechnen
 %----------------------------
 \begin{aufg}
 Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
-  deren Durchschnitt berechnet und zurückgibt.
+  deren Durchschnitt berechnet und zurÃ¼ckgibt.
 \end{aufg}
 \newpage
 \begin{aufg}
@@ -123,9 +109,9 @@ Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
 \vdots & \vdots & \vdots & \vdots & \vdots\\
 1 & x_n & x_n^2 & \hdots & x_n^{n-1}\\
 \end{array} \right)  \]}
-berechnet und zurückgibt. \\
+berechnet und zurÃ¼ckgibt. \\
 
-\underline{Hinweis:} \verb+V=A.^B+. mit
+{\it Hinweis:} \lstinline!V=A.^B!. mit
 {\tiny \[
 A:= \left(\begin{array}{ccccc} 
 x_1 & x_1 & x_1 & \hdots & x_1\\
@@ -144,7 +130,7 @@ x_n & x_n & x_n & \hdots & x_n\\ \end{array}
 \end{aufg}
 
 \begin{aufg}
-Lösen Sie n\"aherungsweise die Fixpunktgleichung
+LÃ¶sen Sie n\"aherungsweise die Fixpunktgleichung
 \[ x_f=exp(-x_f). \]
 \end{aufg}
 
@@ -156,9 +142,9 @@ Berechnen Sie eine Nullstelle von
 %-----------------------------------------------------------
 %
 \begin{aufg}
-Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
+Schreiben Sie eine Funktion, die fÃ¼r $n \in \mathbb{N}$ die
   Hilbert-Matrix $H=(h_{ij})_{i,j=1}^n$ mit $h_{ij}=\frac{1}{i+j-1}$
-  berechnet. Berechnen Sie $H^{-1}$ für $n=4$. 
+  berechnet. Berechnen Sie $H^{-1}$ fÃ¼r $n=4$. 
 \end{aufg}
 %
 %-----------------------------------------------------------
@@ -178,10 +164,10 @@ Die Fibonacci-Folge ist definiert durch
 Schreiben Sie ein Programm, das 
 {\tiny \[ g_{k}:= \frac{f_{k+1}}{f_k}, \quad k \in \mathbb{N} \]}
 berechnet. Stoppen Sie, falls {\tiny $|g_{k}-g_{k+1}| \leq TOL$}. 
-Geben Sie für $TOL=10^{-3}$ und  $TOL=10^{-4}$ das entsprechende $k$
+Geben Sie fÃ¼r $TOL=10^{-3}$ und  $TOL=10^{-4}$ das entsprechende $k$
 und das entsprechende $g_k$ an.\\
 
-{\it Hinweis}: Benutzen Sie eine \verb+while+-Schleife.
+{\it Hinweis}: Benutzen Sie eine \lstinline!while!-Schleife.
 \end{aufg}
 %
 %-----------------------------------------------------------

@@ -947,19 +947,19 @@ plot(x,y);
 \end{lstlisting}
 \column{0.5\textwidth}
 \alert{ Aufruf}
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\scriptsize]
 >> plotte_sin
 Plot der Sinus Funktion auf [0,10]
 Plot an wievielen Punkten?20
 >> plotte_sin
 Plot der Sinus Funktion auf [0,10]
 Plot an wievielen Punkten?10
-\alert{ ??? Error using ==> plot
+??? Error using ==> plot
 Vectors must be the same lengths.
 
 Error in ==> /slides/m-files/
   stunde_13/plotte_sin.m
-On line 9  ==> plot(x,y);}
+On line 9  ==> plot(x,y);
 \end{lstlisting}
 \end{columns}
 \end{frame}
@@ -968,9 +968,10 @@ On line 9  ==> plot(x,y);}
 %
 \begin{frame}[fragile]\frametitle{globale Variablen}
 Mittels des Befehls \alert{ \lstinline!global!} können Variablen des
-globalen Workspace auch für
-Funktionen manipulierbar gemacht werden.\\[0.6cm]
-\begin{minipage}{5cm}
+globalen Workspace auch für Funktionen manipulierbar gemacht werden.
+\bigskip
+\begin{columns}[t]
+ \column{0.45\textwidth}
 \alert{ Funktion}
 \begin{lstlisting}
 function f=myfun(x)
@@ -980,8 +981,7 @@ function f=myfun(x)
 global alpha
 f=x.^alpha.*sin(1./x);
 \end{lstlisting}
-\end{minipage} \hfill
-\begin{minipage}{5cm}
+ \column{0.45\textwidth}
 \alert{ Plotten}
 \begin{lstlisting}
 % plot_myfun
@@ -994,7 +994,7 @@ for i = 1:length(alpha_w);
 end
 hold off;
 \end{lstlisting}
-\end{minipage} \\
+\end{columns}
 \end{frame}
 %
 % Slide
@@ -1026,8 +1026,7 @@ hold off;
   gespeichert sein. Die Verzeichnisse können durch \lstinline!addpath!
   eingebunden werden. 
 \item Potentielle Fehler sollten, soweit möglich, aufgefangen
-  werden. Speziell sollten die Ein- \\
- gabeparameter der Funktionen
+  werden. Speziell sollten die Eingabeparameter der Funktionen
   geprüft werden. 
 \end{itemize}
 \end{frame}

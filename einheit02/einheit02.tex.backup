@@ -80,6 +80,7 @@ ab. \\
 %  berechnet mit Finiten Differenzen die Lösung u von
 %  -u''=f in (0,1), u(0)=u(1)=0
 %
+%  Gerd Rapin           1.11.2003
 %-------------------------------------------
 
 % Anzahl Stützstellen
@@ -130,11 +131,11 @@ spricht deswegen auch von $m$-Files.
 \item Befindet man sich im selben Verzeichnis wie das Programm
   \lstinline!name.m!, so kann man das Programm starten durch Eingabe von  
 \lstinline!name!. 
-\item Danach durchsucht MATLAB die in \alert{ \lstinline!path!} angegebenen
+\item Danach durchsucht MATLAB die in \lstinline!path! angegebenen
   Verzeichnisse nach dem Programm.
-\item Mit dem Befehl \lstinline!addpath pfadname! kann man eigene Suchpfade
+\item Mit dem Befehl \lstinline!>> addpath pfadname! kann man eigene Suchpfade
   hinzufügen.  
-\item Durch \lstinline!rmpath pfadname! kann man Suchpfade entfernen.  
+\item Durch \lstinline!>> rmpath pfadname! kann man Suchpfade entfernen.  
 \end{itemize}
 \end{frame}
 
@@ -317,31 +318,26 @@ function []=myfile(In_1,...,In_k)
 % Folie 
 %----------------------------
 \begin{frame}[fragile]\frametitle{Priorität beim Programmaufruf}
-\begin{itemize}
-\item [1.] Testet, ob der Name eine Variable ist.
-\item [2.] Testet, ob der Name eine Unterfunktion ist. Eine
+\begin{enumerate}
+\item  Testet, ob der Name eine Variable ist.
+\item  Testet, ob der Name eine Unterfunktion ist. Eine
   Unterfunktion ist ein Programm, das in derselben Datei wie der
   Aufruf steht.
-\item [3.] Testet, ob das Programm im aktuellen Verzeichnis steht.
-\item [4.] Testet, ob der Name eine {\it private function} ist.
-\item [5.] Testet, ob das Programm im Suchpfad enthalten ist. 
-\end{itemize}
+\item  Testet, ob das Programm im aktuellen Verzeichnis steht.
+\item  Testet, ob der Name eine {\it private function} ist.
+\item  Testet, ob das Programm im Suchpfad enthalten ist. 
+\end{enumerate}
 \end{frame}
 
-%
-% - Folie
-%
+
 \section{Programmieren - Teil II}
 \subsection{Gültigkeitsbereich von Variablen}
-%\item Schleifen
-%\item Bedingungen
 %\item Aufgaben
  
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Gültigkeitsbereich von \\
-Variablen}
+\begin{frame}[fragile]\frametitle{Gültigkeitsbereich von Variablen}
 \begin{itemize}
 \item \alert{Variablen in Skript-Files} benutzen den globalen Workspace,
   d.h. bereits vorhandene Variablen können direkt benutzt oder
@@ -360,7 +356,7 @@ Variablen}
 Suche ein $x_f \in \mathbb{R}$ so dass
 \[ x_f = \cos (x_f ) \]
 \begin{center}
-\includegraphics[width=5cm, height=4cm]{./figures/fixpunkt}
+\includegraphics[height=5cm]{./figures/fixpunkt}
 \end{center}
 \end{frame}
 %
@@ -370,7 +366,7 @@ Suche ein $x_f \in \mathbb{R}$ so dass
 Fixpunkt-Iteration 
 \[ x_{k+1}=cos(x_k) \]
 bei geeignetem Startwert $x_0$.  \\
-\centering{\includegraphics[width=6cm, height=4cm]{./figures/fixpunkt1}}\\
+\centering{\includegraphics[height=5cm]{./figures/fixpunkt1}}\\
 \end{frame}
 
 %
@@ -411,6 +407,8 @@ end;
   gewechselt.  
 \end{itemize}
 \end{frame}
+
+\subsection{Schleifen}
 %
 % - Folie
 %
@@ -546,6 +544,8 @@ if d<0
 end
 \end{lstlisting}
 \end{frame}
+
+\subsection{Bedingungen}
 %
 %
 %
@@ -583,6 +583,7 @@ a > b & größer & \lstinline!1     0     0!\\
 a <= b & kleiner oder gleich & \lstinline!0     1     1!\\
 a >= b & größer oder gleich & \lstinline!1     1     0!\\
 \end{tabular}
+\\
 \alert{Bem:} \alert{ 1 = wahre Aussage, 0 = falsche Aussage}\\
 \alert{Bem:} Komponentenweise Vergleiche sind auch für Matrizen
 gleicher Größe möglich! 
@@ -591,13 +592,13 @@ gleicher Größe möglich!
 %
 %
 \begin{frame}[fragile]\frametitle{Logische Operatoren}
-\begin{tabular}{||c|l||c|l||}
+\begin{tabular}{|c|l||c|l|}
 \hline
 \lstinline!&! & logisches und & \lstinline!~! & logisches nicht \\
 \lstinline!|! & logisches oder & \lstinline!xor! & exklusives oder\\
 \hline
 \end{tabular}
-\vspace*{0.5cm}\\
+\\
 Beispiele:\\
 \begin{lstlisting} 
 >>  x=[-1 1 1]; y=[1 2 -3];

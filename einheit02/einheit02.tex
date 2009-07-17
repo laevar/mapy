@@ -80,6 +80,7 @@ ab. \\
 %  berechnet mit Finiten Differenzen die Lösung u von
 %  -u''=f in (0,1), u(0)=u(1)=0
 %
+%  Gerd Rapin           1.11.2003
 %-------------------------------------------
 
 % Anzahl Stützstellen
@@ -130,11 +131,11 @@ spricht deswegen auch von $m$-Files.
 \item Befindet man sich im selben Verzeichnis wie das Programm
   \lstinline!name.m!, so kann man das Programm starten durch Eingabe von  
 \lstinline!name!. 
-\item Danach durchsucht MATLAB die in \alert{ \lstinline!path!} angegebenen
+\item Danach durchsucht MATLAB die in \lstinline!path! angegebenen
   Verzeichnisse nach dem Programm.
-\item Mit dem Befehl \lstinline!addpath pfadname! kann man eigene Suchpfade
+\item Mit dem Befehl \lstinline!>> addpath pfadname! kann man eigene Suchpfade
   hinzufügen.  
-\item Durch \lstinline!rmpath pfadname! kann man Suchpfade entfernen.  
+\item Durch \lstinline!>> rmpath pfadname! kann man Suchpfade entfernen.  
 \end{itemize}
 \end{frame}
 
@@ -317,22 +318,20 @@ function []=myfile(In_1,...,In_k)
 % Folie 
 %----------------------------
 \begin{frame}[fragile]\frametitle{Priorität beim Programmaufruf}
-\begin{itemize}
-\item [1.] Testet, ob der Name eine Variable ist.
-\item [2.] Testet, ob der Name eine Unterfunktion ist. Eine
+\begin{enumerate}
+\item  Testet, ob der Name eine Variable ist.
+\item  Testet, ob der Name eine Unterfunktion ist. Eine
   Unterfunktion ist ein Programm, das in derselben Datei wie der
   Aufruf steht.
-\item [3.] Testet, ob das Programm im aktuellen Verzeichnis steht.
-\item [4.] Testet, ob der Name eine {\it private function} ist.
-\item [5.] Testet, ob das Programm im Suchpfad enthalten ist. 
-\end{itemize}
+\item  Testet, ob das Programm im aktuellen Verzeichnis steht.
+\item  Testet, ob der Name eine {\it private function} ist.
+\item  Testet, ob das Programm im Suchpfad enthalten ist. 
+\end{enumerate}
 \end{frame}
 
 
 \section{Programmieren - Teil II}
 \subsection{Gültigkeitsbereich von Variablen}
-%\item Schleifen
-%\item Bedingungen
 %\item Aufgaben
  
 %
@@ -408,6 +407,8 @@ end;
   gewechselt.  
 \end{itemize}
 \end{frame}
+
+\subsection{Schleifen}
 %
 % - Folie
 %
@@ -543,6 +544,8 @@ if d<0
 end
 \end{lstlisting}
 \end{frame}
+
+\subsection{Bedingungen}
 %
 %
 %
@@ -589,7 +592,7 @@ gleicher Größe möglich!
 %
 %
 \begin{frame}[fragile]\frametitle{Logische Operatoren}
-\begin{tabular}{||c|l||c|l||}
+\begin{tabular}{|c|l||c|l|}
 \hline
 \lstinline!&! & logisches und & \lstinline!~! & logisches nicht \\
 \lstinline!|! & logisches oder & \lstinline!xor! & exklusives oder\\
@@ -632,15 +635,15 @@ ans =
 %
 %
 \begin{frame}[fragile]\frametitle{Bedingung}
-\begin{minipage}{5cm}
+\begin{columns}[t,onlytextwidth]
+ \column{0.45\textwidth}
 Einfache Bedingung
 \begin{lstlisting}
 if  Ausdruck
    Befehle
 end
 \end{lstlisting}
-\end{minipage} \hfill 
-\begin{minipage}{5.5cm}
+ \column{0.45\textwidth}
 Bed. mit Alternative
 \begin{lstlisting}
 if  Ausdruck
@@ -649,7 +652,8 @@ else
    Befehle
 end
 \end{lstlisting}
-\end{minipage}
+\end{columns}
+
 Die Befehle zwischen \lstinline!if! und \lstinline!end! werden ausgeführt, wenn
 der {\it Ausdruck} wahr (\lstinline!TRUE!) ist. 
 Andernfalls werden (soweit vorhanden) die
@@ -732,7 +736,6 @@ end, xmin
 
 xmin = 4.9407e-324
 \end{lstlisting} 
-\vspace*{-0.5cm}
 \item  Durch \lstinline!continue! springt man sofort in die
   nächste Iteration der Schleife, ohne die restlichen Befehle zu
   durchlaufen.
@@ -747,6 +750,7 @@ for i=1:10,
 \end{itemize}
 \end{frame}
 
+\subsection{Rekursionen}
 %
 % Slide
 % 
@@ -754,10 +758,10 @@ for i=1:10,
 Rekursive Funktionen sind Funktionen, die sich selbst aufrufen.\\
 Bei jedem Aufruf wird ein neuer lokaler Workspace erzeugt.\\[1cm]
 
-Beispiel Fakult"at: $n!=fak(n)$\\
+\textbf{Beispiel:} Fakult"at: $n!=\fak(n)$\\
 \begin{eqnarray*}
- n!& = & n(n-1)!=nfak(n-1)\\
-& = & n(n-1)fak(n-2)\\
+ n!& = & n(n-1)!=n \fak(n-1)\\
+& = & n(n-1)\fak(n-2)\\
 & = & \cdots= n(n-1)\cdots 1 
 \end{eqnarray*}
 \end{frame}
@@ -793,7 +797,6 @@ end
 %
 \begin{frame}[fragile]\frametitle{Fakult"at - Zeitvergleich}
 \begin{lstlisting}
-\begin{verbatim}
 % fak_vergleich.m
 
 % iterativ
@@ -811,7 +814,6 @@ for i=1:100
 end
 time2=toc;
 fprintf('\nZeitverbrauch rekursives  Verfahren: %f',time2);
-\end{verbatim}
 \end{lstlisting}
 \end{frame}
 %
@@ -820,7 +822,6 @@ fprintf('\nZeitverbrauch rekursives  Verfahren: %f',time2);
 \begin{frame}[fragile]\frametitle{rekursive Implementierung}
 
 \begin{lstlisting}
-\begin{verbatim}
 function [a,b] = ggt_rekursiv(a,b)
 % ggt_rekursiv berechnet den goessten 
 % gemeinsamen Teiler (ggT) 
@@ -832,7 +833,6 @@ if a~=b
     end;
         [a,b] = ggt_rekursiv(a,b);
 end;
-\end{verbatim}
 \end{lstlisting}
 \end{frame}
 %
@@ -854,20 +854,16 @@ end;
 % 
 \begin{frame}[fragile]\frametitle{Sierpinski Dreieck}
 \begin{minipage}{5cm}
-\includegraphics[width=5cm,
-  height=3cm]{./figures/sierpinski_0}
+\includegraphics[height=3.5cm]{./figures/sierpinski_0}
 \end{minipage} \hfill
 \begin{minipage}{5cm}
-\includegraphics[width=5cm,
-  height=3cm]{./figures/sierpinski_1}
+\includegraphics[height=3.5cm]{./figures/sierpinski_1}
 \end{minipage}\\ 
 \begin{minipage}{5cm}
-\includegraphics[width=5cm,
-  height=3cm]{./figures/sierpinski_2}
+\includegraphics[height=3.5cm]{./figures/sierpinski_2}
 \end{minipage} \hfill
 \begin{minipage}{5cm}
-\includegraphics[width=5cm,
-  height=3cm]{./figures/sierpinski_3}
+\includegraphics[height=3.5cm]{./figures/sierpinski_3}
 \end{minipage} \\
 \end{frame}
 %
@@ -933,8 +929,9 @@ wäre 'r'.
 \begin{center}
 \alert{ Wiederholte Anwendung von Script-Files kann zu Fehlern führen}\\[0.7cm]
 \end{center}
-\begin{minipage}{5cm}
-\alert{ Programm}
+\begin{columns}[t]
+ \column{0.4\textwidth}
+\alert{Programm}
 \begin{lstlisting}
 % plotte_sin.m
 
@@ -948,8 +945,7 @@ y(i) = sin(x(i));
 end; 
 plot(x,y);
 \end{lstlisting}
-\end{minipage} \hfill
-\begin{minipage}{5cm}
+\column{0.5\textwidth}
 \alert{ Aufruf}
 \begin{lstlisting}
 >> plotte_sin
@@ -965,7 +961,7 @@ Error in ==> /slides/m-files/
   stunde_13/plotte_sin.m
 On line 9  ==> plot(x,y);}
 \end{lstlisting}
-\end{minipage} \\
+\end{columns}
 \end{frame}
 %
 % Slide

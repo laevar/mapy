@@ -1,0 +1,48 @@
+#!/bin/bash
+# Script 'vorlesung'
+
+echo -n "Geben Sie die Stunde ein (in der Form 0x): "
+read a
+
+# Generate two latex-file 'slide1.tex$
+cat slide_auto.tex >> slide1.tex
+echo "\input{./slides_sources/stunde_$a.tex}" >> slide1.tex
+echo "\end{document}" >> slide1.tex
+
+# Generate the final name
+b="Einheit_MATLAB_$a"
+c="Einheit_MATLAB_k_$a.pdf"
+
+# Script for latex document slide
+
+# Compile slide.tex
+echo "===================================================="
+echo " Compile slide.tex"
+echo "===================================================="
+pdflatex slide1.tex
+pdflatex slide1.tex
+
+# Putting 6 slides on one page
+echo "===================================================="
+echo "Putting 6 slides on one page"
+echo "===================================================="
+#psnup -nup 6   -q -l slide1_ps.ps slide_comp.ps
+
+# Lösche Hilfsdateien
+echo "===================================================="
+echo "Delete auxiliary files"
+echo "===================================================="
+rm slide1.*
+rm slide_comp.ps
+
+#mv slide_comp.pdf ./slides_kompakt/$c
+mv $b.pdf ./slides
+
+# Result
+echo "===================================================="
+echo "Resulting files"
+echo "===================================================="
+ls -ll ./slides_kompakt/$c
+ls -ll ./slides/$b.pdf
+
+

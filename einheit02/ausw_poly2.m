@@ -8,9 +8,9 @@ function y=ausw_poly2(a,x)
 %  Gerd Rapin      1.11.2003
 %------------------------------------------------------
 
-n=length(a);
-k=length(x);
-A=repmat(transpose(x),1,n);
-B=repmat(0:(n-1),k,1);
+n = length(a);
+k = length(x);
+A = repmat(transpose(x),1,n);
+B = repmat(0:(n-1),k,1);
 
-y=(A.^B)*transpose(a);
+y = (A.^B)*transpose(a);

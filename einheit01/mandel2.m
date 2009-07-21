@@ -1,8 +1,8 @@
 % Mandelbrot set
 % MANDEL.m
-
-x=linspace(-2.1,0.6,2001);
-y=linspace(-1.1,1.1,2001);
+clear 
+x=linspace(-2.1,0.6,1001);
+y=linspace(-1.1,1.1,1001);
 
 [X,Y]=meshgrid(x,y);
 C=complex(X,Y);

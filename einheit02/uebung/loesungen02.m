@@ -45,3 +45,31 @@ clear
 
 x = [ 1 2 3 4];
 vanderv(x)
+
+disp('*** aufgabe 6');
+clear
+
+fixpunkt_aufg
+
+disp('*** aufgabe 7');
+clear
+
+nullstelle_cos2
+ 
+disp('*** aufgabe 8');
+clear
+
+myhilbert(4)-hilb(4)
+
+disp('*** aufgabe 9');
+clear
+roots([1 0 -2])
+roots([1 -2 1] )
+roots([1 -4 10] )
+
+disp('*** aufgabe 10');
+clear
+
+disp('*** aufgabe 11');
+clear
+

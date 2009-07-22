@@ -40,12 +40,12 @@
 {\begin{samepage}
 \colorbox{light-gray}{                         % Box in gray
  \makebox[\textwidth]{                           % Box in linewidth
-\textbf{Aufgabe} \arabic{zaehler} :}}\\[0.2cm]       % Header
+\textbf{Aufgabe} \arabic{zaehler} :}}\\[0.1cm]       % Header
 %\begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
 \begin{minipage}{\textwidth}}
 %-----  foot
-{\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
-\\[0.2cm] 
+{\end{minipage} \nopagebreak %\begin{minipage}{1cm} \end{minipage}
+\\[0.1cm] 
 %\begin{minipage}{0.1cm} \end{minipage} 
 %\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
 \stepcounter{zaehler}                           % increase counter
@@ -213,6 +213,4 @@ Sei \lstinline!A=hilb(n)! und \lstinline!x=ones(n,1)!. Berechnen Sie
   für $n=5$ und $n=15$ den Vektor $b=A*x$, \lstinline!norm(x-A\b)! und die Kondition
   von $A$. Was stellen Sie fest? Erklären Sie das Ergebnis!
 \end{aufg}
-%-------------------------------------------------------------------------------
 \end{document}
-%-------------------------------------------------------------------------------

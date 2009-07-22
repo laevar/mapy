@@ -70,6 +70,18 @@ roots([1 -4 10] )
 disp('*** aufgabe 10');
 clear
 
+[g,k] = fibonacci(10e-3)
+[g,k] = fibonacci(10e-4)
+
 disp('*** aufgabe 11');
 clear
 
+level=3;
+
+y1=[0;0];
+y2=[2;1];
+
+figure; axis equal;
+hold on;
+vierstrecker(y1,y2,level);
+hold off;

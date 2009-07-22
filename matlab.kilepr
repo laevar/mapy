@@ -26,10 +26,10 @@ order=1
 
 [item:einheit01/uebung/aufgaben_einh01.tex]
 archive=true
-column=16
+column=30
 encoding=UTF-8
 highlight=LaTeX
-line=42
+line=46
 open=true
 order=2
 

@@ -40,12 +40,12 @@
 {\begin{samepage}
 \colorbox{light-gray}{                         % Box in gray
  \makebox[\textwidth]{                           % Box in linewidth
-\textbf{Aufgabe} \arabic{zaehler} :}}\\[0.2cm]       % Header
+\textbf{Aufgabe} \arabic{zaehler} :}}\\[0.1cm]       % Header
 %\begin{minipage}{0.5cm} \end{minipage}    % Insert 0.5cm
 \begin{minipage}{\textwidth}}
 %-----  foot
 {\end{minipage} \nopagebreak %\begin{minipage}{1cm} \end{minipage}
-\\[0.2cm] 
+\\[0.1cm] 
 %\begin{minipage}{0.1cm} \end{minipage} 
 %\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
 \stepcounter{zaehler}                           % increase counter
@@ -124,14 +124,13 @@ x_n & x_n & x_n & \hdots & x_n\\ \end{array}
 Lösen Sie n\"aherungsweise die Fixpunktgleichung
 \[ x_f=e^{(-x_f)}. \]
 \end{aufg}
-\newpage
+
 \begin{aufg}
 Berechnen Sie eine Nullstelle von 
 \[ f(x) = \cos^2(x) -x. \]
 \end{aufg}
-%
-%-----------------------------------------------------------
-%
+
+\newpage
 \begin{aufg}
 Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
   Hilbert-Matrix $H=(h_{ij})_{i,j=1}^n$ mit $h_{ij}=\frac{1}{i+j-1}$
@@ -154,7 +153,7 @@ Die Fibonacci-Folge ist definiert durch
 \]
 Schreiben Sie ein Programm, das 
 \[ g_{k}:= \frac{f_{k+1}}{f_k}, \quad k \in \mathbb{N} \]
-berechnet. Stoppen Sie, falls $|g_{k}-g_{k+1}| \leq TOL$
+berechnet. Stoppen Sie, falls $|g_{k}-g_{k+1}| \leq TOL$.
 Geben Sie für $TOL=10^{-3}$ und  $TOL=10^{-4}$ das entsprechende $k$
 und das entsprechende $g_k$ an.\\
 

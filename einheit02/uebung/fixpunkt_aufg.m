@@ -29,3 +29,4 @@ for i = 1:it_max
     hold on;
   %  pause; % stoppt bis eine Taste gedrueckt wird
 end;
+hold off

@@ -21,7 +21,7 @@ column=22
 encoding=UTF-8
 highlight=LaTeX
 line=204
-open=true
+open=false
 order=1
 
 [item:einheit01/uebung/aufgaben_einh01.tex]
@@ -30,17 +30,26 @@ column=30
 encoding=UTF-8
 highlight=LaTeX
 line=46
-open=true
+open=false
 order=2
 
 [item:einheit02/einheit02.tex]
 archive=true
-column=40
+column=12
 encoding=UTF-8
 highlight=LaTeX
-line=401
+line=996
 open=true
-order=3
+order=1
+
+[item:einheit03/einheit03.tex]
+archive=true
+column=11
+encoding=UTF-8
+highlight=LaTeX
+line=929
+open=true
+order=2
 
 [item:matlab.kilepr]
 archive=true
@@ -62,9 +71,9 @@ order=-1
 
 [item:slide_header.tex]
 archive=true
-column=0
+column=18
 encoding=UTF-8
 highlight=LaTeX
-line=128
+line=129
 open=true
 order=0

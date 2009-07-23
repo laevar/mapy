@@ -8,6 +8,7 @@
 clear 
 
 % Plot 1
+figure
 x = linspace(0,1.5,50);
 y = exp(-x);
 hold on;
@@ -26,7 +27,6 @@ for i = 1:it_max
     plot([z(i) z(i)], [z(i) z(i+1)],'r--','LineWidth',1);
  %   pause;
     plot([z(i) z(i+1)],[z(i+1) z(i+1)],'r--','LineWidth',1);
-    hold on;
   %  pause; % stoppt bis eine Taste gedrueckt wird
 end;
 hold off

@@ -12,5 +12,5 @@ sed -i 's/\\verb+\([^+]*\)+/\\lstinline!\1!/g' ${1}/${1}.tex
 sed -i 's/{\\blue/\\alert{/g' ${1}/${1}.tex
 sed -i 's/{\\green/\\alert{/g' ${1}/${1}.tex
 sed -i 's/{\\red/\\alert{/g' ${1}/${1}.tex
-sed -i 's/slides_sources\/bilder02/figures/g' ${1}/${1}.tex
+sed -i 's/slides_sources\/bilder03/figures/g' ${1}/${1}.tex
 sed -i 's/[.]eps//g' ${1}/${1}.tex

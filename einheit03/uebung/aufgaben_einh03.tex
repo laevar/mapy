@@ -1,0 +1,113 @@
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
+\include{aufg_header}
+\begin{minipage}{2cm}
+\textbf{Einheit 3}\\
+%30.07.2007
+\end{minipage}\\[1cm]
+
+\begin{aufg}
+\begin{itemize}
+\item Interpolieren Sie an den durch \lstinline!x=linspace(-5,5,13)! gegebenen Stellen  die Funktion $f(x):=x^2\exp(-|x|)$.
+\item Berechnen Sie approximativ den maximalen Fehler zwischen $f$ und
+  ihrer Interpolierenden auf $[-5,5]$. 
+(Hinweis: Befehl \lstinline!max!)
+\item Ändern Sie den Vektor der Stützstellen
+  \lstinline!x=linspace(-5,5,13)!, so dass 
+\[ x_i = - 5 \cos(\pi (i-1)/12), \quad i=1, \dots , 13. \]
+Berechnen Sie erneut den maximalen Fehler.
+\item Betrachten Sie auch die Stützstellen
+\[ x_i = - 5 \cos(\pi (i-1)/49), \quad i=1, \dots , 50. \] 
+\end{itemize}
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+
+\begin{aufg}
+Schreiben Sie ein Programm, dass zu einem gegebenen $a>0$ die
+  Funktion
+\[ f(x):= 1/(x^2+a) \]
+auf dem Intervall $[-3,3]$ plottet. 
+
+%Erstellen Sie daraus eine Animation f\"ur $a \in [0,5]$.
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Schreiben Sie eine Funktion, die einen String 'invertiert'.  
+\end{aufg}
+
+\newpage
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+\begin{minipage}{6cm}
+Versuchen Sie die Grafik  selbst zu erstellen (inclusive
+allen Beschriftungen) \\
+
+{\it Hinweis:} $\pi$ wird durch {\lstinline!\pi!} dargestellt. 
+
+\end{minipage} 
+\hspace*{1cm}
+\begin{minipage}{12.5cm}
+\includegraphics[width=12cm, height=10cm]{aufgabe2}
+\end{minipage}\\
+\end{aufg}
+
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Berechnen Sie $\int_0^1 xe^x dx$ exakt. Machen Sie die
+  Probe, indem Sie das Programm \lstinline!integral.m! modifizieren. Wie
+  groß muß $N$ mindestens gewählt werden, damit der absolute Fehler
+  kleiner als $10^{-4}$ ist?
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Stellen Sie die Funktion
+\[ f(x,y,z)= \sin (4 \pi x) \sin( \pi y) y^2 (z^2-1), \quad (x,y,z) \in
+[-1,1]^3 \]
+grafisch dar.
+\end{aufg}
+
+\newpage
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+ Erstellen Sie eine Funktion, die zu einer gegebenen natürlichen
+  Zahl $n$ ein regelmäßiges $n$-Eck zeichnet.\\
+
+Wenden Sie auf die Kanten eines regelm\"a{\ss}igen Sechsecks, die rekursive
+Funktion aus Blatt 2, Aufgabe 11 an.\\ 
+
+{\it Hinweis:} Die Eckpunkte $(x_i,y_i)$ sind {
+\[ x_i=\sin( 2 {\pi i}/{n} ), \quad  y_i=\cos( 2 {\pi i}/{n} ),
+  \quad i=1, \dots ,n \]  }
+
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Plotten Sie mit Hilfe von \lstinline!surf! die folgenden Funktionen auf
+  $[-1,1]\times [-1,1]$
+{
+\[ \sin( \pi^2 xy), \ (x^2-1)(y^2-1), \ \sin(\pi x ^2), \ \sin(- \pi
+  e^{-x^2-y^2}) \]}
+in einem Grafikfenster. 
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Plotten Sie die Funktion \[ f(x):= 1/(x^2+a) \]
+auf dem Intervall $[-3,3]$ f\"ur $a=1:20$ und erstellen Sie daraus eine Animation! 
+\end{aufg}
+
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Schreiben Sie eine Funktion, die als Input-Parameter einen String erh\"alt und
+die berechnet wie oft ein \lstinline!char! in dem String auftritt.
+\end{aufg}
+
+
+%-------------------------------------------------------------------------------
+\end{document}
+%-------------------------------------------------------------------------------

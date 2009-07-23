@@ -1,3 +1,5 @@
+\documentclass[utf8x,notes=hide]{beamer}
+\input{../slide_header}
 \subtitle{Einheit 1}
 
 \begin{frame}[fragile]
@@ -203,7 +205,7 @@ Variablen im Workspace zugreifen.
 \begin{frame}[fragile]\frametitle{Die Mandelbrot-Menge}
 \begin{columns}[c,onlytextwidth]
 \column{0.6\textwidth}
-\pgfimage[width=\textwidth]{figures/mandel}
+\pgfimage[width=\textwidth]{../figures/mandel}
 \column{0.4\textwidth}
 
 %\end{frame}
@@ -758,13 +760,13 @@ F=(1/21)^2*transpose(exp(x_i));
 \begin{lstlisting}[basicstyle=\tiny]
 >> plot(x,z,'r*','MarkerSize',8)
 \end{lstlisting}
-\includegraphics[width=\textwidth]{./figures/bild1_27_10}
+\includegraphics[width=\textwidth]{./../figures/bild1_27_10}
 
 \column{0.48\textwidth}
 \begin{lstlisting}[basicstyle=\tiny]
 >> plot(x,z,'r*-','LineWidth',3,'MarkerSize',8)
 \end{lstlisting}%
-\includegraphics[width=\textwidth]{./figures/bild2_27_10}
+\includegraphics[width=\textwidth]{./../figures/bild2_27_10}
 \end{columns}
 \end{frame}
 
@@ -976,9 +978,4 @@ zu einer hermitischen, pos. def. Matrix
   Fall) so wird eine Grundlösung berechnet. 
 \end{itemize}
 \end{frame}
-
-
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: t
-%%% End: 
+\end{document}

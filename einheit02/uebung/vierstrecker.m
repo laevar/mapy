@@ -1,9 +1,11 @@
 function vierstrecker(y1,y2,level)
-% Teilt die Strecke  auf in 4 Teilstrecken (level>0)
+% Teilt die Strecke y1-y2 auf in4 Teilstrecken (level>0)
 % input:
-%   y1:
-%   y2:
+%   y1:   punkt1
+%   y2:   punkt2
+%   level:level der aufteilungen
 % output:
+% Jochen Schulz, 23.07.2009
 
 if (level == 0)
   plot([y1(1),y2(1)],[y1(2),y2(2)],'*r-','LineWidth',1);

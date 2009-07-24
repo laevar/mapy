@@ -76,10 +76,10 @@ clear
 disp('*** aufgabe 11');
 clear
 
-level=3;
+level = 3;
 
-y1=[0;0];
-y2=[2;1];
+y1 = [0;0];
+y2 = [2;1];
 
 figure; axis equal;
 hold on;

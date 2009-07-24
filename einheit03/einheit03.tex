@@ -239,10 +239,12 @@ AB6de*
 % 
 \begin{frame}[fragile]\frametitle{Bemerkungen zur Beschriftung}
 \begin{itemize}
-\item  In den strings kann \LaTeX-Notation verwendet werden: \\
+\item  In den strings kann direkt eine abgespeckte \LaTeX-Notation verwendet werden. Eine nahezu vollständige 
+\LaTeX-Unterstützung ist mit dem latex-interpreter möglich.
 Beispiele: 
 \begin{itemize} \item \lstinline!\alpha! $\Rightarrow$ $\alpha$
-\item \lstinline!sin^{3/2}(x)! $\Rightarrow$ $\sin^{3/2}(x)$ . 
+\item \lstinline!sin^{3/2}(x)! $\Rightarrow$ $\sin^{3/2}(x)$ .
+\item \lstinline!title('$f(x) = \frac{1}{x^2+a}$','interpreter','latex')! $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
 \end{itemize}
 \item Ändern der Schriftgröße, z.B. \lstinline!title('Titel','FontSize', 20)!.
 \item Auflistung aller modifizierbaren Texteigenschaften: \lstinline!doc text_props!

@@ -1,0 +1,215 @@
+ %----------------------------------------------------------------
+%  Einführung in MuPAD
+% 
+% Blockpraktikum August 2007
+% (2 Wochen)
+%----------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage{german, a4}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage[ansinew]{inputenc}
+\usepackage{exscale}
+\usepackage{theorem}
+%\usepackage[dvips]{graphics}
+%\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\usepackage{color}
+\usepackage{times}                  % Postscript font!!!
+\parindent0cm % Absätze nicht einrücken 
+
+%-- Selbstdefinierte Befehle und Parametereinstellungen ------------------------
+\setlength{\headheight}{1.1\baselineskip}
+\setlength{\textheight}{22cm}       
+\setlength{\textwidth}{15cm}
+\setlength{\topmargin}{-2cm} %oberer Rand bis Kopfzeile angehoben
+\setlength{\oddsidemargin}{0.5cm} %linker Rand f"ur ungerade Seiten
+
+
+%---- neue Umgebung für Aufgaben
+\theoremstyle{break}
+\theoremheaderfont{\Large \bf}
+\theorembodyfont{\normalfont}
+
+
+% Definieren einer neuen Farbe
+\definecolor{light-gray}{gray}{.9}
+
+\newcounter{zaehler}     % neuen Zähler einführen
+\stepcounter{zaehler}    % Zähler einen hochzählen
+
+
+\newenvironment{aufg}%
+%---- Header
+{\begin{samepage}
+\colorbox{light-gray}{                         % Box in gray
+ \makebox[\textwidth]{                           % Box in linewidth
+\bf \color{red} Aufgabe \arabic{zaehler} :}}\\[0.2cm]       % Header
+\begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
+\begin{minipage}{13.5cm}}                         
+%-----  foot
+{\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
+\\[0.2cm] 
+\begin{minipage}{0.1cm} \end{minipage} 
+\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
+\stepcounter{zaehler}                           % increase counter
+ \end{samepage}%
+}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------
+
+%--------------------------------------------------- Header
+\begin{center}
+{\LARGE \bf Einf\"uhrung in MATLAB }\\
+%{\LARGE \bf (Blockveranstaltung)}\\
+%SS 2007\\[0.8cm]
+\end{center}
+\begin{minipage}{6cm}
+Dr. G. Rapin,\\
+%Th. Wassong\\
+\end{minipage} \hfill 
+\begin{minipage}{2cm}
+{\bf Einheit 4}\\
+%2.08.2007
+\end{minipage}\\[1cm]
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+\begin{itemize}
+\item Betrachten Sie die Datei \lstinline!daten.dat! mittels des Befehls
+  \lstinline!type daten.dat!.
+\item Schreiben Sie ein Programm, dass die Daten importiert und die
+  Funktion anhand der gegebenen Daten plottet.
+\end{itemize}
+\end{aufg}
+%-----------------------------------------------------------------------------------
+
+\begin{aufg}
+\begin{itemize}
+\item Erzeugen Sie drei Vektoren durch 
+\begin{verbatim}
+x = rand(2000,1);
+y = rand(2000,1);
+z = sin(4*pi*x).*cos(2*pi*y);
+\end{verbatim}
+\item Plotten Sie zuerst nur die Punkte.
+\item Erstellen Sie Grafiken mit \lstinline!surf!, \lstinline!mesh! und \lstinline!contour!.
+\item Beschriften Sie die Konturlinien von \lstinline!contour!.
+\item Untersuchen Sie den Einflu{\ss} der verschiedenen
+  Interpolationsmethoden. 
+\end{itemize}
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\newpage
+\begin{aufg}
+\begin{itemize}
+\item [(a)] Laden Sie mittels {\lstinline!load census!} die
+  U.S. Population  von
+  1790 bis 1990 in ihren Speicher und stellen Sie die Zahlen grafisch
+  dar.
+\item[(b)] Interpolieren Sie mit Hilfe der Oberfläche die Daten!
+  Welche Methode funktioniert am besten!
+\item [(c)] Schätzen Sie mit Hilfe des kubischen Splines die
+  Bevölkerungszahl 2050.
+\end{itemize}
+\end{aufg}
+%-----------------------------------------------------------------------------------%
+\begin{aufg}
+Modifizieren Sie das Programm \lstinline!mandel.m! aus der ersten Vorlesung derart,
+dass der analysierte Ausschnitt $[x_{min},x_{max}]\times [y_{min},y_{max}]$
+interaktiv verändert wird. 
+\begin{itemize}
+\item Durch Drücken der
+linken Maustaste auf einen bestimmten Punkt $(x,y)$ der Grafik soll  die Grafik neu
+erstellt werden, wobei $(x,y)$ das Zentrum des neuen Ausschnitts mit
+Gr\"o{\ss}e 
+\[ \left (  2\frac{x_{max}-x_{min}}{3},  2\frac{y_{max}-y_{min}}{3} \right)\]
+ist.
+\item Durch Drücken der
+rechten Maustaste auf einen bestimmten Punkt $(x,y)$ der Grafik soll  die Grafik neu
+erstellt werden, wobei $(x,y)$ das Zentrum des neuen Ausschnitts mit
+Gr\"o{\ss}e 
+\[ \left (  3\frac{x_{max}-x_{min}}{2},  3\frac{y_{max}-y_{min}}{2} \right)\]
+ist.
+\item Drücken der mittleren Maustaste beendet das Programm. 
+\end{itemize} 
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Schreiben Sie eine Funktion, die eine beliebige Textdatei einliest und
+auswertet. Output-Argumente sollen die Anzahl der Zeilen und Zeichen der Datei
+und das h\"aufigste vorkommene Zeichen sein. 
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
+\mathbb{N}$ die Potenz $x^n$ berechnet. \\
+{\it Hinweis:} Benutzen Sie 
+\[ x^n = \left \{ \begin{array}{ll} 
+x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
+x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
+\end{array} \right.  \]
+und die MATLAB-Funktion \lstinline!mod(n,2)!, die $0$ ergibt, falls $n$ gerade ist und
+$1$ sonst.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Wir betrachten die Folge 
+\[ x_{n+1} = \frac12 x_n + \frac{1}{x_n}, \qquad n =1,2,\dots \]
+Schreiben Sie eine Funktion, die zu einem gegebenen Startwert $x_1$ die kleinste
+Zahl $n$ berechnet mit 
+\[ |x_{n+1} - x_n| \leq 10^{-4} .\]
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
+\begin{itemize}
+\item [(a)]
+\begin{verbatim}
+>> x=[ 1 2 3 4];
+>> y=[ 0 3 2 4];
+>> x1= (y-x > 0) & (x ~= 1)
+\end{verbatim}
+\item [(b)]
+\begin{verbatim}
+>> x=sin(1:100);
+>> x2=length(x)
+\end{verbatim}
+\item [(c)]
+\begin{verbatim}
+>> x=linspace(0,1,10);
+>> y=1:2:6;
+>> x3=x(y)
+\end{verbatim}
+\end{itemize} 
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\newpage 
+\begin{aufg}
+Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
+\begin{itemize}
+\item [(a)]
+\begin{verbatim}
+>> x=100:200;
+>> y=linspace(300,400,100);
+>> z=x.*y.*2
+\end{verbatim}
+\item [(b)]
+\begin{verbatim}
+>> clear all
+>> z(5)=10;
+>> a=(6:10).^z;
+>> b=a.*ones(5,1)
+\end{verbatim}
+
+\end{itemize} 
+
+\end{aufg}
+
+%-------------------------------------------------------------------------------
+\end{document}
+%-------------------------------------------------------------------------------

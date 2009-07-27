@@ -1,0 +1,879 @@
+\subtitle{Einheit 4 \\Visualisieren von 3D-Daten \\ Datenstrukturen \\In- und
+Output}
+\maketitle
+\part{Tag 4, 1. Teil \\ Visualisieren von 3D-Daten}
+
+%
+% Slide
+% 
+\begin{slide}{Problem}
+\begin{itemize}
+\item Daten liegen h\"aufig in Form von Vektoren $(x,y,z)$ vor. Man m\"ochte
+  eine Funktion $F$ mit $z(i)=F(x(i),y(i))$ plotten.
+\item Befehle \verb+surf+ und \verb+mesh+ funktionieren nur wenn  die
+  Einträge in $x$ und $y$ monoton sind und die Daten auf einem kartesischen
+  Gitter vorliegen.
+\item Ausweg: Interpolieren der Daten auf ein entsprechendes Gitter. 
+\end{itemize}
+\end{slide}
+%
+% Slide
+% 
+\begin{slide}{Beispiel}
+\begin{bunt}
+>> load seamount
+>> plot(x,y,'.','markersize',10)
+>> figure, plot3(x,y,z,'.')
+\end{bunt}
+\begin{center}
+\includegraphics[width=8cm, height=5cm]{./slides_sources/bilder04/beispiel_scattered_data.eps}
+\end{center}
+\end{slide}
+%
+% Slide
+% 
+\begin{slide}{Beispiel}
+\begin{bunt}
+>> xi=linspace(min(x),max(x),40);
+>> yi=linspace(min(y),max(y),40);
+>> [XI,YI]=meshgrid(xi,yi);
+>> ZI=griddata(x,y,z,XI,YI,'cubic');
+>> surf(XI,YI,ZI)
+\end{bunt}
+\begin{center}
+\includegraphics[width=6cm, height=4cm]{./slides_sources/bilder04/beispiel_scattered_data_plot.eps}
+\end{center}
+\end{slide}
+%
+% Slide
+% 
+\begin{slide}{griddata}
+\begin{bunt}
+ZI=griddata(x,y,z,XI,YI,methode); 
+\end{bunt}
+\vspace*{-0.5cm}
+{\small
+\begin{itemize}
+\item Vektoren $x,y,z$ enthalten Werte $(x(i),y(i),z(i))$.
+\item \verb+griddata+ interpoliert auf die Stellen $(XI(i,j),YI(i,j))$
+  mit Matrizen $XI,YI$. Ergebnis $ZI(i,j)$.
+\item Die Art des Interpolierens ist entweder \verb+'nearest'+, \verb+'linear'+
+  oder \verb+'cubic'+. Entsprechend wird entweder st\"uckweise konstant, linear
+  oder durch bi-kubische Splines interpoliert. 
+\item Es wird nur innerhalb der konvexen H\"ulle der Punkte $(x(i),y(i))$
+  interpoliert. Ansonsten Funktionswert $NaN$. 
+\end{itemize}
+}
+\end{slide}
+
+%
+% Slide
+% 
+\begin{slide}{Bemerkungen}
+\begin{itemize}
+\item Der Interpolation liegt eine Delaunay Triangulation zugrunde. Die Werte
+  $(x(i),y(i))$ sind Eckpunkte der entstehenden Dreiecksmenge.
+\item Danach werden mit Hilfe der Dreiecke Funktionen  definiert, die
+  entsprechende Werte besitzen. 
+\item Mittels \verb+griddatan+ ist die Technik auch auf h\"ohere Dimensionen
+  anwendbar. Dreiecke werden durch entsprechende h\"oher-dimensionale
+  Simplizes ersetzt. \\
+(In 3D Tetraeder)
+\end{itemize}
+\end{slide}
+%
+% Slide
+% 
+\begin{slide}{interp2}
+\begin{bunt}
+ZI=interp2(X,Y,Z,XI,YI,methode)
+\end{bunt}
+\begin{itemize}
+\item Allgemein sind $X,Y,Z$ Matrizen. Dabei ist $Z(i,j)$ der Funktionswert an
+  $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \verb+meshgrid+ erzeugt. 
+\item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
+  ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
+\item Die Art des Interpolierens ist entweder \verb+'nearest'+, \verb+'linear'+
+  oder \verb+'cubic'+. 
+%Entsprechend wird entweder st\"uckweise konstant, linear
+%  oder durch bikubische Splines interpoliert. 
+\end{itemize}
+\end{slide}
+
+\part{Tag 4, 2. Teil  \\ Datenstrukturen}
+%
+%
+%
+\begin{slide}{Datenstrukturen}
+\begin{itemize}
+\item In MATLAB gibt es verschiedene {\it Datentypen}. 
+Sie werden bestimmt durch ihre Eigenschaften.
+\item Einzelne Elemente eines Datentyps werden {\it Objekte} genannt. 
+\item Ein {\it Objekt} besteht meist aus drei Teilen: {\it Bezeichner}, {\it
+Referenzen} und {\it Werte} des Objekts.  
+\item {\it Variablen} sind Datenobjekte deren Werte w\"ahrend eines
+Programmablaufs ver\"andert werden k\"onnen. 
+\end{itemize}
+\end{slide}
+%
+%
+%
+\begin{slide}{Datentypen in MATLAB}
+\begin{itemize}
+\item MATLAB speichert alle Variablen als Felder. Ein Skalar ist eine $1 \times
+1$-Matrix. 
+\item MATLAB weist den Datentyp {\it implizit} zu. Durch die Zuweisung eines
+Wertes wird der Typ implizit bestimmt. 
+\item Den Datentyp eines Objekts $a$ kann durch den Befehl {\blue
+\verb+class(a)+} bestimmt werden.
+\end{itemize}
+\end{slide}
+%
+%
+%
+\begin{slide}{Datentypen in MATLAB}
+\begin{itemize}
+\item Gleitkommazahlen (Komplexe Zahlen)
+\item Characters und Strings
+\item Strukturen
+\item Cell Arrays
+\item Funktionen
+\item Sparse Matrizen
+\item Integer-Zahlen
+\item Logische Ausdr\"ucke
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Gleitkommazahlen}
+\begin{itemize}
+\item Standard-Datentyp ist ein Array von Gleitkommazahlen (\verb+double+).
+\item Abstand von $1$ zur nächsten Gleitkommazahl in MATLAB: $\epsilon
+  =2^{-52}$ (vgl. \verb+eps+ in MATLAB)
+\item Sei $x \in \mathbb{R}$ eine reelle Zahl und $\tilde x$ die
+  Darstellung in MATLAB. Dann gilt für den Rundungsfehler \\[-0.5cm]
+\[ \frac{|x - \tilde x|}{|x|}\leq \frac{1}{2} \epsilon .\]
+\item Die größte bzw. kleinste in MATLAB darstellbare positive Zahl
+  ist in
+\verb+realmin+ bzw. \verb+realmax+ gespeichert. 
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Ausnahmen}
+\begin{itemize}
+\item Ist eine Zahl größer als \verb+realmax+, so meldet MATLAB einen
+  'Overflow' und gibt als Ergebnis \verb+Inf+ zurück.
+\begin{bunt}
+>> realmax*1.1
+ans =   Inf
+\end{bunt}
+\item Bei Operationen wie $0/0$  oder $\infty / \infty$, erhält man als Ergebnis
+  \verb+NaN+ ({\it Not a Number}).
+\begin{bunt}
+>> 0/0
+Warning: Divide by zero.
+ans =   NaN
+\end{bunt}
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Umgang mit NaN und       Inf  }
+\begin{itemize}
+\item Mit Hilfe von {\blue \verb+isinf+} und {\blue \verb+isnan+} kann auf
+$\infty$ bzw. NaN getestet werden.
+ \begin{bunt}
+>> isnan(0/0), isinf(1.2*realmax)
+ans =   1  ans =   1
+\end{bunt}
+\item Test auf NaN durch $==$ ist nicht m\"oglich
+\begin{bunt}
+>> 0/0 == NaN
+ans =     0
+\end{bunt}
+\item Bei Inf ist der Test durch $==$  m\"oglich!
+\begin{bunt}
+>> (1.2*realmax)==Inf
+ans =     1
+\end{bunt}
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Single}
+\begin{itemize}
+\item \"Ahnlich wie in C gibt es den Datentyp \verb+single+. Es ist eine
+Darstellung in geringerer Genauigkeit. 
+\item Durch den Befehl {\blue \verb+single()+} wird eine \verb+double+-Zahl in
+eine \verb+single+-Zahl konvertiert. 
+\item Arithmetische Operationen mit \verb+double+- und \verb+single+-Objekten
+ergeben  \verb+single+-Objekte.
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Single}
+\begin{bunt2}
+>> a=sqrt(2); b=single(a);
+>> c=a+b; d=a-b
+d =
+  2.4203e-08
+>> whos
+  Name   Size     Bytes  Class    
+  a      1x1        8  double              
+  b      1x1        4  single              
+  c      1x1        4  single              
+  d      1x1        4  single          
+>> [realmax, single(realmax)], realmax
+ans =
+   Inf   Inf
+ans =
+  1.7977e+308
+\end{bunt2}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Operator Rangfolge}
+\begin{tabular}{|lp{10cm}|}
+%\hline
+%Level & Operator\\
+\hline
+1 &   Exponent (\verb+^+, \verb+.^+), \verb+transpose+\\
+2 & logische Verneinung (\verb+~+)\\
+3 & Multiplikation (*,.*), Division (/,./,\verb+\+, \verb+.\+)\\
+4 & Addition (+), Subtraktion (-)\\
+5 & Doppelpunktoperator (:)\\
+6 & Vergleichsoperatoren (<,>,<=,>=,==,\verb+~=+)\\ 
+7 & Logisches und (\verb+&+)\\
+8 & Logisches oder (|)\\
+\hline
+\end{tabular}\\
+{\tiny Bei gleicher Rangfolge wertet MATLAB von links nach rechts
+  aus. \\
+Die Rangfolge kann durch Klammersetzung geändert werden.}
+
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Darstellungsformate am \\ Beispiel $1/7$}
+\begin{tabular}{ll}
+{\blue \verb+format short+} &  0.1429 \\
+{\blue \verb+format short e+ }& 1.4286e-01\\
+{\blue \verb+format short g+ }&0.14286\\
+{\blue \verb+format long+ }& 0.14285714285714\\
+{\blue \verb+format long g+ }& 0.142857142857143\\
+{\blue \verb+format long e+ }& 1.428571428571428e-01\\
+\end{tabular}
+Das Default-Format ist \verb+short+. 
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Komplexe Zahlen}
+Komplexe Zahlen $z \in \mathbb{C}$ haben die Form
+\[ z = x +iy, \quad x,y \in \mathbb{R} \]
+mit $i=\sqrt{-1}$. 
+\begin{itemize}
+\item $\sqrt{-1}$ ist in MATLAB vordefiniert in den Variablen $i$,$j$.
+\item Durch \verb+complex(x,y)+  kann aus $x,y \in
+  \mathbb{R}$ die komplexe Zahl $x + iy$ erzeugt werden.
+\item Für $z=x+iy \in \mathbb{C}$ erhält man den Realteil mit
+  $real(z)$ und den Imaginärteil durch $imag(z)$. 
+\end{itemize} 
+\end{slide}
+\begin{slide}{Polarkoordinaten}
+{\blue \[ z \in \mathbb{C}, \quad z=re^{i \varphi}=r(\cos \varphi + i \sin
+  \varphi) \]}
+\begin{itemize}
+\item \verb+abs(z)+ ergibt den Betrag $r$ von $z$.
+\item $\varphi$ erhält man durch \verb+angle(z)+.
+\item grafische Darst.:  \verb+compass(z)+ ($z=3+3i$). \\
+ \centering{\includegraphics[width=3cm, height=3cm]{./slides_sources/bilder03/kompass}}\\ 
+\end{itemize}
+\end{slide}
+
+%
+% Folie
+%
+\begin{slide}{Structures}
+\underline{Structures:}\\
+Strukturen sind eine Möglichkeit verschiedene Objekte in einer
+Datenstruktur zu bündeln.\\[1cm]
+
+\underline{Beispiel:} komplexe Zahlen
+\begin{bunt2}
+>> komp_Zahl.real=1;
+>> komp_Zahl.imag=1;
+>> komp_Zahl
+
+komp_Zahl = 
+
+    real: 1
+    imag: 1
+\end{bunt2}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Structures II}
+\begin{itemize}
+\item Alternativ können Strukturen durch
+\begin{bunt2}
+struktur = struct('Feld1',Wert1,'Feld2',Wert2,...)
+\end{bunt2}
+definiert werden.
+\item Ein Feld einer Struktur \verb+struktur+ kann durch 
+\begin{bunt}
+struc2 = rmfield( struktur ,'Feld')
+\end{bunt}
+gel\"oscht werden. 
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Cell Arrays}
+\underline{Cell Arrays:} \\
+Cell Arrays sind spezielle Matrizen, deren  Einträge aus unterschiedlichen
+Datentypen bestehen können. Erzeugt
+werden sie durch geschweifte Klammern.\\
+\begin{bunt}
+>> C=\verb+{+ 1:10, hilb(4);...
+       'Hilbert Matrix', pi\verb+}+
+C = 
+       [1x10 double]    [4x4 double]
+    'Hilbert Matrix'    [    3.1416]
+\end{bunt} 
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Befehle für Cell Arrays}
+\begin{itemize}
+\item Zugriff auf Cell-Arrays:\\ 
+\begin{minipage}{5cm}
+\begin{bunt2} 
+>> \verb+C{2,1}+
+ans =
+Hilbert Matrix
+\end{bunt2}
+\end{minipage}
+\begin{minipage}{5cm}
+\begin{bunt2}
+>> \verb+C{1,2}(2,3)+
+ans =
+    0.2500
+\end{bunt2}
+\end{minipage}
+\item Durch \verb+celldisp(C)+ wird der Inhalt von $C$ dargestellt.
+%\item \verb+struct2cell+ bzw. \verb+num2cell+ erzeugt ein Cell Array
+%  aus einer Struktur bzw. einer normalen Matrix.
+\item \verb+cellplot(C)+ stellt $C$ grafisch dar.
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Integer}
+\begin{itemize}
+\item In diesen Datentypen werden ganze bzw. nat\"urliche Zahlen gepeichert.  
+\item Zur effizienten Speicherung gibt es die Datentypen \verb+int8+,
+\verb+uint8+, \verb+int16+, \verb+uint16+, \verb+uint16+, \verb+int32+,
+\verb+uint32+, \verb+int64+, \verb+uint64+. 
+\item In den Datentypen, die mit \verb+u+ beginnen, werden nat\"urliche Zahlen
+gespeichert, sonst ganze Zahlen.
+\item Die abschlie{\ss}ende Zahl gibt den Speicherbedarf an. \verb+uint8+
+ben\"otigt z.B. $8$-Bit. (Wertebereich $0 \dots 2^8-1$).
+\end{itemize}
+\end{slide}
+%
+% Folie
+%
+\begin{slide}{Integer}
+\begin{bunt}
+>> a=int8(20); b=int16(20); c=int8(20);
+>> a*c, a*b
+ans =  127
+??? Error using ==> mtimes
+Integers can only be combined with integers
+of the same class, or scalar doubles.
+>> a+0.2
+ans =   20
+>> a+0.5
+ans =   21
+>> a*1.54
+ans =   31
+\end{bunt}
+\end{slide}
+%
+%
+%
+\part{Tag 4,  3. Teil  \\ In- und Output}
+%
+% Slide
+%
+\begin{slide}{Input und Output}
+\begin{itemize}
+\item Benutzereingabe
+\item einfache und formatierte Ausgabe
+\item Schreiben in Dateien
+\item Einlesen von Daten aus Dateien
+\item Speichern und Laden von Variablen\\
+\item Durch {\blue \verb+help iofun+} erhält man eine Übersicht aller Ein- und
+  Ausgabe - Befehle
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Benutzereingabe}
+\begin{itemize}
+\item Standardeingabe: {\blue \verb+input+}
+%\item Eingabe eines Zeichens:
+\item Informationssteuerung durch die Maus: {\blue \verb+ginput+}
+\item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: {\blue
+  \verb+pause+} 
+\end{itemize}
+\end{slide} 
+%
+% Slide
+%
+\begin{slide}{input}
+Die Benutzereingabe kann durch den Befehl \verb+input('Text')+ erfolgen. Es
+wird der 'Text'  angezeigt. Die Eingabe kann hinter 'Text' erfolgen
+und wird durch Return
+abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
+  
+\begin{bunt2}
+>> startwert=input('Bitte geben Sie den Startwert ein: ')
+Bitte geben Sie den Startwert ein: 56
+ startwert =
+     56
+
+\end{bunt2}
+\begin{bunt2}
+>> f=input('Eingabe einer Funktion: ', 's')
+Eingabe einer Funktion: sin(x)*cos(x)
+f =
+sin(x)*cos(x)
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{ginput}
+Das Kommando 
+\begin{bunt}
+[x,y]=ginput(n)
+\end{bunt}
+gibt die Vektoren $x$ und $y$ der Koordinaten der nächsten $n$
+Maus-Klicks zurück, an denen sich die Maus im aktuellen Grafik-Fenster
+befindet.  
+\begin{itemize}
+\item \verb+[x,y]=ginput+ sammelt so lange Daten ein, bis die
+  Return-Taste gedrückt wird.
+\item \verb+[x,y,taste]=ginput(n)+ gibt auch den Vektor \verb+taste+
+  zurück, der aus Werten $1$ (linke Maustaste), $2$ (mittlere
+  Maustaste) oder $3$ (rechte Maustaste) besteht. 
+\end{itemize} 
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Bezier-Polynom}
+{\blue \[ z (t):=\sum_{i=0}^n {\bf b}_i B_i^n(t), \quad t \in [0,1] \]}
+\begin{itemize}
+\item $z(t): [0,1] \rightarrow \mathbb{R}^2$ ist das {\it Bezier-Polynom}.
+\item ${\bf b}_i \in \mathbb{R}^2$ sind die vorgegebenen 
+{\it Kontrollpunkte}.
+\item $B_i^n(t)=\left( n \atop i \right) t^i (1-t)^{n-i}$ sind 
+{\it Bernstein-Polynome}.
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Bezier-Polynom}
+\includegraphics[width=\linewidth,
+  height=6.5cm]{./slides_sources/bilder04/bezier.eps}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Bezier-Polynom}
+\begin{bunt2}
+% Eingabe der 4 Kontrollpunkte
+axis([0 1 0 1]); hold on;
+for k=1:4
+[x(k),y(k)]=ginput(1);
+plot(x(k),y(k),'*'); 
+text(x(k)+0.01,y(k)+0.01,strcat('P_',num2str(k)));
+end;
+
+% Zeichnen der Kontrollpolygons
+fill(x,y,'y');
+
+u=0:0.01:1;
+umat=[(1-u).^3; 3.*u.*(1-u).^2; 3.*u.^2.*(1-u);u.^3];
+plot(x*umat, y*umat,'--','Linewidth',4); hold off;
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Ausgabe}
+\begin{itemize}
+\item Angeben einer Variable ohne Semicolon:
+\begin{bunt2}
+>> text=['Pi mit 5 signifikanten Stellen : ' num2str(pi,6)]
+text =
+Pi mit 5 signifikanten Stellen : 3.14159
+\end{bunt2} 
+\item Ausgabe des Strings $X$ durch  \verb+disp(X)+
+\begin{bunt2}
+>> disp(text)
+Pi mit 5 signifikanten Stellen : 3.14159
+\end{bunt2} 
+\item Ausgabe durch  \verb+fprintf()+
+\begin{bunt2}
+>> fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \verb+\n+',4,pi)
+Pi mit 4 Nachkomma-Stellen : 3.1416 
+\end{bunt2}
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{fprintf- Formartierte Ausgabe}
+{\tiny
+\begin{bunt}
+fprintf( Format, Argument1, Argument2,...)
+\end{bunt}
+{\it Format} ist ein String der das genaue Output-Form
+der Argumente (Werte der Variablen) bestimmt: 
+\begin {bunt}
+Format='<*>%<\(\pm\)> <v1.n1><typ1><*>%<\(\pm\)> <v2.n2><typ2><*>...'
+\end{bunt} 
+\begin{itemize}
+\item [<*>] Hier kann beliebieger Text eingegeben werden.
+\item [<$\pm$>] Durch '+' wird die Angabe des Vorzeichens
+  erzwungen. Durch '-' wird eine linksbündige Ausgabe
+  erzeugt. Weglassen von <$\pm$> erzeugt eine rechtsbündige Ausgabe
+  ohne Anzeige des '+' Zeichens.
+\item [vi] Durch $vi$ wird die Anzahl der insgesamt dargestellten Zeichen 
+   von Argumenti gesteuert.
+\item [ni] Hierdurch wird entsprechend die Anzahl von Nachkommastellen
+  angegeben. 
+\item [typi] Gibt den Datentyp und Darstellungsformat von Argumenti
+  an: {\blue f} (Standarddarstellung von Gleitkommazahlen), {\blue e}
+  (Expontialdarstellung von Gl.), {\blue g} (entweder Darst. $f$ oder
+  $e$), $s$ (Strings),... 
+\end{itemize}
+}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Bemerkungen zu fprintf}
+\begin{itemize} 
+\item Die formatierte Ausgabe ist an den Ansi-C Standard angelehnt.
+\item Durch \verb+'\n'+ wird ein Zeilenumbruch bewirkt. \verb+'\%'+ erzeugt
+  \verb+%+.
+ \item \verb+sprintf+ funktioniert wie \verb+fprintf+. Allerdings wird
+  die Ausgabe als String zurückgegeben. 
+\item Ist ein Argument eine Matrix, so wird fprintf 'vektorisiert'.
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Schreiben in Dateien - Beispiel}
+\begin{bunt2}
+% waehrung.m
+% 
+% Erstellt eine Umrechnungstabelle zwischen 
+% Euro und anderer Waehrung
+
+waehrung_name=input('Umrechnungstabelle fuer welche Waehrung ? ','s');
+fprintf('Ein Euro entspricht wievielen %s ? ',waehrung_name);
+umrechnung=input('');
+a=[1 2 3 5 10 20 50 100 200 1000];
+
+fid=fopen('umrechnung.txt','w');
+fprintf(fid,['Umrechnungstabelle: Euro-',waehrung_name,'\verb+\n\n+']);
+fprintf(fid,['%7.2f Euro = %7.2f ',waehrung_name,'\verb+\n+'],...
+  [a;umrechnung*a]);
+fprintf(fid,'\verb+\n \n+ Umrechnungskoeffizient: %3.2f \verb+\n+',umrechnung); 
+fclose(fid);
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{fopen}
+\begin{bunt}
+fid=fopen(dateiname, erlaubnis)
+\end{bunt}
+
+\verb+fopen+ öffnet die Datei \verb+dateiname+ im Modus
+  \verb+erlaubnis+ und erzeugt einen
+  Datei-Handle \verb+fid+. Für \verb+erlaubnis+ gibt es u.a. die folgenden
+  Möglichkeiten:
+{%\tiny 
+\begin{itemize}
+\item ['r']  Lesen aus der Datei.
+\item ['w']  Schreiben in die Datei (Erzeugen falls nötig)
+\item ['a']  Hinzufügen (Erzeugen falls nötig)
+\item ['r+'] Lesen und schreiben (aber nicht erzeugen) 
+\end{itemize}
+}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Weitere Kommandos}
+\begin{itemize}
+\item \verb+fclose(fid)+ schliesst die Datei mit dem Handle \verb+fid+
+\item Mit dem Befehl
+\begin{bunt2}
+fprintf( Datei-Handle, Format, Argument1, Argument2,...)
+\end{bunt2}
+wird in die durch das Datei-Handle angegebene Datei gemäß der obigen
+Konventionen geschrieben.
+\item Durch ein  zusätzliches Output-Argument können Fehler aufgefangen
+  werden. 
+\begin{bunt2}
+[fid, message]=fopen(dateiname, erlaubnis)
+\end{bunt2}
+Ist  die Datei nicht zu öffnen, so ist \verb+fid=-1+. 
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Lesen aus einer Datei}
+\begin{bunt2}
+% waehrung_auslesen.m
+% 
+% Liest eine Umrechnungstabelle aus der
+% Datei 'umrechnung.txt'
+
+clear all;
+fid=fopen('umrechnung.txt','r');
+waehrung_name=fscanf(fid,'Umrechnungstabelle: Euro-%s');
+daten=fscanf(fid,['%f Euro = %f ',waehrung_name],[2 inf]);
+umrechnung=fscanf(fid,'Umrechnungskoeffizient: %f'); 
+fclose(fid);
+  
+% Ausgabe
+fprintf('Umrechnung: Euro - %s: Kurs: %f \verb+\n+',...
+    waehrung_name,umrechnung);
+fprintf(' %7.2f Euro  = %7.2f  \verb+\n+',daten);
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{fscanf}
+\begin{bunt}
+[daten,anz]=fscanf(fid,format,Größe)
+\end{bunt}
+\begin{itemize}
+\item \verb+fscanf+ liest Daten aus der Datei mit dem Handle
+  \verb+fid+. 
+\item Die Daten werden in \verb+daten+ gespeichert. Der optionale Wert
+  \verb+anz+ gibt die Anzahl erfolgreich gelesener Daten an.
+\item \verb+format+ gibt das vorgegebene Suchmuster vor.
+\item Die \verb+Größe+ gibt die Dimension der Output-Matrix an.
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Weitere Befehle}
+\begin{itemize}
+\item Der Befehl {\blue \verb+fgetl(fid)+} liest eine Zeile aus der Datei mit
+  Handle \verb+fid+ und gibt die Zeile als String zurück.
+\item Ob das Dateiende erreicht ist, kann durch den Befehl {\blue
+  \verb+feof(fid)+} geprüft werden. \verb+feof(fid)+ gibt eine $1$
+  zurück, falls das Dateiende erreicht ist und $0$ sonst. 
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Beispiel - Bubblesort}
+\vspace*{-0.5cm}
+\begin{itemize}
+\item Bubblesort durchläuft die Datenmenge von Anfang bis zum Ende und
+vergleicht paarweise die nebeneinanderstehenden Elemente. 
+\item Sind zwei
+benachbarte Elemente nicht in der richtigen Reihenfolge, so werden sie
+miteinander vertauscht. 
+\item Ist man am Ende angekommen, beginnt man wieder
+von vorne. 
+\item Die Datenmenge ist sortiert, falls bei einem Durchlauf
+keine Vertauschungen mehr vorgenommen werden.
+\end{itemize} 
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Beispiel - Bubblesort}
+\begin{bunt2}
+ function sortieren(dateiname1, dateiname2)
+% sortieren   Die Datei dateiname1 wird alphabetisch sortiert
+%             und als dateiname2 abgespeichert.
+%   INPUT:    STRING dateiname1
+%             STRING dateiname2
+ 
+% Datei laden
+[fid,message]=fopen(dateiname1,'r');
+if fid==-1 
+    error('Datei nicht gefunden');
+end;
+% Datei lesen
+anz=0;
+while feof(fid)==0
+    anz=anz+1;     
+    inhalt\verb+{anz}+=fgetl(fid); 
+end
+fclose(fid);
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Beispiel - Bubblesort (Forts.)}
+\begin{bunt2}
+% Sortieren
+sortierungen=1; 
+while sortierungen>0
+    sortierungen=0;
+    for k=1:anz-1
+        % vergleich_gr(a,b) ist 1 fuer a<b, 0 sonst
+        if vergleich_gr(inhalt\verb${k+1}$,inhalt\verb+{k}+)
+            hilf=inhalt\verb+{k}+; inhalt\verb+{k}+=inhalt\verb${k+1}$; inhalt\verb${k+1}$=hilf;
+            sortierungen=sortierungen+1;
+        end
+    end
+end
+% Datei schreiben
+fid=fopen(dateiname2,'w');
+for k=1:anz
+   fprintf(fid,'%s \verb+\n+',inhalt\verb+{k}+); 
+end;
+fclose(fid);
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Bemerkungen}
+\begin{itemize}
+\item Es ist auch möglich temporäre Dateien zu erzeugen.
+\item Binäre Dateien können erzeugt und gelesen werden mit Hilfe der
+  Befehle \verb+fread+ und \verb+fwrite+. 
+\item  Mittels \verb+xlsread+ können Excel-Tabellen eingeladen werden.
+\item Bilddateien werden durch \verb+imread+ importiert.
+\item  Audiodateien (.wav) bzw. Videodateien (.avi) können durch
+  \verb+wavread+ bzw. \verb+aviread+ importiert werden. 
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Beispiel: Bin\"are Daten}
+\begin{bunt2}
+%-------------------- beispiel_bin_data.m
+A = hilb(10);
+
+% Schreibe binaere Datei
+fwriteid = fopen('hilb10.bin','w');
+count = fwrite(fwriteid,A,'double');
+fclose =(fwriteid);
+
+% Lesen binaere Datei
+freadid = fopen('hilb10.bin','r');
+B = fread(freadid, count, 'double');
+C = reshape(B,10,10);
+
+disp(norm(A - C))
+\end{bunt2}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Laden und Speichern von \newline Variablen}
+\begin{itemize}
+\item {\blue \verb+save filename+} speichert den gesamten
+  Workspace in der Datei \verb+filename.mat+. Einladen des Workspace
+  ist möglich mittels  {\blue \verb+load filename+}. 
+\item Mittels {\blue \verb+save filename A x+} werden nur die
+  Variablen $A$ und $x$ in der Datei \verb+filename.mat+
+  gespeichert. Durch  {\blue \verb+load filename+} werden nun die
+  Variablen $A$ und $x$ dem Workspace hinzugefügt. 
+\item Bei \verb+load+ werden bestehende Variablen mit dem gleichen
+  Namen überschrieben.
+\end{itemize}
+\end{slide}
+
+\part{Fehler}
+%
+% Slide
+%
+\begin{slide}{Fehler}
+% In MATLAB gibt es zwei Arten von Fehler.
+\begin{itemize}
+\item \underline{\red Syntax Fehler}: z.B. Schreibfehler oder
+  Weglassen von Klammern. MATLAB entdeckt die meisten Syntax Fehler
+  und gibt eine entsprechende Fehlermeldung zurück mit Angabe der
+  Zeile. 
+\item \underline{\red Run-time Fehler}: Diese Fehler sind
+  normalerweise algorithmischer Natur. Oft passen z.B. bei
+  Matrixoperationen die Matrizen nicht zusammen. \vspace*{-0.5cm}
+\end{itemize}
+{\tiny Die erste Fehlermeldung zeigt bei geschachtelten Funktionsaufrufen
+an, in welcher Funktion der Fehler liegt.}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Fehler abfangen}
+\begin{itemize}
+\item Der Befehl {\blue \verb+error('text')+} erzeugt die
+  Fehlermeldung \verb+text+ und bricht das Programm ab. Insebsondere
+  die Eingabeparameter sollten auf Fehler geprüft werden.
+\item Warnungen werden durch {\blue \verb+warning('text')+} erzeugt. Im
+  Gegensatz zu \verb+error+ wird das Programm aber fortgesetzt. 
+\end{itemize}
+\end{slide}
+%
+% Slide
+%
+\begin{slide}{Beispiel}
+\begin{bunt2}
+function interpolation(f1,N)
+\end{bunt2}
+{\red \centering{$\cdots$}}\\
+\begin{bunt2}
+%----------------- Fehlerbehandlung
+if (round(abs(N)) ~= N) | (N==0)
+    error(strcat('Bitte fuer die Anzahl der Stuetzstellen',...
+    'eine natuerliche Zahl verwenden'));
+end
+if ~ischar(f1)
+    error('Bitte fuer die Funktion einen String verwenden');
+end
+\end{bunt2}
+{\red \centering{$\cdots$}}\\
+\end{slide}
+

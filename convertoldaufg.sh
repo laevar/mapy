@@ -7,7 +7,7 @@ sed -i 's/begin{bunt}/begin{lstlisting}/g' $texfile
 sed -i 's/end{bunt}/end{lstlisting}/g' $texfile
 sed -i 's/begin{bunt2}/begin{lstlisting}/g' $texfile
 sed -i 's/end{bunt2}/end{lstlisting}/g' $texfile
-sed -i 's/\\verb+\([^+]*\)+/\\lstinline!\1!/g' $texfile
+sed -i 's/\\verb+\([^+]*\)+/\\mcode{\1}/g' $texfile
 sed -i 's/{\\blue/\\alert{/g' $texfile
 sed -i 's/{\\green/\\alert{/g' $texfile
 sed -i 's/{\\red/\\alert{/g' $texfile

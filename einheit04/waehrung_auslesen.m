@@ -4,10 +4,10 @@
 % Datei 'umrechnung.txt'
 
 clear all;
-fid=fopen('umrechnung.txt','r');
-waehrung_name=fscanf(fid,'Umrechnungstabelle: Euro-%s');
-daten=fscanf(fid,['%f Euro = %f ',waehrung_name],[2 inf]);
-umrechnung=fscanf(fid,'Umrechnungskoeffizient: %f'); 
+fid = fopen('umrechnung.txt','r');
+waehrung_name = fscanf(fid,'Umrechnungstabelle: Euro-%s');
+daten = fscanf(fid,['%f Euro = %f ',waehrung_name],[2 inf]);
+umrechnung = fscanf(fid,'Umrechnungskoeffizient: %f'); 
 fclose(fid);
   
 % Ausgabe

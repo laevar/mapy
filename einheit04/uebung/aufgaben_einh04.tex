@@ -1,87 +1,15 @@
- %----------------------------------------------------------------
-%  Einführung in MuPAD
-% 
-% Blockpraktikum August 2007
-% (2 Wochen)
-%----------------------------------------------------------------
-
-\documentclass[12pt]{article}
-\usepackage{german, a4}
-\usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{amssymb}
-\usepackage[ansinew]{inputenc}
-\usepackage{exscale}
-\usepackage{theorem}
-%\usepackage[dvips]{graphics}
-%\usepackage{pstricks,pst-node,pst-text,pst-3d}
-\usepackage{color}
-\usepackage{times}                  % Postscript font!!!
-\parindent0cm % Absätze nicht einrücken 
-
-%-- Selbstdefinierte Befehle und Parametereinstellungen ------------------------
-\setlength{\headheight}{1.1\baselineskip}
-\setlength{\textheight}{22cm}       
-\setlength{\textwidth}{15cm}
-\setlength{\topmargin}{-2cm} %oberer Rand bis Kopfzeile angehoben
-\setlength{\oddsidemargin}{0.5cm} %linker Rand f"ur ungerade Seiten
-
-
-%---- neue Umgebung für Aufgaben
-\theoremstyle{break}
-\theoremheaderfont{\Large \bf}
-\theorembodyfont{\normalfont}
-
-
-% Definieren einer neuen Farbe
-\definecolor{light-gray}{gray}{.9}
-
-\newcounter{zaehler}     % neuen Zähler einführen
-\stepcounter{zaehler}    % Zähler einen hochzählen
-
-
-\newenvironment{aufg}%
-%---- Header
-{\begin{samepage}
-\colorbox{light-gray}{                         % Box in gray
- \makebox[\textwidth]{                           % Box in linewidth
-\bf \color{red} Aufgabe \arabic{zaehler} :}}\\[0.2cm]       % Header
-\begin{minipage}{0.5cm} \end{minipage} \hfill   % Insert 0.5cm
-\begin{minipage}{13.5cm}}                         
-%-----  foot
-{\end{minipage} \nopagebreak \begin{minipage}{1cm} \end{minipage}
-\\[0.2cm] 
-\begin{minipage}{0.1cm} \end{minipage} 
-\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
-\stepcounter{zaehler}                           % increase counter
- \end{samepage}%
-}
-
-
-%-------------------------------------------------------------------------------
-\begin{document}
-%-------------------------------------------------------------------------------
-
-%--------------------------------------------------- Header
-\begin{center}
-{\LARGE \bf Einf\"uhrung in MATLAB }\\
-%{\LARGE \bf (Blockveranstaltung)}\\
-%SS 2007\\[0.8cm]
-\end{center}
-\begin{minipage}{6cm}
-Dr. G. Rapin,\\
-%Th. Wassong\\
-\end{minipage} \hfill 
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
+\input{aufg_header}
 \begin{minipage}{2cm}
-{\bf Einheit 4}\\
-%2.08.2007
+\textbf{Einheit 4}\\
+%30.07.2007
 \end{minipage}\\[1cm]
 
 %-----------------------------------------------------------------------------------
 \begin{aufg}
 \begin{itemize}
-\item Betrachten Sie die Datei \lstinline!daten.dat! mittels des Befehls
-  \lstinline!type daten.dat!.
+\item Betrachten Sie die Datei '\mcode{daten.dat}' mittels des Befehls:
+  \mcode{type daten.dat}.
 \item Schreiben Sie ein Programm, dass die Daten importiert und die
   Funktion anhand der gegebenen Daten plottet.
 \end{itemize}
@@ -91,25 +19,23 @@ Dr. G. Rapin,\\
 \begin{aufg}
 \begin{itemize}
 \item Erzeugen Sie drei Vektoren durch 
-\begin{verbatim}
+\begin{lstlisting}
 x = rand(2000,1);
 y = rand(2000,1);
 z = sin(4*pi*x).*cos(2*pi*y);
-\end{verbatim}
+\end{lstlisting}
 \item Plotten Sie zuerst nur die Punkte.
-\item Erstellen Sie Grafiken mit \lstinline!surf!, \lstinline!mesh! und \lstinline!contour!.
-\item Beschriften Sie die Konturlinien von \lstinline!contour!.
+\item Interpolieren sie die Punkte auf einem regelmässigen Gitter und erstellen Sie Grafiken mit \mcode{surf()}, \mcode{mesh()} und \mcode{contour()}.
+\item Beschriften Sie die Konturlinien von \mcode{contour}.
 \item Untersuchen Sie den Einflu{\ss} der verschiedenen
   Interpolationsmethoden. 
 \end{itemize}
 \end{aufg}
 %-----------------------------------------------------------------------------------
-\newpage
 \begin{aufg}
 \begin{itemize}
-\item [(a)] Laden Sie mittels {\lstinline!load census!} die
-  U.S. Population  von
-  1790 bis 1990 in ihren Speicher und stellen Sie die Zahlen grafisch
+\item [(a)] Laden Sie mittels \mcode{load census} die
+  U.S. Population  von  1790 bis 1990 in ihren Speicher und stellen Sie die Zahlen grafisch
   dar.
 \item[(b)] Interpolieren Sie mit Hilfe der Oberfläche die Daten!
   Welche Methode funktioniert am besten!
@@ -119,7 +45,7 @@ z = sin(4*pi*x).*cos(2*pi*y);
 \end{aufg}
 %-----------------------------------------------------------------------------------%
 \begin{aufg}
-Modifizieren Sie das Programm \lstinline!mandel.m! aus der ersten Vorlesung derart,
+Modifizieren Sie das Programm \mcode{mandel.m} aus der ersten Vorlesung derart,
 dass der analysierte Ausschnitt $[x_{min},x_{max}]\times [y_{min},y_{max}]$
 interaktiv verändert wird. 
 \begin{itemize}
@@ -153,7 +79,7 @@ Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
 x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
 x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
 \end{array} \right.  \]
-und die MATLAB-Funktion \lstinline!mod(n,2)!, die $0$ ergibt, falls $n$ gerade ist und
+und die MATLAB-Funktion \mcode{mod(n,2)}, die $0$ ergibt, falls $n$ gerade ist und
 $1$ sonst.
 \end{aufg}
 %-----------------------------------------------------------------------------------
@@ -187,8 +113,7 @@ Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
 \end{verbatim}
 \end{itemize} 
 \end{aufg}
-%-----------------------------------------------------------------------------------
-\newpage 
+
 \begin{aufg}
 Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
 \begin{itemize}

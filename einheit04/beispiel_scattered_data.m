@@ -4,10 +4,10 @@ load seamount
 plot(x,y,'.','markersize',10)
 figure, plot3(x,y,z,'.')
 
-xi=linspace(min(x),max(x),40);
-yi=linspace(min(y),max(y),40);
-[XI,YI]=meshgrid(xi,yi);
+xi = linspace(min(x),max(x),40);
+yi = linspace(min(y),max(y),40);
+[XI,YI] = meshgrid(xi,yi);
 
 figure
-ZI=griddata(x,y,z,XI,YI,'cubic');
+ZI = griddata(x,y,z,XI,YI,'cubic');
 surf(XI,YI,ZI)

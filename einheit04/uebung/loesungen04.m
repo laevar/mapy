@@ -69,7 +69,47 @@ mandel
 disp('*** aufgabe 5');
 clear
 
-[nrrows, nrchars, mcuchar] = einlesen('daten.dat');
+[nrrows, nrchars, mcuchar] = einlesen('text.txt');
 
 disp('*** aufgabe 6');
 clear
+
+x = 4;
+n = 3;
+ergebnis = potenz (x,n)
+
+disp('*** aufgabe 7');
+clear
+
+minzahl = folgenmin(2)
+
+disp('*** aufgabe 8');
+clear
+
+x = [ 1 2 3 4];
+y = [ 0 3 2 4];
+x1 = (y-x > 0) & (x ~= 1)
+
+x = sin(1:100);
+x2 = length(x)
+
+x = linspace(0,1,10);
+y = 1:2:6;
+x3 = x(y)
+
+disp('*** aufgabe 9');
+clear
+
+x = 100:200;
+y = linspace(300,400,100);
+z = x.*y.*2
+% 100:200 erzeugt einen punkt mehr, daher stimmen die matrizengroessen
+% nicht ueberein.
+
+clear all
+z(5) = 10;
+a = (6:10).^z;
+b = a.*ones(5,1)
+% hier stimmt zwar die groesse der vektoren, aber die orientierung ist
+% nicht korrekt. Ein Zeilenvektor kann nicht direkt per .* mit einem
+% Spaltenvektore multipliziert werden.

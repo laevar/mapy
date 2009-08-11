@@ -11,6 +11,28 @@ function [nrrows, nrchars, mcuchar] = einlesen (filename)
 % Jochen Schulz   31.07.2009
 
 fid = fopen(filename,'r');
-while 
-daten = fgetl(fid,'%f');
+nrrows = 0;
+nrchars = 0;
+mcuchara = [];
+while 1
+    tline = fgetl(fid);
+    if ~ischar(tline)
+      break
+    end
+    %anzahl zeilen
+    nrrows = nrrows + 1;
+    %anzahl chars
+    nrchars = nrchars + length(tline);
+    %haeufigst vorkommene buchstabe
+    for idx = 1:length(tline)
+      if length(mcuchara) < tline(idx)
+        mcuchara(tline(idx)) = 0;
+      end
+      if tline(idx) ~= ' '
+        mcuchara(tline(idx)) = mcuchara(tline(idx)) + 1;
+      end
+    end
+end
+[mcucharnr,mcucharidx] = max (mcuchara);
+mcuchar = char(mcucharidx);
 fclose(fid);

@@ -1,0 +1,79 @@
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
+\input{aufg_header}
+\begin{minipage}{2cm}
+\textbf{Einheit 5}\\
+%30.07.2007
+\end{minipage}\\[0.3cm]
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Lösen Sie  die Dgl $\frac{d}{dt} y(t) = f(y)$ mit
+  \[ f(y_1,y_2)=(y_1 -y_1 y_2, -y_2+y_2 y_1)^t\]
+ und Anfangswert
+  $y(0)=(0.5,0.5)^t$. Plotten Sie die Lösung im $y_1y_2$-Diagramm.
+\end{aufg}
+%------------------------------------------------------------------------------
+\begin{aufg}
+Betrachten Sie das folgende System gew\"ohnlicher Differentialgleichungen
+\begin{eqnarray*}
+y_1'(t) & = & - 0.04 y_1(t) + 10^4 y_2(t)y_3(t) \\
+y_2'(t) & = & 0.04 y_1(t) - 10^4 y_2(t) y_3(t) - 3 \cdot 10^7 y_2(t)^2\\
+y_3'(t) & = & 3 \cdot 10^7 y_2(t)^2.
+\end{eqnarray*}
+L\"osen Sie  das System zum Anfangswert $(1,0,0)$ an $0$ auf dem Zeitintervall $0 \leq
+t \leq 3$. Nutzen Sie die Solver \mcode{ode45} und \mcode{ode15s} und vergleichen Sie die Ergebnisse.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Berechnen Sie mit Hilfe von \mcode{integral2.m} approximativ
+\[ \int_{-3}^3 x^3 dx, \int_1^{4} x^2 \sin ( \pi x) dx\]
+für $N=50$. 
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Erstellen Sie die Funktion 
+\[ g(x) := \left \{ \begin{array}{ll} 1-|x|^2, & |x|<1 \\
+0, & |x| \geq  1 \\
+\end{array} \right. \quad x \in \mathbb{R}.  \vspace*{-0.3cm}
+\]
+Plotten Sie $g$ mit dem Befehl \mcode{ezplot}.  
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Plotten Sie   auf dem
+  Intervall $[-\pi, 2 \pi]$ die Funktion $h(x)=\sin (x) {\cos
+  (2x)}$. Unterteilen Sie  die $x$-Achse in
+  $\pi/2$-Schritte, und beschriften Sie diese. Fügen Sie eine Legende
+  in Schriftgröße $21$ hinzu. Ändern Sie auch die Schriftgröße der
+  Achsenbeschriftung.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Modifizieren Sie das Programm \mcode{interpolation.m}. Schreiben Sie
+eine Funktion, die  eine als String gegebene Funktion $f$ an $N$
+äquidistanten Punkten in $[-1,1]$ interpoliert. \\
+{\it Hinweis:} Verwenden Sie den Befehl \mcode{f=fcnchk(f)} für den
+String $f$.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Schreiben Sie eine Funktion, die Funktionen $f:[-1,1] \times [-1,1] \
+\rightarrow \mathbb{R}$ plottet. Das Intervall $[-1,1]$ soll
+dabei jeweils in $N$ Punkte zerlegt werden. Die Funktion $f$ soll dabei als
+function-handle \"ubergeben werden. Schreiben Sie die Funktion so, dass wahlweise
+nur die Funktion $f$ \"ubergeben werden kann (dann $N=50$) oder aber $f$ und $N$.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Plotten Sie die Sierpinski-Dreiecke zum Level $5$. Aus wievielen grafischen
+Objekten besteht die Grafik? Entfernen Sie aus der Grafik alle Dreiecke, die einen Eckpunkt $(x,y)$
+besitzen f\"ur den $x+y \geq 1/2$ gilt.
+\end{aufg}
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Erzeugen Sie durch Kopieren grafischer Objekte $5$ Grafiken mit
+Sierpinski-Dreiecken zum Level $5$, wobei Sie nur einmal das Skript
+\mcode{sierpinski_plot} ausf\"uhren d\"urfen.
+\end{aufg}
+%-------------------------------------------------------------------------------
+\end{document}

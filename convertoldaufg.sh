@@ -1,5 +1,5 @@
 #!/bin/bash
-texfile=${1}/uebung/aufgaben_einh04.tex
+texfile=${1}/uebung/aufgaben_einh05.tex
 iconv -f iso-8859-1 -t utf-8 $texfile > dummy
 mv dummy $texfile
 sed -i 's/\\underline/\\alert/g' $texfile
@@ -11,5 +11,5 @@ sed -i 's/\\verb+\([^+]*\)+/\\mcode{\1}/g' $texfile
 sed -i 's/{\\blue/\\alert{/g' $texfile
 sed -i 's/{\\green/\\alert{/g' $texfile
 sed -i 's/{\\red/\\alert{/g' $texfile
-sed -i 's/slides_sources\/bilder04/figures/g' $texfile
+sed -i 's/slides_sources\/bilder05/figures/g' $texfile
 sed -i 's/[.]eps//g' $texfile

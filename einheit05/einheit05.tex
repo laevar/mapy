@@ -14,8 +14,8 @@ mit Funktionen \\ D\"unnbesetzte Matrizen \\ Numerische Mathematik}
 \begin{itemize}
 \item In MATLAB existieren auch mehrdimensionale Arrays.
 \begin{lstlisting}
->> A(:,:,1)=ones(3);
->> A(:,:,2)=2*ones(3);
+>> A(:,:,1) = ones(3);
+>> A(:,:,2) = 2*ones(3);
 >> whos
   Name   Size   Bytes  Class  
   A      3x3x2    144  double  
@@ -35,7 +35,7 @@ Durch den Befehl \alert{ \mcode{reshape(X,n1,..,ns)}} wird $X$ spaltenweise
 ausgelesen, und die Elemente werden spaltenweise in ein $(n_1, \dots,
 n_s)$-Array geschrieben. 
 \begin{lstlisting}
->> B=reshape(hilb(4), 8,2)
+>> B = reshape(hilb(4), 8,2)
 \end{lstlisting}
 \begin{itemize}
 \item $X$ muss $n_1 \cdots n_s$ Elemente enthalten.
@@ -52,7 +52,7 @@ n_s)$-Array geschrieben.
 Intern werden Arrays als Spalten abgespeichert. Zugriff durch linearen
   Index m\"oglich. 
 \begin{lstlisting}
->> B=reshape(1:12,2,3,2)
+>> B = reshape(1:12,2,3,2)
 B(:,:,1) =
      1     3     5
      2     4     6
@@ -89,9 +89,8 @@ ans =
 
 
 
-\section{Umgang mit Funktionen}
+\section{Funktionen}
 
-\subsection{Function-Handles} 
 %
 % Slide
 %
@@ -108,6 +107,7 @@ ans =
 \end{itemize}
 \end{frame}
 
+\subsection{Function-Handles} 
 %
 % Slide
 %
@@ -145,7 +145,7 @@ ans =
 \end{itemize}
 \end{frame}
 
-\subsection{Funktionen als Strings}
+\subsection{Funktionen-Typen}
 %
 % Slide
 %
@@ -161,11 +161,10 @@ Funktionen gegeben als Strings sind im allgemeinen zu vermeiden!
 Besser andere Konstrukte (wie Inline-Funktionen) benutzen!
 \end{frame}
 
-\subsection{Function-Files}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Function-Files:} 
+\begin{frame}[fragile]\frametitle{Function-Files} 
 \begin{itemize}
 \item {\it Function-Files} sind m-Files, die mit dem Stichwort \mcode{function}
 beginnen.
@@ -199,11 +198,11 @@ function result = integral(varargin)
 N = 20; a = 0; b = 1; % Default-Einstellung
 anzahl_parameter = nargin; % Anz. Input-argumente
 if anzahl_parameter == 1 
-    N = varargin\mcode{{1}};
+    N = varargin{1};
 end;
 if anzahl_parameter == 3
-    N = varargin\mcode{{1}}; a = varargin\mcode{{2}}; 
-    b = varargin\mcode{{3}};
+    N = varargin{1}; a = varargin{2}; 
+    b = varargin{3};
 end;
 if anzahl_parameter ~= [0 1 3]
     error('Falsche Anzahl an Input-Argumenten');
@@ -228,11 +227,6 @@ title(strcat('\int x^3 = ',num2str(result),...
 ' fuer N =', num2str(N))); 
 \end{lstlisting}
 \end{frame}
-
-\subsection{Inline-Funktionen}
-
-\subsection{Funktionen als Argumente}
-
 
 %
 % Slide
@@ -268,6 +262,7 @@ ans =
 \end{columns}
 \end{frame}
 
+\subsection{Umgang und Beispiele}
 %
 % Slide
 %
@@ -447,7 +442,9 @@ ezcontourf(@f);
 %
 \begin{frame}[fragile]\frametitle{Beispiel}
 \begin{lstlisting}
->> A=2*diag(ones(10,1),0)-diag(ones(9,1),-1)-diag(ones(9,1),1);
+>> A = 2*diag(ones(10,1),0) ...
+       - diag(ones(9,1),-1) ...
+       - diag(ones(9,1),1);
 >> B = sparse(A)
 B =
    (1,1)        2
@@ -455,7 +452,9 @@ B =
    (1,2)       -1
    (2,2)        2
        ...
->> C=2*diag(ones(100,1),0)-diag(ones(99,1),-1)-diag(ones(99,1),1);
+>> C = 2*diag(ones(100,1),0) ...
+       - diag(ones(99,1),-1) ...
+       - diag(ones(99,1),1);
 >> D = sparse(C); whos
   Name      Size           Bytes  Class
 
@@ -485,7 +484,7 @@ B =
 %
 \begin{frame}[fragile]\frametitle{Dichte und d\"unnbesetzte Matrizen}
 \begin{itemize}
-\item Durch \alert{ \mcode{B=full(A)}} wird die d\"unnbesetzte Matrix $A$
+\item Durch \alert{ \mcode{B = full(A)}} wird die d\"unnbesetzte Matrix $A$
   in eine dichtbesetzte Matrix $B$ umgewandelt.
 \item Bei bin\"aren Operationen, z.B. $A+B$ oder $A*B$ ist das Ergebnis
   bei d\"unnbesetzten Matrizen $A$ und $B$ wieder eine d\"unnbesetzte
@@ -510,14 +509,15 @@ B =
   Zeilen und Spalten erhalten, in denen Nichtnullelemente stehen. 
 \end{itemize}
 \end{frame}
+
+\section{Numerische Mathematik}
+
 %
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Poisson Problem}
 \begin{itemize}
 \item Poisson Problem beschreibt station\"are W\"armeverteilungen.
-\item  {\it Laplace-Operator} 
-$ \triangle u := \sum_{i=1}^d \frac{\partial ^2 u}{\partial x_i^2} $
 \item {\it Poisson Problem:} Suche  $u \in
 C^2(\Omega)\cap C(\overline{\Omega})$ mit
 \[
@@ -527,6 +527,8 @@ u & = & 0 & \mbox{auf } \partial \Omega\\
 \end{array} \right.
 \]
 f\"ur $\Omega=(0,1)^2$ und $f \in C(\Omega)$.
+\item  {\it Laplace-Operator} 
+$ \triangle u := \sum_{i=1}^d \frac{\partial ^2 u}{\partial x_i^2} $
 \end{itemize}
 \end{frame}
 %
@@ -537,8 +539,8 @@ f\"ur $\Omega=(0,1)^2$ und $f \in C(\Omega)$.
 \item \"Aquidistante Gitterweite $h= \frac 1 N$,
 $N \in \mathbb{N}$
 \item Menge aller Gitterpunkte 
-\[ Z_h := \{ (x,y) \in \overline{\Omega} \ | \ x=z_1h, \ y=z_2h \mbox{ mit }
-z_1,z_2 \in \mathbb{Z} \}. \]
+\[ Z_h := \left\{ (x,y) \in \overline{\Omega} \ \mid \ x=z_1h, \ y=z_2h \text{ mit }
+z_1,z_2 \in \mathbb{Z} \right\}. \]
 \item Innere Gitterpunkte: $\omega_h := Z_h \cap \Omega$
 \end{itemize}
 \end{frame}
@@ -601,8 +603,7 @@ mit
 \begin{itemize}
 \item $F:=(f_i)_{i=1}^{(N-1)^2}$ mit $f_{i+(N-1)(j-1)}=f(ih,jh)$, $i,j \in \{1,
 \dots ,N-1 \}$,
-\item  
-\begin{eqnarray*} 
+\item  \begin{eqnarray*} 
 A & := & \frac{1}{h^2} tridiag(-I_{N-1}, T, -I_{N-1}) \in \mathbb{R}^{(N-1)^2
  \times (N-1)^2},\\
  T & := & tridiag(-1,4,-1) \in \mathbb{R}^{(N-1)\times (N-1)}. 
@@ -617,7 +618,7 @@ A & := & \frac{1}{h^2} tridiag(-I_{N-1}, T, -I_{N-1}) \in \mathbb{R}^{(N-1)^2
 function loes = poisson (f,n)
 f = fcnchk(f);
 A = gallery('poisson',n-1); 
-%-------------- Erzeuge rechte Seite und Mesh
+% Erzeuge rechte Seite und Mesh
 mesh = zeros(2,(n-1)^2);
 F = zeros((n-1)^2,1);
 for i = 1:(n-1)
@@ -626,7 +627,7 @@ for i = 1:(n-1)
         loes.mesh(:,i+(n-1)*(j-1)) = [i/n; j/n]; 
     end
 end
-%-------------- Loese das lineare System
+% Loese das lineare System
 loes.x = A \ F;
 \end{lstlisting}
 \end{frame}
@@ -643,31 +644,29 @@ loes.mesh = [loes.mesh, [ones(1,n+1);  0:1/n:1]];
 loes.mesh = [loes.mesh, [0:1/n:1; ones(1,n+1)]];
 loes.mesh = [loes.mesh, [0:1/n:1; zeros(1,n+1)]];
 
-%-------------- Plotten
+% Plotten
 plot3(loes.mesh(1,:),loes.mesh(2,:),loes.x,'*');
 figure;
 [X,Y] = meshgrid(0:1/n:1,0:1/n:1);
-Z = griddata(loes.mesh(1,:), loes.mesh(2,:),loes.x,X,Y,'linear');
+Z = griddata(loes.mesh(1,:), loes.mesh(2,:), ...
+    loes.x,X,Y,'linear');
 surf(X,Y,Z);
 \end{lstlisting}
 \end{frame}
-
-\section{Numerische Mathematik}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Gew\"ohnliche \\
- Differentialgleichungen}
-Sei $I \subset \mathbb{R}$ ein Intervall. Bei einer gew. Dgl. sucht man eine Funktion $y:I \
-\longrightarrow \ \mathbb{R}^n$, so dass
+\begin{frame}[fragile]\frametitle{Gew\"ohnliche Differentialgleichungen}
+Sei $I \subset \mathbb{R}$ ein Intervall. Bei einer gewöhnlichen Dgl. sucht man eine Funktion $y:I \
+\longrightarrow \mathbb{R}^n$, so dass
 \alert{ \[ \frac{d}{dt}y(t)=f(t,y(t)), t\in I\quad y(t_0)=y_0, \]}
 wobei $y_0 \in \mathbb{R}^n$ ein vorgegebener Anfangswert an $t_0\in I$
-und $f:I \times \mathbb{R}^n \ \longrightarrow \ \mathbb{R}^n$ die
+und $f:I \times \mathbb{R}^n \longrightarrow \mathbb{R}^n$ die
 rechte Seite ist. Au{\ss}erdem sei $ \frac{d}{dt}y(t) :=(\frac{\partial
   y_1(t)}{\partial t}, \dots, \frac{\partial
   y_n(t)}{\partial t})^t$. \\
 \alert{Beispiele:}\\
-{\tiny
+{\scriptsize
 $\frac{d}{dt} y(t) = y(t), \ y(t_0)=y_0$, \quad L\"osung:
 $y(t)=y_0 e^{t-t_0}$\\
 $\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+\cos(x)>0$ }
@@ -681,10 +680,10 @@ L\"ose f\"ur $0 \leq t \leq 3$ mit \alert{ ode45} die Dgl.
 \begin{itemize}
 \item Die rechte Seite als eigene Funktion:
 \begin{lstlisting}
-function z=rechte_seite1(t,y)
+function z = rechte_seite1(t,y)
 % rechte_seite1   ODE Beispiel
 %         z=rechte_seite1(t,y)
-z=-y-5*exp(-t)*sin(5*t);
+z = -y-5*exp(-t)*sin(5*t);
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -693,15 +692,17 @@ z=-y-5*exp(-t)*sin(5*t);
 %
 \begin{frame}[fragile]\frametitle{Skalares Beispiel}
 \begin{itemize}
-\item Ausrechnen +Plotten
+\item Ausrechnen und Plotten
 \begin{lstlisting}
->> tspan=[0,3]; aw=1;
->> [t,y]=ode45(@rechte_seite1,tspan,aw);
+>> tspan = [0,3]; aw = 1;
+>> [t,y] = ode45(@rechte_seite1,tspan,aw);
 >> plot(t,y,'*--','Linewidth',3)
 >> xlabel('t'), ylabel('y(t)')
 \end{lstlisting}
 \end{itemize}
-\includegraphics[width=\linewidth, height=4cm]{./figures/loesung_dgl1} 
+\begin{center}
+\includegraphics[width=0.5\textwidth]{./figures/loesung_dgl1} 
+\end{center}
 \end{frame}
 %
 % Slide
@@ -711,7 +712,7 @@ In MATLAB gibt es den Befehl
 \begin{lstlisting}
 [t,y]=ode45(@fun, tspan, aw, options)
 \end{lstlisting}
-{\tiny \begin{itemize}
+{\scriptsize \begin{itemize}
 \item \mcode{@fun} steht f\"ur die rechte Seite der Dgl.. Die rechte Seite ist
   gegeben durch ein geeignetes m-File.
 \item $aw \in \mathbb{R}^n$ ist der Anfangswert.
@@ -750,24 +751,18 @@ options =odeset('AbsTol',1e-7,'RelTol',1e-4)
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Andere L\"oser}
-{\tiny
-\begin{tabular}{ccp{5cm}}
+\begin{tabular}{ccp{5.5cm}c}
 \hline
-L\"oser & Steifigkeit & Algorithmus \\
+L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 \hline
-\mcode{ode45} & nicht steif & Expliziter Runge-Kutta L\"oser, Ordn. 4 und
-5 \\
-\mcode{ode23} & nicht steif & Expliziter Runge-Kutta L\"oser, Ordn. 2 und
-3 \\
-\mcode{ode113} & nicht steif & Explizites Mehrschrittverfahren, Ordnungen 1
-bis 13\\
-\mcode{ode15s} & steif & Implizites Mehrschrittverfahren, Ordnungen 1
-bis 5\\
-\mcode{ode23s} & steif &Modifiziertes Rosenbrockverfahren, Ordn. 2 und 3\\
-\mcode{ode23t} & mittel steif & impliz. Trapez Regel, Ordn. 2 und 3\\
-\mcode{ode23tb} & steif & Implizites Ruge-Kutta Verf., Ordn. 2 und 3\\
+\mcode{ode45} & nicht steif & Expliziter Runge-Kutta L\"oser &  4, 5 \\
+\mcode{ode23} & nicht steif & Expliziter Runge-Kutta L\"oser &  2, 3 \\
+\mcode{ode113} & nicht steif & Explizites Mehrschrittverfahren & 1 - 13\\
+\mcode{ode15s} & steif & Implizites Mehrschrittverfahren& 1 - 5\\
+\mcode{ode23s} & steif &Modifiziertes Rosenbrockverfahren& 2, 3\\
+\mcode{ode23t} & mittel steif & implizite Trapez Regel& 2, 3\\
+\mcode{ode23tb} & steif & Implizites Runge-Kutta Verf.& 2, 3\\
 \end{tabular}
-}
 \end{frame}
 %
 % Slide
@@ -781,10 +776,10 @@ bis 5\\
 \end{eqnarray*}
 rechte Seite:
 \begin{lstlisting}
-function z=lorenz_rechte_seite(t,y)
-z=     [10*(y(2)-y(1));...
-        28*y(1)-y(2)-y(1)*y(3);...
-        y(1)*y(2)-8*y(3)/3];
+function z = lorenz_rechte_seite(t,y)
+z = [10*(y(2)-y(1));...
+    28*y(1)-y(2)-y(1)*y(3);...
+    y(1)*y(2)-8*y(3)/3];
 \end{lstlisting}
 \end{frame}
 %
@@ -796,34 +791,27 @@ z=     [10*(y(2)-y(1));...
 %   lorenz_gl.m
 %  Eine Approximation der Lorenzgleichungen
 %-----------------------------------------
-tspan=[0,30]; aw=[0;1;0];
-options=odeset ('AbsTol',1e-7,'RelTol',1e-4);
-[t,y]=ode45(@lorenz_rechte_seite,tspan,aw, options);
+tspan = [0,30]; aw = [0;1;0];
+options = odeset ('AbsTol',1e-7,'RelTol',1e-4);
+[t,y] = ode45(@lorenz_rechte_seite,tspan,aw, options);
 
 subplot(2,2,1),plot3(y(:,1),y(:,2),y(:,3)), 
-subplot(2,2,2),plot(y(:,1),y(:,2)), xlabel('y_1'), ylabel('y_2');
-subplot(2,2,3),plot(y(:,1),y(:,3)), xlabel('y_1'), ylabel('y_3');
-subplot(2,2,4),plot(y(:,2),y(:,3)), xlabel('y_2'), ylabel('y_3');
+subplot(2,2,2),plot(y(:,1),y(:,2)),xlabel('y_1'),ylabel('y_2');
+subplot(2,2,3),plot(y(:,1),y(:,3)),xlabel('y_1'),ylabel('y_3');
+subplot(2,2,4),plot(y(:,2),y(:,3)),xlabel('y_2'),ylabel('y_3');
 \end{lstlisting}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Die Lorenz-Gleichungen}
-\includegraphics[width=\linewidth, height=6.5cm]{./figures/lorenz}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./figures/lorenz}
+\end{center}
 \end{frame}
-% 
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Numerische Lineare Algebra}
-\begin{itemize}
-\item Normen
-\item L\"osen linearer Gleichungssysteme
-\item Invertiern von Matrizen
-\item Berechnen von Zerlegungen
-\item Bestimmung von Eigenwerten
-\end{itemize}
-\end{frame}
+
+\subsection{Norm und Kondition}
+
 % 
 % Slide
 %
@@ -877,23 +865,27 @@ Kondition einer quadratischen Matrix $A$:
 \begin{itemize}
 \item Vektornormen f\"ur $x=(1/100) (1, 2, \dots, 100)$
 \begin{lstlisting}
->> x=(1:100)/100; [norm(x,1) norm(x,2) norm(x,inf)]
+>> x = (1:100)/100; [norm(x,1) norm(x,2) norm(x,inf)]
 ans =   50.5000    5.8168    1.0000
 \end{lstlisting}
 \item Matrixnorm f\"ur die Hilbert-Matrix $H=(\frac{1}{i+j-1})_{ij}$
 \begin{lstlisting}
->> H=hilb(10); [norm(H,1) norm(H,2) norm(H,inf)]
+>> H = hilb(10); [norm(H,1) norm(H,2) norm(H,inf)]
 ans =    2.9290    1.7519    2.9290
 \end{lstlisting}
 \item Kondition der Hilbert-Matrix
 \begin{lstlisting}
->> H=hilb(10); [cond(H,1) cond(H,2) cond(H,inf)]
+>> H = hilb(10); [cond(H,1) cond(H,2) cond(H,inf)]
 ans =
    1.0e+13 *
     3.5354    1.6025    3.5354
 \end{lstlisting}
 \end{itemize}
 \end{frame}
+
+
+\subsection{L\"osen linearer Gleichungssysteme}
+
 % 
 % Slide 
 %
@@ -901,10 +893,10 @@ ans =
 Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
 lineare Gleichungssystem 
 \alert{ \[ A x=b \]}
-wird in MATLAB gel\"ost durch \alert{ \mcode{ x=A\b}}.\\
+wird in MATLAB gel\"ost durch \alert{ \mcode{ x = A\\b}}.\\
 
 \begin{lstlisting}
->> x=ones(5,1); H=hilb(5); b=H*x; y=\mcode{(H\b)'}
+>> x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
 y =
     1.0000    1.0000    1.0000    1.0000    1.0000
 \end{lstlisting}
@@ -916,44 +908,44 @@ y =
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{LU-Zerlegung}
-{\centering \alert{ Was bedeutet \mcode{A\b}?}}\\[0.5cm]
+{\centering \alert{ Was bedeutet \mcode{A\\b}?}}\\[0.5cm]
 
 MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren), d.h.
 es sucht eine obere Dreiecksmatrix $U$ und eine untere Dreiecksmatrix
-$L$ mit Einsen auf der Diagonalen, so dass $PA=LU$ gilt        
- ($P$ Permutationsmatrix).
+$L$ mit Einsen auf der Diagonalen, so dass $PA=LU$ gilt ($P$ Permutationsmatrix).
 
 Dann wird das LGS durch R\"uckw\"arts- und Vorw\"artseinsetzen gel\"ost. 
 \begin{lstlisting}
->> [L,U,P]=lu(hilb(5)); norm(P*hilb(5)-L*U)
+>> [L,U,P] = lu(hilb(5)); norm(P*hilb(5)-L*U)
 ans =  2.7756e-17
 \end{lstlisting}
 \end{frame}
+
+
 % 
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{Inverse,  Determinante}
 \begin{itemize}
 \item Berechnung der Inversen
-\begin{minipage}{5cm}
+\begin{columns}[t,onlytextwidth]
+\column{0.48\textwidth}
 \begin{lstlisting}
->> A=pascal(3)
+>> A = pascal(3)
 A =
      1     1     1
      1     2     3
      1     3     6
 \end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}{5cm}
+\column{0.48\textwidth}
 \begin{lstlisting}
->> X=inv(A)
+>> X = inv(A)
 X =
      3    -3     1
     -3     5    -2
      1    -2     1
 \end{lstlisting}
-\end{minipage}
+\end{columns}
 \item Berechnung der Determinante
 \begin{lstlisting}
 >> det(A)
@@ -976,6 +968,8 @@ ans =
     0.1111    0.1111    0.1111
 \end{lstlisting}
 \end{frame}
+
+\subsection{Bestimmung von Eigenwerten}
 % 
 % Slide 
 %
@@ -996,7 +990,7 @@ dass  $Ax = \lambda x$ gilt. $x$ heisst Eigenvektor.
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{Weitere Zerlegungen}
-{\tiny
+{\scriptsize
 \begin{itemize}
 \item Mittels \alert{ \mcode{[Q,R]=qr(A)}} wird zu einer $m \times n$- Matrix
   $A$ eine Zerlegung \alert{ $A=QR$} erzeugt,
@@ -1024,7 +1018,7 @@ zu einer hermitischen, pos. def. Matrix
 \item LGS k\"onnen auch mit Hilfe iterativer Verfahren gel\"ost werden,
   z.B. \mcode{gmres}, \mcode{pcg}, \mcode{bicgstab}.
 \item Ist $A\in \mathbb{C}^{n \times m}$, $n \neq m$, so ergibt \alert{
-  \mcode{A\b}}
+  \mcode{A\\b}}
   f\"ur $n>m$ (der \"uberbestimmte Fall) die Least-Square L\"osung, d.h. der Ausdruck
   \mcode{norm(A*x-b)} wird minimiert. Ist $n<m$ (der unterbestimmte
   Fall) so wird eine Grundl\"osung berechnet. 

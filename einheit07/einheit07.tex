@@ -1,0 +1,901 @@
+%
+\subtitle{Einheit 7 \\ Schnittstelle zu C}
+\maketitle
+\part{Einheit 7, 1. Teil \\ Schnittstelle zu C}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Schnittstellen in MATLAB}
+\begin{itemize}
+\item MATLAB l\"a{\ss}t sich mit anderen Programmiersprachen kombinieren. 
+\item Die Verkn\"upfung geschieht \"uber sogenannte {\it Schnittstellen}. 
+\item Es existieren Schnittstellen zu C, Fortran und Java.
+\item \"Uber diese Schnittstellen werden in der Regel Kommandos und
+  insbesondere Daten \"ubermittelt.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Warum Schnittstellen zu C?}
+\begin{itemize}
+\item Gro{\ss}e bereits existierende C-Programme k\"onnen von MATLAB aus
+  gestartet werden, ohne dass sie als $m$-Files neugeschrieben werden
+  m\"ussen. 
+\item Bottleneck Berechnungen (in der Regel Schleifen), die in MATLAB nicht
+  schnell genug laufen, k\"onnen aus Effizienzgr\"unden in C neu programmiert
+  werden. 
+\item Man kann aus C-Programmen heraus, den gro{\ss}en Befehlsumfang von
+  MATLAB n\"utzen. (einfaches Erstellen von Grafiken)
+\end{itemize}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Schnittstellen zu C}
+Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden. 
+\begin{itemize}
+\item Das Einbinden von C-Funktionen in MATLAB. Dies geschieht durch die sogenannten
+      mex-Dateien. Sie bestehen aus 2 Teilen: der eigentlichen $C$-Funktion und
+      einer Schnittstellen-Routine zwischen C und MATLAB.
+\item Das Starten eines MATLAB-Fensters aus einem C-Programm heraus. Hier bindet
+      man passende Bibliotheken ein.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\part{Mex-Dateien}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Erstellen von Mex-Funktionen}
+\begin{itemize}
+\item Um eine Mex-Datei \mcode{mex_beispiel.c} ausf\"uhrbar zu machen, kompiliere
+man es durch 
+\begin{lstlisting}
+mex mex_beispiel.c
+\end{lstlisting}
+\item Die Befehlseingabe kann sowohl im Command Window von  MATLAB als auch in einem beliebigen
+  xterm (unter Linux) erfolgen.
+\item Die Funktion kann dann in MATLAB aufgerufen werden als sei sie ein normales
+m-File.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Erstellen von Mex-Funktionen}
+\begin{itemize}
+\item Mex-Dateien verhalten sich genau wie m-Files oder built-in Funktionen.
+\item Mex-Dateien sind plattform-abh\"angig.
+\item Die Plattform ist an der Endung zu erkennen: \mcode{mexaxp} (Alpha),
+  \mcode{mexglx} (Linux), \mcode{mexsol} (Solaris), \mcode{dll} (Windows).
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Optionen von mex}
+\begin{itemize}
+\item Ausw\"ahlen des Default-Compilers durch
+\begin{lstlisting}
+mex -setup
+\end{lstlisting}
+\item Es ist auch m\"oglich, von Fall zu Fall verschiedene Compiler zu
+  benutzen. Aufruf:
+\begin{lstlisting}
+mex filename -f optionsfile
+\end{lstlisting}
+Beispiele: \mcode{lccengmatops.bat} (MATLAB-Compiler, Windows),
+\mcode{gccopts.sh} (gcc, Linux) 
+\item Durch \mcode{mex -help} erh\"alt man weitere Informationen zum Aufruf von \mcode{mex}.
+\end{itemize}
+\end{frame}
+%
+
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Linken mehrere Files}
+Beim Erzeugen von mex-Routinen ist es m\"oglich verschiedene Objekt- und
+Bibliothek-Files zu kombinieren. Das Beispiel erzeugt unter Windows
+\begin{lstlisting}
+mex circle.c square.obj rectangle.c 
+    shapes.lib
+\end{lstlisting}
+die ausf\"uhrbare Datei \mcode{circle.dll}. Benutzen von Befehlen wie \mcode{make}
+ist m\"oglich. Dateien werden am Ende durch \mcode{mex} zusammengebunden. 
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Aufbau von mex-Files}
+Sie bestehen aus 2 Teilen: Einer Gateway Routine und der eigentlichen
+C-Funktion. Aufruf der Gateway-Funktion:
+\begin{lstlisting}
+void mexFunction(
+   int nlhs, mxArray *plhs[],
+   int nrhs, const mxArray *prhs[])
+\end{lstlisting}
+
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Gateway Routine}
+
+\begin{itemize}
+\item Benutzen Sie  \mcode{mxCreate} Funktionen, um die MATLAB Arrays f\"ur die Output
+  Argumente zu erzeugen. Setzen Sie \mcode{plhs[0],[1],..} auf die Zeiger von
+  den neuerzeugten MATLAB-Arrays.
+\item Benuztzen Sie die \mcode{mxGet} Funktionen, um die Daten von
+  \mcode{prhs[0],[1],..} zu lesen.
+\item Aufruf der $C$-Unterroutine mit den Input- und Output-Zeigern als
+  Funktionsparameter. 
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Arbeitsweise von mex-Files}
+\begin{itemize}
+\item Aufruf MATLAB: \alert{ \mcode{[C,D]=func_beispiel(A,B)}}.
+\item Startet \mcode{func_beispiel.c}:
+\begin{lstlisting}
+const mxArray *B,*A;
+A = prhs[0];
+B = prhs[1];
+
+mxArray *C,*D;
+C = plhs[0];
+D = plhs[1];
+\end{lstlisting} 
+\item Ergebnis MATLAB: \mcode{plhs[0]} wird in $C$ geschrieben, \mcode{plhs[1]}
+  wird in $D$ geschrieben. 
+\end{itemize}
+\end{frame}
+
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Klassifizierung von Funktionen}
+\vspace*{-0.5cm}
+Es gibt drei verschiedene Klassen von Funktionen im Zusammenhang mit der Schnittstelle.
+\begin{itemize}
+\item \alert\alert{ mex-Funktionen:}\\
+ Mex-Routinen interagieren mit der MATLAB Umgebung. 
+Beispielsweise interpretiert \mcode{mexEvalString} einen String im MATLAB Workspace.  
+\item \alert\alert{ mx-Funktionen:} \\
+Menge von Funktionen mit 
+ denen man MATLAB Arrays erzeugen und manipulieren kann. 
+\item \alert\alert{ Engine Funktionen:}\\ 
+ Menge von Funktionen, die das Arbeiten mit der MATLAB-Engine steuern. 
+\end{itemize}
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]\frametitle{Gr\"o{\ss}ter gemeins. Teiler (ggT)}
+Berechnung des ggT von nat\"urlichen Zahlen $a$ und $b$ mit Hilfe des
+euklidischen Algorithmus\\[1cm]
+
+\alert{Idee:} Es gilt \alert{ $ggT(a,b)=ggT(a,b-a)$} f\"ur $a<b$.\\[1cm]
+
+\alert{Algorithmus:} \\
+Wiederhole,  bis $a=b$
+\begin{itemize}
+\item Ist $a>b$, so $a=a-b$.
+\item Ist $a<b$, so $b=b-a$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{MATLAB}
+\begin{lstlisting}
+function a=ggt(a,b)
+%----------------------------------------------------
+% ggt berechnet den grten gemeinsamen Teiler (ggT)    
+%         zweier natrlichen Zahlen a und b
+%           INPUT:   naturliche Zahlen  a
+%                                       b
+%                 
+%           OUTPUT: ggT
+%                   
+%  Gerd Rapin      8.11.2003
+%------------------------------------------------------
+while (a~=b)
+    if (a>b)
+        a=a-b;
+    else
+        b=b-a;
+    end
+end
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{C-File: ggt.c (Teil I)}
+\begin{lstlisting}
+/*******************************************
+ *     ggt.c  
+ *******************************************/
+\#include "mex.h"
+
+void ggt( double   result[], double a, double b);
+
+void mexFunction( int nlhs, mxArray *plhs[],
+                  int nrhs, const mxArray *prhs[] )
+\{
+  double *a,*b,*result;
+  
+  /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
+  plhs[0] = mxCreateDoubleMatrix(1,1, mxREAL);  
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{C-File: ggt.c (Teil II)}
+\begin{lstlisting}
+  /* Assign pointers to each input and output. */
+  a = mxGetPr(prhs[0]);
+  b = mxGetPr(prhs[1]);
+  result = mxGetPr(plhs[0]);  
+  /* Aufruf der ggt Routine */
+  ggt ( result, *a, *b );
+\}
+
+void ggt( double result[], double a, double b)
+\{
+    while (a!=b)
+    \{
+        if (a>b) 
+            a = a - b;
+         else
+            b = b - a;      
+    \}
+    result[0] = a;
+\}
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Erkl\"arungen}
+\begin{itemize}
+\item Einbinden der Header Datei
+\begin{lstlisting}
+\#include "mex.h"
+\end{lstlisting}
+\item Definieren eines Zeigers $x$ auf ein Objekt vom MATLAB-Typ \mcode{mxArray}. 
+\begin{lstlisting}
+ mxArray *x = NULL;
+\end{lstlisting}
+Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datenstrukturen.
+\end{itemize}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Erzeugen von \\ R\"uckgabe-strukturen}
+\begin{itemize}
+\item Definieren von \mcode{double}-Matrizen
+\begin{lstlisting}
+mxArray *mxCreateDoubleMatrix(int m, 
+int n, mxComplexity Flag);
+\end{lstlisting}
+$m$ ist die Anzahl von Zeilen, $n$ die Anzahl von Spalten und \mcode{Flag} ist
+entweder $mxREAL$ or $mxCOMPLEX$.
+\item Definieren eines \mcode{double}-Skalars mit Wert \mcode{value}
+\begin{lstlisting}
+mxArray *mxCreateDoubleScalar
+(double value);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Weitere Erzeuger}
+\begin{tabular}{c|l}
+\hline
+\mcode{mxCreateCellArray} & Array f\"ur Cell-Arrays \\
+\mcode{mxCreateCharArray} & Array von Characters\\
+\mcode{mxCreateString}    & String\\
+\mcode{mxCreateSparse}    & Sparse Matrix \\ 
+\mcode{mxCreateLogicalMatrix} & Array f\"ur Logicals\\
+
+\hline
+\end{tabular}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Zugriff auf mxArray}
+\begin{lstlisting}
+double *mxGetPr(mxArray *array_zeiger)
+\end{lstlisting}
+R\"uckgabeargument ist ein Zeiger, der auf das erste (reelle) Element des Arrays
+\mcode{*array_ptr} zeigt. F\"ur imagin\"are Elemente \mcode{mxGetPi}. 
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Abfangen von Fehler}
+Es findet keine automatische \"Uberpr\"ufung der Ein- und
+  Ausgabeparameter statt. 2 M\"oglichkeiten:
+\begin{itemize}
+\item [(a)] Man versieht die Gateway-Routine mit entsprechenden Abfragen.
+\item [(b)] Man kapselt die mex-Routine durch eine MATLAB-Routine, die die
+  Parameter \"uberpr\"uft.
+\end{itemize}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{C-File: ggt2.c (Auszug)}
+\begin{lstlisting}
+/* Ueberpruefen der Anzahl von Argumenten */
+  if(nrhs!=2) \{
+    mexErrMsgTxt("Genau zwei Input-Variablen erforderlich.");
+  \} else if(nlhs!=1) \{
+    mexErrMsgTxt("Falsche Anzahl an Output-argumente");
+  \}
+  /* Input Variablen muessen nichtnegative Double sein.*/
+  mrows = mxGetM(prhs[0]);
+  ncols = mxGetN(prhs[0]);
+  if( !mxIsDouble(prhs[0])  ||
+      !(mrows==1 && ncols==1) ) \{
+    mexErrMsgTxt("Erster Eingabeparameter muss ein reelles Skalar sein.");
+  \}
+  mrows = mxGetM(prhs[1]);
+  ncols = mxGetN(prhs[1]);
+  if( !mxIsDouble(prhs[1])  ||
+      !(mrows==1 && ncols==1) ) \{
+    mexErrMsgTxt("Zweiter Eingabeparameter muss ein reelles Skalar sein.");
+  \} 
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Befehle}
+\begin{itemize}
+\item Abfragen der Zeilen- bzw. Spaltenzahl eines \mcode{mxArrays}:
+\begin{lstlisting}
+int mxGetM(const mxArray *array_zeiger)
+int mxGetN(const mxArray *array_zeiger)
+\end{lstlisting}
+\item Fehlermeldung:
+\begin{lstlisting}
+mexErrMsgTxt('Fehler....')
+\end{lstlisting}
+erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine. 
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Typ-Abfragen}
+\begin{lstlisting}
+bool mxIsDouble( mxArray *array_zeiger);
+\end{lstlisting}
+ist wahr (1), falls durch \mcode{*array_zeiger*} eine Matrix mit \mcode{double} oder
+\mcode{float} repr\"asentiert werden, sonst ist der R\"uckgabewert $0$.\\[2cm]
+
+\alert{Weitere Abfragen:}  \\
+\mcode{mxIsComplex}, \mcode{mxIsChar},
+\mcode{mxIsInf}, \mcode{mxInt64}, \mcode{mxInt32}, \mcode{mxIsNaN}.
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Mandelbrot-Menge}
+Die Mandelbrot-Menge ist die Menge von Punkten $c \in \mathbb{C}$
+bei denen die Folge $(z_n)_n$, die durch
+\[ z_0:=c, \qquad  z_{n+1} = z_n^2 +c, \quad n \in \mathbb{N}\]
+definiert ist, beschr\"ankt ist.
+\begin{itemize}
+\item Gilt $|z_n| \geq 2$, so wird die Folge divergieren.
+\item Wir benutzen dies als Abbruchkriterium.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]\frametitle{Reelle Darstellung}
+Mit $z=z_1+iz_2$, $x=x_1+ix_2$ und $c=c_1+ic_2$ ergibt sich aus
+\begin{eqnarray*}
+z_1 + i z_2 & = & z  =  x^2 + c = (x_1+ix_2)^2 + (c_1+c_2) \\
+& = & [ x_1^2 -x_2^2 +c_1] + i[2 x_1 x_2 +c_2]
+\end{eqnarray*}
+die Formel
+\[ z_1 = x_1^2 -x_2^2 +c_1, \qquad z_2 = 2 x_1 x_2 + c_2. \]
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Programm - MATLAB}
+\begin{lstlisting}
+MAX_IT = 150;
+x1 = linspace(-2.1,0.6,601);
+y1 = linspace(-1.1,1.1,401);
+C = zeros(length(y1),length(x1));
+for i = 1:length(x1)
+  for j = 1:length(y1)
+  %------ Berechnen der Folge        
+  m = 0; a = x1(i); b = y1(j);
+  x = a; y = b;
+  while (sqrt(x^2+y^2)<2 & m<MAX_IT)
+    t = x; x = a+x^2-y^2;
+    y = b+2*t*y; m = m+1;
+  end;
+  C(j,i) = m;
+  end
+end
+C = (1/MAX_IT) * C;
+contourf(x1,y1,C,20);
+\end{lstlisting}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Routine - C (Teil I)}
+\begin{lstlisting}
+\#include "mex.h"
+\#include <math.h>
+
+void mandel_c( double result[], double x1[], double y1[], 
+  int x1_laenge,int y1_laenge);
+
+void mexFunction( int nlhs, mxArray *plhs[],
+int nrhs, const mxArray *prhs[] )
+\{
+    double *a,*b,*result;
+    int acols, bcols;
+
+    acols = mxGetN(prhs[0]);
+    bcols = mxGetN(prhs[1]);
+\end{lstlisting}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Routine - C (Teil II)}
+\begin{lstlisting}   
+    printf("\mcode{\n} Erzeuge (%d x %d)-Matrix \mcode{\n \n}",bcols,acols);
+    
+    /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
+    plhs[0] = mxCreateDoubleMatrix(bcols,acols, mxREAL);
+
+    /* Assign pointers to each input and output. */
+    a = mxGetPr(prhs[0]);
+    b = mxGetPr(prhs[1]);
+    result = mxGetPr(plhs[0]);
+
+    /* Aufruf der Routine */
+    mandel_c ( result, a, b, acols, bcols);
+\}
+\end{lstlisting}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Routine - C (Teil III)}
+\begin{lstlisting}
+void mandel_c( double result[], double x1[], double y1[], 
+   int x1_laenge, int y1_laenge)
+\{
+    int MAX_IT = 150;
+    int i,j;
+    double m,a,b,x,y,t;
+    for (i =0;  i< x1_laenge; i++)
+    \{
+      for (j = 0; j< y1_laenge; j++)
+      \{
+        /* ------ Berechnen der Folge */        
+\alert{  \vdots}
+        while (sqrt(x*x+y*y)<2 & m<MAX_IT)
+        \{
+ \alert{ \vdots}
+        \}
+        result[i*y1_laenge+j] = m;
+      \}
+    \}
+\}
+\end{lstlisting}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Aufruf aus MATLAB}
+\begin{lstlisting}
+MAX_IT = 150;
+
+x1 = linspace(-2.1,0.6,201);
+y1 = linspace(-1.1,1.1,401);
+
+C=mandel_c(x1,y1);
+C = (1/MAX_IT) * C;
+
+% Plotten der Funktion
+contourf(x1,y1,C,20);
+\end{lstlisting}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Die Mandelbrotmenge}
+\includegraphics[width=\linewidth, height=6.5cm]{./figures/mandelbrot}
+\end{frame}
+%
+% Slide
+%
+\part{C-Programme mit MATLAB}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Kompilieren unter Linux}
+
+Befehle und Pfade gelten f\"ur MATLAB 7.
+
+\begin{itemize}
+\item Einbinden der Shared Libraries (nur Linux)
+\begin{itemize}
+\item Bourne Shell (u91...u98)
+\begin{lstlisting}
+LD_LIBRARY_PATH=/usr/local/matlabr2007a/bin/glnx86/:
+ /usr/local/matlabr2007a/sys/os/glnx86:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+\end{lstlisting} %$
+\item C-Shell
+\begin{lstlisting}
+setenv  LD_LIBRARY_PATH $MATLAB/bin/glnx86/:$LD_LIBRARY_PATH
+\end{lstlisting}
+\end{itemize}
+\item Kompilieren von \mcode{test.c}
+\begin{lstlisting}
+mex -f /usr/local/matlabr2007a/bin/engopts.sh test.c
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Kompilieren unter Windows}
+\begin{itemize}
+\item Aufruf in MATLAB von
+\begin{lstlisting}
+mex -f lccengmatopts.bat datei.c
+\end{lstlisting}
+kompiliert die Datei \mcode{datei.c}.
+\item Starten durch Ausf\"uhren von \mcode{datei.exe}.
+\item Alternativ ein DOS-Fenster \"offnen, ins richtige Verzeichnis wechseln  
+ und dort das Programm durch Eingabe von \mcode{datei} starten.
+\end{itemize}
+\end{frame}
+% 
+% Slide
+% 
+%\begin{frame}[fragile]\frametitle{Anpassen des Systems}
+%\begin{itemize}
+%\item Kopieren Sie die Datei \mcode{/home/matlab01/.cshrc.linux} in das
+%  Heimatverzeichnis
+%\begin{lstlisting}
+%cp /home/matlab01/.cshrc.linux ~
+%\end{lstlisting}
+%\item Ãffnen Sie eine neue Shell.
+%\item In der \alert{ neuen} Shell starten Sie MATLAB.  
+%\end{itemize}
+%\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Erstes Beispiel}
+\begin{itemize}
+\item Das C Programm \"offnet ein MATLAB Fenster.
+\item Dort wird eine Hilbert-Matrix erzeugt.
+\item Die Eigenwerte der Matrix werden berechnet.
+\item Die Eigenwerte werden grafisch veranschaulicht.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{hilbert1.c}
+\begin{lstlisting}
+\mcode{#}include <stdio.h>
+\mcode{#}include "engine.h"
+ 
+ main(int argc, char* argv[])
+ \{
+     Engine *ep;
+     mxArray *x_m = NULL;
+     
+     double n=10;
+      
+     printf("\mcode{\n} Open MATLAB engine...\mcode{\n}");
+     ep = engOpen(NULL);
+     
+     x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
+     *mxGetPr(x_m) = n;
+\end{lstlisting}
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]\frametitle{hilbert1.c (Forts.)}
+\begin{lstlisting}     
+     engPutVariable(ep,"x_m",x_m);
+     engEvalString(ep,"a=hilb(x_m)");
+     engEvalString(ep,"semilogy(eig(a),'*')");
+     
+     printf("Please press Return \mcode{\n}");
+     fgetc(stdin);
+     engClose(ep);
+\}
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Umgang mit der \\ MATLAB-Engine}
+\vspace*{0.5cm}
+\begin{itemize}
+\item Einbinden der Bibliothek 
+\begin{lstlisting}
+#include "engine.h"
+\end{lstlisting}
+\item Anlegen eines Handles f\"ur die MATLAB-Engine
+\begin{lstlisting}
+Engine *ep;
+\end{lstlisting}
+\item \"Offnen der MATLAB-Engine
+\begin{lstlisting}
+engOpen(NULL) 
+\end{lstlisting} 
+\item Schliessen der MATLAB-Engine: 
+\begin{lstlisting}
+engClose(ep);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Arbeiten mit der \\MATLAB-Engine}
+\vspace*{0.5cm}
+\begin{itemize}
+\item  Benenne die Variable 'name' in MATLAB. Die Variable wird mit den Daten
+\mcode{werte} versehen. 
+\begin{lstlisting}
+ engPutVariable(ep,"name",werte);
+\end{lstlisting}
+\item Ausf\"uhren von MATLAB-Befehlen:
+\begin{lstlisting}
+engEvalString(ep,"Befehl");
+\end{lstlisting}
+Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Zweites Beispiel}
+\begin{itemize}
+\item Das C Programm \"offnet ein MATLAB Fenster.
+\item Dort wird eine Hilbert-Matrix erzeugt.
+\item Die Eigenwerte der Matrix werden berechnet.
+\item Die Eigenwerte werden an das C-Programm zur\"uckgegeben und dort
+  ausgegeben. 
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{hilbert2.c (Teil I)}
+\begin{lstlisting}
+ #include <stdio.h>
+ #include "engine.h"
+ 
+ main(int argc, char* argv[])
+ \{
+     Engine *ep;
+     mxArray *x_m = NULL;
+     mxArray *d = NULL, *le = NULL;
+     double *Dreal;
+     double laenge;
+     int i;
+     
+     double n=10;
+      
+     printf("\mcode{\n} Open MATLAB engine...\mcode{\n}");
+     ep = engOpen(NULL);
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{hilbert2.c (Teil II)}
+\begin{lstlisting}
+     x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
+     *mxGetPr(x_m) = n;
+     
+     engPutVariable(ep,"x_m",x_m);
+     engEvalString(ep,"d=eig(hilb(x_m))");
+     engEvalString(ep,"le=length(d)");
+     
+     d = engGetVariable(ep, "d");
+     le = engGetVariable(ep,"le");
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{hilbert2.c (Teil III)}
+\begin{lstlisting}     
+     Dreal = mxGetPr(d);
+     laenge = *mxGetPr(le);
+    
+     engClose(ep);
+     
+     for (i=0; i<laenge; i++)
+     \{
+        printf ( "%d. Eigenwert %g \mcode{\n}" , i+1,Dreal[i] );
+     \}
+     
+     mxDestroyArray(x_m);
+     mxDestroyArray(d);
+\}    
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Erkl\"arungen}
+\begin{itemize}
+\item Kopieren der Variable $d$ aus dem MATLAB-Workspace in das C-Programm.
+\begin{lstlisting}
+mxArray *engGetVariable(ep, "d");
+\end{lstlisting}
+\item Freigeben des Speichers (Wichtig!)
+\begin{lstlisting}
+mxDestroyArray(mxArray *x_m);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Beispielprogramm}
+\begin{itemize}
+\item \mcode{plot_poisson.c} plottet die Funktion\\
+$f(x,y)= sin(4 \pi x) \sin (2 \pi y)$
+auf $[0,1] \times [0,1]$.
+\item In C betrachten wir das Gitter, das durch Zerlegen der x- und der
+y-Richtung in 50 Punkten entsteht. 
+\item Dann berechnen wir die Funktionswerte in C.
+\item Das Gitter und die berechneten Vektoren werden an MATLAB \"ubergeben.
+\item Dort wird die L\"osung mit Hilfe des Befehls \mcode{surf} gezeichnet.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{plot-poisson.c (Teil I)}
+\begin{lstlisting}
+/*-----------------------------------------
+  -       plot_poisson.c
+  ---------------------------------------*/
+
+#include <stdio.h>
+#include <math.h>
+#include "engine.h"
+
+#define MAX_ORDER 50
+
+/* Function for plotting data on cartesian grids */
+int plot_graph(
+               double *x,    /* vector of x-values             */
+               double *y,    /* vector of y-values             */
+               double *z,    /* value at (x[i],y[j]) (row-wise)*/
+               int    x_n,   /* size of array x                */
+               int    y_n);  /* size of array y                */
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{plot-poisson.c (Teil II)}
+\begin{lstlisting}
+/*---------------------------------------------------
+-             main program                          -     
+-----------------------------------------------------*/
+main(int argc, char* argv[]) 
+\{
+    double x[MAX_ORDER];
+    double y[MAX_ORDER];
+    double z[MAX_ORDER*MAX_ORDER];
+    int x_n,y_n;
+    int i,j;        
+    x_n=50;
+    y_n=50;
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{plot-poisson.c (Teil III)}
+\begin{lstlisting}  
+for (i=0; i<x_n; i++)
+ \{
+     x[i]= (double) i/(x_n-1);
+ \}
+for (i=0; i<y_n; i++)
+ \{
+     y[i]= (double) i/(y_n-1);
+ \}
+    for (i=0; i<x_n; i++) 
+    \{
+        for (j=0; j<y_n; j++)
+        \{
+            *(z+i+j*x_n)=sin(4*3.14159*x[i])*sin(2*3.141459*y[j]);
+        \}
+    \}      
+    if (plot_graph(x,y,z,x_n,y_n)==0)  
+         printf("\mcode{\n} Ungueltiger Aufruf von 'plot_graph' \mcode{\n}");
+    return  0;
+\}
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{plot-poisson.c (Teil IV)}
+\vspace*{-0.3cm}
+\begin{lstlisting}
+/*-------- function 'plot_graph' -----------*/
+int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
+\{  Engine *ep;
+    mxArray *x_m = NULL;
+    mxArray *y_m = NULL;
+    mxArray *z_m = NULL;
+    int i,j;
+    if ((x_n ==0) || (y_n==0)) 
+         return (int) 0;
+    printf("\mcode{\n} Open MATLAB engine...\mcode{\n}");
+   /*---------------------- Start MATLAB engine */
+         if (!(ep = engOpen("\mcode{\0}"))) \{
+                fprintf(stderr, "\mcode{\n}Can't start MATLAB engine\mcode{\n}");
+                return EXIT_FAILURE;
+        \}
+         printf("Create MATLAB arrays...\mcode{\n}");
+     x_m = mxCreateDoubleMatrix(1, x_n, mxREAL);
+     y_m = mxCreateDoubleMatrix(1, y_n, mxREAL);
+     z_m = mxCreateDoubleMatrix(x_n, y_n, mxREAL);
+\end{lstlisting}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{plot-poisson.c (Teil V)}
+\begin{lstlisting}     
+     printf("Copy entries into MATLAB ...\mcode{\n}");
+     memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
+     memcpy((void *)mxGetPr(y_m), (void *) y, y_n*sizeof(double));
+     memcpy((void *)mxGetPr(z_m), (void *) z, x_n*y_n*sizeof(double));      
+     engPutVariable(ep,"x_m",x_m);
+     engPutVariable(ep,"y_m",y_m);
+     engPutVariable(ep,"z_m",z_m);     
+     printf("Execute MATLAB commands...\mcode{\n}");
+     engEvalString(ep,"[Y,X]=meshgrid(y_m,x_m)");
+     engEvalString(ep,"surf(X,Y,z_m)");
+     engEvalString(ep,"xlabel('x')");
+     engEvalString(ep,"ylabel('y')"); 
+     printf("Please press Return \mcode{\n}");
+     fgetc(stdin);  
+     printf("\mcode{\n} Close MATLAB engine... \mcode{\n}");
+     engClose(ep);
+     return (int) 1;
+\}  
+\end{lstlisting}
+\end{frame}
+

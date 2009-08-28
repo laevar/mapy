@@ -978,9 +978,4 @@ zu einer hermitischen, pos. def. Matrix
   Fall) so wird eine Grundlösung berechnet. 
 \end{itemize}
 \end{frame}
-
-
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: t
-%%% End: 
+\end{document}

@@ -56,6 +56,19 @@ disp('*** aufgabe 8');
 clear
 
 sierpinski_plot
+dreiecke = get(get(sploth,'Children'),'Children');
+for idx = 1:length(dreiecke)
+  if (get(dreiecke(idx),'Xdata') + get(dreiecke(idx),'Ydata') > 1/2)
+    delete(dreiecke(idx))
+  end
+end
 
 disp('*** aufgabe 9');
 clear
+
+sierpinski_plot
+saxe = get(sploth,'Children');
+for idx = 1:4
+  fig(idx) = figure;
+  copyobj(saxe,fig(idx));
+end

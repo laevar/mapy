@@ -1,7 +1,8 @@
-%
+\documentclass[utf8x,notes=hide]{beamer}
+\input{../slide_header}
 \subtitle{Einheit 6 \\ Grafik Handle \\ GUI -- Programmierung}
 \maketitle
-\part{Einheit 6, Teil 1 \\ Grafik-Handle}
+\section{Grafik-Handle}
 \begin{frame}[fragile]\frametitle{Grafik-Objekte}
 \begin{itemize}
 \item Jedes Grafik-Objekt ist eindeutig bestimmt durch seine Eigenschaften
@@ -16,8 +17,7 @@ existierender Grafik-Objekte ge\"andert werden.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Hierachische Struktur\\ von Grafik-Objekten}
-\vspace*{0.5cm}
+\begin{frame}[fragile]\frametitle{Hierachische Struktur von Grafik-Objekten}
 {\tiny
 \begin{tabular}{lp{3cm}p{6cm}}
 
@@ -30,13 +30,11 @@ Grafik-Fenster gegeben. Alle Figuren sind Kinder von Root. \\
 
 Level 3 & Axes, Uicontrol, Uimenu, Uicontextmenu & Die Objekte
 Ui... sind benutzerdefinierte Grafik-Interfaces (werden hier nicht
-betrachtet).\linebreak
- Die Axes Objekte
-definieren eine Region im Grafikfenster und ordnen ihre Kinder in
+betrachtet). Die Axes Objekte definieren eine Region im Grafikfenster und ordnen ihre Kinder in
 dieser Region an.\\
 
 Level 4 & Image, Line, Text, Surface,... & Die Objekte bestimmen das
-Aussehen der Grafik-Fenster. Sie sind Kinder der Axes Objekte.\\ 
+Aussehen der Grafik-Fenster. Sie sind Kinder der Axes Objekte.
 \end{tabular}
 }
 \end{frame}
@@ -84,7 +82,7 @@ ans =
         ALimMode: [ {auto} | manual ]
         AmbientLightColor
         Box: [ on | {off} ]
-              \( {\bf \cdots } \)
+              ( ... )
 \end{lstlisting}
 \item Eigenschaften des 'Line'-Objekts
 \begin{lstlisting}
@@ -93,10 +91,10 @@ ans =
         EraseMode: [ {normal} | background | xor | none ]
         LineStyle: [ {-} | -- | : | -. | none ]
         LineWidth
-              \({\bf \cdots } \)
+              ( ... )
 \end{lstlisting}
 \end{itemize}
- \end{frame}
+\end{frame}
 % 
 % Slide
 %
@@ -218,7 +216,7 @@ a=get(0,'Factory')
 set(0,'DefaultAxesFontSize','remove')
 \end{lstlisting}
 \item Die Defaulteinstellungen k\"onnen in der Datei 'startup.m'  (Linux/Unix)
-  bzw. \mcode{matlabroot\toolbox\local} (Windows) abgelegt werden. Sie werden so
+  bzw. \mcode{matlabroot\\toolbox\\local} (Windows) abgelegt werden. Sie werden so
   beim Start von MATLAB automatisch eingeladen. 
 \item Unter Linux muss die Datei durch den Suchpfad \mcode{path} erreichbar
   sein.  
@@ -252,7 +250,7 @@ end
 %
 % Slide
 %
-\part{Einheit  6, 2. Teil\\Grapical User Interface (GUI)}
+\section{Grapical User Interface (GUI)}
 %
 % Slide
 %
@@ -274,11 +272,11 @@ end
 %
 \begin{frame}[fragile]\frametitle{Vordefinierte GUIs f\"ur \newline Dialogboxen}
 \begin{itemize}
-\item { \blue \mcode{helpdlg}}: Hilfebox
-\item { \blue \mcode{msgbox}}: Eine beliebige Nachricht
-\item { \blue \mcode{warndlg}}: Anzeige einer Warnung
-\item { \blue \mcode{inputdlg}}: Abfragen einer Gr\"o{\ss}e
-\item { \blue \mcode{questdlg}}: Frage
+\item { \mcode{helpdlg}}: Hilfebox
+\item { \mcode{msgbox}}: Eine beliebige Nachricht
+\item { \mcode{warndlg}}: Anzeige einer Warnung
+\item { \mcode{inputdlg}}: Abfragen einer Gr\"o{\ss}e
+\item { \mcode{questdlg}}: Frage
 \end{itemize}
 \alert{Beispiel:}
 \begin{lstlisting}
@@ -294,11 +292,13 @@ end
 %
 \begin{frame}[fragile]\frametitle{Grafik-Objekte und GUIs}
 \begin{itemize}
-\item \alert\alert{ uicontrols}\newline
+\item \alert{ uicontrols}
 Interaktive grafische Objekte, die Aktionen steuern oder bestimmte Optionen setzen.
-\item \alert\alert{ uimenus}\newline
+
+\item \alert{ uimenus}
 Bentzerdefinierte Men\"uf\"uhrung in einer \mcode{figure} (wird nicht behandelt)
-\item \alert\alert{ uicontextmenu}\newline
+
+\item \alert{ uicontextmenu}
 Ein Pop-up Men\"u, das erscheint, wenn der Benutzer mit der rechten Maustaste
 ein grafisches Objekt anklickt (wird nicht behandelt)
 \end{itemize}
@@ -413,7 +413,7 @@ function varargout = objectTag_Callback(h,ev_data,...
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Beispiel einer GUI}
-\includegraphics[width=0.8\linewidth]{./figures/guiNeu.ps}
+%\includegraphics[width=0.8\linewidth]{./figures/guiNeu.ps}
 \end{frame}
 % 
 % Slide
@@ -505,3 +505,5 @@ switch get(get(selection,'SelectedObject'),'tag')
 end;
 \end{lstlisting}
 \end{frame}
+
+\end{document}

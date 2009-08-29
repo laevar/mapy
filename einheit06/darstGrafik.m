@@ -13,13 +13,13 @@ set(findobj('tag','text1'), 'string', ...
 
 selection = findobj('tag','radio');
 switch get(get(selection,'SelectedObject'),'tag')
-    case 'r1'
-        surf(A(:,:,t));
-    case 'r2'
-         mesh(A(:,:,t));
-    case 'r3'
-         contour(A(:,:,t));
-    otherwise
-        error('Keines oder zuviele entsprech. GUIs geoeffnet');
-end;
+  case 'r1'
+    surf(A(:,:,t));
+  case 'r2'
+    mesh(A(:,:,t));
+  case 'r3'
+    contour(A(:,:,t));
+  otherwise
+    error('Keines oder zuviele entsprech. GUIs geoeffnet');
+end
 end

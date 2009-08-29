@@ -1,5 +1,5 @@
 #!/bin/bash
-texfile=${1}/uebung/aufgaben_einh05.tex
+texfile=${1}/uebung/aufgaben_einh06.tex
 iconv -f iso-8859-1 -t utf-8 $texfile > dummy
 mv dummy $texfile
 sed -i 's/\\underline/\\alert/g' $texfile

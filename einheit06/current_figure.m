@@ -7,10 +7,10 @@
 %----------------------------------
 
 % Handle aller Figures
-a=get(0,'children')
+a = get(0,'children')
 
 % Beschrifte alle Figures als 'nicht aktuell'
-for i=1:length(a)
+for i = 1:length(a)
     set(a(i),'name','nicht aktuell')
 end
 

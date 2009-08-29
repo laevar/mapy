@@ -1,7 +1,8 @@
-%
+\documentclass[utf8x,notes=hide]{beamer}
+\input{../slide_header}
 \subtitle{Einheit 7 \\ Schnittstelle zu C}
 \maketitle
-\part{Einheit 7, 1. Teil \\ Schnittstelle zu C}
+\section{Schnittstelle zu C}
 %
 % Slide
 %
@@ -46,7 +47,7 @@ Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden.
 %
 % Slide
 %
-\part{Mex-Dateien}
+\section{Mex-Dateien}
 %
 % Slide
 %
@@ -163,13 +164,13 @@ D = plhs[1];
 \vspace*{-0.5cm}
 Es gibt drei verschiedene Klassen von Funktionen im Zusammenhang mit der Schnittstelle.
 \begin{itemize}
-\item \alert\alert{ mex-Funktionen:}\\
+\item \alert{ mex-Funktionen:}\\
  Mex-Routinen interagieren mit der MATLAB Umgebung. 
 Beispielsweise interpretiert \mcode{mexEvalString} einen String im MATLAB Workspace.  
-\item \alert\alert{ mx-Funktionen:} \\
+\item \alert{ mx-Funktionen:} \\
 Menge von Funktionen mit 
  denen man MATLAB Arrays erzeugen und manipulieren kann. 
-\item \alert\alert{ Engine Funktionen:}\\ 
+\item \alert{ Engine Funktionen:}\\ 
  Menge von Funktionen, die das Arbeiten mit der MATLAB-Engine steuern. 
 \end{itemize}
 \end{frame}
@@ -524,12 +525,12 @@ contourf(x1,y1,C,20);
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Die Mandelbrotmenge}
-\includegraphics[width=\linewidth, height=6.5cm]{./figures/mandelbrot}
+\includegraphics[width=0.8\textwidth]{./figures/mandelbrot}
 \end{frame}
 %
 % Slide
 %
-\part{C-Programme mit MATLAB}
+\section{C-Programme mit MATLAB}
 %
 % Slide
 %
@@ -898,4 +899,5 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
 \}  
 \end{lstlisting}
 \end{frame}
+\end{document}
 

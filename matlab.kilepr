@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=einheit05/einheit05.tex
+lastDocument=einheit06/uebung/aufgaben_einh06.tex
 masterDocument=
 name=Matlab
 pkg_extIsRegExp=false
@@ -102,8 +102,35 @@ column=10
 encoding=UTF-8
 highlight=LaTeX
 line=4
+open=false
+order=0
+
+[item:einheit05/uebung/aufgaben_einh05.tex]
+archive=true
+column=0
+encoding=UTF-8
+highlight=LaTeX
+line=0
+open=false
+order=-1
+
+[item:einheit06/einheit06.tex]
+archive=true
+column=40
+encoding=UTF-8
+highlight=LaTeX
+line=0
 open=true
 order=0
+
+[item:einheit06/uebung/aufgaben_einh06.tex]
+archive=true
+column=34
+encoding=UTF-8
+highlight=LaTeX
+line=17
+open=true
+order=1
 
 [item:matlab.kilepr]
 archive=true

@@ -10,10 +10,13 @@
      Engine *ep;
      mxArray *x_m = NULL;
      
-     double n=10;
+     double n = 10;
       
      printf("\n Open MATLAB engine...\n");
-     ep = engOpen(NULL);
+     if (!(ep = engOpen(""))) {
+		   fprintf(stderr, "\nCan't start MATLAB engine\n");
+		   return EXIT_FAILURE;
+   	 }
      
      x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
      *mxGetPr(x_m) = n;
@@ -26,4 +29,3 @@
      fgetc(stdin);
      engClose(ep);
 }
-     

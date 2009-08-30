@@ -42,4 +42,3 @@
      mxDestroyArray(x_m);
      mxDestroyArray(d);
 }
-     

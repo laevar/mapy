@@ -46,7 +46,7 @@ int y1_laenge)
     {
     for (j = 0; j< y1_laenge; j++)
     {
-        /* ------ Berechnen der Folge */        
+        /* Berechnen der Folge */        
         m = 0;
         a = x1[i];
         b = y1[j];

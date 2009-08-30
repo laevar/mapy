@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "engine.h"
 
 #define MAX_ORDER 50
@@ -38,26 +39,23 @@ main(int argc, char* argv[])
     y_n=50;
   
 for (i=0; i<x_n; i++)
- {
-     x[i]= (double) i/(x_n-1);
- }
+{
+      x[i]= (double) i/(x_n-1);
+}
 for (i=0; i<y_n; i++)
- {
-     y[i]= (double) i/(y_n-1);
- }
-
-
-
-    for (i=0; i<x_n; i++) 
-    {
-	for (j=0; j<y_n; j++)
-	{
-	    *(z+i+j*x_n)=sin(4*3.14159*x[i])*sin(2*3.141459*y[j]);
-	}
-    }	   
-    if (plot_graph(x,y,z,x_n,y_n)==0)  
-         printf("\n Ungueltiger Aufruf von 'plot_graph' \n");
-    return  0;
+{
+      y[i]= (double) i/(y_n-1);
+}
+for (i=0; i<x_n; i++) 
+{
+      for (j=0; j<y_n; j++)
+      {
+        *(z+i+j*x_n)=sin(4*3.14159*x[i])*sin(2*3.141459*y[j]);
+      }
+}	   
+if (plot_graph(x,y,z,x_n,y_n)==0) 
+  printf("\n Ungueltiger Aufruf von 'plot_graph' \n");
+return  0;
 }
 
 /*---------------------------------------------------
@@ -89,7 +87,7 @@ printf("\n Open MATLAB engine...\n");
  
      printf("Copy entries into MATLAB ...\n");
 
-    memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
+     memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
      memcpy((void *)mxGetPr(y_m), (void *) y, y_n*sizeof(double));
      memcpy((void *)mxGetPr(z_m), (void *) z, x_n*y_n*sizeof(double));
        

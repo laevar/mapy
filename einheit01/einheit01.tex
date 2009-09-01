@@ -1,19 +1,7 @@
-\documentclass[utf8x,notes=hide]{beamer}
+\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \input{../slide_header}
 \subtitle{Einheit 1}
-
-\begin{frame}[fragile]
-  \titlepage
-\note{}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Aufbau}
-  \tableofcontents
-\note{}
-  % You might wish to add the option [pausesections]
-\end{frame}
-
+\maketitle
 
 \section{Streifzug durch MATLAB}
 
@@ -29,7 +17,7 @@ ursprünglich speziell für Matrizenrechnung entwickelt.
 \item Entwickelt von Cleve Moler Ende der 70'er in FORTRAN.
 \item Heutige Version ist in C/C++ programmiert.
 \item Interaktives System für numerische Berechnungen und Visualisierungen.
-\item Kein Computer-Algebra-System.
+\item Kein Computer-Algebra-System (Allerdings mittlerweile durch die \texttt{symbolic math toolbox} dahingehend erweiterbar)
 \end{itemize}
 \end{frame}
 
@@ -39,8 +27,8 @@ ursprünglich speziell für Matrizenrechnung entwickelt.
 \begin{frame}[fragile]\frametitle{Vorteile von MATLAB}
 
 \begin{itemize}
-\item High-Level Sprache $\Rightarrow$  Programmieren ist leicht und führt zu
-  schnellen Erfolgen. Sehr geeignet für Prototyping.
+\item High-Level Sprache $\Rightarrow$. Das Programmieren ist leicht und führt zu
+  schnellen Erfolgen. Sehr geeignet für Prototyping und Debugging.
 \item Vielfältige Visualisierungsmöglichkeiten.
 \item MATLAB-Programme sind vollständig portierbar zwischen Architekturen.
 \item Integration zusätzlicher Toolboxes (Symb. Math T., PDE T., Wavelet T.)  
@@ -54,14 +42,15 @@ ursprünglich speziell für Matrizenrechnung entwickelt.
 \begin{frame}[fragile]\frametitle{Literatur}
 \begin{thebibliography}{10}
 \small
-\bibitem{1}
+\bibitem{1} Matlab online-help :-).
+\bibitem{2}
 \alert{Matlab Guide}, D.J. Higham, N.J. Higham, SIAM, 2000, 
-\bibitem{2} \alert{Introduction to Scientific Computing}, C.F. van Loan, Prentice Hall,
+\bibitem{3} \alert{Introduction to Scientific Computing}, C.F. van Loan, Prentice Hall,
 New Jersey, 1997,
-\bibitem{3} \alert{Scientific Computing with MATLAB}, A. Quarteroni, F. Saleri, Springer, 2003,
-\bibitem{4} \alert{Graphics and GUIs with MATLAB}, P. Marchand, O.Th. Holland, Chapman \& Hall, 2003, 3. Aufl.
-\bibitem{5} \alert{MATLAB 7}, C. \"Uberhuber, St. Katzenbeisser, D. Praetorius, Springer 2005.
-\bibitem{6} \alert {Using \textsc{Matlab}}, offizielle Handbücher.
+\bibitem{4} \alert{Scientific Computing with MATLAB}, A. Quarteroni, F. Saleri, Springer, 2003,
+\bibitem{5} \alert{Graphics and GUIs with MATLAB}, P. Marchand, O.Th. Holland, Chapman \& Hall, 2003, 3. Aufl.
+\bibitem{6} \alert{MATLAB 7}, C. \"Uberhuber, St. Katzenbeisser, D. Praetorius, Springer 2005.
+\bibitem{7} \alert {Using \textsc{Matlab}}, offizielle Handbücher.
 \end{thebibliography}
 \end{frame}
 
@@ -193,7 +182,7 @@ Werten im Workspace gespeichert.
 Variablen im Workspace zugreifen. 
 \item Auskunft über den Inhalt des Workspace gibt \lstinline!whos! oder
 \lstinline!who!. 
-\item Löschen von Variablen \lstinline!var!: \lstinline!clear var!;
+\item Löschen von Variablen : \lstinline!clear <var>!;
 \lstinline!clear! löscht den gesamten Arbeitsspeicher (Workspace).
 \end{itemize}
 \end{frame}
@@ -226,24 +215,7 @@ definiert ist, beschränkt ist.
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Ein nichttriviales Beispiel}
-\begin{lstlisting}
-%  Plot Mandelbrot set
-x = linspace(-2.1,0.6,301);
-y = linspace(-1.1,1.1,301);
-
-[X,Y] = meshgrid(x,y);
-C = complex(X,Y);
-it_max = 50;
-Z = C;  Anz = zeros(size(Z));
-
-for k = 1:it_max
-    Z = Z.^2+C;
-    Anz = Anz + isfinite(Z);
-    waitbar(k/it_max);
-end,
-image(x,y,Anz);
-title('Mandelbrot Set', 'FontSize',16);
-\end{lstlisting}
+\lstinputlisting{mandel.m}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
@@ -254,8 +226,8 @@ title('Mandelbrot Set', 'FontSize',16);
 $a, a+(b-a)/(n-1), \dots ,b$
 \item \lstinline![X,Y]=meshgrid(x,y)! erzeugt Matrizen 
 \begin{equation*}
-X = \left( \begin{array}{c} x_1 \\ \vdots \\x_n \end{array}
-\right), \quad Y=( y_1, \dots ,y_n) 
+X = \left( \begin{array}{ccc} x_1 & \ldots & x_n\\  & \vdots & \\x_1 & \ldots & x_n\end{array}
+\right), \quad  Y = \left( \begin{array}{ccc} y_1 & \ldots & y_1\\  & \vdots & \\y_n & \ldots & y_n\end{array}  \right)
 \end{equation*}
 \item \lstinline!C=complex(X,Y)! erzeugt $C=(C(j,k))_{jk}$ mit
 $C(j,k)=X(j,k)+i \ Y(j,k)$ 
@@ -297,8 +269,6 @@ ausgegeben. Mit \lstinline!;! am Ende wird dies unterdrückt.
 \section{Vektoren und Matrizen}
 
 
-% Slides for the second session
-%
 
 \subsection{Erzeugen von Vektoren}
 %
@@ -578,14 +548,14 @@ ans =
 
 \item \lstinline!A/B! berechnet die Lösung $X$ von \lstinline!X*A=B!.\\
 
-\item \lstinline!inv(A)! berechnet das Inverse von $A$.\\
+\item \lstinline!inv(A)! berechnet die Inverse von $A$.\\
 
 \item \lstinline!A'! oder \lstinline!ctranspose(A)! ergibt die
   komplex Transponierte von $A$. \\
 
-\item \lstinline!transpose(A)! ist die Transponierte von $A$. \\
+\item \lstinline!A.'! oder \lstinline!transpose(A)! ist die Transponierte von $A$. \\
 
-\item \lstinline!A^z! berechnet $\underbrace{A*A*\cdots *A}_{z-mal}$\\
+\item \lstinline!A^z! berechnet $\underbrace{A*A*\cdots *A}_{z-mal}$ (quadratische Matrizen)\\
 
 \item Die Gr\"o{\ss}e einer Matrix $A$ wird durch \lstinline!size(A)!
   bestimmt. 
@@ -613,9 +583,9 @@ C =
 \end{lstlisting}
 \item \lstinline!C = A.\B! ergibt $C$ mit $C(i,j)=B(i,j)/A(i,j)$.
 \begin{lstlisting}[basicstyle=\tiny]
-         C =
-             2.0000    1.0000
-             0.6667    0.5000
+C =
+    2.0000    1.0000
+    0.6667    0.5000
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -886,7 +856,7 @@ ans =  2.7756e-17
 \begin{frame}[fragile]\frametitle{Inverse,  Determinante}
 \begin{itemize}
 \item Berechnung der Inversen
-\begin{columns}
+\begin{columns}[onlytextwidth]
 \column{0.45\textwidth}
 \begin{lstlisting}
 >> A=pascal(3)
@@ -959,7 +929,7 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
   Diagonalmatrix und  $U \subset \mathbb{C}^{m \times m}$, $V \subset
   \mathbb{C}^{n \times n}$  sind unitäre Matrizen. 
 \item Eine Cholesky-Zerlegung { $A=R^*R$} 
-zu einer hermitischen, pos. def. Matrix
+zu einer hermiteschen, positiv definiten Matrix
   $A$ wird durch  \lstinline!R=chol(A)!
   berechnet. $R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen. 

@@ -2,7 +2,7 @@
 {
   \usepackage{fullpage}
   \usepackage{pgf}
-  \usepackage{hyperref}
+  \usepackage[xetex]{hyperref}
   \setjobnamebeamerversion{beamer}
 }
 
@@ -20,11 +20,14 @@
 \usenavigationsymbolstemplate{}
 \usefonttheme{structurebold}
 \usepackage{multimedia}
-\usepackage{tikz}
+%\usepackage{tikz}
 \usepackage{fontspec,xunicode,xltxtra}
-%\usepackage[scaled=.90]{helvet}
-% Or whatever. Note that the encoding and the font should match. If T1
-% does not look nice, try deleting the line with the fontenc.
+
+%\usepackage{polyglossia}
+%\setdefaultlanguage[spelling=new, latesthyphen=true]{german}
+%\setmainfont{Arial}
+%\setromanfont{Linux Libertine O}
+%\setsansfont{Linux Biolinum O}
 
 \setbeamertemplate{footline}
 {
@@ -61,7 +64,7 @@
 %\usepackage{mcode}
 
 \usepackage{mydef}
-\usepackage{cmap} % you can search in the pdf for umlauts and ligatures
+%\usepackage{cmap} % you can search in the pdf for umlauts and ligatures
 %\usepackage{colonequals} %corrects the definition-symbols \colonequals (besides others)
 \title{Einführung in Matlab}
 %

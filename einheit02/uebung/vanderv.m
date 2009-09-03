@@ -17,5 +17,4 @@ function vanderv = vanderv(x)
 n = length(x);
 xrep = repmat (x(:),1,n);
 pmat = repmat(linspace(n-1,0,n),n,1);
-%keyboard
 vanderv = xrep.^pmat;

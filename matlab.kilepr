@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=einheit06/uebung/aufgaben_einh06.tex
+lastDocument=einheit05/einheit05.tex
 masterDocument=
 name=Matlab
 pkg_extIsRegExp=false
@@ -26,11 +26,11 @@ order=-1
 
 [item:einheit01/einheit01.tex]
 archive=true
-column=10
+column=15
 encoding=UTF-8
 highlight=LaTeX
-line=3
-open=true
+line=546
+open=false
 order=3
 
 [item:einheit01/uebung/aufgaben_einh01.tex]
@@ -44,12 +44,12 @@ order=2
 
 [item:einheit02/einheit02.tex]
 archive=true
-column=10
+column=74
 encoding=UTF-8
 highlight=LaTeX
-line=3
-open=true
-order=4
+line=0
+open=false
+order=2
 
 [item:einheit02/uebung/aufgaben_einh02.tex]
 archive=true
@@ -62,10 +62,10 @@ order=2
 
 [item:einheit03/einheit03.tex]
 archive=true
-column=57
+column=0
 encoding=UTF-8
 highlight=LaTeX
-line=895
+line=4
 open=false
 order=0
 
@@ -80,7 +80,7 @@ order=1
 
 [item:einheit04/einheit04.tex]
 archive=true
-column=0
+column=74
 encoding=UTF-8
 highlight=LaTeX
 line=0
@@ -98,12 +98,12 @@ order=1
 
 [item:einheit05/einheit05.tex]
 archive=true
-column=28
+column=17
 encoding=UTF-8
 highlight=LaTeX
-line=455
+line=2
 open=true
-order=5
+order=2
 
 [item:einheit05/uebung/aufgaben_einh05.tex]
 archive=true
@@ -116,30 +116,30 @@ order=-1
 
 [item:einheit06/einheit06.tex]
 archive=true
-column=16
+column=11
 encoding=UTF-8
 highlight=LaTeX
-line=139
-open=true
+line=126
+open=false
 order=0
 
 [item:einheit06/uebung/aufgaben_einh06.tex]
 archive=true
-column=23
+column=11
 encoding=UTF-8
 highlight=LaTeX
-line=56
+line=4
 open=true
-order=1
+order=0
 
 [item:einheit07/einheit07.tex]
 archive=true
-column=15
+column=7
 encoding=UTF-8
 highlight=LaTeX
-line=392
+line=163
 open=true
-order=2
+order=1
 
 [item:matlab.kilepr]
 archive=true

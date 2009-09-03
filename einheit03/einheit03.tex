@@ -1,20 +1,7 @@
-\documentclass[utf8x,notes=hide]{beamer}
+\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \input{../slide_header}
-\subtitle{Einheit 3 \\ Grafik, Arbeiten mit Polynomen }
-
-
-\begin{frame}[fragile]
-  \titlepage
-\note{}
-\end{frame}
-
-\begin{frame}[fragile]
-  \frametitle{Aufbau}
-  \tableofcontents
-\note{}
-  % You might wish to add the option [pausesections]
-\end{frame}
-
+\subtitle{Einheit 3}
+\maketitle
 
 
 \section{Einf\"uhrung Grafik}
@@ -33,8 +20,8 @@ verbindet.
 \begin{columns}[c]
  \column{0.4\textwidth}
 \begin{lstlisting}
->> x=linspace(0,2*pi,100);
->> y1=sin(3*x);
+>> x = linspace(0,2*pi,100);
+>> y1 = sin(3*x);
 >> plot(x,y1)
 \end{lstlisting}
  \column{0.55\textwidth}
@@ -54,7 +41,7 @@ Elemente ist beliebig.
 \begin{columns}[c]
  \column{0.4\textwidth}
 {\it Beispiel:} Durch \\
-\alert{ \lstinline!plot(x,y,'r*--')!} wird die Linie
+\alert{ \mcode{plot(x,y,'r*--')}} wird die Linie
 gestrichelt (- -) in rot (r) gezeichnet und die Punkte durch *
 markiert.
 \column{0.55\textwidth}
@@ -70,8 +57,8 @@ markiert.
   y (gelb), k (schwarz), w (weiß)\\
 \alert{ Marker} & o (Kreis), * (Stern), . (Punkt), + (Plus), x (Kreuz), s
   (Quadrat), d (Raute),... \\
-\alert{ Linien-Stil} &  - (durchgezogene Linie), \lstinline!--! (gestrichelte
-  Linie), \lstinline!:! (gepunktete Linie), \lstinline!-.! (Strich-Punkt Linie)\\
+\alert{ Linien-Stil} &  - (durchgezogene Linie), \mcode{--} (gestrichelte
+  Linie), \mcode{:} (gepunktete Linie), \mcode{-.} (Strich-Punkt Linie)\\
 \end{tabular}
 
 Läßt man den Linien-Stil weg, so werden die Punkte nicht verbunden.
@@ -85,8 +72,8 @@ Läßt man den Linien-Stil weg, so werden die Punkte nicht verbunden.
 plot(x,y,string,Eigenschaft, Spez.) 
 \end{lstlisting}
 \alert{ Eigenschaften:}\\
-\lstinline!'MarkerSize'! (Default 6), \lstinline!'LineWidth'! (Default 0.5),
-\lstinline!'MarkerEdgeColor'!, \lstinline!'MarkerFaceColor'!\\
+\mcode{'MarkerSize'} (Default 6), \mcode{'LineWidth'} (Default 0.5),
+\mcode{'MarkerEdgeColor'}, \mcode{'MarkerFaceColor'}\\
 
 \begin{columns}[c]
  \column{0.55\textwidth}
@@ -105,13 +92,13 @@ plot(x,y,string,Eigenschaft, Spez.)
 \begin{frame}[fragile]\frametitle{Alternativen}
 \begin{itemize}
 \item Mehrere Plots in eine Grafik:
-\alert{ \lstinline!plot(x1,y1,string1,x2,y2,string2,...)!}
-\item Logaritmische Skalierung in $x$- bzw in $y$-Richtung: \alert{ \lstinline!semilogx(x1,y1)!} bzw. \alert{
-  \lstinline!semilogy(x1,y1)!}.
+\alert{ \mcode{plot(x1,y1,string1,x2,y2,string2,...)}}
+\item Logaritmische Skalierung in $x$- bzw in $y$-Richtung: \alert{ \mcode{semilogx(x1,y1)}} bzw. \alert{
+  \mcode{semilogy(x1,y1)}}.
 \item Logarithmische Skalierung beider Achsen: \alert{
-  \lstinline!loglog(x1,y1)!}   
+  \mcode{loglog(x1,y1)}}   
 \item Ist $X$ ein Vektor mit komplexen Einträgen, so ergibt \alert{
-  \lstinline!plot(X)!} \lstinline!plot(real(X),imag(X))!.
+  \mcode{plot(X)}} \mcode{plot(real(X),imag(X))}.
 \end{itemize}
 \end{frame}
 % 
@@ -121,12 +108,12 @@ plot(x,y,string,Eigenschaft, Spez.)
 %\begin{columns}[c]
 % \column{0.52\textwidth}
 \begin{lstlisting}[basicstyle=\scriptsize]
->> x=linspace(-1,1,100);
->> p1=x;
->> p2=(3/2)*x.^2-1/2;
->> p3=(5/2)*x.^3-(3/2)*x;
->> p4=(35/8)*x.^4 - (15/4)*x.^2+3/8;
->> plot(x,p1,'r:',x,p2,'g--',x,p3,'b-.',x,p4,'m-','LineWidth',2)
+x = linspace(-1,1,100);
+p1 = x;
+p2 = (3/2)*x.^2-1/2;
+p3 = (5/2)*x.^3-(3/2)*x;
+p4 = (35/8)*x.^4 - (15/4)*x.^2+3/8;
+plot(x,p1,'r:',x,p2,'g--',x,p3,'b-.',x,p4,'m-','LineWidth',2)
 \end{lstlisting}
 %\column{0.48\textwidth}
 \hfil\includegraphics[width=0.55\textwidth]{figures/grafik_4}\hfil
@@ -137,18 +124,18 @@ plot(x,y,string,Eigenschaft, Spez.)
 % 
 \begin{frame}[fragile]\frametitle{Achseneinstellungen}
 \begin{tabular}{p{3cm}p{8cm}}
-\lstinline!axis([x1 x2 y1 y2])! & Setzen der $x$- und $y$-Achsen
+\mcode{axis([x1 x2 y1 y2])} & Setzen der $x$- und $y$-Achsen
 Grenzen\\
-\lstinline!axis auto! & Rückkehr zu Default Achsen Grenzen\\
-\lstinline!axis equal! & Gleiche Dateneinheiten auf allen Achsen\\
-\lstinline!axis off! & Enfernen der Achsen\\
-\lstinline!axis square! & quadratische Achsen-Box\\
-\lstinline!axis tight! & Achsen Grenzen werden passend zu den Daten
+\mcode{axis auto} & Rückkehr zu Default Achsen Grenzen\\
+\mcode{axis equal} & Gleiche Dateneinheiten auf allen Achsen\\
+\mcode{axis off} & Enfernen der Achsen\\
+\mcode{axis square} & quadratische Achsen-Box\\
+\mcode{axis tight} & Achsen Grenzen werden passend zu den Daten
 gewählt. \\
-\lstinline!xlim([x1 x2])! & Setzen der $x$-Achse\\
-\lstinline!ylim([y1 y2])! & Setzen der $y$-Achse\\
-\lstinline!grid on! & Gitter aktivieren\\
-\lstinline!box on!, \lstinline!box off!  & Box um die Grafik
+\mcode{xlim([x1 x2])} & Setzen der $x$-Achse\\
+\mcode{ylim([y1 y2])} & Setzen der $y$-Achse\\
+\mcode{grid on} & Gitter aktivieren\\
+\mcode{box on}, \mcode{box off}  & Box um die Grafik
 legen, Box entfernen
 \end{tabular}
 \end{frame}
@@ -201,17 +188,17 @@ AB6de*
 %
 \begin{frame}[fragile]\frametitle{Exkurs: Befehle für Strings}
 \begin{itemize}
-\item Durch \lstinline!strcat! werden Strings verbunden, z.B. \lstinline!strcat('Hello',' world')!. 
+\item Durch \mcode{strcat} werden Strings verbunden, z.B. \mcode{strcat('Hello',' world')}. 
 %\begin{lstlisting}
 %>> strcat('Hello',' world')
 %ans =
 %Hello world
 %\end{lstlisting}
-\item \lstinline!num2str(x,n)! konvertiert $x$ in einen String mit $n$
+\item \mcode{num2str(x,n)} konvertiert $x$ in einen String mit $n$
   signifikanten Stellen. (Default: $n=4$)
-\item \lstinline!int2str(x)! rundet $x$ und konvertiert es in einen String.
-\item \lstinline!strcmp(s,t)! vergleicht die Strings $s$ und $t$. 
-\item Durch \lstinline!help strfun! erhält man eine Liste aller Befehle im
+\item \mcode{int2str(x)} rundet $x$ und konvertiert es in einen String.
+\item \mcode{strcmp(s,t)} vergleicht die Strings $s$ und $t$. 
+\item Durch \mcode{help strfun} erhält man eine Liste aller Befehle im
   Zusammenhang mit Strings.
 \end{itemize}
 \end{frame}
@@ -222,14 +209,14 @@ AB6de*
 % 
 \begin{frame}[fragile]\frametitle{Beschriften der Grafik}
 \begin{itemize}
-\item Titel:  \alert{ \lstinline!title('Titel')!}
-\item Achsenbeschriftung:  \alert{ \lstinline!xlabel('Text')!},
-  \alert{ \lstinline!ylabel('Text')!} 
-\item Legende: \alert{ \lstinline!legend('Text1','Text2',...,nr)!} \\
+\item Titel:  \alert{ \mcode{title('Titel')}}
+\item Achsenbeschriftung:  \alert{ \mcode{xlabel('Text')}},
+  \alert{ \mcode{ylabel('Text')}} 
+\item Legende: \alert{ \mcode{legend('Text1','Text2',...,nr)}} \\
 {\scriptsize \alert{ nr} gibt die Position der Legendenbox in der Grafik an:
   -1 (rechts vom Plot), 0 'bester' Ort, 1 oben rechts (default), 2
   oben links, 3 unten links, 4 unten rechts. }
-\item zusätzlicher Text: \alert{ \lstinline!text(x,y,'Text')!} Plaziert
+\item zusätzlicher Text: \alert{ \mcode{text(x,y,'Text')}} Plaziert
   'Text' an die Position $(x,y)$ bzgl. der Werte auf der $x$-
   bzw. $y$-Achse. 
 \end{itemize}
@@ -242,12 +229,12 @@ AB6de*
 \item  In den strings kann direkt eine abgespeckte \LaTeX-Notation verwendet werden. Eine nahezu vollständige 
 \LaTeX-Unterstützung ist mit dem latex-interpreter möglich.
 Beispiele: 
-\begin{itemize} \item \lstinline!\alpha! $\Rightarrow$ $\alpha$
-\item \lstinline!sin^{3/2}(x)! $\Rightarrow$ $\sin^{3/2}(x)$ .
-\item \lstinline!title('$f(x) = \frac{1}{x^2+a}$','interpreter','latex')! $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
+\begin{itemize} \item \mcode{\\alpha} $\Rightarrow$ $\alpha$
+\item \mcode{sin^\{3/2\}(x)} $\Rightarrow$ $\sin^{3/2}(x)$ .
+\item \mcode{title('$f(x) = \\frac\{1\}\{x^2+a\}$','interpreter','latex')} $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
 \end{itemize}
-\item Ändern der Schriftgröße, z.B. \lstinline!title('Titel','FontSize', 20)!.
-\item Auflistung aller modifizierbaren Texteigenschaften: \lstinline!doc text_props!
+\item Ändern der Schriftgröße, z.B. \mcode{title('Titel','FontSize', 20)}.
+\item Auflistung aller modifizierbaren Texteigenschaften: \mcode{doc text_props}
 \end{itemize}
 \end{frame}
 % 
@@ -270,15 +257,15 @@ Beispiele:
 % 
 \begin{frame}[fragile]\frametitle{Umgang mit Grafikfenster}
 \begin{itemize}
-\item Öffnen eines (weiteren) Grafikfensters: \lstinline!figure!.  Eine
+\item Öffnen eines (weiteren) Grafikfensters: \mcode{figure}.  Eine
   Grafik wird immer im aktuellen Fenster erzeugt. Ist noch kein
   Fenster geöffnet, so wird ein Fenster erzeugt.
-\item Durch den Befehl \lstinline!hold on! werden bestehende Grafiken im
+\item Durch den Befehl \mcode{hold on} werden bestehende Grafiken im
   aktuellen Fenster erhalten. Neue Grafiken werden den bestehenden
   hinzugefügt. 
-\item \lstinline!hold off! (default) überschreibt Grafiken im
+\item \mcode{hold off} (default) überschreibt Grafiken im
   aktuellen Fenster
-\item Schliessen: \lstinline!close!, \lstinline!close all!
+\item Schliessen: \mcode{close}, \mcode{close all}
 \end{itemize}
 \end{frame}
 
@@ -326,57 +313,27 @@ verläuft.\\[1cm]
 
 \textbf{Beispiel}: Interpolation von
 \[ (x_i,y_i)_{i=0}^{12} \]
-mit \lstinline!x=linspace(-5,5,13)! und $y_i=\frac{1}{1+x_i^2}$. 
+mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$. 
 \end{frame}
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Polynomiale Interp.: Beispiel}
-\includegraphics[width=\linewidth]{figures/grafik_7}
+\begin{frame}[fragile]\frametitle{Polynomiale Interpolation: Beispiel}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/grafik_7}
+\end{center}
 \end{frame}
 % 
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Programm 1}
-\begin{lstlisting}
-function p=interpol2(x,y)
-% interpol2 berechnet zu n+1 Punkten (x_i,y_i)
-%           das Polynom n-ten Grades, das durch die
-%           n+1 Punkte verlaeuft
-%           INPUT: Vektoren x,y
-%           OUTPUT: Koeffizientenvektor p
-%   Gerd Rapin    23.11.2003
-
-% Aufstellen des lin. GLS
-A = vandermonde(x);
-
-% Loesen des lin GLS
-p = A\y';
-\end{lstlisting}
+\lstinputlisting{interpol2.m}
 \end{frame}
 % 
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Programm 2}
-\begin{lstlisting}
-%---------------------------
-%      interpol3.m
-%  berechnet die polynomiale
-%  Interpolation fuer 1/(1+x^2)
-%   Gerd Rapin  23.11.2003
-%--------------------------------
-x = linspace(-5,5,13); % Stuetzstellen
-y = 1./(1+x.*x);
-plot(x,y,'or','Markersize',8); hold on;
-p = interpol2(x,y); % Berechnen der Koeffizienten
-x1 = linspace(-5,5,100);
-y1 = ausw_poly2(p',x1);
-y2 = 1./(1+x1.*x1);
-plot(x1,y1,x1,y2,'Linewidth',3);
-xlim([-6,6]); grid on; box on;
-legend('Interpolationspunkte','Interpolierende von f',...
- 'f(x)=1/(1+x^2)');
-\end{lstlisting}
+\lstinputlisting{interpol3.m}
 \end{frame}
 
 \subsection{Weitere zweidimensionale Darstellungsmöglichkeiten}
@@ -395,10 +352,10 @@ Daten:
 \end{lstlisting}
 \end{minipage}\\
 \begin{itemize}
-\item Balkendiagramm: \alert{ \lstinline!bar(y)!}
-\item Histogramm: \alert{ \lstinline!hist(y,5)!}
-\item einfacher Plot: \alert{ \lstinline!area(n,[y',2*y'])!}
-\item Tortengrafik:  \alert{ \lstinline!pie3([ 1 2 3 4])!}
+\item Balkendiagramm: \alert{ \mcode{bar(y)}}
+\item Histogramm: \alert{ \mcode{hist(y,5)}}
+\item einfacher Plot: \alert{ \mcode{area(n,[y',2*y'])}}
+\item Tortengrafik:  \alert{ \mcode{pie3([ 1 2 3 4])}}
 \end{itemize}
 \end{frame}
 % 
@@ -437,7 +394,7 @@ pie3([ 1 2 3 4]); title('Tortengrafik');
 % 
 \begin{frame}[fragile]\frametitle{Approximation von Integralen}
 Approximiere $\int_0^1 f(x) dx$ durch
-{\tiny \[ \int_0^1 f(x) dx \approx  \sum_{i=1}^{N} \frac{1}{N} f \left(
+{\scriptsize \[ \int_0^1 f(x) dx \approx  \sum_{i=1}^{N} \frac{1}{N} f \left(
 \frac{i-\frac{1}{2}}{N} \right ) \]}
 für gegebenes $N \in \mathbb{N}$. \textbf{Beispiel}: $f(x)=x^3$
 \begin{columns}[t]
@@ -450,7 +407,7 @@ für gegebenes $N \in \mathbb{N}$. \textbf{Beispiel}: $f(x)=x^3$
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Programm}
+\begin{frame}[fragile]\frametitle{Integral - Implementation}
 \begin{lstlisting}
 %   integral.m
 
@@ -481,20 +438,20 @@ title(['\int_0^1 x^3! = ',num2str(result),...
 % 
 \begin{frame}[fragile]\frametitle{Dreidimensionale Grafiken}
 \begin{itemize}
-\item Dreidimensionale Version von \lstinline!plot!: \alert{ \lstinline!plot3!}
+\item Dreidimensionale Version von \mcode{plot}: \alert{ \mcode{plot3}}
 \item Darstellung von Funktionen $f:\mathbb{R}^2 \ \rightarrow \
   \mathbb{R}$:
 \begin{itemize}
-\item Contourplot (zeichnet die Niveaulinien): \alert{ \lstinline!contour!}, \alert{
-    \lstinline!contourf!}, \alert{ \lstinline!contour3!}
-\item Darstellung des Graphen mit Gitterlinien: \alert{ \lstinline!mesh! ,
-  \lstinline!meshc!} 
-\item Flächige Darstellung des Graphen: \alert{ \lstinline!surf!, \lstinline!surfc!}
+\item Contourplot (zeichnet die Niveaulinien): \alert{ \mcode{contour}}, \alert{
+    \mcode{contourf}}, \alert{ \mcode{contour3}}
+\item Darstellung des Graphen mit Gitterlinien: \alert{ \mcode{mesh} ,
+  \mcode{meshc}} 
+\item Flächige Darstellung des Graphen: \alert{ \mcode{surf}, \mcode{surfc}}
 \end{itemize} 
 \item Darstellung von Funktionen $f:\mathbb{R}^3 \ \rightarrow \
   \mathbb{R}$:
 \begin{itemize}
-\item Streifenansichten \alert{ \lstinline!slice!}
+\item Streifenansichten \alert{ \mcode{slice}}
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -504,7 +461,7 @@ title(['\int_0^1 x^3! = ',num2str(result),...
 % 
 \begin{frame}[fragile]\frametitle{plot3}
 Bei gegebenen Vektoren $x=(x_i)_{i=1}^n$, $y=(y_i)_{i=1}^n$,
-$z=(z_i)_{i=1}^n$ erzeugt \alert{ \lstinline!plot3(x,y,z)!} einen Plot der die Punkte
+$z=(z_i)_{i=1}^n$ erzeugt \alert{ \mcode{plot3(x,y,z)}} einen Plot der die Punkte
 $(x_i,y_i,z_i)$ und $(x_{i+1},y_{i+1},z_{i+1})$ miteinander
 verbindet. \\
 \begin{center}\includegraphics[width=0.6\textwidth]{figures/beispiel_plot3}\end{center}
@@ -530,11 +487,11 @@ title('Beispiel: plot3','FontSize',15);
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Blickwinkel}
-\centering\alert{ \lstinline!view(az,el)!}
+\centering\alert{ \mcode{view(az,el)}}
 \begin{itemize}
-\item \alert{ \lstinline!az!} ist die horiz. Rotation in Grad (Def. \alert{
+\item \alert{ \mcode{az}} ist die horiz. Rotation in Grad (Def. \alert{
   $-37.5$}) 
-\item \alert{ \lstinline!el!} ist die vertikale Rotation in Grad (Def. \alert{
+\item \alert{ \mcode{el}} ist die vertikale Rotation in Grad (Def. \alert{
   $30$})
 \end{itemize}
 \begin{center}\includegraphics[width=0.6\textwidth]{figures/beispiel_plot3_2}\end{center}
@@ -560,7 +517,7 @@ Darstellung von Funktionen
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Programm}
+\begin{frame}[fragile]\frametitle{Funktionenplot - Implementation}
 \begin{lstlisting}
 % Erzeugen des Gitters
 x = linspace(-2,2,30);
@@ -609,7 +566,7 @@ Zu Vektoren $x=(x_i)_{i=1}^k$, $y=(y_j)_{j=1}^n$ erzeugt
 Matrizen $X,Y \in \mathbb{R}^{n \times k}$, wobei jede Zeile von $X$
 eine Kopie des Vektors $x$ ist und $Y$ als Spalten den Vektor $y$
 enthält. \\
-Dann hat \alert{ \lstinline!Z=X.*Y!} die Komponenten 
+Dann hat \alert{ \mcode{Z=X.*Y}} die Komponenten 
 \[ Z(i,j)=x(j)*y(i). \]
 \end{frame}
 % 
@@ -617,13 +574,13 @@ Dann hat \alert{ \lstinline!Z=X.*Y!} die Komponenten
 % 
 \begin{frame}[fragile]\frametitle{Darstellungsmöglichkeiten}
 \begin{itemize}
-\item Contourplot (zeichnet die Niveaulinien): \alert{ \lstinline!contour!}
-\item Darstellung des Graphen mit Gitterlinien: \alert{ \lstinline!mesh! ,
-  \lstinline!meshc!} 
-\item Flächige Darstellung des Graphen: \alert{ \lstinline!surf!, \lstinline!surfc!}
+\item Contourplot (zeichnet die Niveaulinien): \alert{ \mcode{contour}}
+\item Darstellung des Graphen mit Gitterlinien: \alert{ \mcode{mesh} ,
+  \mcode{meshc}} 
+\item Flächige Darstellung des Graphen: \alert{ \mcode{surf}, \mcode{surfc}}
 \end{itemize} 
 
-\alert{ \lstinline!mesh(X,Y,Z)!} z.B. stellt für Matrizen $X,Y,Z \in
+\alert{ \mcode{mesh(X,Y,Z)}} z.B. stellt für Matrizen $X,Y,Z \in
 \mathbb{R}^{n \times k}$ die Punkte 
 \[\alert{  (X(i,j), Y(i,j), Z(i,j))} \quad \mbox{dar.}\]
 \end{frame}
@@ -632,12 +589,12 @@ Dann hat \alert{ \lstinline!Z=X.*Y!} die Komponenten
 % 
 \begin{frame}[fragile]\frametitle{Weitere Möglichkeiten}
 \begin{itemize}
-\item Darstellung versteckter Linien (bei \lstinline!mesh!): \alert{ \lstinline!hidden off!}, Default:
-\alert{ \lstinline!hidden on!}
-\item Verschmieren des Gitters: \alert{ \lstinline!shading('interp')!}
-\item Blickwinkel: \alert{ \lstinline!view(az,el)!}
-\item ähnlich wie \lstinline!mesh!; nur mit 'Vorhang': \alert{
-  \lstinline!meshz(X,Y,Z)!}
+\item Darstellung versteckter Linien (bei \mcode{mesh}): \alert{ \mcode{hidden off}}, Default:
+\alert{ \mcode{hidden on}}
+\item Verschmieren des Gitters: \alert{ \mcode{shading('interp')}}
+\item Blickwinkel: \alert{ \mcode{view(az,el)}}
+\item ähnlich wie \mcode{mesh}; nur mit 'Vorhang': \alert{
+  \mcode{meshz(X,Y,Z)}}
 \end{itemize}
 \end{frame}
 % 
@@ -700,14 +657,14 @@ subplot(2,2,4),
 % 
 \begin{frame}[fragile]\frametitle{Erläuterungen zu Contour-Befehlen}
 \begin{itemize}
-\item \lstinline!contour(X,Y,Z,n)! zeichnet f\"ur $n\in \mathbb{N}$
+\item \mcode{contour(X,Y,Z,n)} zeichnet f\"ur $n\in \mathbb{N}$
   $n$-Konturlinien. Ist $n$ ein Vektor, werden Konturlinien zu den Werten in
   dem Vektor $n$ geplottet.
-\item \lstinline!contourf! funktioniert wie \lstinline!contour! nur das die Flächen
+\item \mcode{contourf} funktioniert wie \mcode{contour} nur das die Flächen
   zwischen den Konturlinien ausgefüllt werden.
-\item \lstinline!label(C,h)! beschriftet die Konturlinien, deren Werte in $C$
+\item \mcode{label(C,h)} beschriftet die Konturlinien, deren Werte in $C$
   gespeichert sind und die zum Grafik-Handle $h$ gehören.
-\item \lstinline!contour3! zeichnet jede Konturlinie auf einer anderen H\"ohe.
+\item \mcode{contour3} zeichnet jede Konturlinie auf einer anderen H\"ohe.
 \end{itemize}
 \end{frame}
 %
@@ -732,39 +689,30 @@ alpha(0.6) % Transparency
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Beispiel: slice}
+\hfil\includegraphics[width=0.8\textwidth]{figures/slice}\hfil
+\end{frame}
+
 \subsection{Animation}
 % 
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Animation-Beispiel}
-\begin{lstlisting}
-% animation.m
-
-clear all;
-[X,Y] = meshgrid(-1:0.05:1,-1:0.05:1);
-
-for j = 1:30
-    Z = cos(j^0.5*pi*exp(-X.^2-Y.^2));
-    mesh(X,Y,Z);
-    F(j) = getframe;
-end
-% Abspielen des Movies
-movie(F,1);
-\end{lstlisting}
+\lstinputlisting{animation.m}
 \end{frame}
 %
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Erstellen einer Animation}
 \begin{itemize}
-\item Mit \lstinline!F(j)=getframe! wird die aktuelle Grafik in das Array
+\item Mit \mcode{F(j)=getframe} wird die aktuelle Grafik in das Array
   $F$ gespeichert.
 \item Nach dem alle Bilder zu $F$ hinzugefügt worden sind, kann man
-  die Sequenz der Bilder $F$ darstellen durch \lstinline!movie(F,n,fps)!,
+  die Sequenz der Bilder $F$ darstellen durch \mcode{movie(F,n,fps)},
   wobei $n$ die Anzahl der Wiederholungen angibt und $fps$ der
   gezeigten Frames pro Sekunde entspricht (Default: $n=1$, $fps=12$). 
 
-\item Speichern des Movies in AVI Format: \lstinline!movie2avi(F,Dateiname)!
+\item Speichern des Movies in AVI Format: \mcode{movie2avi(F,Dateiname)}
 \end{itemize}
 \end{frame}
 
@@ -772,7 +720,6 @@ movie(F,1);
 % Slide
 %
 \section{Polynome}
-\subsection{Interpolation Extrapolation}
 
 %
 % Slide
@@ -832,7 +779,7 @@ Dimens. wie $x$.\\[0.2cm]
 %
 \begin{frame}[fragile]\frametitle{Bestimmung von Nullstellen}
 Ist $p$ der obige Koeffizientenvektor, so k\"onnen die Nullstellen $z$
-durch \lstinline!z = roots(p)! berechnet werden. 
+durch \mcode{z = roots(p)} berechnet werden. 
 
 \textbf{Beispiel:} \\
 Nullstellen von $p(x):= x^3 - x^2 +1$\\
@@ -858,9 +805,9 @@ ans =
 \begin{frame}[fragile]\frametitle{Interpolation}
 Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
 $n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.\\
-In MATLAB: \alert{ \lstinline!p=polyfit(x,y,n)!} \\[0.5cm]
+In MATLAB: \alert{ \mcode{p=polyfit(x,y,n)}} \\[0.5cm]
 
-Ruft man \alert{ \lstinline!p=polyfit(x,y,m)!} mit $m<n$ auf, so sucht MATLAB
+Ruft man \alert{ \mcode{p=polyfit(x,y,m)}} mit $m<n$ auf, so sucht MATLAB
 die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
 welches \\
  $\sum_{i=0}^n (p(x_i)-y_i)^2$ minimiert.
@@ -877,7 +824,7 @@ yi=interp1(x,y,xi,'method').
 Dabei sind $(x,y)$ die gegebenen Punkte, $xi$ sind die Stellen, an die
 die Interpolante berechnet wird und $yi$ sind die entsprechenden
 Funktionswerte. 
-Als \lstinline!'method'! gibt es\\
+Als \mcode{'method'} gibt es\\
 
 {\scriptsize
 \begin{tabular}{ll}
@@ -900,38 +847,38 @@ $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 %
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
-\item  Nur für die Spline-Methoden können   bei \lstinline!interp1!  auch
+\item  Nur für die Spline-Methoden können   bei \mcode{interp1}  auch
   Stellen außerhalb des
   Interpolationsintervalls berechnet werden.
 \item Data Fitting kann auch über die Oberfläche durchgeführt werden.
- Plotten Sie die Daten und wählen Sie \lstinline!Basic Fitting! im Men\"u
- \lstinline!Tools!. 
+ Plotten Sie die Daten und wählen Sie \mcode{Basic Fitting} im Men\"u
+ \mcode{Tools}. 
 \end{itemize}
 \end{frame}
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Lineare Regression}
-\begin{lstlisting}
-% Example for Linear Regression 
-x = (1:0.5:4)';
-y = exp(x);
-plot(x,y,'o');
-hold on;
-pause;
-%--- Determine least square fit for
-
-%    f(t)=a(1) + a(2) t + a(3) t^2
-
-n=length(x);
-A = [ ones(n,1), x, x.^2 ];
-a = A \ y;
-%--- Plot new curve
-x1 = 1:0.1:4;
-y1 = a(1) + a(2)*x1 + a(3)*x1.^2;
-plot(x1,y1,'LineWidth',2)
-\end{lstlisting}
-\end{frame}
+% \begin{frame}[fragile]\frametitle{Lineare Regression}
+% \begin{lstlisting}
+% % Example for Linear Regression 
+% x = (1:0.5:4)';
+% y = exp(x);
+% plot(x,y,'o');
+% hold on;
+% pause;
+% %--- Determine least square fit for
+% 
+% %    f(t)=a(1) + a(2) t + a(3) t^2
+% 
+% n=length(x);
+% A = [ ones(n,1), x, x.^2 ];
+% a = A \ y;
+% %--- Plot new curve
+% x1 = 1:0.1:4;
+% y1 = a(1) + a(2)*x1 + a(3)*x1.^2;
+% plot(x1,y1,'LineWidth',2)
+% \end{lstlisting}
+% \end{frame}
 
 \end{document}
 

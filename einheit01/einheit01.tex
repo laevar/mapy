@@ -75,7 +75,7 @@ Einträge
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Erste Schritte}
 \begin{itemize}
-\item MATLAB als Taschenrechner \newline (Ergebnis wird in \lstinline!ans! gespeichert.) 
+\item MATLAB als Taschenrechner \newline (Ergebnis wird in \mcode{ans} gespeichert.) 
 \begin{lstlisting}
 >> 1+(sin(pi/2)+ exp(2))*0.5
 ans = 5.1945
@@ -84,7 +84,7 @@ ans = 5.1945
 \begin{lstlisting}
 >> x = [1 2 3]  
 \end{lstlisting}
-\item Transponieren und speichern in  Variable \lstinline!b!
+\item Transponieren und speichern in  Variable \mcode{b}
 \begin{lstlisting}
 >> b = transpose(x)
 \end{lstlisting}
@@ -119,7 +119,7 @@ A = [0 2 3 ; 4 5 6; 7 8 9];
 \begin{lstlisting}
 >> det(A)
 \end{lstlisting}
-\item Hilfe zu \lstinline!det! 
+\item Hilfe zu \mcode{det} 
 \begin{lstlisting}
 >> help det
  DET    Determinant.
@@ -180,10 +180,10 @@ ans = 1.6350
 Werten im Workspace gespeichert.
 \item Man kann während einer MATLAB-Sitzung auf alle 
 Variablen im Workspace zugreifen. 
-\item Auskunft über den Inhalt des Workspace gibt \lstinline!whos! oder
-\lstinline!who!. 
-\item Löschen von Variablen : \lstinline!clear <var>!;
-\lstinline!clear! löscht den gesamten Arbeitsspeicher (Workspace).
+\item Auskunft über den Inhalt des Workspace gibt \mcode{whos} oder
+\mcode{who}. 
+\item Löschen von Variablen : \mcode{clear <var>};
+\mcode{clear} löscht den gesamten Arbeitsspeicher (Workspace).
 \end{itemize}
 \end{frame}
 
@@ -222,14 +222,14 @@ definiert ist, beschränkt ist.
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Verwendete Befehle}
 \begin{itemize}
-\item \lstinline!linspace(a,b,n)! ist ein Vektor mit n Einträgen der Form
+\item \mcode{linspace(a,b,n)} ist ein Vektor mit n Einträgen der Form
 $a, a+(b-a)/(n-1), \dots ,b$
-\item \lstinline![X,Y]=meshgrid(x,y)! erzeugt Matrizen 
+\item \mcode{[X,Y]=meshgrid(x,y)} erzeugt Matrizen 
 \begin{equation*}
 X = \left( \begin{array}{ccc} x_1 & \ldots & x_n\\  & \vdots & \\x_1 & \ldots & x_n\end{array}
 \right), \quad  Y = \left( \begin{array}{ccc} y_1 & \ldots & y_1\\  & \vdots & \\y_n & \ldots & y_n\end{array}  \right)
 \end{equation*}
-\item \lstinline!C=complex(X,Y)! erzeugt $C=(C(j,k))_{jk}$ mit
+\item \mcode{C=complex(X,Y)} erzeugt $C=(C(j,k))_{jk}$ mit
 $C(j,k)=X(j,k)+i \ Y(j,k)$ 
 \end{itemize}
 \end{frame}
@@ -238,15 +238,15 @@ $C(j,k)=X(j,k)+i \ Y(j,k)$
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Verwendete Befehle}
 \begin{itemize}
-\item \lstinline!B=isfinite(A)! erzeugt eine Matrix $B$ der gleichen Gr\"o{\ss}e
+\item \mcode{B=isfinite(A)} erzeugt eine Matrix $B$ der gleichen Gr\"o{\ss}e
   wie $A$. Die Einträge sind $1$, wenn der entsprechende Eintrag von $B$ finit
   ist und $0$ sonst.  
-\item \lstinline!image(x,y,A)! erzeugt eine Grafik auf der Basis des Gitters
+\item \mcode{image(x,y,A)} erzeugt eine Grafik auf der Basis des Gitters
   $(x,y)$ mit Werten $A$. Durch den entsprechenden Eintrag von $A$ wird die
   Farbe bestimmt.  
-\item Mit \lstinline!title! lassen sich Grafiken mit einer Überschrift
+\item Mit \mcode{title} lassen sich Grafiken mit einer Überschrift
 versehen.  
-\item Durch \lstinline!for!, \lstinline!end! wird eine Schleife angegeben
+\item Durch \mcode{for}, \mcode{end} wird eine Schleife angegeben
 (Details später).
 \end{itemize}
 \end{frame}
@@ -255,14 +255,14 @@ versehen.
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Grundlegende Kommandos}
 \begin{itemize}
-\item Starten von MATLAB: Eingabe von \lstinline!matlab &!.
-\item Verlassen von MATLAB: \lstinline!quit! oder \lstinline!exit!
+\item Starten von MATLAB: Eingabe von \mcode{matlab &}.
+\item Verlassen von MATLAB: \mcode{quit} oder \mcode{exit}
 \item Editieren alter Eingaben:  $\uparrow$, $\downarrow$ (wie
 in Unix)
-\item aktuelles Verzeichnis: \lstinline!pwd!
+\item aktuelles Verzeichnis: \mcode{pwd}
 \item Bei Definition von Variablen wird der Wert der Variablen
-ausgegeben. Mit \lstinline!;! am Ende wird dies unterdrückt.
-\item Inhalt des Arbeitsspeichers: \lstinline!whos! oder \lstinline!who!
+ausgegeben. Mit \mcode{;} am Ende wird dies unterdrückt.
+\item Inhalt des Arbeitsspeichers: \mcode{whos} oder \mcode{who}
 \end{itemize}
 \end{frame}
 
@@ -316,8 +316,8 @@ c =
 %
 \begin{frame}[fragile]\frametitle{Vektoren II}
 \begin{itemize}
-\item \lstinline!length(a)! gibt die Länge des Vektors $a$ an.
-\item \lstinline!linspace(x1,x2,N)! erzeugt den Vektor
+\item \mcode{length(a)} gibt die Länge des Vektors $a$ an.
+\item \mcode{linspace(x1,x2,N)} erzeugt den Vektor
 \[ x1, x1+\frac{x2-x1}{N-1}, x1+2 \frac{x2-x1}{N-1}, \dots ,x2  \]
 der Länge $N$.
 \begin{lstlisting}
@@ -325,7 +325,7 @@ der Länge $N$.
 ans =
     1.0000    1.3333    1.6667    2.0000
 \end{lstlisting}
-\item \lstinline!logspace(x1,x2,N)! wie \lstinline!linspace!, nur logarith. Skalierung
+\item \mcode{logspace(x1,x2,N)} wie \mcode{linspace}, nur logarith. Skalierung
 \end{itemize}
 \end{frame}
 
@@ -349,7 +349,7 @@ ans =
      1     0     0
      0     1     0
 \end{lstlisting}
-\lstinline!eye(n,m)! erzeugt eine $(n \times m)$- Matrix mit $1$ auf der
+\mcode{eye(n,m)} erzeugt eine $(n \times m)$- Matrix mit $1$ auf der
 Hauptdiagonalen und 0 sonst.
 \end{itemize}
 \end{frame} 
@@ -358,7 +358,7 @@ Hauptdiagonalen und 0 sonst.
 %
 \begin{frame}[fragile]\frametitle{Erzeugen von Matrizen II}
 \begin{itemize}
-\item \lstinline!zeros(n,m)! bzw. \lstinline!ones(n,m)! erzeugt eine $(n \times
+\item \mcode{zeros(n,m)} bzw. \mcode{ones(n,m)} erzeugt eine $(n \times
   m)$- Matrix mit $0$ bzw. $1$ als Einträge.
 \item Erzeugen von Blockmatrizen
 \begin{lstlisting}
@@ -378,7 +378,7 @@ Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 %
 \begin{frame}[fragile]\frametitle{Erzeugen von Matrizen III}
 \begin{itemize}
-\item \lstinline!repmat(A,n,m)! erzeugt eine Blockmatrix mit $(n \times m)$
+\item \mcode{repmat(A,n,m)} erzeugt eine Blockmatrix mit $(n \times m)$
   aus A bestehenden Blöcken
 \begin{lstlisting}
 >> D = repmat(B,1,2)
@@ -386,8 +386,8 @@ D =
      1     3     4     1     3     4
      5     6     7     5     6     7
 \end{lstlisting}
-\item \lstinline!blkdiag(A,B)! erzeugt eine Blockdiagonalmatrix.
-\item \lstinline!diag(v,k)! erzeugt eine Matrix der Größe $(n+|k|) \times
+\item \mcode{blkdiag(A,B)} erzeugt eine Blockdiagonalmatrix.
+\item \mcode{diag(v,k)} erzeugt eine Matrix der Größe $(n+|k|) \times
   (n+|k|)$ mit den Einträgen des Vektors $v$ auf der $k$-ten Nebendiagonalen 
 \end{itemize}
 \end{frame}
@@ -398,7 +398,7 @@ D =
 %
 \begin{frame}[fragile]\frametitle{Beispiel-Matrizen}
 \begin{itemize}
-\item Einen Überblick erhält man durch \lstinline!>> help gallery!
+\item Einen Überblick erhält man durch \mcode{>> help gallery}
 \item Ein Beispiel
 \begin{lstlisting}
 >> E = gallery('moler',4)
@@ -408,8 +408,8 @@ E =
     -1     0     3     1
     -1     0     1     4
 \end{lstlisting}
-\item Hilfe zur Matrix 'moler' erhält man durch \lstinline!help private/moler!
-\item weitere Matrizen: \lstinline!magic, hilb, vander!
+\item Hilfe zur Matrix 'moler' erhält man durch \mcode{help private/moler}
+\item weitere Matrizen: \mcode{magic, hilb, vander}
 \end{itemize}
 \end{frame}
 %
@@ -502,7 +502,7 @@ A =
 %
 \begin{frame}[fragile]\frametitle{Matrizenoperationen}
 
-Standard-Matrix Operationen \lstinline!+,-,*!
+Standard-Matrix Operationen \mcode{+,-,*}
 \begin{lstlisting}
 >> A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{lstlisting}
@@ -544,20 +544,20 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Andere Operatoren}
 \begin{itemize}
-\item \lstinline!A\B! berechnet die Lösung $X$ von \lstinline!A*X=B!. \\
+\item \mcode{A\\B} berechnet die Lösung $X$ von \mcode{A*X=B}. \\
 
-\item \lstinline!A/B! berechnet die Lösung $X$ von \lstinline!X*A=B!.\\
+\item \mcode{A/B} berechnet die Lösung $X$ von \mcode{X*A=B}.\\
 
-\item \lstinline!inv(A)! berechnet die Inverse von $A$.\\
+\item \mcode{inv(A)} berechnet die Inverse von $A$.\\
 
-\item \lstinline!A'! oder \lstinline!ctranspose(A)! ergibt die
+\item \mcode{A'} oder \mcode{ctranspose(A)} ergibt die
   komplex Transponierte von $A$. \\
 
-\item \lstinline!A.'! oder \lstinline!transpose(A)! ist die Transponierte von $A$. \\
+\item \mcode{A.'} oder \mcode{transpose(A)} ist die Transponierte von $A$. \\
 
-\item \lstinline!A^z! berechnet $\underbrace{A*A*\cdots *A}_{z-mal}$ (quadratische Matrizen)\\
+\item \mcode{A^z} berechnet $\underbrace{A*A*\cdots *A}_{z-mal}$ (quadratische Matrizen)\\
 
-\item Die Gr\"o{\ss}e einer Matrix $A$ wird durch \lstinline!size(A)!
+\item Die Gr\"o{\ss}e einer Matrix $A$ wird durch \mcode{size(A)}
   bestimmt. 
 \end{itemize}
 \end{frame}
@@ -569,19 +569,19 @@ ans =
 >> A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{lstlisting}
 \begin{itemize}
-\item \lstinline!C = A.*B! ergibt $C$ mit $C(i,j)=A(i,j)*B(i,j)$.
+\item \mcode{C = A.*B} ergibt $C$ mit $C(i,j)=A(i,j)*B(i,j)$.
 \begin{lstlisting}[basicstyle=\tiny]
 C =
      2     4
      6     8
 \end{lstlisting}
-\item \lstinline!C = A./B! ergibt $C$ mit $C(i,j)=A(i,j)/B(i,j)$.
+\item \mcode{C = A./B} ergibt $C$ mit $C(i,j)=A(i,j)/B(i,j)$.
 \begin{lstlisting}[basicstyle=\tiny]
 C =
     0.5000    1.0000
     1.5000    2.0000
 \end{lstlisting}
-\item \lstinline!C = A.\B! ergibt $C$ mit $C(i,j)=B(i,j)/A(i,j)$.
+\item \mcode{C = A.\B} ergibt $C$ mit $C(i,j)=B(i,j)/A(i,j)$.
 \begin{lstlisting}[basicstyle=\tiny]
 C =
     2.0000    1.0000
@@ -594,7 +594,7 @@ C =
 %
 \begin{frame}[fragile]\frametitle{Spezielle Operatoren II}
 \begin{itemize}
-\item \lstinline!C = A.^B! ergibt $C$ mit $C(i,j)=A(i,j)^{B(i,j)}$
+\item \mcode{C = A.^B} ergibt $C$ mit $C(i,j)=A(i,j)^{B(i,j)}$
 \begin{lstlisting}
 C =
      1     4
@@ -603,7 +603,7 @@ C =
 \end{itemize}
 \alert{Achtung:} Bei diesen  Operationen müssen $A$ und $B$
 dieselbe Dimension haben.  Matrizen können durch
-Skalare ersetzt werden, z.B. \lstinline! A.^2!.
+Skalare ersetzt werden, z.B. \mcode{ A.^2}.
 \end{frame}
 %
 % Slide: 
@@ -713,7 +713,7 @@ h^2 \left( \begin{array}{c} e^\frac{1}{n}\\   \vdots \\ e^\frac{n-1}{n}
 F=(1/21)^2*transpose(exp(x_i));
 \end{lstlisting}
 \item Lösen des lin. Gls.\\
-\lstinline! z_i=A\F;!
+\mcode{ z_i=A\F;}
 \\
 \item Zufügen der Werte am Rand
 \begin{lstlisting}
@@ -749,7 +749,7 @@ F=(1/21)^2*transpose(exp(x_i));
 \begin{frame}[fragile]\frametitle{Vektornorm}
  Die $p$-Norm eines Vektors $x=(x_1, {} \dots , x_n)$
 \[ \|x \|_p := \left( \sum_{i=1}^n  |x_i|^p \right)^{1/p} \] 
-kann berechnet werden durch \lstinline!norm(x,p)! (Default: $p=2$) 
+kann berechnet werden durch \mcode{norm(x,p)} (Default: $p=2$) 
 \begin{itemize}
 \item Die Norm ist definiert für $p\geq 1$.
 \item $p=\infty$ entspricht der Maximum-Norm 
@@ -766,7 +766,7 @@ $p \geq 1$. Die
 \[ \| A \|_p = \sup_{x\in \mathbb{C}^m \setminus \{ 0 \}} \frac{\|Ax
   \|_p}{\| x \|_p}. \]
 \begin{itemize}
-\item In MATLAB:\lstinline!norm(A,p)! (Default $p=2$).
+\item In MATLAB:\mcode{norm(A,p)} (Default $p=2$).
 \item $p=\infty$ kann charakterisiert werden durch
 \[ \|A\|_\infty = \max_{1 \leq j \leq m} \sum_{i=1}^n |a_{ij}|, \quad
 \mbox{Zeilensummennorm.} \]
@@ -781,7 +781,7 @@ Kondition einer quadratischen Matrix $A$:
 \vspace*{-0.8cm}
 \begin{itemize}
 \item In MATLAB: 
-  \lstinline!cond(A,p)! (Default $p=2$) 
+  \mcode{cond(A,p)} (Default $p=2$) 
 \item Es gilt $\cond_p(A)\geq 1$.
 \item Die Kondition mißt die Empfindlichkeit der Lösung $x$ von $Ax=b$
   gegenüber  Störungen
@@ -822,7 +822,7 @@ ans =
 Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
 lineare Gleichungssystem 
 { \[ A x=b \]}
-wird in MATLAB gelöst durch  \lstinline! x=A\b!.\\
+wird in MATLAB gelöst durch  \mcode{ x=A\b}.\\
 
 \begin{lstlisting}
 >> x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
@@ -831,13 +831,13 @@ y =
 \end{lstlisting}
 
 \alert{Warnung:} Benutze nie
-\lstinline!x=inv(A)*b!, da das Berechnen von $A^{-1}$ sehr aufwendig sein kann.
+\mcode{x=inv(A)*b}, da das Berechnen von $A^{-1}$ sehr aufwendig sein kann.
 \end{frame}
 % 
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{LU-Zerlegung}
-{\centering  Was bedeutet \lstinline!A\b!?}\\[0.5cm]
+{\centering  Was bedeutet \mcode{A\b}?}\\[0.5cm]
 
 MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren), d.h.
 es sucht eine obere Dreiecksmatrix $U$ und eine untere Dreiecksmatrix
@@ -906,10 +906,10 @@ Sei $A \in \mathbb{C}^{n \times n}$. $\lambda \in \mathbb{C}$ ist
 Eigenwert von $A$, falls ein Vektor $x \in \mathbb{C}^n$ ungleich $0$ existiert, so
 dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor. 
 \begin{itemize}
-\item {}\lstinline!x=eig(A)! berechnet die Eigenwerte von $A$ und schreibt
+\item {}\mcode{x=eig(A)} berechnet die Eigenwerte von $A$ und schreibt
   sie in den Vektor $x$.
 \item
-  {}\lstinline![V,D]=eig(A)!
+  {}\mcode{[V,D]=eig(A)}
   $D$ ist eine Diagonalmatrix mit den Eigenwerten auf der
   Diagonalen. Die Spalten von $V$ bilden die zugehörigen Eigenvektoren. 
 \end{itemize}
@@ -919,18 +919,18 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %
 \begin{frame}[fragile]\frametitle{Weitere Zerlegungen}
 \begin{itemize}
-\item Mittels \lstinline![Q,R]=qr(A)! wird zu einer $m \times n$- Matrix
+\item Mittels \mcode{[Q,R]=qr(A)} wird zu einer $m \times n$- Matrix
   $A$ eine Zerlegung { $A=QR$} erzeugt,
   wobei $Q$ eine unitäre $m \times m$-Matrix ist und $R$ eine obere
    $m \times n$ Dreiecksmatrix   ist.
 \item Eine Singulärwertzerlegung { $A=U \Sigma V^*$} wird durch 
-  \lstinline![U,S,V]=svd(A)!
+  \mcode{[U,S,V]=svd(A)}
   berechnet. Dabei ist $\Sigma \subset \mathbb{C}^{m \times n}$ eine
   Diagonalmatrix und  $U \subset \mathbb{C}^{m \times m}$, $V \subset
   \mathbb{C}^{n \times n}$  sind unitäre Matrizen. 
 \item Eine Cholesky-Zerlegung { $A=R^*R$} 
 zu einer hermiteschen, positiv definiten Matrix
-  $A$ wird durch  \lstinline!R=chol(A)!
+  $A$ wird durch  \mcode{R=chol(A)}
   berechnet. $R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen. 
 \end{itemize}
@@ -941,10 +941,10 @@ zu einer hermiteschen, positiv definiten Matrix
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
 \item LGS können auch mit Hilfe iterativer Verfahren gelöst werden,
-  z.B. \lstinline!gmres!, \lstinline!pcg!, \lstinline!bicgstab!.
-\item Ist $A\in \mathbb{C}^{n \times m}$, $n \neq m$, so ergibt \lstinline!A\b!
+  z.B. \mcode{gmres}, \mcode{pcg}, \mcode{bicgstab}.
+\item Ist $A\in \mathbb{C}^{n \times m}$, $n \neq m$, so ergibt \mcode{A\b}
   für $n>m$ (der überbestimmte Fall) die Least-Square Lösung, d.h. der Ausdruck
-  \lstinline!norm(A*x-b)! wird minimiert. Ist $n<m$ (der unterbestimmte
+  \mcode{norm(A*x-b)} wird minimiert. Ist $n<m$ (der unterbestimmte
   Fall) so wird eine Grundlösung berechnet. 
 \end{itemize}
 \end{frame}

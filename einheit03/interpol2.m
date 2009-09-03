@@ -1,4 +1,4 @@
-function p=interpol2(x,y)
+function p = interpol2(x,y)
 % interpol2 berechnet zu n+1 Punkten (x_i,y_i)
 %           das Polynom n-ten Grades, das druch die
 %           n+1 Punkte verlaeuft
@@ -7,7 +7,7 @@ function p=interpol2(x,y)
 %   Gerd Rapin    23.11.2003
 
 % Aufstellen des lin. GLS
-A=vandermonde(x);
+A = vandermonde(x);
 
 % Loesen des lin GLS
-p=A\y';
+p = A\y';

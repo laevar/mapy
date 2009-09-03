@@ -1,7 +1,6 @@
-\documentclass[utf8x,notes=hide]{beamer}
+\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \input{../slide_header}
-\subtitle{Einheit 4 \\Visualisieren von 3D-Daten \\ Datenstrukturen \\In- und
-Output}
+\subtitle{Einheit 4 }
 \maketitle
 \section{Visualisieren von 3D-Daten}
 
@@ -12,7 +11,7 @@ Output}
 \begin{itemize}
 \item Daten liegen h\"aufig in Form von Vektoren $(x,y,z)$ vor. Man m\"ochte
   eine Funktion $F$ mit $z(i)=F(x(i),y(i))$ plotten.
-\item Befehle \lstinline!surf! und \lstinline!mesh! funktionieren nur wenn  die
+\item Befehle \mcode{surf} und \mcode{mesh} funktionieren nur wenn  die
   Einträge in $x$ und $y$ monoton sind und die Daten auf einem kartesischen
   Gitter vorliegen.
 \item Ausweg: Interpolieren der Daten auf ein entsprechendes Gitter. 
@@ -57,10 +56,10 @@ ZI = griddata(x,y,z,XI,YI,methode);
 {\small
 \begin{itemize}
 \item Vektoren $x,y,z$ enthalten Werte $(x(i),y(i),z(i))$.
-\item \lstinline!griddata! interpoliert auf die Stellen $(XI(i,j),YI(i,j))$
+\item \mcode{griddata} interpoliert auf die Stellen $(XI(i,j),YI(i,j))$
   mit Matrizen $XI,YI$. Ergebnis $ZI(i,j)$.
-\item Die Art des Interpolierens ist entweder \lstinline!'nearest'!, \lstinline!'linear'!
-  oder \lstinline!'cubic'!. Entsprechend wird entweder st\"uckweise konstant, linear
+\item Die Art des Interpolierens ist entweder \mcode{'nearest'}, \mcode{'linear'}
+  oder \mcode{'cubic'}. Entsprechend wird entweder st\"uckweise konstant, linear
   oder durch bi-kubische Splines interpoliert. 
 \item Es wird nur innerhalb der konvexen H\"ulle der Punkte $(x(i),y(i))$
   interpoliert. Ansonsten Funktionswert $NaN$. 
@@ -77,8 +76,8 @@ ZI = griddata(x,y,z,XI,YI,methode);
   $(x(i),y(i))$ sind Eckpunkte der entstehenden Dreiecksmenge.
 \item Danach werden mit Hilfe der Dreiecke Funktionen  definiert, die
   entsprechende Werte besitzen. 
-\item Mittels \lstinline!griddata! ist die Technik auch auf h\"ohere Dimensionen
-  anwendbar. Dreiecke werden durch entsprechende h\"oher-dimensionale
+\item Mittels \mcode{griddata} ist die Technik auch auf h\"ohere Dimensionen
+  anwendbar. Dreiecke werden durch entsprechende höher-dimensionale
   Simplizes ersetzt. \\
 (In 3D Tetraeder)
 \end{itemize}
@@ -92,11 +91,11 @@ ZI = interp2(X,Y,Z,XI,YI,methode)
 \end{lstlisting}
 \begin{itemize}
 \item Allgemein sind $X,Y,Z$ Matrizen. Dabei ist $Z(i,j)$ der Funktionswert an
-  $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \lstinline!meshgrid! erzeugt. 
+  $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \mcode{meshgrid} erzeugt. 
 \item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
   ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
-\item Die Art des Interpolierens ist entweder \lstinline!'nearest'!, \lstinline!'linear'!
-  oder \lstinline!'cubic'!. 
+\item Die Art des Interpolierens ist entweder \mcode{'nearest'}, \mcode{'linear'}
+  oder \mcode{'cubic'}. 
 %Entsprechend wird entweder st\"uckweise konstant, linear
 %  oder durch bikubische Splines interpoliert. 
 \end{itemize}
@@ -127,7 +126,7 @@ Programmablaufs ver\"andert werden k\"onnen.
 \item MATLAB weist den Datentyp {\it implizit} zu. Durch die Zuweisung eines
 Wertes wird der Typ implizit bestimmt. 
 \item Den Datentyp eines Objekts $a$ kann durch den Befehl \alert{
-\lstinline!class(a)!} bestimmt werden.
+\mcode{class(a)}} bestimmt werden.
 \end{itemize}
 \end{frame}
 %
@@ -150,15 +149,15 @@ Wertes wird der Typ implizit bestimmt.
 %
 \begin{frame}[fragile]\frametitle{Gleitkommazahlen}
 \begin{itemize}
-\item Standard-Datentyp ist ein Array von Gleitkommazahlen (\lstinline!double!).
+\item Standard-Datentyp ist ein Array von Gleitkommazahlen (\mcode{double}).
 \item Abstand von $1$ zur nächsten Gleitkommazahl in MATLAB: $\epsilon
-  =2^{-52}$ (vgl. \lstinline!eps! in MATLAB)
+  =2^{-52}$ (vgl. \mcode{eps} in MATLAB)
 \item Sei $x \in \mathbb{R}$ eine reelle Zahl und $\tilde x$ die
   Darstellung in MATLAB. Dann gilt für den Rundungsfehler \\[-0.5cm]
 \[ \frac{|x - \tilde x|}{|x|}\leq \frac{1}{2} \epsilon .\]
 \item Die größte bzw. kleinste in MATLAB darstellbare positive Zahl
   ist in
-\lstinline!realmin! bzw. \lstinline!realmax! gespeichert. 
+\mcode{realmin} bzw. \mcode{realmax} gespeichert. 
 \end{itemize}
 \end{frame}
 %
@@ -166,14 +165,14 @@ Wertes wird der Typ implizit bestimmt.
 %
 \begin{frame}[fragile]\frametitle{Ausnahmen}
 \begin{itemize}
-\item Ist eine Zahl größer als \lstinline!realmax!, so meldet MATLAB einen
-  'Overflow' und gibt als Ergebnis \lstinline!Inf! zurück.
+\item Ist eine Zahl größer als \mcode{realmax}, so meldet MATLAB einen
+  'Overflow' und gibt als Ergebnis \mcode{Inf} zurück.
 \begin{lstlisting}
 >> realmax*1.1
 ans =   Inf
 \end{lstlisting}
 \item Bei Operationen wie $0/0$  oder $\infty / \infty$, erhält man als Ergebnis
-  \lstinline!NaN! ({\it Not a Number}).
+  \mcode{NaN} ({\it Not a Number}).
 \begin{lstlisting}
 >> 0/0
 Warning: Divide by zero.
@@ -186,7 +185,7 @@ ans =   NaN
 %
 \begin{frame}[fragile]\frametitle{Umgang mit NaN und       Inf  }
 \begin{itemize}
-\item Mit Hilfe von \alert{ \lstinline!isinf!} und \alert{ \lstinline!isnan!} kann auf
+\item Mit Hilfe von \alert{ \mcode{isinf}} und \alert{ \mcode{isnan}} kann auf
 $\infty$ bzw. NaN getestet werden.
  \begin{lstlisting}
 >> isnan(0/0), isinf(1.2*realmax)
@@ -209,12 +208,12 @@ ans =     1
 %
 \begin{frame}[fragile]\frametitle{Single}
 \begin{itemize}
-\item \"Ahnlich wie in C gibt es den Datentyp \lstinline!single!. Es ist eine
+\item \"Ahnlich wie in C gibt es den Datentyp \mcode{single}. Es ist eine
 Darstellung in geringerer Genauigkeit. 
-\item Durch den Befehl \alert{ \lstinline!single()!} wird eine \lstinline!double!-Zahl in
-eine \lstinline!single!-Zahl konvertiert. 
-\item Arithmetische Operationen mit \lstinline!double!- und \lstinline!single!-Objekten
-ergeben  \lstinline!single!-Objekte.
+\item Durch den Befehl \alert{ \mcode{single()}} wird eine \mcode{double}-Zahl in
+eine \mcode{single}-Zahl konvertiert. 
+\item Arithmetische Operationen mit \mcode{double}- und \mcode{single}-Objekten
+ergeben  \mcode{single}-Objekte.
 \end{itemize}
 \end{frame}
 %
@@ -247,13 +246,13 @@ ans =
 %\hline
 %Level & Operator\\
 \hline
-1 &   Exponent (\lstinline!^!, \lstinline!.^!), \lstinline!transpose!\\
-2 & logische Verneinung (\lstinline!~!)\\
-3 & Multiplikation (*,.*), Division (/,./,\lstinline!\!, \lstinline!.\!)\\
+1 &   Exponent (\mcode{^}, \mcode{.^}), \mcode{transpose}\\
+2 & logische Verneinung (\mcode{\~})\\
+3 & Multiplikation (*,.*), Division (/,./,\mcode{\\}, \mcode{.\\})\\
 4 & Addition (+), Subtraktion (-)\\
 5 & Doppelpunktoperator (:)\\
-6 & Vergleichsoperatoren (<,>,<=,>=,==,\lstinline!~=!)\\ 
-7 & Logisches und (\lstinline!&!)\\
+6 & Vergleichsoperatoren (<,>,<=,>=,==,\mcode{\~=})\\ 
+7 & Logisches und (\mcode{\&})\\
 8 & Logisches oder (|)\\
 \hline
 \end{tabular}\\
@@ -267,15 +266,15 @@ Die Rangfolge kann durch Klammersetzung geändert werden.}
 %
 \begin{frame}[fragile]\frametitle{Darstellungsformate am Beispiel $1/7$}
 \begin{tabular}{ll}
-\alert{ \lstinline!format short!} &  0.1429 \\
-\alert{ \lstinline!format short e! }& 1.4286e-01\\
-\alert{ \lstinline!format short g! }&0.14286\\
-\alert{ \lstinline!format long! }& 0.14285714285714\\
-\alert{ \lstinline!format long g! }& 0.142857142857143\\
-\alert{ \lstinline!format long e! }& 1.428571428571428e-01\\
+\alert{ \mcode{format short}} &  0.1429 \\
+\alert{ \mcode{format short e} }& 1.4286e-01\\
+\alert{ \mcode{format short g} }&0.14286\\
+\alert{ \mcode{format long} }& 0.14285714285714\\
+\alert{ \mcode{format long g} }& 0.142857142857143\\
+\alert{ \mcode{format long e} }& 1.428571428571428e-01\\
 \end{tabular}
 
-Das Default-Format ist \lstinline!short!. 
+Das Default-Format ist \mcode{short}. 
 \end{frame}
 %
 % Folie
@@ -286,7 +285,7 @@ Komplexe Zahlen $z \in \mathbb{C}$ haben die Form
 mit $i=\sqrt{-1}$. 
 \begin{itemize}
 \item $\sqrt{-1}$ ist in MATLAB vordefiniert in den Variablen $i$,$j$.
-\item Durch \lstinline!complex(x,y)!  kann aus $x,y \in
+\item Durch \mcode{complex(x,y)}  kann aus $x,y \in
   \mathbb{R}$ die komplexe Zahl $x + iy$ erzeugt werden.
 \item Für $z=x+iy \in \mathbb{C}$ erhält man den Realteil mit
   $real(z)$ und den Imaginärteil durch $imag(z)$. 
@@ -296,9 +295,9 @@ mit $i=\sqrt{-1}$.
 \alert{ \[ z \in \mathbb{C}, \quad z=re^{i \varphi}=r(\cos \varphi + i \sin
   \varphi) \]}
 \begin{itemize}
-\item \lstinline!abs(z)! ergibt den Betrag $r$ von $z$.
-\item $\varphi$ erhält man durch \lstinline!angle(z)!.
-\item grafische Darst.:  \lstinline!compass(z)! ($z=3+3i$). \\
+\item \mcode{abs(z)} ergibt den Betrag $r$ von $z$.
+\item $\varphi$ erhält man durch \mcode{angle(z)}.
+\item grafische Darst.:  \mcode{compass(z)} ($z=3+3i$). \\
  \centering{\includegraphics[width=0.3\textwidth]{../figures/kompass}}\\ 
 \end{itemize}
 \end{frame}
@@ -333,7 +332,7 @@ komp_Zahl =
 struktur = struct('Feld1',Wert1,'Feld2',Wert2,...)
 \end{lstlisting}
 definiert werden.
-\item Ein Feld einer Struktur \lstinline!struktur! kann durch 
+\item Ein Feld einer Struktur \mcode{struktur} kann durch 
 \begin{lstlisting}
 struc2 = rmfield( struktur ,'Feld')
 \end{lstlisting}
@@ -376,10 +375,10 @@ ans =
     0.2500
 \end{lstlisting}
 \end{columns}
-\item Durch \lstinline!celldisp(C)! wird der Inhalt von $C$ dargestellt.
-%\item \lstinline!struct2cell! bzw. \lstinline!num2cell! erzeugt ein Cell Array
+\item Durch \mcode{celldisp(C)} wird der Inhalt von $C$ dargestellt.
+%\item \mcode{struct2cell} bzw. \mcode{num2cell} erzeugt ein Cell Array
 %  aus einer Struktur bzw. einer normalen Matrix.
-\item \lstinline!cellplot(C)! stellt $C$ grafisch dar.
+\item \mcode{cellplot(C)} stellt $C$ grafisch dar.
 \end{itemize}
 \end{frame}
 %
@@ -388,12 +387,12 @@ ans =
 \begin{frame}[fragile]\frametitle{Integer}
 \begin{itemize}
 \item In diesen Datentypen werden ganze bzw. nat\"urliche Zahlen gepeichert.  
-\item Zur effizienten Speicherung gibt es die Datentypen \lstinline!int8!,
-\lstinline!uint8!, \lstinline!int16!, \lstinline!uint16!, \lstinline!uint16!, \lstinline!int32!,
-\lstinline!uint32!, \lstinline!int64!, \lstinline!uint64!. 
-\item In den Datentypen, die mit \lstinline!u! beginnen, werden nat\"urliche Zahlen
+\item Zur effizienten Speicherung gibt es die Datentypen \mcode{int8},
+\mcode{uint8}, \mcode{int16}, \mcode{uint16}, \mcode{uint16}, \mcode{int32},
+\mcode{uint32}, \mcode{int64}, \mcode{uint64}. 
+\item In den Datentypen, die mit \mcode{u} beginnen, werden nat\"urliche Zahlen
 gespeichert, sonst ganze Zahlen.
-\item Die abschlie{\ss}ende Zahl gibt den Speicherbedarf an. \lstinline!uint8!
+\item Die abschlie{\ss}ende Zahl gibt den Speicherbedarf an. \mcode{uint8}
 ben\"otigt z.B. $8$-Bit. (Wertebereich $0 \dots 2^8-1$).
 \end{itemize}
 \end{frame}
@@ -430,7 +429,7 @@ ans =   31
 \item Schreiben in Dateien
 \item Einlesen von Daten aus Dateien
 \item Speichern und Laden von Variablen\\
-\item Durch \alert{ \lstinline!help iofun!} erhält man eine Übersicht aller Ein- und
+\item Durch \alert{ \mcode{help iofun}} erhält man eine Übersicht aller Ein- und
   Ausgabe - Befehle
 \end{itemize}
 \end{frame}
@@ -439,18 +438,18 @@ ans =   31
 %
 \begin{frame}[fragile]\frametitle{Benutzereingabe}
 \begin{itemize}
-\item Standardeingabe: \alert{ \lstinline!input!}
+\item Standardeingabe: \alert{ \mcode{input}}
 %\item Eingabe eines Zeichens:
-\item Informationssteuerung durch die Maus: \alert{ \lstinline!ginput!}
+\item Informationssteuerung durch die Maus: \alert{ \mcode{ginput}}
 \item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: \alert{
-  \lstinline!pause!} 
+  \mcode{pause}} 
 \end{itemize}
 \end{frame} 
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{input}
-Die Benutzereingabe kann durch den Befehl \lstinline!input('Text')! erfolgen. Es
+Die Benutzereingabe kann durch den Befehl \mcode{input('Text')} erfolgen. Es
 wird der 'Text'  angezeigt. Die Eingabe kann hinter 'Text' erfolgen
 und wird durch Return
 abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
@@ -481,9 +480,9 @@ gibt die Vektoren $x$ und $y$ der Koordinaten der nächsten $n$
 Maus-Klicks zurück, an denen sich die Maus im aktuellen Grafik-Fenster
 befindet.  
 \begin{itemize}
-\item \lstinline![x,y]=ginput! sammelt so lange Daten ein, bis die
+\item \mcode{[x,y]=ginput} sammelt so lange Daten ein, bis die
   Return-Taste gedrückt wird.
-\item \lstinline![x,y,taste]=ginput(n)! gibt auch den Vektor \lstinline!taste!
+\item \mcode{[x,y,taste]=ginput(n)} gibt auch den Vektor \mcode{taste}
   zurück, der aus Werten $1$ (linke Maustaste), $2$ (mittlere
   Maustaste) oder $3$ (rechte Maustaste) besteht. 
 \end{itemize} 
@@ -539,14 +538,14 @@ plot(x*umat, y*umat,'--','Linewidth',4); hold off;
 text =
 Pi mit 5 signifikanten Stellen : 3.14159
 \end{lstlisting} 
-\item Ausgabe des Strings $X$ durch  \lstinline!disp(X)!
+\item Ausgabe des Strings $X$ durch  \mcode{disp(X)}
 \begin{lstlisting}
 >> disp(text)
 Pi mit 5 signifikanten Stellen : 3.14159
 \end{lstlisting} 
-\item Ausgabe durch  \lstinline!fprintf()!
+\item Ausgabe durch  \mcode{fprintf()}
 \begin{lstlisting}
->> fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \lstinline!\n!',4,pi)
+>> fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \n',4,pi)
 Pi mit 4 Nachkomma-Stellen : 3.1416 
 \end{lstlisting}
 \end{itemize}
@@ -562,13 +561,13 @@ fprintf( Format, Argument1, Argument2,...)
 {\it Format} ist ein String der das genaue Output-Form
 der Argumente (Werte der Variablen) bestimmt: 
 \begin{lstlisting}[basicstyle=\scriptsize]
-Format='<*>%<\(\pm\)> <v1.n1><typ1><*>%<\(\pm\)> <v2.n2><typ2><*>...'
+Format='<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>...'
 \end{lstlisting} 
 \begin{itemize}
-\item [<*>] Hier kann beliebieger Text eingegeben werden.
-\item [<$\pm$>] Durch '+' wird die Angabe des Vorzeichens
+\item [<*>] Hier kann beliebiger Text eingegeben werden.
+\item [<(-|+)>] Durch '+' wird die Angabe des Vorzeichens
   erzwungen. Durch '-' wird eine linksbündige Ausgabe
-  erzeugt. Weglassen von <$\pm$> erzeugt eine rechtsbündige Ausgabe
+  erzeugt. Weglassen von <(-|+)> erzeugt eine rechtsbündige Ausgabe
   ohne Anzeige des '+' Zeichens.
 \item [v\textit{i}] Durch $vi$ wird die Anzahl der insgesamt dargestellten Zeichen 
    von Argument\textit{i} gesteuert.
@@ -587,9 +586,9 @@ Format='<*>%<\(\pm\)> <v1.n1><typ1><*>%<\(\pm\)> <v2.n2><typ2><*>...'
 \begin{frame}[fragile]\frametitle{Bemerkungen zu fprintf}
 \begin{itemize} 
 \item Die formatierte Ausgabe ist an den Ansi-C Standard angelehnt.
-\item Durch \lstinline!'\n'! wird ein Zeilenumbruch bewirkt. \lstinline!'\%'! erzeugt
-  \lstinline!%!.
- \item \lstinline!sprintf! funktioniert wie \lstinline!fprintf!. Allerdings wird
+\item Durch \mcode{'\n'} wird ein Zeilenumbruch bewirkt. \mcode{'\%'} erzeugt
+  \mcode{\%}.
+ \item \mcode{sprintf} funktioniert wie \mcode{fprintf}. Allerdings wird
   die Ausgabe als String zurückgegeben. 
 \item Ist ein Argument eine Matrix, so wird fprintf 'vektorisiert'.
 \end{itemize}
@@ -625,9 +624,9 @@ fclose(fid);
 fid = fopen(dateiname, erlaubnis)
 \end{lstlisting}
 
-\lstinline!fopen! öffnet die Datei \lstinline!dateiname! im Modus
-  \lstinline!erlaubnis! und erzeugt einen
-  Datei-Handle \lstinline!fid!. Für \lstinline!erlaubnis! gibt es u.a. die folgenden
+\mcode{fopen} öffnet die Datei \mcode{dateiname} im Modus
+  \mcode{erlaubnis} und erzeugt einen
+  Datei-Handle \mcode{fid}. Für \mcode{erlaubnis} gibt es u.a. die folgenden
   Möglichkeiten:
 \begin{itemize}
 \item ['r']  Lesen aus der Datei.
@@ -660,24 +659,7 @@ Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Lesen aus einer Datei}
-\begin{lstlisting}
-% waehrung_auslesen.m
-% 
-% Liest eine Umrechnungstabelle aus der
-% Datei 'umrechnung.txt'
-
-clear all;
-fid = fopen('umrechnung.txt','r');
-waehrung_name = fscanf(fid,'Umrechnungstabelle: Euro-%s');
-daten = fscanf(fid,['%f Euro = %f ',waehrung_name],[2 inf]);
-umrechnung = fscanf(fid,'Umrechnungskoeffizient: %f'); 
-fclose(fid);
-  
-% Ausgabe
-fprintf('Umrechnung: Euro - %s: Kurs: %f \n',...
-    waehrung_name,umrechnung);
-fprintf(' %7.2f Euro  = %7.2f  \n',daten);
-\end{lstlisting}
+\lstinputlisting{waehrung_auslesen.m}
 \end{frame}
 %
 % Slide
@@ -687,12 +669,12 @@ fprintf(' %7.2f Euro  = %7.2f  \n',daten);
 [daten,anz] = fscanf(fid,format,Größe)
 \end{lstlisting}
 \begin{itemize}
-\item \lstinline!fscanf! liest Daten aus der Datei mit dem Handle
-  \lstinline!fid!. 
-\item Die Daten werden in \lstinline!daten! gespeichert. Der optionale Wert
-  \lstinline!anz! gibt die Anzahl erfolgreich gelesener Daten an.
-\item \lstinline!format! gibt das vorgegebene Suchmuster vor.
-\item Die \lstinline!Größe! gibt die Dimension der Output-Matrix an.
+\item \mcode{fscanf} liest Daten aus der Datei mit dem Handle
+  \mcode{fid}. 
+\item Die Daten werden in \mcode{daten} gespeichert. Der optionale Wert
+  \mcode{anz} gibt die Anzahl erfolgreich gelesener Daten an.
+\item \mcode{format} gibt das vorgegebene Suchmuster vor.
+\item Die \mcode{Größe} bestimmt das was gelesen wird, und damit auch die Dimension der Output-Matrix. \mcode{inf} bezeichnet dabei das Dateiende.
 \end{itemize}
 \end{frame}
 %
@@ -700,10 +682,10 @@ fprintf(' %7.2f Euro  = %7.2f  \n',daten);
 %
 \begin{frame}[fragile]\frametitle{Weitere Befehle}
 \begin{itemize}
-\item Der Befehl \alert{ \lstinline!fgetl(fid)!} liest eine Zeile aus der Datei mit
-  Handle \lstinline!fid! und gibt die Zeile als String zurück.
+\item Der Befehl \alert{ \mcode{fgetl(fid)}} liest eine Zeile aus der Datei mit
+  Handle \mcode{fid} und gibt die Zeile als String zurück.
 \item Ob das Dateiende erreicht ist, kann durch den Befehl \alert{
-  \lstinline!feof(fid)!} geprüft werden. \lstinline!feof(fid)! gibt eine $1$
+  \mcode{feof(fid)}} geprüft werden. \mcode{feof(fid)} gibt eine $1$
   zurück, falls das Dateiende erreicht ist und $0$ sonst. 
 \end{itemize}
 \end{frame}
@@ -781,11 +763,11 @@ fclose(fid);
 \begin{itemize}
 \item Es ist auch möglich temporäre Dateien zu erzeugen.
 \item Binäre Dateien können erzeugt und gelesen werden mit Hilfe der
-  Befehle \lstinline!fread! und \lstinline!fwrite!. 
-\item  Mittels \lstinline!xlsread! können Excel-Tabellen eingeladen werden.
-\item Bilddateien werden durch \lstinline!imread! importiert.
+  Befehle \mcode{fread} und \mcode{fwrite}. 
+\item  Mittels \mcode{xlsread} können Excel-Tabellen eingeladen werden.
+\item Bilddateien werden durch \mcode{imread} importiert.
 \item  Audiodateien (.wav) bzw. Videodateien (.avi) können durch
-  \lstinline!wavread! bzw. \lstinline!aviread! importiert werden. 
+  \mcode{wavread} bzw. \mcode{aviread} importiert werden. 
 \end{itemize}
 \end{frame}
 %
@@ -814,14 +796,14 @@ disp(norm(A - C))
 %
 \begin{frame}[fragile]\frametitle{Laden und Speichern von  Variablen}
 \begin{itemize}
-\item \alert{ \lstinline!save filename!} speichert den gesamten
-  Workspace in der Datei \lstinline!filename.mat!. Einladen des Workspace
-  ist möglich mittels  \alert{ \lstinline!load filename!}. 
-\item Mittels \alert{ \lstinline!save filename A x!} werden nur die
-  Variablen $A$ und $x$ in der Datei \lstinline!filename.mat!
-  gespeichert. Durch  \alert{ \lstinline!load filename!} werden nun die
+\item \alert{ \mcode{save filename}} speichert den gesamten
+  Workspace in der Datei \mcode{filename.mat}. Einladen des Workspace
+  ist möglich mittels  \alert{ \mcode{load filename}}. 
+\item Mittels \alert{ \mcode{save filename A x}} werden nur die
+  Variablen $A$ und $x$ in der Datei \mcode{filename.mat}
+  gespeichert. Durch  \alert{ \mcode{load filename}} werden nun die
   Variablen $A$ und $x$ dem Workspace hinzugefügt. 
-\item Bei \lstinline!load! werden bestehende Variablen mit dem gleichen
+\item Bei \mcode{load} werden bestehende Variablen mit dem gleichen
   Namen überschrieben.
 \end{itemize}
 \end{frame}
@@ -850,11 +832,11 @@ an, in welcher Funktion der Fehler liegt.}
 %
 \begin{frame}[fragile]\frametitle{Fehler abfangen}
 \begin{itemize}
-\item Der Befehl \alert{ \lstinline!error('text')!} erzeugt die
-  Fehlermeldung \lstinline!text! und bricht das Programm ab. Insebsondere
+\item Der Befehl \alert{ \mcode{error('text')}} erzeugt die
+  Fehlermeldung \mcode{text} und bricht das Programm ab. Insebsondere
   die Eingabeparameter sollten auf Fehler geprüft werden.
-\item Warnungen werden durch \alert{ \lstinline!warning('text')!} erzeugt. Im
-  Gegensatz zu \lstinline!error! wird das Programm aber fortgesetzt. 
+\item Warnungen werden durch \alert{ \mcode{warning('text')}} erzeugt. Im
+  Gegensatz zu \mcode{error} wird das Programm aber fortgesetzt. 
 \end{itemize}
 \end{frame}
 %

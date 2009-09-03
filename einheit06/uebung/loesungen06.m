@@ -27,19 +27,14 @@ integral_gui
 disp('*** aufgabe 4');
 clear
 
-graph
+bild_funktion
 
 disp('*** aufgabe 5');
 clear
 
-bild_funktion
-
-disp('*** aufgabe 6');
-clear
-
 plot_gui
 
-disp('*** aufgabe 7');
+disp('*** aufgabe 6');
 clear
 
 erzeugematrix(6)

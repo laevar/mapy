@@ -127,8 +127,8 @@ enth\"alt, die zur Auswertung einer Funktion n\"otig sind.\\
 \begin{itemize}
 \item Funktion mit Parameter
 \begin{lstlisting}
->> y = 1; l = @(x) sin(x)./(x+y) ;
->> l(2)
+>> y = 1; f = @(x) sin(x)./(x+y) ;
+>> f(2)
 ans =
     0.3031
 \end{lstlisting}
@@ -238,7 +238,7 @@ Funktion. Sie wird definiert durch einen String. \\[1cm]
 \begin{columns}[t]
  \column{0.48\textwidth}
 \begin{lstlisting}
->> a = 'exp( z)- 1+ z'; 
+>> a = 'exp(z) - 1 + z'; 
 >> f = inline(a)
 f =
      Inline function:
@@ -267,15 +267,15 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Befehle f\"ur Funktionen}
 \begin{itemize}
-\item Durch \alert{ \mcode{feval(fun,x1,...,xn)}} wird die Funktion
-  \mcode{fun} an der Stelle $(x1,...,xn)$ ausgewertet. \mcode{fun} ist dabei
+\item Durch \alert{ \mcode{feval(fun,x1,..,xn)}} wird die Funktion
+  \mcode{fun} an der Stelle $(x1,..,xn)$ ausgewertet. \mcode{fun} ist dabei
   entweder ein Funktionsname oder ein Function-Handle. 
 \item Durch \alert{ \mcode{f = fcnchk(g)}} wird ein String $g$ in ein
   Inline-Funktion umgewandelt (vgl. \mcode{inline}). Ist $g$ ein
   Function-Handle oder eine Inline-Funktion so ist $f = g$.  
 \item Durch  \alert{ \mcode{vectorize(f)}} wird $f$ f\"ur
-  Strings oder Inline-Funktionen \textsl{vektorisiert}, d.h. '*' wird durch
-  '.*' ersetzt, \mcode{'^'} durch \mcode{'.^'}, usw. 
+  Strings oder Inline-Funktionen \textsl{vektorisiert}, d.h. \mcode{'*'} wird durch
+  \mcode{'.*'} ersetzt, \mcode{'^'} durch \mcode{'.^'}, usw. 
 \end{itemize}
 \end{frame}
 %
@@ -334,26 +334,7 @@ mit $\|x\|^2:=\sum_{i=1}^N x_i^2$, $x=(x_1, \dots x_N) \in
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Beispielfunktion - 1d-Fall}
-\begin{lstlisting}
-function result = f_1d(x)
-%--------------------------------------
-% Sobolevsche Mittelungsfunktion (1d)
-% f(x) = exp(-1/(1-|x|^2)), |x|<1, und f(x)=0 sonst
-%
-% Eingabe: Vektor x
-% Ausgabe: Vektor f(x)
-%
-% Gerd Rapin     7.12.2003
-%-------------------------------------------
-result = zeros(1,length(x));
-    for k = 1:length(x)
-    if abs(x(k))<1
-        result(k) = exp(-1/(1-x(k)^2));
-    else
-        result(k) = 0;
-    end;
-end;
-\end{lstlisting}
+\lstinputlisting{f_1d.m}
 \end{frame}
 %
 % Slide

@@ -1,4 +1,4 @@
-function result=f_1d(x)
+function result = f_1d(x)
 %--------------------------------------
 % Sobolevsche Mittelungsfunktion (1d)
 % f(x)=exp(-1/(1-|x|^2)), |x|<1, und f(x)=0 sonst
@@ -11,11 +11,11 @@ function result=f_1d(x)
 
 
 % Berechnen des Funktionswerts
-result=zeros(1,length(x));
-    for k=1:length(x)
+result = zeros(1,length(x));
+    for k = 1:length(x)
     if abs(x(k))<1
-        result(k)=exp(-1/(1-x(k)^2));
+        result(k) = exp(-1/(1-x(k)^2));
     else
-        result(k)=0;
+        result(k) = 0;
     end;
 end;

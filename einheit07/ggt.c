@@ -18,7 +18,7 @@ void mexFunction( int nlhs, mxArray *plhs[],
   /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
   plhs[0] = mxCreateDoubleMatrix(1,1, mxREAL);
   
-  /* Assign pointers to each input and output. */
+  /* Die pointer fuer die Variablen  setzen. */
   a = mxGetPr(prhs[0]);
   b = mxGetPr(prhs[1]);
   result = mxGetPr(plhs[0]);

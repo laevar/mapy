@@ -1,6 +1,6 @@
-\documentclass[utf8x,notes=hide]{beamer}
+\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \input{../slide_header}
-\subtitle{Einheit 7 \\ Schnittstelle zu C}
+\subtitle{Einheit 7}
 \maketitle
 
 \section{Schnittstelle zu C}
@@ -42,7 +42,7 @@ Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden.
       mex-Dateien. Sie bestehen aus 2 Teilen: der eigentlichen $C$-Funktion und
       einer Schnittstellen-Routine zwischen C und MATLAB.
 \item Das Starten eines MATLAB-Fensters aus einem C-Programm heraus. Hier bindet
-      man passende Bibliotheken ein.
+      man passende Bibliotheken ein: die sogenannte Engine.
 \end{itemize}
 \end{frame}
 %
@@ -60,7 +60,7 @@ man es durch
 mex mex_beispiel.c
 \end{lstlisting}
 \item Die Befehlseingabe kann sowohl im Command Window von  MATLAB als auch in einem beliebigen
-  xterm (unter Linux) erfolgen.
+  terminal (unter Linux) erfolgen (Pfad beachten).
 \item Die Funktion kann dann in MATLAB aufgerufen werden als sei sie ein normales
 m-File.
 \end{itemize}
@@ -115,7 +115,7 @@ ist m\"oglich. Dateien werden am Ende durch \mcode{mex} zusammengebunden.
 \begin{frame}[fragile]\frametitle{Aufbau von mex-Files}
 Sie bestehen aus 2 Teilen: Einer Gateway Routine und der eigentlichen
 C-Funktion. Aufruf der Gateway-Funktion:
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 void mexFunction(
    int nlhs, mxArray *plhs[],
    int nrhs, const mxArray *prhs[])
@@ -178,7 +178,7 @@ Menge von Funktionen mit
 %
 %
 %
-\begin{frame}[fragile]\frametitle{Gr\"o{\ss}ter gemeins. Teiler (ggT)}
+\begin{frame}[fragile]\frametitle{Gr\"o{\ss}ter gemeinsamer Teiler (ggT)}
 Berechnung des ggT von nat\"urlichen Zahlen $a$ und $b$ mit Hilfe des
 euklidischen Algorithmus\\[1cm]
 
@@ -221,7 +221,7 @@ void mexFunction( int nlhs, mxArray *plhs[],
 % 
 \begin{frame}[fragile]\frametitle{C-File: ggt.c (Teil II)}
 \begin{lstlisting}[language=C++]
-  /* Assign pointers to each input and output. */
+  /* Die pointer fuer die Variablen  setzen */
   a = mxGetPr(prhs[0]);
   b = mxGetPr(prhs[1]);
   result = mxGetPr(plhs[0]);  
@@ -248,11 +248,11 @@ void ggt( double result[], double a, double b)
 \begin{frame}[fragile]\frametitle{Erkl\"arungen}
 \begin{itemize}
 \item Einbinden der Header Datei
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 #include "mex.h"
 \end{lstlisting}
 \item Definieren eines Zeigers $x$ auf ein Objekt vom MATLAB-Typ \mcode{mxArray}. 
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
  mxArray *x = NULL;
 \end{lstlisting}
 Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datenstrukturen.
@@ -264,14 +264,14 @@ Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datens
 \begin{frame}[fragile]\frametitle{Erzeugen von  Rückgabe-strukturen}
 \begin{itemize}
 \item Definieren von \mcode{double}-Matrizen
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 mxArray *mxCreateDoubleMatrix(int m, 
 int n, mxComplexity Flag);
 \end{lstlisting}
 $m$ ist die Anzahl von Zeilen, $n$ die Anzahl von Spalten und \mcode{Flag} ist
 entweder $mxREAL$ or $mxCOMPLEX$.
 \item Definieren eines \mcode{double}-Skalars mit Wert \mcode{value}
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 mxArray *mxCreateDoubleScalar
 (double value);
 \end{lstlisting}
@@ -297,7 +297,7 @@ mxArray *mxCreateDoubleScalar
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Zugriff auf mxArray}
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 double *mxGetPr(mxArray *array_zeiger)
 \end{lstlisting}
 R\"uckgabeargument ist ein Zeiger, der auf das erste (reelle) Element des Arrays
@@ -346,13 +346,13 @@ Es findet keine automatische \"Uberpr\"ufung der Ein- und
 %
 \begin{frame}[fragile]\frametitle{Befehle}
 \begin{itemize}
-\item Abfragen der Zeilen- bzw. Spaltenzahl eines \mcode{mxArrays}:
-\begin{lstlisting}
+\item Abfragen der Zeilen- bzw. Spaltenanzahl eines \mcode{mxArrays}:
+\begin{lstlisting}[language=C++]
 int mxGetM(const mxArray *array_zeiger)
 int mxGetN(const mxArray *array_zeiger)
 \end{lstlisting}
 \item Fehlermeldung:
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 mexErrMsgTxt('Fehler....')
 \end{lstlisting}
 erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine. 
@@ -362,7 +362,7 @@ erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Typ-Abfragen}
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 bool mxIsDouble( mxArray *array_zeiger);
 \end{lstlisting}
 ist wahr (1), falls durch \mcode{*array_zeiger} eine Matrix mit \mcode{double} oder
@@ -450,7 +450,7 @@ int nrhs, const mxArray *prhs[] )
     /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
     plhs[0] = mxCreateDoubleMatrix(bcols,acols, mxREAL);
 
-    /* Assign pointers to each input and output. */
+    /* Die pointer fuer die Variablen  setzen. */
     a = mxGetPr(prhs[0]);
     b = mxGetPr(prhs[1]);
     result = mxGetPr(plhs[0]);
@@ -668,22 +668,22 @@ Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil I)}
 \begin{lstlisting}[language=C++]
- #include <stdio.h>
- #include "engine.h"
+#include <stdio.h>
+#include "engine.h"
  
- main(int argc, char* argv[])
- {
-     Engine *ep;
-     mxArray *x_m = NULL;
-     mxArray *d = NULL, *le = NULL;
-     double *Dreal;
-     double laenge;
-     int i;
+main(int argc, char* argv[])
+{
+  Engine *ep;
+  mxArray *x_m = NULL;
+  mxArray *d = NULL, *le = NULL;
+  double *Dreal;
+  double laenge;
+  int i;
      
-     double n=10;
+  double n=10;
       
-     printf("\n Open MATLAB engine...\n");
-     ep = engOpen(NULL);
+  printf("\n Open MATLAB engine...\n");
+  ep = engOpen(NULL);
 \end{lstlisting}
 \end{frame}
 %
@@ -691,15 +691,15 @@ Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil II)}
 \begin{lstlisting}[language=C++]
-     x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
-     *mxGetPr(x_m) = n;
+  x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
+  *mxGetPr(x_m) = n;
      
-     engPutVariable(ep,"x_m",x_m);
-     engEvalString(ep,"d=eig(hilb(x_m))");
-     engEvalString(ep,"le=length(d)");
+  engPutVariable(ep,"x_m",x_m);
+  engEvalString(ep,"d=eig(hilb(x_m))");
+  engEvalString(ep,"le=length(d)");
      
-     d = engGetVariable(ep, "d");
-     le = engGetVariable(ep,"le");
+  d = engGetVariable(ep, "d");
+  le = engGetVariable(ep,"le");
 \end{lstlisting}
 \end{frame}
 %
@@ -707,18 +707,18 @@ Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil III)}
 \begin{lstlisting}[language=C++]     
-     Dreal = mxGetPr(d);
-     laenge = *mxGetPr(le);
+  Dreal = mxGetPr(d);
+  laenge = *mxGetPr(le);
     
-     engClose(ep);
+  engClose(ep);
      
-     for (i=0; i<laenge; i++)
-     {
-        printf ( "%d. Eigenwert %g \n" , i+1,Dreal[i] );
-     }
+  for (i=0; i<laenge; i++)
+  {
+    printf ( "%d. Eigenwert %g \n" , i+1,Dreal[i] );
+  }
      
-     mxDestroyArray(x_m);
-     mxDestroyArray(d);
+  mxDestroyArray(x_m);
+  mxDestroyArray(d);
 }    
 \end{lstlisting}
 \end{frame}
@@ -743,7 +743,7 @@ mxDestroyArray(mxArray *x_m);
 \begin{frame}[fragile]\frametitle{Beispielprogramm}
 \begin{itemize}
 \item \mcode{plot_poisson.c} plottet die Funktion\\
-$f(x,y)= sin(4 \pi x) \sin (2 \pi y)$
+$f(x,y)= \sin(4 \pi x) \sin (2 \pi y)$
 auf $[0,1] \times [0,1]$.
 \item In C betrachten wir das Gitter, das durch Zerlegen der x- und der
 y-Richtung in 50 Punkten entsteht. 
@@ -787,13 +787,13 @@ int plot_graph(
 -----------------------------------------------------*/
 main(int argc, char* argv[]) 
 {
-    double x[MAX_ORDER];
-    double y[MAX_ORDER];
-    double z[MAX_ORDER*MAX_ORDER];
-    int x_n,y_n;
-    int i,j;        
-    x_n=50;
-    y_n=50;
+  double x[MAX_ORDER];
+  double y[MAX_ORDER];
+  double z[MAX_ORDER*MAX_ORDER];
+  int x_n,y_n;
+  int i,j;        
+  x_n = 50;
+  y_n = 50;
 \end{lstlisting}
 \end{frame}
 %
@@ -803,17 +803,17 @@ main(int argc, char* argv[])
 \begin{lstlisting}[language=C++]  
 for (i=0; i<x_n; i++)
 {
-  x[i]= (double) i/(x_n-1);
+  x[i] = (double) i/(x_n-1);
 }
-for (i=0; i<y_n; i++)
+for (i = 0; i<y_n; i++)
 {
-  y[i]= (double) i/(y_n-1);
+  y[i] = (double) i/(y_n-1);
 }
-for (i=0; i<x_n; i++) 
+for (i = 0; i<x_n; i++) 
 {
-  for (j=0; j<y_n; j++)
+  for (j = 0; j<y_n; j++)
   {
-    *(z+i+j*x_n)=sin(4*3.14159*x[i])*sin(2*3.141459*y[j]);
+    *(z+i+j*x_n) = sin(4*3.14159*x[i])*sin(2*3.141459*y[j]);
   }
 }      
 if (plot_graph(x,y,z,x_n,y_n)==0) 
@@ -829,23 +829,24 @@ return  0;
 \begin{lstlisting}[language=C++]     
 /*-------- function 'plot_graph' -----------*/
 int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
-{  Engine *ep;
-   mxArray *x_m = NULL;
-   mxArray *y_m = NULL;
-   mxArray *z_m = NULL;
-   int i,j;
-   if ((x_n ==0) || (y_n==0)) 
-       return (int) 0;
-   printf("\n Open MATLAB engine...\n");
-   /*---------------------- Start MATLAB engine */
-   if (!(ep = engOpen("\0"))) {
-       fprintf(stderr, "\n Can't start MATLAB engine\n");
-       return EXIT_FAILURE;
-   }
-   printf("Create MATLAB arrays...\n");
-   x_m = mxCreateDoubleMatrix(1, x_n, mxREAL);
-   y_m = mxCreateDoubleMatrix(1, y_n, mxREAL);
-   z_m = mxCreateDoubleMatrix(x_n, y_n, mxREAL);
+{  
+  Engine *ep;
+  mxArray *x_m = NULL;
+  mxArray *y_m = NULL;
+  mxArray *z_m = NULL;
+  int i,j;
+  if ((x_n ==0) || (y_n==0)) 
+    return (int) 0;
+  printf("\n Open MATLAB engine...\n");
+  /*---------------------- Start MATLAB engine */
+  if (!(ep = engOpen("\0"))) {
+    fprintf(stderr, "\n Can't start MATLAB engine\n");
+    return EXIT_FAILURE;
+  }
+  printf("Create MATLAB arrays...\n");
+  x_m = mxCreateDoubleMatrix(1, x_n, mxREAL);
+  y_m = mxCreateDoubleMatrix(1, y_n, mxREAL);
+  z_m = mxCreateDoubleMatrix(x_n, y_n, mxREAL);
 \end{lstlisting}
 \end{frame}
 %
@@ -853,23 +854,23 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil V)}
 \begin{lstlisting}[language=C++]     
-   printf("Copy entries into MATLAB ...\n");
-   memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
-   memcpy((void *)mxGetPr(y_m), (void *) y, y_n*sizeof(double));
-   memcpy((void *)mxGetPr(z_m), (void *) z, x_n*y_n*sizeof(double));      
-   engPutVariable(ep,"x_m",x_m);
-   engPutVariable(ep,"y_m",y_m);
-   engPutVariable(ep,"z_m",z_m);     
-   printf("Execute MATLAB commands...\n");
-   engEvalString(ep,"[Y,X]=meshgrid(y_m,x_m)");
-   engEvalString(ep,"surf(X,Y,z_m)");
-   engEvalString(ep,"xlabel('x')");
-   engEvalString(ep,"ylabel('y')"); 
-   printf("Please press Return \n");
-   fgetc(stdin);  
-   printf("\n Close MATLAB engine... \n");
-   engClose(ep);
-   return (int) 1;
+  printf("Copy entries into MATLAB ...\n");
+  memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
+  memcpy((void *)mxGetPr(y_m), (void *) y, y_n*sizeof(double));
+  memcpy((void *)mxGetPr(z_m), (void *) z, x_n*y_n*sizeof(double));      
+  engPutVariable(ep,"x_m",x_m);
+  engPutVariable(ep,"y_m",y_m);
+  engPutVariable(ep,"z_m",z_m);     
+  printf("Execute MATLAB commands...\n");
+  engEvalString(ep,"[Y,X]=meshgrid(y_m,x_m)");
+  engEvalString(ep,"surf(X,Y,z_m)");
+  engEvalString(ep,"xlabel('x')");
+  engEvalString(ep,"ylabel('y')"); 
+  printf("Please press Return \n");
+  fgetc(stdin);  
+  printf("\n Close MATLAB engine... \n");
+  engClose(ep);
+  return (int) 1;
 }  
 \end{lstlisting}
 \end{frame}

@@ -1,6 +1,6 @@
-\documentclass[utf8x,notes=hide]{beamer}
+\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \input{../slide_header}
-\subtitle{Einheit 6 \\ Grafik Handle \\ GUI - Programmierung}
+\subtitle{Einheit 6}
 \maketitle
 \section{Grafik-Handle}
 \begin{frame}[fragile]\frametitle{Grafik-Objekte}
@@ -47,7 +47,8 @@ Aussehen der Grafik-Fenster. Sie sind Kinder der Axes Objekte.\\
 >> x=0:0.2:2*pi; plot(x,sin(x))
 \end{lstlisting}
 \item Abfragen und Bedeutung der Handles aller Objekte\\
-\begin{minipage}{4cm}
+\begin{columns}[t]
+\column{0.38\textwidth}
 \begin{lstlisting}
 >> h=findobj
 h =
@@ -56,8 +57,7 @@ h =
   100.0015
     3.0016
 \end{lstlisting}
-\end{minipage} \hfill
-\begin{minipage}{4cm}
+\column{0.38\textwidth}
 \begin{lstlisting}
 >> get(h,'type')
 ans = 
@@ -66,7 +66,7 @@ ans =
     'axes'
     'line'
 \end{lstlisting} 
-\end{minipage}
+\end{columns}
 \end{itemize}
 \end{frame}
 % 
@@ -77,7 +77,7 @@ ans =
 \item Momentane Einstellung des 'Axes'-Objekts
 \begin{lstlisting}
 >>  set(h(3))
-        ActivePositionProperty: [ position | {outerposition} ]
+        ActivePositionProperty: [position | {outerposition}]
         ALim
         ALimMode: [ {auto} | manual ]
         AmbientLightColor
@@ -101,7 +101,7 @@ ans =
 \begin{itemize}
 \item \"Andern des Markers:
 \begin{lstlisting}
->> set(h(4),'Marker','s','MarkerSize',4)
+set(h(4),'Marker','s','MarkerSize',4)
 \end{lstlisting}
 \item \"Andern der Einheiten auf der x-Achse
 \begin{lstlisting}
@@ -114,13 +114,13 @@ set(h(3),'XtickLabel','0|pi/2|pi|2pi')
 \begin{columns}[t]
 \column{0.48\textwidth}
 \begin{lstlisting}
->> set(gcf,'Name','Tolle Abb.')
->> set(gca,'Fontsize',15) 
+set(gcf,'Name','Tolle Abb.')
+set(gca,'Fontsize',15) 
 \end{lstlisting}
 \column{0.4\textwidth}
 \begin{lstlisting}
->> l=legend('sin(x)');
->>  set(l,'FontSize',20); 
+l = legend('sin(x)');
+set(l,'FontSize',20); 
 \end{lstlisting}
 \end{columns}
 \end{itemize}
@@ -198,7 +198,7 @@ set(0,'DefaultAxesFontSize','remove')
    bzw. \verb!matlabroot\toolbox\local! (Windows) abgelegt werden. Sie werden so
   beim Start von MATLAB automatisch eingeladen. 
 \item Unter Linux muss die Datei durch den Suchpfad \mcode{path} erreichbar
-  sein.  
+  sein (oder einfach dort hinlegen: \verb!~/.matlab/startup.m!)
 \end{itemize} 
 \end{frame}
 \begin{frame}[fragile]\frametitle{Ein Beispiel}
@@ -219,7 +219,7 @@ set(0,'DefaultAxesFontSize','remove')
 \item Das Graphical User Interface(GUI) erm\"oglicht das Steuern von Programmen
   mit Hilfe der grafischen Oberfl\"ache. 
 \item Hierdurch k\"onnen Programme von Usern ohne MATLAB-Kenntnisse genutzt
-  werden. 
+  werden. Weiterhin kann dies die Benutzung auch für den Implementierer von numerischen Algorithmen hilfreich sein.
 \item Im Wesentlichen werden GUIs durch Grafik-Objekte der Typen
   \mcode{uimenus}, \mcode{uicontextmenu} und \mcode{uicontrols} gesteuert. Sie
   sind auf der gleichen Hierachie-Ebene wie \mcode{axes}-Objekte. 
@@ -252,13 +252,13 @@ ant = inputdlg({'Frage 1','Frage 2','Frage3'},...
 %
 \begin{frame}[fragile]\frametitle{Grafik-Objekte und GUIs}
 \begin{itemize}
-\item \alert{ uicontrols}
+\item \alert{ uicontrols}:
 Interaktive grafische Objekte, die Aktionen steuern oder bestimmte Optionen setzen.
 
-\item \alert{ uimenus}
+\item \alert{ uimenus}:
 Benutzerdefinierte Men\"uf\"uhrung in einer \mcode{figure} (wird nicht behandelt).
 
-\item \alert{ uicontextmenu}
+\item \alert{ uicontextmenu}:
 Ein Pop-up Men\"u, das erscheint, wenn der Benutzer mit der rechten Maustaste
 ein grafisches Objekt anklickt (wird nicht behandelt).
 \end{itemize}
@@ -314,8 +314,7 @@ handle = uicontrol('eig1','wert1',...
 \begin{lstlisting}
 >>u = uicontrol('style','listbox',...
 'string','Option1|Option2|Option3',...
-'units','centimeters',...
-'position',[0 0 3 3])
+'units','centimeters','position',[0 0 3 3])
 \end{lstlisting} 
 \end{frame}
 
@@ -336,15 +335,15 @@ handle = uicontrol('eig1','wert1',...
 function varargout = objectTag_Callback(h,ev_data,...
                        handles, varargin)
 \end{lstlisting}
-%\begin{itemize}
-%\item \mcode{objectTag} ist der Name, der im Tag des Objects gespeichert wird.
-%\item \mcode{h} ist der Handle des Objekts, dass die CallBack-Funktion
-%  aufruft. 
-%\item \mcode{ev_data} wird nicht ben\"otigt.
-%\item \mcode{handles} Struktur aller Objekte in der GUI
-%\item \mcode{varargin} ist eine  Liste von Argumenten, die an die Funktion
-%  \"ubergeben wird.  
-%\end{itemize} 
+\begin{itemize}
+\item \mcode{objectTag} ist der Name, der im Tag des Objects gespeichert wird.
+\item \mcode{h} ist der Handle des Objekts, dass die CallBack-Funktion
+  aufruft. 
+\item \mcode{ev_data} wird nicht ben\"otigt (ist reserviert).
+\item \mcode{handles} Struktur aller Objekte in der GUI
+\item \mcode{varargin} ist eine  Liste von Argumenten, die an die Funktion
+  \"ubergeben wird.  
+\end{itemize} 
 \end{itemize}
 \end{frame}
 % 

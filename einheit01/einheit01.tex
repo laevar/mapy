@@ -2,7 +2,6 @@
 \input{../slide_header}
 \subtitle{Einheit 1}
 \maketitle
-
 \section{Streifzug durch MATLAB}
 
 \subsection{Einleitung}
@@ -822,7 +821,7 @@ ans =
 Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
 lineare Gleichungssystem 
 { \[ A x=b \]}
-wird in MATLAB gelöst durch  \mcode{ x=A\b}.\\
+wird in MATLAB gelöst durch  \mcode{ x=A\\b}.\\
 
 \begin{lstlisting}
 >> x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
@@ -837,7 +836,7 @@ y =
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{LU-Zerlegung}
-{\centering  Was bedeutet \mcode{A\b}?}\\[0.5cm]
+{\centering  Was bedeutet \mcode{A\\b}?}\\[0.5cm]
 
 MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren), d.h.
 es sucht eine obere Dreiecksmatrix $U$ und eine untere Dreiecksmatrix
@@ -942,7 +941,7 @@ zu einer hermiteschen, positiv definiten Matrix
 \begin{itemize}
 \item LGS können auch mit Hilfe iterativer Verfahren gelöst werden,
   z.B. \mcode{gmres}, \mcode{pcg}, \mcode{bicgstab}.
-\item Ist $A\in \mathbb{C}^{n \times m}$, $n \neq m$, so ergibt \mcode{A\b}
+\item Ist $A\in \mathbb{C}^{n \times m}$, $n \neq m$, so ergibt \mcode{A\\b}
   für $n>m$ (der überbestimmte Fall) die Least-Square Lösung, d.h. der Ausdruck
   \mcode{norm(A*x-b)} wird minimiert. Ist $n<m$ (der unterbestimmte
   Fall) so wird eine Grundlösung berechnet. 

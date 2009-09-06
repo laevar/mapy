@@ -2,7 +2,6 @@
 \input{../slide_header}
 \subtitle{Einheit 1}
 \maketitle
-
 \section{Streifzug durch MATLAB}
 
 \subsection{Einleitung}
@@ -544,7 +543,7 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Andere Operatoren}
 \begin{itemize}
-\item \mcode{A\B} berechnet die Lösung $X$ von \mcode{A*X=B}. \\
+\item \mcode{A\\B} berechnet die Lösung $X$ von \mcode{A*X=B}. \\
 
 \item \mcode{A/B} berechnet die Lösung $X$ von \mcode{X*A=B}.\\
 
@@ -822,7 +821,7 @@ ans =
 Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
 lineare Gleichungssystem 
 { \[ A x=b \]}
-wird in MATLAB gelöst durch  \mcode{ x=A\b}.\\
+wird in MATLAB gelöst durch  \mcode{ x=A\\b}.\\
 
 \begin{lstlisting}
 >> x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
@@ -837,7 +836,7 @@ y =
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{LU-Zerlegung}
-{\centering  Was bedeutet \mcode{A\b}?}\\[0.5cm]
+{\centering  Was bedeutet \mcode{A\\b}?}\\[0.5cm]
 
 MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren), d.h.
 es sucht eine obere Dreiecksmatrix $U$ und eine untere Dreiecksmatrix

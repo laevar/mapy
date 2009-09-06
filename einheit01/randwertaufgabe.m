@@ -7,7 +7,7 @@
 %  Gerd Rapin           31.10.2003
 %-------------------------------------------
 
-% Anzahl St�tzstellen
+% Anzahl Stuetzstellen
 n=41;
 
 % Erzeugen des Gitters
@@ -18,12 +18,12 @@ x_i=x(2:n);
 A=diag(2*ones(1,n-1),0)...
    +diag(-1*ones(1,n-2),-1)...
    +diag(-1*ones(1,n-2),1);
-F=(1/n)^2*transpose(exp(x_i)); % rechte Seite f�r f=exp(x) 
+F=(1/n)^2*transpose(exp(x_i)); % rechte Seite fuer f=exp(x) 
 
-% L�sen des lin. Gls.
+% Loesen des lin. Gls.
 z_i=A\ F;
 
-% Darstellen der L�sung
+% Darstellen der Loesung
 z=[0; z_i; 0];
 plot(x,z,'r*-');
 %plot(x_i,exp(x_i))

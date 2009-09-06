@@ -24,16 +24,16 @@ x = 1e-16; ((1+x)-1)/x
 disp ('*** aufgabe 5');
 clear
 
-j=2:1000;
+j = 2:1000;
 sum(1./log(j).*j)
 
-j=1:1000;
-idx=ones(1000,1);
+j = 1:1000;
+idx = ones(1000,1);
 1./j*idx
 
 disp ('*** aufgabe 6');
 clear
-j=1:10000;
+j = 1:10000;
 1/pi^2*sum(1./j.^2)
 
 disp ('*** aufgabe 7');
@@ -61,7 +61,7 @@ disp ('*** aufgabe 8');
 clear
 %a =100:2:200; b=[1 4 1 0 ] ; a (b)
 disp (['b wird in diesem zusammenhang als index interpretiert, da er' ...
-  'aber nicht die gleiche laenge wie a hat, bricht matlab ab']);
+  'aber er kein logischer vektor der laenge 100 ist, bricht matlab ab']);
 
 disp ('*** aufgabe 9');
 clear
@@ -74,23 +74,23 @@ det(A)
 disp ('*** aufgabe 10');
 clear
 % Anzahl Stützstellen
-n=101;
+n = 101;
 
 % Erzeugen des Gitters
-x=0:(1/n):1;
-x_i=x(2:n);
+x = 0:(1/n):1;
+x_i = x(2:n);
 
 % Aufstellen des lin. Gls.
 A = diag(2*ones(1,n-1),0)...
    +diag(-1*ones(1,n-2),-1)...
    +diag(-1*ones(1,n-2),1);
-F=(1/n)^2*ones(n-1,1); % rechte Seite für f=1 
+F = (1/n)^2*ones(n-1,1); % rechte Seite für f=1 
 
 % Lösen des lin. Gls.
-z_i=A\ F;
+z_i = A\ F;
 
 % Darstellen der Lösung
-z=[0; z_i; 0];
+z = [0; z_i; 0];
 figure
 plot(x,z,'r*-');
 
@@ -109,23 +109,23 @@ sqrt(sum(sum(A.^2)))
 disp ('*** aufgabe 13');
 clear
 % Anzahl Stützstellen
-n=101;
+n = 101;
 
 % Erzeugen des Gitters
-x=0:(1/n):1;
-x_i=x(2:n);
+x = 0:(1/n):1;
+x_i = x(2:n);
 
 % Aufstellen des lin. Gls.
 A = diag(2*ones(1,n-1),0)...
    +diag(-1*ones(1,n-2),-1)...
    +diag(-1*ones(1,n-2),1);
-F=(1/n)^2*sin(4*pi*x_i); % rechte Seite für f=1 
+F = (1/n)^2*sin(4*pi*x_i); % rechte Seite für f=1 
 
 % Lösen des lin. Gls.
-z_i=A\ F';
+z_i = A\ F';
 
 % Darstellen der Lösung
-z=[0; z_i; 0];
+z = [0; z_i; 0];
 figure
 plot(x,z,'r*-');
 

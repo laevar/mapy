@@ -289,7 +289,6 @@ function myfile(In_1,..,In_k)
 
 
 \section{Programmieren - Teil II}
-\subsection{Gültigkeitsbereich von Variablen}
 %\item Aufgaben
  
 %
@@ -307,6 +306,8 @@ function myfile(In_1,..,In_k)
   werden. 
 \end{itemize}
 \end{frame}
+
+\subsection{Schleifen}
 %
 % - Folie
 %
@@ -365,8 +366,6 @@ end;
   gewechselt.  
 \end{itemize}
 \end{frame}
-
-\subsection{Schleifen}
 %
 % - Folie
 %
@@ -501,9 +500,9 @@ end
 \item Numerische Werte ungleich $0$ werden als \mcode{TRUE} gewertet.
 \end{itemize}
 \begin{lstlisting}
->> a= (1<2)
+>> a = (1<2)
 a = 1
->> b= ([ 1 2 3 ] < [ 2 2 2 ])
+>> b = ([ 1 2 3 ] < [ 2 2 2 ])
 b =   1     0     0
 >> whos
   Name Size Bytes  Class
@@ -519,12 +518,12 @@ b =   1     0     0
 >> a=[1 1 1], b=[0 1 2] 
 \end{lstlisting}
 \begin{tabular}{cll}
-a == b & gleich &   \mcode{0     1     0}\\
-a \mcode{\~=} b & ungleich & \mcode{1     0     1}\\
-a < b & kleiner & \mcode{0     0     1}\\
-a > b & größer & \mcode{1     0     0}\\
-a <= b & kleiner oder gleich & \mcode{0     1     1}\\
-a >= b & größer oder gleich & \mcode{1     1     0}\\
+\mcode{a == b} & gleich &   \mcode{0     1     0}\\
+\mcode{a \~= b} & ungleich & \mcode{1     0     1}\\
+\mcode{a < b} & kleiner & \mcode{0     0     1}\\
+\mcode{a > b} & größer & \mcode{1     0     0}\\
+\mcode{a <= b} & kleiner oder gleich & \mcode{0     1     1}\\
+\mcode{a >= b} & größer oder gleich & \mcode{1     1     0}\\
 \end{tabular}
 \\
 \alert{Bem:} \alert{ 1 = wahre Aussage, 0 = falsche Aussage}\\

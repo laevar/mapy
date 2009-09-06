@@ -12,4 +12,4 @@ for i = 1:100
   fak(20);
 end
 time2 = toc;
-fprintf('\nZeitverbrauch rekursives Verfahren: %f',time2);
+fprintf('\nZeitverbrauch rekursives Verfahren: %f\n',time2);

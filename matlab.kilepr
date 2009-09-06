@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=einheit05/einheit05.tex
+lastDocument=einheit02/uebung/aufgaben_einh02.tex
 masterDocument=
 name=Matlab
 pkg_extIsRegExp=false
@@ -26,29 +26,29 @@ order=-1
 
 [item:einheit01/einheit01.tex]
 archive=true
-column=15
+column=73
 encoding=UTF-8
 highlight=LaTeX
-line=546
-open=false
-order=3
+line=943
+open=true
+order=1
 
 [item:einheit01/uebung/aufgaben_einh01.tex]
 archive=true
-column=18
+column=41
 encoding=UTF-8
 highlight=LaTeX
-line=1
-open=false
-order=2
+line=8
+open=true
+order=0
 
 [item:einheit02/einheit02.tex]
 archive=true
-column=74
+column=11
 encoding=UTF-8
 highlight=LaTeX
-line=0
-open=false
+line=697
+open=true
 order=2
 
 [item:einheit02/uebung/aufgaben_einh02.tex]
@@ -57,8 +57,8 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=false
-order=2
+open=true
+order=3
 
 [item:einheit03/einheit03.tex]
 archive=true
@@ -129,7 +129,7 @@ column=11
 encoding=UTF-8
 highlight=LaTeX
 line=4
-open=true
+open=false
 order=0
 
 [item:einheit07/einheit07.tex]
@@ -161,9 +161,9 @@ order=-1
 
 [item:slide_header.tex]
 archive=true
-column=1
+column=16
 encoding=UTF-8
 highlight=LaTeX
-line=27
-open=true
-order=1
+line=123
+open=false
+order=0

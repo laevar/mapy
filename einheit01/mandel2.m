@@ -17,7 +17,7 @@ for k=1:it_max
     waitbar(k/it_max);
 end
 %contourf(x,y,abs(Z)<Z_max,10);
-image(X,Y,abs(Z2));
+image(x,y,abs(Z2));
 axis tight
 title('Mandelbrot Set', 'FontSize',16);
 

@@ -33,7 +33,7 @@ plot(x,polyval(flipdim(a,2),x))
 disp('*** aufgabe 3');
 clear
 
-randwertaufgabe
+[z] = randwertaufgabe(40);
 
 disp('*** aufgabe 4');
 clear

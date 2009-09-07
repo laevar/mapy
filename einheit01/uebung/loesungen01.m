@@ -59,9 +59,7 @@ title('Mandelbrot Set', 'FontSize',16);
 
 disp ('*** aufgabe 8');
 clear
-%a =100:2:200; b=[1 4 1 0 ] ; a (b)
-disp (['b wird in diesem zusammenhang als index interpretiert, da er' ...
-  'aber er kein logischer vektor der laenge 100 ist, bricht matlab ab']);
+a =100:2:200; b=[1 4 10] ; a (b)
 
 disp ('*** aufgabe 9');
 clear

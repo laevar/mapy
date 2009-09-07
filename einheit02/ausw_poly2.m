@@ -1,4 +1,4 @@
-function y=ausw_poly2(a,x)
+function y = ausw_poly2(a,x)
 %----------------------------------------------------
 % ausw_poly berechnet den Funktionswert von 
 %           p(x)=a_1 +a_2 x + a_3 x^2+ ... +a_n x^(n-1)

@@ -12,10 +12,10 @@ function result = f_1d(x)
 
 % Berechnen des Funktionswerts
 result = zeros(1,length(x));
-    for k = 1:length(x)
-    if abs(x(k))<1
-        result(k) = exp(-1/(1-x(k)^2));
-    else
-        result(k) = 0;
-    end;
+for k = 1:length(x)
+  if abs(x(k))<1
+    result(k) = exp(-1/(1-x(k)^2));
+  else
+    result(k) = 0;
+  end;
 end;

@@ -31,7 +31,7 @@ disp('*** aufgabe 4');
 clear
 
 g = '(1 - abs(x^2))*(abs(x) < 1)';
-ezplot(g);
+ezplot(g,[-2 2]);
 
 disp('*** aufgabe 5');
 clear
@@ -39,7 +39,7 @@ clear
 ezplot('sin(x)*cos(2*x)',[-pi,2*pi]);
 legend({'sin(x)*cos(2*x)'},'FontSize',21)
 set(gca,'XTick',-pi:pi/2:2*pi)
-set(gca,'XTickLabel',{'-pi','-pi/2','0','pi/2','pi','3/2 pi','2 pi'},'FontSize',14)
+set(gca,'XTickLabel',[num2str([-1:1/2:2]') repmat(' pi',7,1)],'FontSize',14)
 
 disp('*** aufgabe 6');
 clear

@@ -28,7 +28,7 @@ for i = 1:N
 end;
 plot(0:0.01:1,(0:0.01:1).^3,'LineWidth',3);
 title(['\int_0^1 x e^x = ',num2str(result),' fuer N =', num2str(N) ]); 
-
+hold off
 
 
 

@@ -63,15 +63,30 @@ myhilbert(4)-hilb(4)
 
 disp('*** aufgabe 9');
 clear
+
+%x²-2
+p = 0;
+q = -2;
+[anz,nulls] = quad_gl(p,q)
 roots([1 0 -2])
+
+%x²-2
+p = -2;
+q = 1;
+[anz,nulls] = quad_gl(p,q)
 roots([1 -2 1] )
+
+%x²-2
+p = -4;
+q = 10;
+[anz,nulls] = quad_gl(p,q)
 roots([1 -4 10] )
 
 disp('*** aufgabe 10');
 clear
 
-[g,k] = fibonacci(10e-3)
-[g,k] = fibonacci(10e-4)
+[g,k] = fibonacci(1e-3)
+[g,k] = fibonacci(1e-4)
 
 disp('*** aufgabe 11');
 clear

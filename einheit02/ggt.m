@@ -9,7 +9,7 @@ function a = ggt(a,b)
 %                   
 %  Gerd Rapin      11.11.2003
 %------------------------------------------------------
-while (a ~ =b)
+while (a ~= b)
   if (a > b)
     a = a-b;
   else

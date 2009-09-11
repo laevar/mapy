@@ -13,22 +13,23 @@ mandelbox(cent, xmin, xmax, ymin, ymax);
 while (1)
   [x,y,taste] = ginput(1);
   cent = [x y];
+  xdiff = (xmax - xmin);
+  ydiff = (ymax - ymin);
   switch taste
     case 1 
-      xmin = -(xmax-xmin)/3;
-      xmax = (xmax-xmin)/3;
-      ymin = -(ymax - ymin)/3;
-      ymax = (ymax - ymin)/3;
+      xmin = -xdiff/3;
+      xmax = xdiff/3;
+      ymin = -ydiff/3;
+      ymax = ydiff/3;
       mandelbox (cent, xmin, xmax, ymin, ymax);
     case 2
       close all
-      break
+      return
     case 3
-      xmin = -3/2*(xmax-xmin)/2;
-      xmax = 3/2*(xmax-xmin)/2;
-      ymin = -3/2*(ymax - ymin)/2;
-      ymax = 3/2*(ymax - ymin)/2;
+      xmin = -3/2*xdiff/2;
+      xmax = 3/2*xdiff/2;
+      ymin = -3/2*ydiff/2;
+      ymax = 3/2*ydiff/2;
       mandelbox (cent, xmin, xmax, ymin, ymax);
   end
 end
-

@@ -68,9 +68,10 @@ clear
 
 x = linspace (-1,1,30);
 [X,Y,Z] = meshgrid(x,x,x);
-V = sin(4*pi*X).*sin(pi*Y).^2.*Y.^2.*(Z.^2-1);
+V = sin(4*pi*X).*sin(pi*Y).*Y.^2.*(Z.^2-1);
 sx = [-0.4,0.4]; sy = [-0.6,0.6]; 
 sz = [0.1];
+figure
 slice(X,Y,Z,V,sx,sy,sz)
 shading interp
 axis equal
@@ -124,8 +125,3 @@ for a = 1:20
 end
 % Abspielen des Movies
 movie(F,1);
-
-disp('*** aufgabe 10');
-clear
-
-nrchars ('tes se 23234 c');

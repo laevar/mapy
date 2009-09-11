@@ -6,4 +6,5 @@ function invstr = inverstring (str)
 %   invstr : invertierter string
 % Jochen Schulz, 24.07.2009
 
- invstr = flipdim (str,2);
+ invstr = str(end:-1:1)
+ %invstr = flipdim (str,2);

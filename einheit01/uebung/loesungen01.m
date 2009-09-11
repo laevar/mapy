@@ -95,8 +95,8 @@ plot(x,z,'r*-');
 disp ('*** aufgabe 11');
 clear
 
-A = hilb(50); 
-sum(A(3,:))
+A = hilb(50);
+sum(A(:,3))
 
 disp ('*** aufgabe 12');
 clear

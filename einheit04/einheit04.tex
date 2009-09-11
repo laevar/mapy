@@ -2,6 +2,10 @@
 \input{../slide_header}
 \subtitle{Einheit 4 }
 \maketitle
+\begin{frame}
+  \frametitle{Aufbau}
+  \tableofcontents
+\end{frame}
 \section{Visualisieren von 3D-Daten}
 
 %
@@ -248,12 +252,12 @@ ans =
 \hline
 1 &   Exponent (\mcode{^}, \mcode{.^}), \mcode{transpose}\\
 2 & logische Verneinung (\mcode{\~})\\
-3 & Multiplikation (*,.*), Division (/,./,\mcode{\\}, \mcode{.\\})\\
+3 & Multiplikation (*,.*), Division (\mcode{/},\mcode{./},\mcode{\\}, \mcode{.\\})\\
 4 & Addition (+), Subtraktion (-)\\
 5 & Doppelpunktoperator (:)\\
-6 & Vergleichsoperatoren (<,>,<=,>=,==,\mcode{\~=})\\ 
+6 & Vergleichsoperatoren (\mcode{<},\mcode{>},\mcode{<=},\mcode{>=},\mcode{==},\mcode{\~=})\\ 
 7 & Logisches und (\mcode{\&})\\
-8 & Logisches oder (|)\\
+8 & Logisches oder (\mcode{|})\\
 \hline
 \end{tabular}\\
 {\scriptsize Bei gleicher Rangfolge wertet MATLAB von links nach rechts
@@ -586,7 +590,7 @@ Format='<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>...'
 \begin{frame}[fragile]\frametitle{Bemerkungen zu fprintf}
 \begin{itemize} 
 \item Die formatierte Ausgabe ist an den Ansi-C Standard angelehnt.
-\item Durch \mcode{'\n'} wird ein Zeilenumbruch bewirkt. \mcode{'\%'} erzeugt
+\item Durch \mcode{'\\n'} wird ein Zeilenumbruch bewirkt. \mcode{'\%'} erzeugt
   \mcode{\%}.
  \item \mcode{sprintf} funktioniert wie \mcode{fprintf}. Allerdings wird
   die Ausgabe als String zurückgegeben. 
@@ -597,24 +601,7 @@ Format='<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>...'
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Schreiben in Dateien - Beispiel}
-\begin{lstlisting}
-% waehrung.m
-% 
-% Erstellt eine Umrechnungstabelle zwischen 
-% Euro und anderer Waehrung
-
-waehrung_name = input('Umrechnungstabelle fuer welche Waehrung ? ','s');
-fprintf('Ein Euro entspricht wievielen %s ? ',waehrung_name);
-umrechnung=input('');
-a = [1 2 3 5 10 20 50 100 200 1000];
-
-fid = fopen('umrechnung.txt','w');
-fprintf(fid,['Umrechnungstabelle: Euro-',waehrung_name,'\n\n']);
-fprintf(fid,['%7.2f Euro = %7.2f ',waehrung_name,'\n'],...
-  [a;umrechnung*a]);
-fprintf(fid,'\n\n Umrechnungskoeffizient: %3.2f \n',umrechnung); 
-fclose(fid);
-\end{lstlisting}
+\lstinputlisting{waehrung.m}
 \end{frame}
 %
 % Slide
@@ -643,7 +630,7 @@ fid = fopen(dateiname, erlaubnis)
 \item \mcode{fclose(fid)} schliesst die Datei mit dem Handle \mcode{fid}
 \item Mit dem Befehl
 \begin{lstlisting}
-fprintf( Datei-Handle, Format, Argument1, Argument2,...)
+fprintf( Datei-Handle, Format, Argument1, Argument2,..)
 \end{lstlisting}
 wird in die durch das Datei-Handle angegebene Datei gemäß der obigen
 Konventionen geschrieben.

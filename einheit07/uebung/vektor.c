@@ -8,8 +8,6 @@
 /* Einbinden der Bibliothek */
 #include "mex.h"
 
-void ggt( double   result[], double a, double b);
-
 void mexFunction( int nlhs, mxArray *plhs[],
                   int nrhs, const mxArray *prhs[] )
 {

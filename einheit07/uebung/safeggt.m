@@ -1,8 +1,8 @@
 function [result] = safeggt(a,b)
 
-% Input Variablen muessen nichtnegative Double sein.
-if ( isinteger(a) && isinteger(b) && a > 0 && b > 0 && length(a) == 1 && length(b) == 1)
+% Input Variablen muessen nichtnegative integer sein.
+if ( (a - floor(a)) == 0 && (b - floor(b)) == 0 && a > 0 && b > 0 && isscalar(a) && isscalar(b))
   result = ggt(a,b);
 else
-  warning('keine Korrekte Eingabe!')
+  error('keine Korrekte Eingabe!');
 end

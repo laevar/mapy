@@ -21,6 +21,7 @@ approximiert.
 
 
 %-----------------------------------------------------------------------------------
+% das muss komplizierter werden!
 %-----------------------------------------------------------------------------------
 \begin{aufg}{4}
 Wie erzeugen Sie ohne Schleifen in \textsc{Matlab} aus einem Vektor
@@ -117,26 +118,37 @@ der Funktion
 mit Hilfe des Kommandos \mcode{surf}.
 \end{aufg}
 
-\begin{aufg}{4}
+\begin{aufg}{8}
 %GUI
-Welche Hierarchie besitzen die grafischen Elemente von Matlab beginnend vom root-Element ?
-Wie werden Grafik-Handles abgespeichert und wie bekommt man Informationen über die handles ?
+Schreibe ein Programm, das eine Matlab-GUI erzeugt, welches folgende Elemente 
+enthalten soll:
+\begin{itemize}
+ \item 2 Axen-Elemente nebeneinander
+ \item eine Gruppe von editierbaren Text-Feldern auf der rechten Seite und
+ \item ein popupmenu mit 4 Einträgen
+\end{itemize}
+Das Popupmenu und die Textfelder-gruppe sollen unterschiedliche Callback-Funktionen besitzen, welche
+bei fehlerhaften Eingaben eine Fehlerdialogbox öffnen und bei einer richtigen Eingabe in beide Axen 
+malen
+%Welche Hierarchie besitzen die grafischen Elemente von Matlab beginnend vom root-Element ?
+%Wie werden Grafik-Handles abgespeichert und wie bekommt man Informationen über die handles ?
 %\item [$\square$] Die Callback-Funktion einer GUI benutzt den globalen Workspace. 
+
+Bemerkung: Es reicht in Teilen auch ein Pseudocode, wichtig ist die Grundstruktur.
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
 \begin{aufg}{4}
-Schreiben Sie eine Funktion, die einen zu übergebenen String in eine inline-function 
-konvertiert und vektorisiert. Die Funktion soll 1-3 Argumente besitzen: den String, die untere Schranke 
-und die obere Schranke. Überprüfen sie die Anzahl der Argumente und setzen sie für alle 3 Variablen 
-Default-Werte. Nach der Überprüfung soll die Funktion in einem 2D-Plot grafisch dargestellt werden.
+Schreiben Sie eine Funktion, die einen bis mehrere zu übergebenene Strings in inline-functions 
+konvertiert und vektorisiert. Die Funktion soll beliebige Anzahl von function-strings erhalten können und ansonsten noch die untere Schranke und die obere Schranke übergeben bekommen können. Überprüfen sie die Anzahl und den Typ der Argumente und setzen sie für alle 3 Variablen Default-Werte. Nach der Überprüfung soll die Funktion in einem 2D-Plot grafisch dargestellt werden.
+%mehr und komplizierter
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
 \begin{aufg}{6}
 Woraus bestehen die beiden Möglichkeiten C-Programme mit Matlab zu kombinieren ? 
 Erklären sie möglichst genau die Grundstruktur beider Varianten in dem sie jeweils ein Grundgerüst
-aufschreiben und Kommentieren. 
+aufschreiben und Kommentieren: Welche Funktionen werden gebraucht, was muss wie übersetzt werden etc.
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
@@ -148,13 +160,16 @@ den Titel und die Achsen-Beschiftung.
 
 \begin{aufg}{4}
 LGS loesen ? cond ? norm ? (gleich sparse mit einbauen ?)
- 
+LGS von einer 3dim-funktion loesen. (entsprechendes umsortieren, repmat, plot)
+ polynominterpolation 
+griddata
+mehrdimensionale arrays
 \end{aufg}
 
 
 \begin{aufg}{4}
 Schreiben sie ein Programm, welches eine Datei öffnet, die komma-separierte Zahlen enthält, 
-deren Inhalt zeilenweise ausliest und diese in einer Sparse-Matrix abspeichert. 
+deren Inhalt zeilenweise ausliest und die jeweiligen Werte in einer Sparse-Matrix abspeichert. 
 \end{aufg}
 
 

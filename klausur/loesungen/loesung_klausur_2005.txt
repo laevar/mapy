@@ -1,0 +1,133 @@
+      Klausur
+
+Einfuehrung in MATLAB (SS 2005)
+===============================
+
+
+Aufgabe 1: (4 Punkte)
+=====================
+- Standardatentyp sind Matrizen vom Typ double
+- double sind Gleitkommazahlen (ca. 16 Nachkommastellen)
+- koennen auch komplexwertig sein.
+- intern wird zwischen reell und komplex unterschieden.
+
+Aufgabe 2: (3 Punkte)
+=====================
+- int8 ist der Datentyp aller ganzen Zahlen, die durch 8 Bit dargestellt werden
+  koennen.
+- Wertebereich von int8 ist -2^7...0...2^7-1.
+- Wertebereich von uint8 ist 0..2^8-1.
+- Unterschied: uint8 ohne Vorzeichen, int8 mit Vorzeichen.
+
+
+Aufgabe 3: (6 Punkte)
+=====================
+- Der Gueltigkeitsbereich von Variablen zeigt an, in welchem Bereich die
+  Variablen gueltig sind.
+- Es gibt einen globalen Workspace. Alle Skript-Files greifen auf diesen
+  Workspace zu, d.h. solche Variablen sind solange gueltig, bis sie geloescht
+  werden.
+- Funktionen erzeugen einen lokalen Workspace. Die globalen Variablen koennen
+  nicht benutzt werden. 
+- Lokaler Workspace wird beim Verlassen der Funktion geloescht.
+- Durch den Befehl global koennen Variablen des globalen Workspaces auch fuer
+  Funktionen sichtbar und manipulierbar gemacht werden.
+- Der Befehl global erscheint in der Funktion aber auch im globalen Workspace
+  muss die Variable als global gesetzt werden. 
+
+Aufgabe 4: (8 Punkte)
+=====================
+function res=potenz(x,n)
+% function potenz(x,n)
+n
+if n==1 
+    res=x;
+else
+    if mod(n,2)==0
+        res=potenz(x,n/2).^2;
+    else
+        res=potenz(x,(n-1)/2).^2*x;
+    end
+end
+
+Aufgabe 5: (8 Punkte)
+=====================
+function i=aufgabe6(x)
+y(1)=x;
+y(2)=x-1/x;
+i=1;
+while abs(y(i+1)-y(i))>=10^(-4)
+    y(i+2)=0.5*y(i+1)+1/y(i+1);
+    i=i+1;
+end;
+
+Aufgabe 6: (4 Punkte)
+=====================
+(a)
+>> x=1:1000;
+>> y=(2*ones(1,1000)).^x;
+>> x*y'
+ans =
+  2.1409e+304
+
+(b)
+>> x=2:2:100;
+>> A=repmat(x',1,20);
+>> B=repmat(1:20,length(x),1);
+>> A.^B;
+
+
+Aufgabe 7: (6 Punkte)
+=====================
+(a)
+>> x=[ 1 2 3 4];
+>> y=[ 0 3 2 4];
+>> x1= (y-x > 0) & (x ~= 1)
+x1 =
+     0     1     0     0
+
+(b)
+>> x=sin(1:100);
+>> x2=length(x)
+x2 =
+   100
+(c)
+>> x=linspace(0,1,10);
+>> y=1:2:6;
+>> x3=x(y)
+x3 =
+         0    0.2222    0.4444
+
+Aufgabe 8: (4 Punkte)
+=====================
+(a) Die L\"angen von x und y passen nicht zusammen.
+
+(b) In der letzten Zeile versucht man einen Zeilenvektor mit einem Spaltenvektor
+zu multiplizieren.
+
+
+Aufgabe 9: (8 Punkte)
+=====================
+- jedes Grafik Objekt ist durch seine Eigenschaften bestimmt. 
+- Die Eigenschafte der Objekte sind in sogenannten Handles gespeichert. 
+- Sie liegen als double Werte vor.
+- Ueber die Handle kann man auf die Grafik-Objekte zugreifen und sie
+  modifizieren.
+- es gibt 4 Hierachiestufen (von oben nach unten): Root( Bildschirm), Figure (grafikfenster), Axes
+  (Achsen) und die eigentlichen Objekte wie Linien,... (2 Punkte)
+- jede Hierachiestufe hat Vater und Kinder (Root keinen Vater, Level 4- Objekte
+  keine Kinder)
+- Aendert man die Eigenschaft eines Objekts, so ist dies auch fuer die Kinder
+  der Fall.
+
+
+Aufgabe 10: (6 Punkte)
+=====================
+- Duennbesetzte Matrizen sind Matrizen bei denen die meisten Eintraege 0 sind.
+- Man speichert nur die Nichtnull-Elemente  und deren Position ab.
+- In MATLAB ist es ein eigener Datentyp (sparse).
+
+sparse(B) - erzeugt aus einer normalen Matrix eine sparse Matrix
+full(A)   - erzeugt aus einer Sparse Matrix eine normale Matrix
+eigs(A,k) - bestimmt die k betragsmaessig groessten Eigenwerte von A
+ 

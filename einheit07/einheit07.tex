@@ -2,6 +2,10 @@
 \input{../slide_header}
 \subtitle{Einheit 7}
 \maketitle
+\begin{frame}
+  \frametitle{Aufbau}
+  \tableofcontents
+\end{frame}
 
 \section{Schnittstelle zu C}
 %
@@ -144,7 +148,7 @@ void mexFunction(
 \begin{itemize}
 \item Aufruf MATLAB: \alert{ \mcode{[C,D]=func_beispiel(A,B)}}.
 \item Startet \mcode{func_beispiel.c}:
-\begin{lstlisting}
+\begin{lstlisting}[language=C++]
 const mxArray *B,*A;
 A = prhs[0];
 B = prhs[1];

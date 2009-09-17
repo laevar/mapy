@@ -1,5 +1,5 @@
            Loesungen
-Klausur: Matlab, 10.8.2007
+Klausur: Matlab, 18.9.2009
 ===========================
 
 Aufgabe 1:
@@ -16,13 +16,13 @@ Aufgabe 2:
 f = @(s) quad(@(t) exp(-s.*t).*sin(t.^2),0,1)
 (1 Punkt fuer Punktnotation, jeweils einen Punkt fuer innere und aeussere Funktion)
 
-%Aufgabe 3:
-%----------
-%>> n = length(k)
-%>> A = repmat(transpose(x),1,n);
-%>> B = repmat(0:(n-1),k,1);
-%>> C = (A.^B)
-%>> x = linspace()
+Aufgabe 3:
+----------
+>> n = length(k)
+>> A = repmat(transpose(x),1,n);
+>> B = repmat(0:(n-1),k,1);
+>> C = (A.^B)
+>> x = linspace()
 
 Aufgabe 4:
 ----------
@@ -52,16 +52,16 @@ Aufgabe 5:
 ----------
 
 function [n, res] = a5( x0,TOL);
-x(1)=x0;
+x(1) = x0;
 x(2) = x(1)-(x(1)^2-5)/(2*x(1));
-n=1;
-while abs(x(n+1)-x(n))>TOL
+n = 1;
+while abs(x(n+1)-x(n)) > TOL
     n = n + 1;
     x(n+1) = x(n) - (x(n)^2-5)/(2*x(n));
 end;
 res = x(n+1);
 
-(1 Punkt: Funktionsaufruf, 2.5 Punkte: richtige While-Schleife, 1.5 Punkt:
+(1 Punkt: Funktionsaufruf, 2 Punkte: richtige While-Schleife, 1 Punkt:
 richtige Iteration, 1 Punkte: Richtiges Funktionieren)
 
 Aufgabe 6:
@@ -85,28 +85,26 @@ Zu Vektoren $x=(x_i)_{i=1}^k$, $y=(y_j)_{j=1}^n$ erzeugt
 [X,Y,Z]=meshgrid(x,y,z)
 
 Matrizen $X,Y,Z \in \mathbb{R}^{n \times k}$, wobei jede Zeile von $X$
-eine Kopie des Vektors $x$ ist und $Y$ als Spalten den Vektor $y$
-enthält. (2 Punkte)
+eine Kopie des Vektors $x$ ist, $Y$ als Spalten den Vektor $y$ und $Z$ 
+$z_i$ enthält.  (2 Punkte)
 
 Dann hat F=f(X,Y,Z) die Komponenten 
-(X(i,j),Y(i,j),Z(i,j)) = ( x(j), y(i), f(x(j),y(i))). (2 Punkte)
+(X(i,j),Y(i,j),Z(i,j)) = ( x(j), y(i), z(k), f(x(j),y(i),z(k))). (2 Punkte)
 
 Also erh\"alt man an allen Gitterpunkten die richtigen Funktionswerte und kann
-Sie nun einfach durch slice(X,Y,Z,F) plotten. (2 Punkte) 
+Sie nun einfach durch slice(X,Y,Z,F,1,1,1) plotten. (2 Punkte) 
 
 Aufgabe 9:
 ----------
-f,r,r,f
+gui()
 
 Aufgabe 10:
-----------
-r,r,f,r
+-----------
+ineval()
+
 
 Aufgabe 11:
-----------
-r,f,r,r
+-----------
 
-Aufgabe 12:
-----------
-r,f,r,f
+mycsv
 

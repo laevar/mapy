@@ -23,7 +23,7 @@ approximiert.
 %-----------------------------------------------------------------------------------
 % das muss komplizierter werden!
 %-----------------------------------------------------------------------------------
-\begin{aufg}{4}
+\begin{aufg}{3}
 Wie erzeugen Sie ohne Schleifen in \textsc{Matlab} aus einem Vektor
  $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
 { \[ V:= \left(\begin{array}{ccccc} 
@@ -50,13 +50,13 @@ Welche Werte haben \mcode{A}, \mcode{B}, \mcode{C} und \mcode{D}?
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{6}
+\begin{aufg}{5}
 Schreiben Sie eine Funktion mit Input-Variablen $x_0$ und $TOL$, die die Folge
 \[ x_{n+1} = x_n - \frac{x_n^2-5}{2 x_n}, \quad n \in \mathbb{N} \]
 berechnet und abbricht, wenn $|x_{n}-x_{n-1}| \leq TOL$ ist. Die Funktion soll
 $x_{n}$ und das zugeh\"orige $n$ zur\"uckgeben. 
 \end{aufg}
-
+\newpage
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 \begin{aufg}{6}
@@ -114,62 +114,74 @@ Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
 \begin{aufg}{6}
 Erkl\"aren Sie die Funktionsweise von \mcode{meshgrid} am Beispiel eines Plots
 der Funktion 
-\[ f(x,y) = \sin(2x) \cos(3y), \quad (x,y) \in [0,1]^2 \]
-mit Hilfe des Kommandos \mcode{surf}.
+\[ f(x,y,z) = \sin(2x) \cos(3y) \sin(z), \quad (x,y,z) \in [0,1]^3 \]
+mit Hilfe des Kommandos \mcode{slice}.
 \end{aufg}
-
-\begin{aufg}{8}
+\newpage
+\begin{aufg}{10}
 %GUI
 Schreibe ein Programm, das eine Matlab-GUI erzeugt, welches folgende Elemente 
 enthalten soll:
 \begin{itemize}
- \item 2 Axen-Elemente nebeneinander
- \item eine Gruppe von editierbaren Text-Feldern auf der rechten Seite und
- \item ein popupmenu mit 4 Einträgen
+ \item 2 Axen-Elemente und
+ \item ein editierbares Text-Feld. 
 \end{itemize}
-Das Popupmenu und die Textfelder-gruppe sollen unterschiedliche Callback-Funktionen besitzen, welche
-bei fehlerhaften Eingaben eine Fehlerdialogbox öffnen und bei einer richtigen Eingabe in beide Axen 
-malen
+Die GUI soll $f(x,y) = sin(x)cos(y)$ verarbeiten. Die Datenpunkte für $x$ und $y$ sollen 
+durch zufällig verteilte Punkte erzeugt werden (Hinweis: \mcode{rand}) und die Funktionswerte sollen in der einen
+\mcode{axes} mit \mcode{plot3} ausgegeben werden. In der anderen \mcode{axes} soll die Funktion per \mcode{surf} dargestellt 
+werden. Dafür müssen die Datenpunkte auf einem regelmässigen Gitter interpoliert werden. In dem Textfeld soll die
+Interpolationsmethode gewählt werden können (\mcode{'cubic'} oder \mcode{'linear'})
+(Dies ist auch das einzige Element mit einem Callback).
 %Welche Hierarchie besitzen die grafischen Elemente von Matlab beginnend vom root-Element ?
 %Wie werden Grafik-Handles abgespeichert und wie bekommt man Informationen über die handles ?
 %\item [$\square$] Die Callback-Funktion einer GUI benutzt den globalen Workspace. 
 
-Bemerkung: Es reicht in Teilen auch ein Pseudocode, wichtig ist die Grundstruktur.
+\emph{Hinweis:} Die \mcode{positions} können aus vereinfachungstechnischen Gründen weggelassen werden.
+
+\emph{Tip:} für \mcode{axes} muss ein Vater angegeben werden.
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}{4}
-Schreiben Sie eine Funktion, die einen bis mehrere zu übergebenene Strings in inline-functions 
-konvertiert und vektorisiert. Die Funktion soll beliebige Anzahl von function-strings erhalten können und ansonsten noch die untere Schranke und die obere Schranke übergeben bekommen können. Überprüfen sie die Anzahl und den Typ der Argumente und setzen sie für alle 3 Variablen Default-Werte. Nach der Überprüfung soll die Funktion in einem 2D-Plot grafisch dargestellt werden.
-%mehr und komplizierter
+\begin{aufg}{10}
+Schreiben Sie eine Funktion, die einen bis mehrere zu übergebene Strings in inline-functions 
+konvertiert und vektorisiert. Die Funktion soll ansonsten noch die Anzahl der Evaluationspunkte, die untere Schranke und die obere Schranke übergeben bekommen können (in dieser Reihenfolge). Setzen sie für alle Variablen 
+Default-Werte, falls diese nicht übergeben werde. Danach sollen alle Funktionen in einem 2D-Plot grafisch dargestellt werden.
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
+%\begin{aufg}{6}
+%Woraus bestehen die beiden Möglichkeiten C-Programme mit Matlab zu kombinieren ? 
+%Erklären sie möglichst genau die Grundstruktur beider Varianten in dem sie jeweils ein Grundgerüst
+%aufschreiben und Kommentieren: Welche Funktionen werden gebraucht, was muss wie übersetzt werden etc.
+%\end{aufg}
+
+%-----------------------------------------------------------------------------------
+%\begin{aufg}{4}
+%Schreiben sie ein Skript-file welches eine Grafik erstellt, die mehrere unterschiedlich 
+%gezeichnete Kurven und eine Legende besitzt. Ändern sie nachträglich mittels des handles
+%den Titel und die Achsen-Beschiftung. 
+%\end{aufg}
+
+%\begin{aufg}{4}
+%LGS loesen ? cond ? norm ? (gleich sparse mit einbauen ?)
+%LGS von einer 3dim-funktion loesen. (entsprechendes umsortieren, repmat, plot)
+%\end{aufg}
+
+
 \begin{aufg}{6}
-Woraus bestehen die beiden Möglichkeiten C-Programme mit Matlab zu kombinieren ? 
-Erklären sie möglichst genau die Grundstruktur beider Varianten in dem sie jeweils ein Grundgerüst
-aufschreiben und Kommentieren: Welche Funktionen werden gebraucht, was muss wie übersetzt werden etc.
-\end{aufg}
+Gegeben sei eine Datei \texttt{'dummy.csv'} mit folgendem Inhalt:
 
-%-----------------------------------------------------------------------------------
-\begin{aufg}{4}
-Schreiben sie ein Skript-file welches eine Grafik erstellt, die mehrere unterschiedlich 
-gezeichnete Kurven und eine Legende besitzt. Ändern sie nachträglich mittels des handles
-den Titel und die Achsen-Beschiftung. 
-\end{aufg}
+\begin{lstlisting}
+0,5,3,7
+76,23,1,8
+34,176,84,0
+\end{lstlisting}
+Schreiben sie ein Programm, welches diese Datei einliest und die jeweiligen 
+Werte in einer Matrix abspeichert. Das Programm soll so flexibel sein, dass es auch
+Dateien einlesen kann, welche eine unterschiedliche Anzahl von kommaseparierten 
+Zeilen und Spalten besitzen (vorausgesetzt in jeder Zeile, sind stets genauso viele Einträge).
 
-\begin{aufg}{4}
-LGS loesen ? cond ? norm ? (gleich sparse mit einbauen ?)
-LGS von einer 3dim-funktion loesen. (entsprechendes umsortieren, repmat, plot)
- polynominterpolation 
-griddata
-mehrdimensionale arrays
-\end{aufg}
-
-
-\begin{aufg}{4}
-Schreiben sie ein Programm, welches eine Datei öffnet, die komma-separierte Zahlen enthält, 
-deren Inhalt zeilenweise ausliest und die jeweiligen Werte in einer Sparse-Matrix abspeichert. 
+\emph{Hinweis:} \mcode{csvread} darf nicht benutzt werden und es brauchen keine Überprüfungen gemacht werden.
 \end{aufg}
 
 

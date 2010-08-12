@@ -1,6 +1,3 @@
-% Mandelbrot set
-% MANDEL.m
-
 x = linspace(-2.1,0.6,601);
 y = linspace(-1.1,1.1,401);
 

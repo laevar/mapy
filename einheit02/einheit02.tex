@@ -1,8 +1,8 @@
 \documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\title{Einführung in Matlab - Einheit 2}
+\subtitle{Programmieren}
 \input{../slide_header}
-\subtitle{Einheit 2}
 \maketitle
-
 
 \section{Programmieren mit MATLAB}
 \subsection{Motivation}
@@ -190,39 +190,7 @@ y = aux_vector*transpose(a);
 \end{center}
 
 \end{frame}
-\subsection{Skript-Files}
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Struktur von Skript-Files}
-\begin{itemize}
-\item Skript-Files bestehen aus einer Sequenz von Befehlen, die
-  nacheinander abgearbeitet werden.
-\item Files werden mit der Endung '.m' gespeichert. 
-\item Gestartet wird das Programm \mcode{name.m} durch Eingabe von
-  \mcode{name}.
-\item Kommentare beginnen mit \mcode{\%}.
-\end{itemize}
-\end{frame}
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Struktur von Skript-Files II}
-\begin{itemize}
-\item Am Anfang des Files soll als Kommentar der Name des Programms,
-  eine kurze Beschreibung, Name des Autors und das Erstellungsdatum stehen. 
-\item operiert auf Daten im {\it Workspace}.
-\item Beschreibung des Skript-Files erhält man mit
-\begin{lstlisting}
->> help plot_poly
- ------------------------------------
-      plot_poly.m    
-   zeichnet den Graphen eines Polynoms 
-   Gerd Rapin           1.11.2003
- -------------------------------------------
-\end{lstlisting}
-\end{itemize}
-\end{frame}
+
 \subsection{Function-Files}
 %----------------------------
 % Folie 

@@ -6,16 +6,47 @@
 \end{minipage}\\[1cm]
 
 \begin{aufg}
-Starten Sie das Programm
-\mcode{plot_poly}. Der Graph welchen Polynoms wird dargestellt?
-Erklären Sie das Programm \mcode{ausw_poly2}.
+Finde die Lösung $x$ von $Ax=b$ mit 
+\[ A:=\left( \begin{array}{cccc} 
+2 & 3 & 4 & 5 \\ 
+1 &    1 &    1 &    1\\
+1 &    0 &    1 &    0 \\
+9 &     3 &    2 &    1
+\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
+14\\
+     4\\
+     2\\
+    15
+\end{array} \right) . \] 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Finde die Lösung $x$ von $Ax=b$ mit 
+{ \[ A:=\left( \begin{array}{ccc} 
+1 & 2 & 3 \\ 
+4 &    5 &    6\\
+7 &    8 &    9  
+\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
+6\\
+     15\\
+     24
+\end{array} \right) . \] }
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Sind die folgenden Vektoren linear unabhängig?
+{ \[
+v_1=
+\left( \begin{array}{c} 0 \\ 1 \\ 0 \\ 1 \end{array} \right), 
+\ v_2=
+\left( \begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \end{array} \right),
+\ v_3=
+ \left( \begin{array}{c} 1 \\ 0 \\ 1 \\  0\end{array} \right),
+\ v_4=
+ \left( \begin{array}{c} 0 \\ 0 \\ 1 \\ 1 \end{array} \right)
+. \] }
 \end{aufg}
 
-\begin{aufg}
-Stellen Sie das Polynom 
-\[ p(x)= x^5-4x^4 -10x^3 +40x^2 +9x -36\]
- grafisch dar. Wo sind die Nullstellen?
-\end{aufg}
 
 \begin{aufg}
 Schreiben sie das Programm \mcode{randwertaufgabe} um in eine Funktion welche als Inputparameter 
@@ -25,39 +56,6 @@ falls nicht das programm abbrechen. Das Resultat der Berechnung soll als Vektor 
 \emph{Hinweis:} das Abbrechen des Programms kann mit \mcode{return} erreicht werden.
 \end{aufg}
 
-\begin{aufg}
-Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
-  dessen Durchschnitt berechnet und zurückgibt.
-\end{aufg}
-
-\begin{aufg}
-Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
-  $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
-\[ V:= \left(\begin{array}{ccccc} 
-1 & x_1 & x_1^2 & \hdots & x_1^{n-1}\\
-1 & x_2 & x_2^2 & \hdots & x_2^{n-1}\\
-\vdots & \vdots & \vdots & \vdots & \vdots\\
-1 & x_n & x_n^2 & \hdots & x_n^{n-1}\\
-\end{array} \right)  \]
-berechnet und zurückgibt. \\
-
-{\it Hinweis:} \mcode{V=A.^B}. mit
-\[
-A:= \left(\begin{array}{ccccc} 
-x_1 & x_1 & x_1 & \hdots & x_1\\
-x_2 & x_2 & x_2 & \hdots & x_2\\
-\vdots & \vdots & \vdots & \vdots & \vdots\\
-x_n & x_n & x_n & \hdots & x_n\\ \end{array} 
-\right) , \quad B:= 
- \left(\begin{array}{ccccc} 
-0 & 1 & 2 & \hdots & n-1\\
-0 & 1 & 2 & \hdots & n-1\\
-\vdots & \vdots & \vdots & \vdots & \vdots\\
-0 & 1 & 2 & \hdots & n-1\\
-\end{array} 
-\right)
-\]
-\end{aufg}
 
 \begin{aufg}
 Lösen Sie n\"aherungsweise die Fixpunktgleichung
@@ -77,7 +75,7 @@ Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
 %
 %-----------------------------------------------------------
 %
-
+\newpage
 \begin{aufg}
  Berechnen Sie die Nullstellen von 
 \[ x^2-2, \quad x^2-2x+1, \quad x^2 -4x +10. \]
@@ -113,6 +111,51 @@ Analog zum Beispiel des Sierpinski-Dreiecks soll jede neue Teilstrecke
 wiederum mittels der gleichen Prozedur durch 4 Strecken ersetzt werden. 
 Schreiben Sie ein Programm, dass
 diese Prozedur $k$-mal wiederholt und das Ergebnis plottet.
+\end{aufg}
+
+%--------------------------------------------------
+\begin{aufg}
+Zerlegen Sie das Intervall $[0,1]$ durch 
+  \lstinline!0:(1/101):1!. Berechnen Sie mit Hilfe von 
+Finiten Differenzen eine approx. Lösung von
+{
+\begin{eqnarray*}
+-u''(x) & = & 1, \quad x \in (0,1)\\
+u(0) & = & u(1) =0
+\end{eqnarray*}}
+\vspace*{-0.5cm}
+\end{aufg}
+
+%--------------------------------------------------
+\begin{aufg}
+Berechnen Sie die Frobenius-Norm 
+\[ \|A \|_F := \sqrt{ \sum_{i,j=1}^n a_{ij}^2 }, \quad A=(a_{ij}) \in
+\mathbb{R}^{n \times n}  \]
+der Vandermode Matrix 
+\lstinline!vander(0:0.02:1)! 
+\end{aufg}
+%--------------------------------------------------
+\begin{aufg}
+Ändern Sie in Aufgabe 10 die rechte Seite $1$ in
+  $\sin(4 \pi x)$ und berechnen Sie eine Näherungslösung. 
+\end{aufg}
+%--------------------------------------------------
+\newpage
+\begin{aufg}
+Berechnen Sie die Eigenwerte und Eigenvektoren der Matrix
+\[ A = \left( \begin{array}{cccc}
+30 & 1 & 2 & 3\\
+4 & 15 & -4 & -2\\
+-1 & 0 & 3 & 5\\
+-3 & 5 & 0 & -1 \end{array}
+\right) \]
+Bestimmen Sie auch die $QR$-Zerlegung.
+\end{aufg}
+
+\begin{aufg}
+Sei \lstinline!A=hilb(n)! und \lstinline!x=ones(n,1)!. Berechnen Sie
+  für $n=5$ und $n=15$ den Vektor $b=A*x$, \lstinline!norm(x-A\b)! und die Kondition
+  von $A$. Was stellen Sie fest? Erklären Sie das Ergebnis!
 \end{aufg}
 
 %-------------------------------------------------------------------------------

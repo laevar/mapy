@@ -477,21 +477,6 @@ function myfunction(In_1,..,In_k)
 %----------------------------
 % Folie 
 %----------------------------
-\begin{frame}[fragile]\frametitle{Verwalten von m-Files}
-\begin{itemize}
-\item \alert{ \mcode{doc name}} startet das grafische Hilfefenster mit einem ausführlichen Hilfetext zu dem jeweiligen Programm.
-\item \alert{ \mcode{lookfor name}} sucht nach dem Stichwort \mcode{name} in den
-  Kommentaren zu den Funktionen. Ansonsten kann auch das grafische Hilfefenster zur Rate gezogen werden.
-\item  \alert{ \mcode{what}} zeigt die m-Files im aktuellen Verzeichnis an.
-\item  \alert{ \mcode{type name}} zeigt den Inhalt von \mcode{name.m} im 'Command  Window' an.
-\item  \alert{ \mcode{which name}} gibt den genauen Pfad an, in dem die  Funktion
-  \mcode{name.m} gespeichert ist. 
-\end{itemize}
-\end{frame}
-
-%----------------------------
-% Folie 
-%----------------------------
 \begin{frame}[fragile]\frametitle{Starten von Programmen}
 \begin{itemize}
 \item Befindet man sich im selben Verzeichnis wie das Programm
@@ -504,6 +489,23 @@ function myfunction(In_1,..,In_k)
 \item Durch \mcode{rmpath pfadname} kann man Suchpfade entfernen.  
 \end{itemize}
 \end{frame}
+
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{frame}[fragile]\frametitle{Verwalten von m-Files}
+\begin{itemize}
+\item \alert{ \mcode{doc name}} startet das grafische Hilfefenster mit einem ausführlichen Hilfetext zu dem jeweiligen Programm.
+\item \alert{ \mcode{lookfor name}} sucht nach dem Stichwort \mcode{name} in den
+  Kommentaren zu den Funktionen. Ansonsten kann auch das grafische Hilfefenster zur Rate gezogen werden.
+\item  \alert{ \mcode{what}} zeigt die m-Files im aktuellen Verzeichnis an.
+\item  \alert{ \mcode{type name}} zeigt den Inhalt von \mcode{name.m} im 'Command  Window' an.
+\item  \alert{ \mcode{which name}} gibt den genauen Pfad an, in dem die  Funktion
+  \mcode{name.m} gespeichert ist. 
+\end{itemize}
+\end{frame}
+
 
 
 %----------------------------

@@ -1,5 +1,4 @@
 function V = vandermonde2(x)
-%----------------------------------------------------
 % vandermonde2 berechnet die Vandermonde Matrix zu einem
 %              Vektor x
 %     
@@ -8,7 +7,6 @@ function V = vandermonde2(x)
 %             OUTPUT: 
 %             V Vandermonde-Matrix
 %  Gerd Rapin      8.11.2003
-%------------------------------------------------------
 
 n = length(x);
 

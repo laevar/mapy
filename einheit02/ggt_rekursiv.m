@@ -1,5 +1,5 @@
 function [a,b] = ggt_rekursiv(a,b)
-% ggt_rekursiv berechnet den goessten 
+% ggt_rekursiv berechnet den groessten 
 % gemeinsamen Teiler (ggT) 
 if a~=b
   if a>b

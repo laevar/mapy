@@ -16,5 +16,5 @@ function vanderv = vanderv(x)
 
 n = length(x);
 xrep = repmat (x(:),1,n);
-pmat = repmat(linspace(n-1,0,n),n,1);
+pmat = repmat(linspace(0,n-1,n),n,1);
 vanderv = xrep.^pmat;

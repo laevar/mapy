@@ -1,6 +1,6 @@
 \documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 2}
-\subtitle{Programmieren}
+\subtitle{Numerische Lineare Algebra, Programmieren}
 \input{../slide_header}
 \maketitle
 
@@ -103,12 +103,16 @@ y =
 \begin{frame}[fragile]\frametitle{LU-Zerlegung}
 {\centering  Was bedeutet \mcode{A\\b}?}\\[0.5cm]
 
-MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren):\\
-obere Dreiecksmatrix $U$\\
-untere Dreiecksmatrix $L$ mit Einsen auf der Diagonalen\\
+MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren):
+\begin{itemize}
+ \item obere Dreiecksmatrix $U$
+ \item untere Dreiecksmatrix $L$ mit Einsen auf der Diagonalen
+\end{itemize}
 so dass $PA=LU$ gilt ($P$ Permutationsmatrix).
 
-Dann wird das LGS durch Rückwärts- und Vorwärtseinsetzen gelöst. 
+Dann wird das LGS durch Rückwärts- und Vorwärtseinsetzen gelöst
+($Lz = Pb$, $Ux = z$)
+
 \begin{lstlisting}
 >> [L,U,P]=lu(hilb(5)); norm(P*hilb(5)-L*U)
 ans =  2.7756e-17
@@ -149,9 +153,10 @@ ans = 1
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{Pseudoinverse}
-Berechnung der (Moore-Penrose) Pseudoinversen $X$ von $A$ ($A$ singulär),
-  d.h. $X$ genügt
-{ \[ A X A=A,  X A X =X,  (X A)^* =X A,  (A X )^* = A X. \]}
+\begin{block}{(Moore-Penrose) Pseudoinverse}
+Sei $A$ singulär, Bestimme $X$ so dass 
+\[ A X A=A,  X A X =X,  (X A)^* =X A,  (A X )^* = A X \]
+\end{block}
 \begin{lstlisting}
 >> pinv(ones(3,3))
 ans =
@@ -161,7 +166,7 @@ ans =
 \end{lstlisting}
 \end{frame}
 
-\subsection{Eine Anwendung}
+\subsection{Anwendung: Zwei-Punkt-Randwert-Aufgabe}
 %
 % Slide
 %
@@ -228,11 +233,11 @@ h^2 \left( \begin{array}{c} e^\frac{1}{n}\\   \vdots \\ e^\frac{n-1}{n}
 \begin{itemize}
 \item Zerlegung des Intervalls $[0,1]$
 \begin{lstlisting}
->> x = 0:(1/21):1
+x = 0:(1/21):1
 \end{lstlisting}
 \item Eleminieren der Randpunkte
 \begin{lstlisting}
->> x_i = x(2:21)
+x_i = x(2:21)
 \end{lstlisting}
 \item Erzeugen der Matrix $A$ (Übungsaufgabe)
 \end{itemize}
@@ -281,9 +286,12 @@ plot(x,z,'r*-','LineWidth',3,'MarkerSize',8)
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{Eigenwerte}
+\begin{block}{Eigenwert}
 Sei $A \in \mathbb{C}^{n \times n}$. $\lambda \in \mathbb{C}$ ist
 Eigenwert von $A$, falls ein Vektor $x \in \mathbb{C}^n$ ungleich $0$ existiert, so
-dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor. 
+dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.  
+\end{block}
+
 \begin{itemize}
 \item {}\mcode{x=eig(A)}\\ berechnet die Eigenwerte von $A$ und schreibt
   sie in den Vektor $x$.
@@ -298,14 +306,14 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %
 \begin{frame}[fragile]\frametitle{Weitere Zerlegungen}
 \begin{itemize}
-\item QR-Zerlegung: \mcode{[Q,R]=qr(A)}\\
+\item \alert{QR-Zerlegung}: \mcode{[Q,R]=qr(A)}\\
   $m \times n$- Matrix $A$ eine Zerlegung { $A=QR$} erzeugt,
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
-\item Singulärwertzerlegung: \mcode{[U,S,V]=svd(A)}\\
+\item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
   $U \subset \mathbb{C}^{m \times m}$, $V \subset  \mathbb{C}^{n \times n}$ unitäre Matrizen). 
-\item Cholesky-Zerlegung: \mcode{R=chol(A)}\\
+\item \alert{Cholesky-Zerlegung}: \mcode{R=chol(A)}\\
   { $A=R^*R$} zu einer hermiteschen, positiv definiten Matrix
   $A$ ($R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen). 
@@ -327,104 +335,7 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \end{itemize}
 \end{frame}
 
-
-\section{Skript- und Function-Files}
-\subsection{Motivation}
-
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Zwei-Punkt-Randwert-Aufgabe}
-
-Suche eine Funktion 
-\[ u:[0,1] \quad \rightarrow \quad \mathbb{R}, \] 
-so dass 
-\begin{eqnarray*}
--u''(x) & = & f(x), \quad x \in (0,1)\\
-u(0) & = & u(1) =0
-\end{eqnarray*}
-
-\alert{Lösen mit Finite-Differenzen-Verfahren}\\
-Diskretisierung: $0=x_{0} < \dots < x_{n}=1$ mit $x_i=\frac{i}{n}$\\
-\end{frame}
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Implementierung in MATLAB}
-$n=101$, $f \equiv 1$
-
-\begin{lstlisting}
->> x = 0:(1/101):1;
->> x_i = x(2:101);
->> A = diag(2*ones(1,100),0)...
-   +diag(-1*ones(1,99),-1)...
-   +diag(-1*ones(1,99),1);
->> F = (1/101)^2*ones(100,1);
->> z_i = A\F;
->> z = [0; z_i; 0];
->> plot(x,z,'r*-');
-\end{lstlisting}
-\end{frame}
-
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Motivation}
-\alert{Probleme:} 
-\begin{itemize}
-\item
-Bei jeder Änderung von $n$ muss alles erneut im
-interaktiven Modus eingegeben werden.
-\item 
-Abrufen der Befehle bei späteren Sitzungen ist kaum möglich. 
-\item Bei komplexen Algorithmen wird es unübersichtlich.
-\end{itemize}
-\alert{Ausweg:} Die Befehlsfolge wird in einer Datei
-abgelegt. MATLAB arbeitet dann sukzessive die einzelnen Kommandos
-ab. 
-\end{frame}
-
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{randwertaufgabe.m}
-\begin{lstlisting}
-%------------------------------------
-%     randwertaufgabe.m 
-%   
-%  berechnet mit Finiten Differenzen die Lösung u von
-%  -u''=f in (0,1), u(0)=u(1)=0
-%
-%  Gerd Rapin           1.11.2003
-%-------------------------------------------
-
-% Anzahl Stützstellen
-n = 5;
-
-% Erzeugen des Gitters
-x = 0:(1/n):1;
-x_i = x(2:n);
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{randwertaufgabe.m}
-\begin{lstlisting}
-% Aufstellen des lin. Gls.
-A = diag(2*ones(1,n-1),0)...
-   +diag(-1*ones(1,n-2),-1)...
-   +diag(-1*ones(1,n-2),1);
-F = (1/n)^2*ones(n-1,1); % rechte Seite für f=1 
-
-% Lösen des lin. Gls.
-z_i = A\F;
-
-% Darstellen der Lösung
-z = [0; z_i; 0];
-plot(x,z,'r*-');
-\end{lstlisting}
-\end{frame}
-
-\section{Programmieren - ein Beispiel}
+\section{Programmieren - Fixpunktiteration}
 %\item Aufgaben
  
 %
@@ -507,8 +418,8 @@ end;
 %
 \begin{frame}[fragile]\frametitle{for - Schleife}
 \begin{lstlisting}
-for variable = Ausdruck
-  Befehle
+for <variable> = <Ausdruck>
+  <Befehle>
 end
 \end{lstlisting}
 \alert{Bemerkungen:} 
@@ -571,11 +482,11 @@ Berechne zu einem gegebenen Vektor
  \mbox{ so dass } \\
  x^2+px +q =0  \end{array} \right. \]}
 Fallunterscheidung für $d:=\frac{p^2}{4} -q$:
-\begin{itemize}
-\item  Fall a): \alert{ $d>0$} \quad 2 Lösungen: $x=-\frac{p}{2} \pm \sqrt{d}$ \\
-\item  Fall b): \alert{ $d=0$} \quad 1 Lösung: $x=-\frac{p}{2}$\\
-\item  Fall c): \alert{ $d<0$} \quad keine Lösung
-\end{itemize}
+\begin{description}
+\item [Fall a)]: \alert{ $d>0$} \quad 2 Lösungen: $x=-\frac{p}{2} \pm \sqrt{d}$ \\
+\item [Fall b)]: \alert{ $d=0$} \quad 1 Lösung: $x=-\frac{p}{2}$\\
+\item [Fall c)]: \alert{ $d<0$} \quad keine Lösung
+\end{description}
 \end{frame} 
 %
 %
@@ -653,7 +564,10 @@ b =   1     0     0
 \begin{lstlisting} 
 >> a=[1 1 1], b=[0 1 2] 
 \end{lstlisting}
+\begin{center}
 \begin{tabular}{cll}
+Operation & Bedeutung & Ergebnis\\
+\hline
 \mcode{a == b} & gleich &   \mcode{0     1     0}\\
 \mcode{a \~= b} & ungleich & \mcode{1     0     1}\\
 \mcode{a < b} & kleiner & \mcode{0     0     1}\\
@@ -661,7 +575,7 @@ b =   1     0     0
 \mcode{a <= b} & kleiner oder gleich & \mcode{0     1     1}\\
 \mcode{a >= b} & größer oder gleich & \mcode{1     1     0}\\
 \end{tabular}
-\\
+\end{center}
 \alert{Bem:} \alert{ 1 = wahre Aussage, 0 = falsche Aussage}\\
 \alert{Bem:} Komponentenweise Vergleiche sind auch für Matrizen
 gleicher Größe möglich! 
@@ -670,13 +584,14 @@ gleicher Größe möglich!
 %
 %
 \begin{frame}[fragile]\frametitle{Logische Operatoren}
+\begin{center}
 \begin{tabular}{|c|l||c|l|}
 \hline
 \mcode{\&} & logisches und & \mcode{\~} & logisches nicht \\
 \mcode{|} & logisches oder & \mcode{xor} & exklusives oder\\
 \hline
 \end{tabular}
-\\
+\end{center}
 Beispiele:\\
 \begin{lstlisting} 
 >>  x=[-1 1 1]; y=[1 2 -3];
@@ -717,43 +632,42 @@ ans =
  \column{0.45\textwidth}
 Einfache Bedingung
 \begin{lstlisting}
-if  Ausdruck
-   Befehle
+if  <Ausdruck>
+   <Befehle>
 end
 \end{lstlisting}
  \column{0.45\textwidth}
 Bed. mit Alternative
 \begin{lstlisting}
-if  Ausdruck
-   Befehle
+if  <Ausdruck>
+   <Befehle>
 else
-   Befehle
+   <Befehle>
 end
 \end{lstlisting}
 \end{columns}
 
 Die Befehle zwischen \mcode{if} und \mcode{end} werden ausgeführt, wenn
-der {\it Ausdruck} wahr (\mcode{TRUE}) ist. 
+der \textit{Ausdruck} wahr (\mcode{TRUE}) ist. 
 Andernfalls werden (soweit vorhanden) die
 Befehle zwischen \mcode{else} und \mcode{end} ausgeführt.
 
-{\it Ausdruck} ist wahr, wenn   alle Einträge von {\it
-  Ausdruck} ungleich $0$ sind.
+\textit{Ausdruck} ist wahr, wenn   alle Einträge von \textit{Ausdruck} ungleich $0$ sind.
 \end{frame}
 %
 %
 %
 \begin{frame}[fragile]\frametitle{While-Schleifen}
 \begin{lstlisting}
-while Ausdruck
-   Befehle
+while <Ausdruck>
+   <Befehle>
 end
 \end{lstlisting}
 Die Befehle werden wiederholt,  so lange die Bedingung {\it Ausdruck}
 wahr ist.  {\it Ausdruck} ist wahr, wenn   alle Einträge von {\it
   Ausdruck} ungleich $0$ sind. \\[1cm] 
 
-Beispiel: Berechne \alert{ $\sum_{i=1}^{1000} \frac{1}{i}$}.
+\textbf{Beispiel:} Berechne \alert{ $\sum_{i=1}^{1000} \frac{1}{i}$}.
 \begin{lstlisting}
 n = 1000; sum = 0; i = 1; 
 while (i <= n) 
@@ -787,18 +701,30 @@ Wiederhole,  bis $a=b$
 %
 %
 %
-\begin{frame}[fragile]\frametitle{{\it break} and {\it continue}}
+\begin{frame}[fragile]\frametitle{\textit{break}}
 \begin{itemize}
 \item  Der Befehl \mcode{break} verläßt die \mcode{while} oder
   \mcode{for}-Schleife.
 \begin{lstlisting}
-x=1; while 1, xmin=x; x=x/2;
- if x==0, break, end,
-end, xmin
+x=1;
+while 1
+  xmin=x;
+  x=x/2;
+  if x==0
+    break
+  end
+end
+xmin
 
 xmin = 4.9407e-324
 \end{lstlisting} 
-\item  Durch \mcode{continue} springt man sofort in die
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{\textit{continue}}
+\begin{itemize}
+ \item  Durch \mcode{continue} springt man sofort in die
   nächste Iteration der Schleife, ohne die restlichen Befehle zu
   durchlaufen.
 \begin{lstlisting}
@@ -810,6 +736,7 @@ for i=1:10,
 \end{lstlisting}
 \end{itemize}
 \end{frame}
+
 
 \subsection{Rekursionen}
 %

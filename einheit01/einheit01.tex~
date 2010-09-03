@@ -1,6 +1,6 @@
 \documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 1}
-\subtitle{Streifzug durch Matlab, Vektoren und Matrizen, Numerische lineare Algebra}
+\subtitle{Streifzug durch Matlab, Vektoren und Matrizen}
 \input{../slide_header}
 \maketitle
 
@@ -346,7 +346,7 @@ spricht deswegen auch von $m$-Files.
 \begin{itemize}
 \item Name des Programms 
 \item (kurze) Beschreibung
-\item Author-Informationen und Datum
+\item Autor-Informationen und Datum
 \end{itemize}
 
 \item operiert auf Daten im \textit{Workspace}.
@@ -460,11 +460,11 @@ function myfunction(In_1,..,In_k)
 \item (kurze) Beschreibung
 \item Input-Argumente
 \item Output-Argumente
-\item Author-Informationen und Datum
+\item Autor-Informationen und Datum
 \end{itemize}
 \item Variablen lokal, d.h.
 \begin{itemize}
- \item Variablen des Workspace sind innerhalb nichr verfügbar
+ \item Variablen des Workspace sind innerhalb nicht verfügbar
 \item im Programm definierte Variablen werden nicht im  Workspace gespeichert.
 \end{itemize}
  
@@ -484,9 +484,14 @@ function myfunction(In_1,..,In_k)
 \mcode{name}. 
 \item Danach durchsucht MATLAB die in \mcode{path} angegebenen
   Verzeichnisse nach dem Programm.
-\item Mit dem Befehl \mcode{addpath pfadname} kann man eigene Suchpfade
-  hinzufügen.  
-\item Durch \mcode{rmpath pfadname} kann man Suchpfade entfernen.  
+\item  Suchpfade hinzufügen:
+\begin{lstlisting}
+addpath <pfadname>
+\end{lstlisting}
+\item Suchpfade entfernen:
+\begin{lstlisting}
+rmpath <pfadname>
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 
@@ -496,13 +501,14 @@ function myfunction(In_1,..,In_k)
 %----------------------------
 \begin{frame}[fragile]\frametitle{Verwalten von m-Files}
 \begin{itemize}
-\item \alert{ \mcode{doc name}} startet das grafische Hilfefenster mit einem ausführlichen Hilfetext zu dem jeweiligen Programm.
-\item \alert{ \mcode{lookfor name}} sucht nach dem Stichwort \mcode{name} in den
+\item \alert{ \mcode{doc <name>}} startet das grafische Hilfefenster mit einem ausführlichen Hilfetext zu dem jeweiligen Programm.
+\item \alert{ \mcode{lookfor <name>}} sucht nach dem Stichwort \mcode{name} in den
   Kommentaren zu den Funktionen. Ansonsten kann auch das grafische Hilfefenster zur Rate gezogen werden.
 \item  \alert{ \mcode{what}} zeigt die m-Files im aktuellen Verzeichnis an.
-\item  \alert{ \mcode{type name}} zeigt den Inhalt von \mcode{name.m} im 'Command  Window' an.
-\item  \alert{ \mcode{which name}} gibt den genauen Pfad an, in dem die  Funktion
+\item  \alert{ \mcode{type <name>}} zeigt den Inhalt von \mcode{name.m} im 'Command  Window' an.
+\item  \alert{ \mcode{which <name>}} gibt den genauen Pfad an, in dem die  Funktion
   \mcode{name.m} gespeichert ist. 
+\item \alert{ \mcode{edit <name>}} Ruft den Editor mit \mcode{name.m} auf.
 \end{itemize}
 \end{frame}
 

@@ -244,12 +244,12 @@ $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
 % 
 \begin{frame}[fragile]\frametitle{Beispiel - Legendre Polynome II}
 \begin{lstlisting}[basicstyle=\scriptsize]
->> title('Legendre Polynome','FontSize', 20)
->> xlabel('x','FontSize', 20)
->> text(0,0.45,'Maximum')
->> legend('n=1','n=2','n=3','n=4',4)
->> grid on, box on;
->> xlim([-1.1,1.1])
+title('Legendre Polynome','FontSize', 20)
+xlabel('x','FontSize', 20)
+text(0,0.45,'Maximum')
+legend('n=1','n=2','n=3','n=4',4)
+grid on, box on;
+xlim([-1.1,1.1])
 \end{lstlisting}
 \hfil\includegraphics[width=0.5\textwidth]{figures/grafik_5}\hfil
 %\end{columns}
@@ -349,8 +349,8 @@ Daten:
 \end{minipage}
 \begin{minipage}{7cm}
 \begin{lstlisting}
->> n=linspace(0,10,40);
->> y=n.^2.*exp(-n);
+n=linspace(0,10,40);
+y=n.^2.*exp(-n);
 \end{lstlisting}
 \end{minipage}\\
 \begin{itemize}
@@ -767,9 +767,9 @@ Dimens. wie $x$.\\[0.2cm]
 \begin{columns}[c]
 \column{0.55\textwidth}
 \begin{lstlisting}
->> x=-2:0.1:2; 
->> y=polyval([1 -1 0 1],x); 
->> plot(x,y,'r--','Linewidth',3);
+x=-2:0.1:2; 
+y=polyval([1 -1 0 1],x); 
+plot(x,y,'r--','Linewidth',3);
 \end{lstlisting}
 \column{0.45\textwidth}
 %\includegraphics[width=5cm, height=3cm]{grafik_1}
@@ -786,18 +786,22 @@ durch \mcode{z = roots(p)} berechnet werden.
 \textbf{Beispiel:} \\
 Nullstellen von $p(x):= x^3 - x^2 +1$\\
 \begin{columns}[c]
-\column{0.56\textwidth}
+\column{0.58\textwidth}
 \begin{lstlisting}
->> roots([1 -1 0 1])
+roots([1 -1 0 1])
+\end{lstlisting}
+\begin{matlab}
 ans =
    0.8774 + 0.7449i
    0.8774 - 0.7449i
   -0.7549  
->> x=-1:0.1:1; [X,Y]=meshgrid(x,x);
->> Z=abs(polyval([1 -1 0 1],X+i*Y)); 
->> surf(X,Y,Z)
+\end{matlab}
+\begin{lstlisting}
+x=-1:0.1:1; [X,Y]=meshgrid(x,x);
+Z=abs(polyval([1 -1 0 1],X+i*Y)); 
+surf(X,Y,Z)
 \end{lstlisting}
-\column{0.45\textwidth}
+\column{0.43\textwidth}
 \includegraphics[width=\textwidth]{figures/polynom2}
 \end{columns}
 \end{frame}
@@ -806,10 +810,16 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Interpolation}
 Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
-$n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.\\
-In MATLAB: \alert{ \mcode{p=polyfit(x,y,n)}} \\[0.5cm]
+$n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.
+\begin{matlabin}
+p = polyfit(x,y,n)}
+\end{matlabin}
 
-Ruft man \alert{ \mcode{p=polyfit(x,y,m)}} mit $m<n$ auf, so sucht MATLAB
+Ruft man
+\begin{matlabin}
+p = polyfit(x,y,m)}
+\end{matlabin}
+ mit $m<n$ auf, so sucht MATLAB
 die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
 welches \\
  $\sum_{i=0}^n (p(x_i)-y_i)^2$ minimiert.
@@ -828,7 +838,7 @@ die Interpolante berechnet wird und $yi$ sind die entsprechenden
 Funktionswerte. 
 Als \mcode{'method'} gibt es\\
 
-{\scriptsize
+%{\scriptsize
 \begin{tabular}{ll}
 'nearest' &  stückweise konstante Approximation \\
 'linear'  & Lineare Interpolation \\ 
@@ -836,7 +846,7 @@ Als \mcode{'method'} gibt es\\
 $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 'cubic' & kubische Hermite Interpolation\\ 
 \end{tabular}
-}
+%}
 \end{frame}
 %
 % Slide

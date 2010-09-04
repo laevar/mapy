@@ -1,6 +1,4 @@
-%  berechnet die polynomiale
-%  Interpolation fuer 1/(1+x^2)
-%
+%  berechnet die polynomiale Interpolation fuer 1/(1+x^2)
 %   Gerd Rapin  23.11.2003
 
 % Stuetzstellen

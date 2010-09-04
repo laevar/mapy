@@ -5,6 +5,88 @@
 \maketitle
 
 
+\section{Etwas Chars und Strings}
+%
+% Folie
+%
+\begin{frame}[fragile]\frametitle{Characters (char)}
+Characters (Zeichen) sind einzelne
+Zeichen. \\
+
+Intern werden Characters in MATLAB durch Integer dargestellt. Die Werte zwischen 0 und
+128 entsprechen den ASCII Werten. Insgesamt wird zur Speicherung eines Zeichens 2
+Bytes ben\"otigt. Es wird also jedem Zeichen eine Zahl zwischen 0 und $2^{16}-1$
+zugeordnet. 
+\begin{lstlisting}
+s='d'
+\end{lstlisting}
+\begin{matlab}
+s = d
+\end{matlab}
+\begin{lstlisting}
+s1=double(s)
+\end{lstlisting}
+\begin{matlab}
+s1 =  100
+\end{matlab}
+\begin{lstlisting}
+s2=char(100)
+\end{lstlisting}
+\begin{matlab}
+s2 = d
+\end{matlab}
+\end{frame}
+%
+% Folie
+%
+\begin{frame}[fragile]\frametitle{Strings}
+Ein String ist ein Vektor von character (Zeichen). Intern werden sie
+durch die ASCII Werte dargestellt. 
+\begin{lstlisting}
+s='AB6de*'
+\end{lstlisting}  
+\begin{matlab}
+s =
+AB6de*
+\end{matlab}
+\begin{lstlisting}
+sd=double(s)
+\end{lstlisting}  
+\begin{matlab}
+sd =
+    65    66    54   100   101    42
+\end{matlab}
+\begin{lstlisting}
+s2=char(sd)
+\end{lstlisting}  
+\begin{matlab}
+s2 =
+AB6de*
+\end{matlab}
+\end{frame}
+
+%
+% Folie
+%
+\begin{frame}[fragile]\frametitle{Befehle für Strings}
+\begin{itemize}
+\item Durch \mcode{strcat} werden Strings verbunden, z.B. 
+\begin{lstlisting}
+strcat('Hello',' world') 
+\end{lstlisting}
+\begin{matlab}
+ans = Hello world 
+\end{matlab}
+\item \alert{\mcode{num2str(x,n)}} konvertiert $x$ in einen String mit $n$
+  signifikanten Stellen. (Default: $n=4$)
+\item \alert{\mcode{int2str(x)}} rundet $x$ und konvertiert es in einen String.
+\item \alert{\mcode{strcmp(s,t)}} vergleicht die Strings $s$ und $t$. 
+\item Durch \alert{\mcode{help strfun}} erhält man eine Liste aller Befehle im
+  Zusammenhang mit Strings.
+\end{itemize}
+\end{frame}
+
+
 \section{Einf\"uhrung Grafik}
 \subsection{einfache zweidimensionale Grafiken}
 % 
@@ -19,14 +101,15 @@ eine Grafik, die die Punkte $(x_i,y_i)$ und $(x_{i+1},y_{i+1})$ miteinander
 verbindet.
 
 \begin{columns}[c]
- \column{0.4\textwidth}
+ \column{0.45\textwidth}
+\textit{Beispiel:}
 \begin{lstlisting}
->> x = linspace(0,2*pi,100);
->> y1 = sin(3*x);
->> plot(x,y1)
+x = linspace(0,2*pi,100);
+y1 = sin(3*x);
+plot(x,y1)
 \end{lstlisting}
- \column{0.55\textwidth}
-\pgfimage[width=0.9\textwidth]{figures/grafik_1}
+ \column{0.5\textwidth}
+\pgfimage[width=\textwidth]{figures/grafik_1}
 \end{columns}
 \end{frame}
 % 
@@ -41,8 +124,11 @@ und die Markierung der Punkte kontrollieren. Die Reihenfolge der drei
 Elemente ist beliebig.
 \begin{columns}[c]
  \column{0.4\textwidth}
-{\it Beispiel:} Durch \\
-\alert{ \mcode{plot(x,y,'r*--')}} wird die Linie
+\textit{Beispiel:} Durch \\
+\begin{lstlisting}
+plot(x,y,'r*--') 
+\end{lstlisting}
+wird die Linie
 gestrichelt (- -) in rot (r) gezeichnet und die Punkte durch *
 markiert.
 \column{0.55\textwidth}
@@ -77,13 +163,13 @@ plot(x,y,string,Eigenschaft, Spez.)
 \mcode{'MarkerEdgeColor'}, \mcode{'MarkerFaceColor'}\\
 
 \begin{columns}[c]
- \column{0.55\textwidth}
-{\it Beispiel:} \\
+ \column{0.6\textwidth}
+\textit{Beispiel:} \\
 \begin{lstlisting}
->>plot(x,y1,'b-.d','LineWidth',3,...
-'MarkerEdgeColor','g')
+plot(x,y1,'b-.d','LineWidth',...
+3,'MarkerEdgeColor','g')
 \end{lstlisting}
-\column{0.45\textwidth}
+\column{0.4\textwidth}
 \includegraphics[width=\textwidth]{figures/grafik_3}
 \end{columns}
 \end{frame}
@@ -93,13 +179,26 @@ plot(x,y,string,Eigenschaft, Spez.)
 \begin{frame}[fragile]\frametitle{Alternativen}
 \begin{itemize}
 \item Mehrere Plots in eine Grafik:
-\alert{ \mcode{plot(x1,y1,string1,x2,y2,string2,...)}}
-\item Logaritmische Skalierung in $x$- bzw in $y$-Richtung: \alert{ \mcode{semilogx(x1,y1)}} bzw. \alert{
-  \mcode{semilogy(x1,y1)}}.
-\item Logarithmische Skalierung beider Achsen: \alert{
-  \mcode{loglog(x1,y1)}}   
+\begin{lstlisting}
+plot(x1,y1,string1,x2,y2,string2,...) 
+\end{lstlisting}
+\item Logaritmische Skalierung in $x$- bzw in $y$-Richtung:
+\begin{lstlisting}
+semilogx(x1,y1) 
+\end{lstlisting}
+  bzw. 
+\begin{lstlisting}
+semilogy(x1,y1) 
+\end{lstlisting}
+\item Logarithmische Skalierung beider Achsen: 
+\begin{lstlisting}
+loglog(x1,y1)
+\end{lstlisting}
 \item Ist $X$ ein Vektor mit komplexen Einträgen, so ergibt \alert{
-  \mcode{plot(X)}} \mcode{plot(real(X),imag(X))}.
+  \mcode{plot(X)}} 
+\begin{lstlisting}
+plot(real(X),imag(X))
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 % 
@@ -124,7 +223,7 @@ plot(x,p1,'r:',x,p2,'g--',x,p3,'b-.',x,p4,'m-','LineWidth',2)
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Achseneinstellungen}
-\begin{tabular}{p{3cm}p{8cm}}
+\begin{tabular}{p{4cm}p{7cm}}
 \mcode{axis([x1 x2 y1 y2])} & Setzen der $x$- und $y$-Achsen
 Grenzen\\
 \mcode{axis auto} & Rückkehr zu Default Achsen Grenzen\\
@@ -140,69 +239,7 @@ gewählt. \\
 legen, Box entfernen
 \end{tabular}
 \end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Exkurs: Characters (char)}
-\alert{Characters:} \\
-Characters (Zeichen) sind einzelne
-Zeichen. \\
 
-Intern werden Characters in MATLAB durch Integer dargestellt. Die Werte zwischen 0 und
-128 entsprechen den ASCII Werten. Insgesamt wird zur Speicherung eines Zeichens 2
-Bytes ben\"otigt. Es wird also jedem Zeichen eine Zahl zwischen 0 und $2^{16}-1$
-zugeordnet. 
-\begin{lstlisting}
-> s='d'
-s =
-d
->> s1=double(s)
-s1 =
-   100
->> s2=char(100)
-s2 =
-d
-\end{lstlisting}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Exkurs: Strings}
-
-\alert{String:}\\
- Ein String ist ein Vektor von character (Zeichen). Intern werden sie
- durch die ASCII Werte dargestellt. 
-\begin{lstlisting}
->> s='AB6de*'
-s =
-AB6de*
->> sd=double(s)
-sd =
-    65    66    54   100   101    42
->> s2=char(sd)
-s2 =
-AB6de*
-\end{lstlisting}  
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Exkurs: Befehle für Strings}
-\begin{itemize}
-\item Durch \mcode{strcat} werden Strings verbunden, z.B. \mcode{strcat('Hello',' world')}. 
-%\begin{lstlisting}
-%>> strcat('Hello',' world')
-%ans =
-%Hello world
-%\end{lstlisting}
-\item \mcode{num2str(x,n)} konvertiert $x$ in einen String mit $n$
-  signifikanten Stellen. (Default: $n=4$)
-\item \mcode{int2str(x)} rundet $x$ und konvertiert es in einen String.
-\item \mcode{strcmp(s,t)} vergleicht die Strings $s$ und $t$. 
-\item Durch \mcode{help strfun} erhält man eine Liste aller Befehle im
-  Zusammenhang mit Strings.
-\end{itemize}
-\end{frame}
 
 \subsection{Beschriftungen}
 % 
@@ -227,8 +264,8 @@ AB6de*
 % 
 \begin{frame}[fragile]\frametitle{Bemerkungen zur Beschriftung}
 \begin{itemize}
-\item  In den strings kann direkt eine abgespeckte \LaTeX-Notation verwendet werden. Eine nahezu vollständige 
-\LaTeX-Unterstützung ist mit dem latex-interpreter möglich.
+\item  In den strings kann direkt eine abgespeckte \LaTeX-Notation verwendet werden. (nahezu vollständige 
+\LaTeX-Unterstützung: latex-interpreter).
 Beispiele: 
 \begin{itemize} \item \mcode{\\alpha} $\Rightarrow$ $\alpha$
 \item \mcode{sin^\{3/2\}(x)} $\Rightarrow$ $\sin^{3/2}(x)$ .
@@ -259,15 +296,15 @@ xlim([-1.1,1.1])
 % 
 \begin{frame}[fragile]\frametitle{Umgang mit Grafikfenster}
 \begin{itemize}
-\item Öffnen eines (weiteren) Grafikfensters: \mcode{figure}.  Eine
+\item Öffnen eines (weiteren) Grafikfensters: \alert{\mcode{figure}}.  Eine
   Grafik wird immer im aktuellen Fenster erzeugt. Ist noch kein
   Fenster geöffnet, so wird ein Fenster erzeugt.
-\item Durch den Befehl \mcode{hold on} werden bestehende Grafiken im
+\item Durch den Befehl \alert{\mcode{hold on}} werden bestehende Grafiken im
   aktuellen Fenster erhalten. Neue Grafiken werden den bestehenden
   hinzugefügt. 
-\item \mcode{hold off} (default) überschreibt Grafiken im
+\item \alert{\mcode{hold off}} (default) überschreibt Grafiken im
   aktuellen Fenster
-\item Schliessen: \mcode{close}, \mcode{close all}
+\item Schliessen: \alert{\mcode{close}}, \alert{\mcode{close all}}
 \end{itemize}
 \end{frame}
 
@@ -344,20 +381,28 @@ mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$.
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Darstellung von Daten}
-\begin{minipage}{3cm}
-Daten: 
-\end{minipage}
-\begin{minipage}{7cm}
+Daten:
 \begin{lstlisting}
 n=linspace(0,10,40);
 y=n.^2.*exp(-n);
 \end{lstlisting}
-\end{minipage}\\
 \begin{itemize}
-\item Balkendiagramm: \alert{ \mcode{bar(y)}}
-\item Histogramm: \alert{ \mcode{hist(y,5)}}
-\item einfacher Plot: \alert{ \mcode{area(n,[y',2*y'])}}
-\item Tortengrafik:  \alert{ \mcode{pie3([ 1 2 3 4])}}
+\item Balkendiagramm:
+\begin{lstlisting}
+bar(y) 
+\end{lstlisting}
+\item Histogramm: 
+\begin{lstlisting}
+hist(y,5)
+\end{lstlisting}
+\item einfacher Plot: 
+\begin{lstlisting}
+area(n,[y',2*y'])
+\end{lstlisting}
+\item Tortengrafik: 
+\begin{lstlisting}
+pie3([ 1 2 3 4])
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 % 
@@ -659,14 +704,14 @@ subplot(2,2,4),
 % 
 \begin{frame}[fragile]\frametitle{Erläuterungen zu Contour-Befehlen}
 \begin{itemize}
-\item \mcode{contour(X,Y,Z,n)} zeichnet f\"ur $n\in \mathbb{N}$
+\item \alert{\mcode{contour(X,Y,Z,n)}} zeichnet f\"ur $n\in \mathbb{N}$
   $n$-Konturlinien. Ist $n$ ein Vektor, werden Konturlinien zu den Werten in
   dem Vektor $n$ geplottet.
-\item \mcode{contourf} funktioniert wie \mcode{contour} nur das die Flächen
+\item \alert{\mcode{contourf}} funktioniert wie \mcode{contour} nur das die Flächen
   zwischen den Konturlinien ausgefüllt werden.
-\item \mcode{label(C,h)} beschriftet die Konturlinien, deren Werte in $C$
+\item \alert{\mcode{label(C,h)}} beschriftet die Konturlinien, deren Werte in $C$
   gespeichert sind und die zum Grafik-Handle $h$ gehören.
-\item \mcode{contour3} zeichnet jede Konturlinie auf einer anderen H\"ohe.
+\item \alert{\mcode{contour3}} zeichnet jede Konturlinie auf einer anderen H\"ohe.
 \end{itemize}
 \end{frame}
 %
@@ -707,14 +752,13 @@ alpha(0.6) % Transparency
 % 
 \begin{frame}[fragile]\frametitle{Erstellen einer Animation}
 \begin{itemize}
-\item Mit \mcode{F(j)=getframe} wird die aktuelle Grafik in das Array
+\item Mit \alert{\mcode{F(j)=getframe}} wird die aktuelle Grafik in das Array
   $F$ gespeichert.
-\item Nach dem alle Bilder zu $F$ hinzugefügt worden sind, kann man
-  die Sequenz der Bilder $F$ darstellen durch \mcode{movie(F,n,fps)},
+\item Sequenz der Bilder $F$ darstellen: \alert{\mcode{movie(F,n,fps)}},
   wobei $n$ die Anzahl der Wiederholungen angibt und $fps$ der
   gezeigten Frames pro Sekunde entspricht (Default: $n=1$, $fps=12$). 
 
-\item Speichern des Movies in AVI Format: \mcode{movie2avi(F,Dateiname)}
+\item Speichern des Movies in AVI Format: \alert{\mcode{movie2avi(F,Dateiname)}}
 \end{itemize}
 \end{frame}
 

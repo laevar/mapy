@@ -1,4 +1,4 @@
-\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 2}
 \subtitle{Numerische Lineare Algebra, Programmieren}
 \input{../slide_header}
@@ -309,15 +309,33 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \item \alert{QR-Zerlegung}: \mcode{[Q,R]=qr(A)}\\
   $m \times n$- Matrix $A$ eine Zerlegung { $A=QR$} erzeugt,
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
+%Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
+%beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
+%zu behandeln. Sie ist integraler Bestandteil des QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
 \item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
   $U \subset \mathbb{C}^{m \times m}$, $V \subset  \mathbb{C}^{n \times n}$ unitäre Matrizen). 
+%Dieses Verfahren wird insbesondere in der numerischen Mathematik verwendet. Dort lassen sich beispielsweise quasisinguläre 
+%lineare Gleichungssysteme im Rahmen rechentechnischer Genauigkeiten passabel lösen.
+%In der Statistik ist die SVD der rechnerische Kern der Hauptkomponentenanalyse, dort auch Karhunen-Loève-Transformation genannt.
+%Einige moderne Bildkompressionsverfahren beruhen auf einem Algorithmus, der das Bild (=Matrix aus Farbwerten) in eine SVD überführt 
+%und anschließend nur die stark von null verschieden Elemente der Matrix Σ berücksichtigt und dann die zur Rückgewinnung der Matrix 
+%erforderlichen Vektoren sowie die verbliebenen Diagonalelemente speichert. Besonders effektiv ist diese Kompression bei 
+%bestimmten rechteckigen Mustern und natürlich, je größer (und je quadratischer) das Bild ist. Dies ist eine mögliche Anwendung 
+%von Modellreduktion. Das Weglassen von kleinen Singulärwerten ist ein verlustbehaftetes Modellreduktionsverfahren.
+
 \item \alert{Cholesky-Zerlegung}: \mcode{R=chol(A)}\\
   { $A=R^*R$} zu einer hermiteschen, positiv definiten Matrix
   $A$ ($R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen). 
 \end{itemize}
+%Eine Matrix A heißt hermitesch (nach Charles Hermite) oder selbstadjungiert genau dann, wenn sie gleich ihrer 
+%(hermitesch) Adjungierten A * , also gleich der transponierten und komplex konjugierten Matrix ist. D. h.
+
+%positiv definit, 	falls \langle v,v\rangle>0
+
+%
 \end{frame}
 % 
 % Slide 
@@ -373,6 +391,7 @@ Fixpunkt-Iteration
 \[ x_{k+1}=cos(x_k) \]
 bei geeignetem Startwert $x_0$.  \\
 \centering{\includegraphics[height=5cm]{figures/fixpunkt1}}\\
+(Funktioniert wenn die Abbildung kontrahierend ist)
 \end{frame}
 
 %
@@ -705,7 +724,7 @@ Wiederhole,  bis $a=b$
 \begin{itemize}
 \item  Der Befehl \mcode{break} verläßt die \mcode{while} oder
   \mcode{for}-Schleife.
-\begin{lstlisting}
+\begin{matlabin}
 x=1;
 while 1
   xmin=x;
@@ -715,9 +734,10 @@ while 1
   end
 end
 xmin
-
+\end{matlabin}
+\begin{matlab}
 xmin = 4.9407e-324
-\end{lstlisting} 
+\end{matlab} 
 
 \end{itemize}
 \end{frame}
@@ -727,13 +747,19 @@ xmin = 4.9407e-324
  \item  Durch \mcode{continue} springt man sofort in die
   nächste Iteration der Schleife, ohne die restlichen Befehle zu
   durchlaufen.
-\begin{lstlisting}
-for i=1:10,
- if i<5, continue, end,
- x(i)=i; end, x
-
-                 x =  0  0  0  0  5  6  7  8  9  10
-\end{lstlisting}
+\begin{matlabin}
+for i=1:10
+  if i<5
+    continue
+  end
+  x(i)=i;
+end
+x
+\end{matlabin}
+\begin{matlab}
+x =  0  0  0  0  5  6  7  8  9  10
+\end{matlab}
+ 
 \end{itemize}
 \end{frame}
 
@@ -796,16 +822,16 @@ Bei jedem Aufruf wird ein neuer lokaler Workspace erzeugt.\\[1cm]
 % 
 \begin{frame}[fragile]\frametitle{Sierpinski Dreieck}
 \begin{minipage}{5cm}
-\includegraphics[height=3.5cm]{figures/sierpinski_0}
+\includegraphics[height=4cm]{figures/sierpinski_0}
 \end{minipage} \hfill
 \begin{minipage}{5cm}
-\includegraphics[height=3.5cm]{figures/sierpinski_1}
+\includegraphics[height=4cm]{figures/sierpinski_1}
 \end{minipage}\\ 
 \begin{minipage}{5cm}
-\includegraphics[height=3.5cm]{figures/sierpinski_2}
+\includegraphics[height=4cm]{figures/sierpinski_2}
 \end{minipage} \hfill
 \begin{minipage}{5cm}
-\includegraphics[height=3.5cm]{figures/sierpinski_3}
+\includegraphics[height=4cm]{figures/sierpinski_3}
 \end{minipage} \\
 \end{frame}
 %
@@ -833,17 +859,19 @@ fill(x,y,char)
 dargestellt werden. \mcode{char} gibt die Farbe des Polygons an, z.B. rot
 wäre 'r'.
 \end{frame}
+
+\subsection{Allgemeines}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Warnung}
 \begin{center}
-\alert{ Wiederholte Anwendung von Script-Files kann zu Fehlern führen}\\[0.7cm]
+\alert{ Wiederholte Anwendung von Script-Files kann zu Fehlern führen!}\\[0.5cm]
 \end{center}
 \begin{columns}[t]
  \column{0.4\textwidth}
 \alert{Programm}
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\scriptsize]
 % plotte_sin.m
 
 disp(['Plot der Sinus'...
@@ -897,9 +925,9 @@ f=x.^alpha.*sin(1./x);
 % plot_myfun
 global alpha
 alpha_w=[0.4 0. 6 1 1.5 2];
-for i = 1:length(alpha_w);
+for i = 1:length(alpha_w)
     alpha = alpha_w(i);
-    fplot(@myfun,[0.1,1]);
+    fplot(@myfun,[0.1,1])
     hold on;
 end
 hold off;
@@ -915,7 +943,7 @@ hold off;
   dem beschrieben wird, was das Programm macht. Insbesondere sollten
   die Eingabe- und Ausgabevariablen  genau beschrieben
   werden. 
-\item Vor und nach logischen Operatoren und $=$ sollte ein Lehrzeichen
+\item Vor und nach logischen Operatoren und $=$ sollte ein Leerzeichen
   gesetzt werden.
 \item Man sollte pro Zeile nur einen Befehl verwenden.
 \item Befehle in  Strukturen, wie  \mcode{if}, \mcode{for}
@@ -935,7 +963,7 @@ hold off;
   eine logische Einheit bilden in einem separaten Unterverzeichnis
   gespeichert sein. Die Verzeichnisse können durch \mcode{addpath}
   eingebunden werden. 
-\item Potentielle Fehler sollten, soweit möglich, aufgefangen
+\item Potenzielle Fehler sollten, soweit möglich, aufgefangen
   werden. Speziell sollten die Eingabeparameter der Funktionen
   geprüft werden. 
 \end{itemize}

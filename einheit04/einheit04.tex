@@ -1,11 +1,9 @@
-\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\title{Einführung in Matlab - Einheit 4}
+\subtitle{Visualisieren, Datenstrukturen, In- und Output, Etwas Debugging}
 \input{../slide_header}
-\subtitle{Einheit 4 }
 \maketitle
-\begin{frame}
-  \frametitle{Aufbau}
-  \tableofcontents
-\end{frame}
+
 \section{Visualisieren von 3D-Daten}
 
 %
@@ -26,9 +24,9 @@
 % 
 \begin{frame}[fragile]\frametitle{Beispiel}
 \begin{lstlisting}
->> load seamount
->> plot(x,y,'.','markersize',10)
->> figure, plot3(x,y,z,'.')
+load seamount
+plot(x,y,'.','markersize',10)
+figure, plot3(x,y,z,'.')
 \end{lstlisting}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data}
@@ -39,11 +37,11 @@
 % 
 \begin{frame}[fragile]\frametitle{Beispiel}
 \begin{lstlisting}
->> xi = linspace(min(x),max(x),40);
->> yi = linspace(min(y),max(y),40);
->> [XI,YI] = meshgrid(xi,yi);
->> ZI = griddata(x,y,z,XI,YI,'cubic');
->> surf(XI,YI,ZI)
+xi = linspace(min(x),max(x),40);
+yi = linspace(min(y),max(y),40);
+[XI,YI] = meshgrid(xi,yi);
+ZI = griddata(x,y,z,XI,YI,'cubic');
+surf(XI,YI,ZI)
 \end{lstlisting}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data_plot}
@@ -54,7 +52,7 @@
 % 
 \begin{frame}[fragile]\frametitle{griddata}
 \begin{lstlisting}
-ZI = griddata(x,y,z,XI,YI,methode); 
+ZI = griddata(<x>,<y>,<z>,<XI>,<YI>,<methode>); 
 \end{lstlisting}
 \vspace*{-0.5cm}
 {\small
@@ -91,7 +89,7 @@ ZI = griddata(x,y,z,XI,YI,methode);
 % 
 \begin{frame}[fragile]\frametitle{interp2}
 \begin{lstlisting}
-ZI = interp2(X,Y,Z,XI,YI,methode)
+ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
 \end{lstlisting}
 \begin{itemize}
 \item Allgemein sind $X,Y,Z$ Matrizen. Dabei ist $Z(i,j)$ der Funktionswert an
@@ -172,16 +170,22 @@ Wertes wird der Typ implizit bestimmt.
 \item Ist eine Zahl größer als \mcode{realmax}, so meldet MATLAB einen
   'Overflow' und gibt als Ergebnis \mcode{Inf} zurück.
 \begin{lstlisting}
->> realmax*1.1
-ans =   Inf
+realmax*1.1
 \end{lstlisting}
+\begin{matlab}
+ ans =   Inf
+\end{matlab}
+
 \item Bei Operationen wie $0/0$  oder $\infty / \infty$, erhält man als Ergebnis
   \mcode{NaN} ({\it Not a Number}).
 \begin{lstlisting}
->> 0/0
-Warning: Divide by zero.
-ans =   NaN
+0/0 
 \end{lstlisting}
+\begin{matlab}
+Warning: Divide by zero.
+ans =   NaN 
+\end{matlab}
+
 \end{itemize}
 \end{frame}
 %
@@ -192,19 +196,25 @@ ans =   NaN
 \item Mit Hilfe von \alert{ \mcode{isinf}} und \alert{ \mcode{isnan}} kann auf
 $\infty$ bzw. NaN getestet werden.
  \begin{lstlisting}
->> isnan(0/0), isinf(1.2*realmax)
-ans =   1  ans =   1
+isnan(0/0), isinf(1.2*realmax)
 \end{lstlisting}
+\begin{matlab}
+ans =   1  ans =   1
+\end{matlab}
 \item Test auf NaN durch $==$ ist nicht m\"oglich
 \begin{lstlisting}
->> 0/0 == NaN
-ans =     0
+0/0 == NaN
 \end{lstlisting}
+\begin{matlab}
+ans =     0
+\end{matlab}
 \item Bei Inf ist der Test durch $==$  m\"oglich!
 \begin{lstlisting}
->> (1.2*realmax)==Inf
-ans =     1
+(1.2*realmax)==Inf
 \end{lstlisting}
+\begin{matlab}
+ans =     1
+\end{matlab}
 \end{itemize}
 \end{frame}
 %
@@ -225,22 +235,32 @@ ergeben  \mcode{single}-Objekte.
 %
 \begin{frame}[fragile]\frametitle{Single}
 \begin{lstlisting}
->> a = sqrt(2); b = single(a);
->> c = a+b; d = a-b
+a = sqrt(2); b = single(a);
+c = a+b; d = a-b
+\end{lstlisting}
+\begin{matlab}
 d =
   2.4203e-08
->> whos
+\end{matlab}
+\begin{lstlisting}
+whos
+\end{lstlisting}
+\begin{matlab}
   Name   Size     Bytes  Class    
   a      1x1        8  double              
   b      1x1        4  single              
   c      1x1        4  single              
-  d      1x1        4  single          
->> [realmax, single(realmax)], realmax
+  d      1x1        4  single  
+\end{matlab}
+\begin{lstlisting}
+[realmax, single(realmax)], realmax
+\end{lstlisting}
+\begin{matlab}
 ans =
    Inf   Inf
 ans =
   1.7977e+308
-\end{lstlisting}
+\end{matlab}
 \end{frame}
 %
 % Folie
@@ -316,15 +336,16 @@ Datenstruktur zu bündeln.\\[1cm]
 
 \alert{Beispiel:} komplexe Zahlen
 \begin{lstlisting}
->> komp_Zahl.real=1;
->> komp_Zahl.imag=1;
->> komp_Zahl
-
+komp_Zahl.real=1;
+komp_Zahl.imag=1;
+komp_Zahl
+\end{lstlisting}
+\begin{matlab}
 komp_Zahl = 
 
     real: 1
     imag: 1
-\end{lstlisting}
+\end{matlab}
 \end{frame}
 %
 % Folie
@@ -333,12 +354,12 @@ komp_Zahl =
 \begin{itemize}
 \item Alternativ können Strukturen durch
 \begin{lstlisting}
-struktur = struct('Feld1',Wert1,'Feld2',Wert2,...)
+struktur = struct('Feld1',<Wert1>,'Feld2',<Wert2>,..)
 \end{lstlisting}
 definiert werden.
 \item Ein Feld einer Struktur \mcode{struktur} kann durch 
 \begin{lstlisting}
-struc2 = rmfield( struktur ,'Feld')
+struc2 = rmfield( <struktur> ,'Feld')
 \end{lstlisting}
 gel\"oscht werden. 
 \end{itemize}
@@ -352,12 +373,14 @@ Cell Arrays sind spezielle Matrizen, deren  Einträge aus unterschiedlichen
 Datentypen bestehen können. Erzeugt
 werden sie durch geschweifte Klammern.\\
 \begin{lstlisting}
->> C = { 1:10, hilb(4);...
+C = { 1:10, hilb(4);...
        'Hilbert Matrix', pi}
+\end{lstlisting} 
+\begin{matlab}
 C = 
        [1x10 double]    [4x4 double]
     'Hilbert Matrix'    [    3.1416]
-\end{lstlisting} 
+\end{matlab} 
 \end{frame}
 %
 % Folie
@@ -368,16 +391,20 @@ C =
 \begin{columns}[c]
 \column{0.45\textwidth}
 \begin{lstlisting} 
->> C{2,1}
+C{2,1}
+\end{lstlisting}
+\begin{matlab}
 ans =
 Hilbert Matrix
-\end{lstlisting}
+\end{matlab}
 \column{0.45\textwidth}
 \begin{lstlisting}
->> C{1,2}(2,3)
+C{1,2}(2,3)
+\end{lstlisting}
+\begin{matlab}
 ans =
     0.2500
-\end{lstlisting}
+\end{matlab}
 \end{columns}
 \item Durch \mcode{celldisp(C)} wird der Inhalt von $C$ dargestellt.
 %\item \mcode{struct2cell} bzw. \mcode{num2cell} erzeugt ein Cell Array
@@ -405,19 +432,33 @@ ben\"otigt z.B. $8$-Bit. (Wertebereich $0 \dots 2^8-1$).
 %
 \begin{frame}[fragile]\frametitle{Integer}
 \begin{lstlisting}
->> a = int8(20); b = int16(20); c = int8(20);
->> a*c, a*b
+a = int8(20); b = int16(20); c = int8(20);
+a*c, a*b
+\end{lstlisting}
+\begin{matlab}
 ans =  127
 ??? Error using ==> mtimes
 Integers can only be combined with integers
 of the same class, or scalar doubles.
->> a+0.2
-ans =   20
->> a+0.5
-ans =   21
->> a*1.54
-ans =   31
+\end{matlab}
+\begin{lstlisting}
+a+0.2
 \end{lstlisting}
+\begin{matlab}
+ans =   20
+\end{matlab}
+\begin{lstlisting}
+a+0.5
+\end{lstlisting}
+\begin{matlab}
+ans =   21
+\end{matlab}
+\begin{lstlisting}
+a*1.54
+\end{lstlisting}
+\begin{matlab}
+ans =   31
+\end{matlab}
 \end{frame}
 %
 %
@@ -459,18 +500,22 @@ und wird durch Return
 abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
   
 \begin{lstlisting}
->> startwert = input('Bitte geben Sie den Startwert ein: ')
+startwert = input('Bitte geben Sie den Startwert ein: ')
+\end{lstlisting}
+\begin{matlab}
 Bitte geben Sie den Startwert ein: 56
  startwert =
      56
 
-\end{lstlisting}
+\end{matlab}
 \begin{lstlisting}
->> f = input('Eingabe einer Funktion: ', 's')
+f = input('Eingabe einer Funktion: ', 's')
+\end{lstlisting}
+\begin{matlab}
 Eingabe einer Funktion: sin(x)*cos(x)
 f =
 sin(x)*cos(x)
-\end{lstlisting}
+\end{matlab}
 \end{frame}
 %
 % Slide
@@ -538,20 +583,26 @@ plot(x*umat, y*umat,'--','Linewidth',4); hold off;
 \begin{itemize}
 \item Angeben einer Variable ohne Semicolon:
 \begin{lstlisting}
->> text=['Pi mit 5 signifikanten Stellen : ' num2str(pi,6)]
+text=['Pi mit 5 signifikanten Stellen : ' num2str(pi,6)]
+\end{lstlisting} 
+\begin{matlab} 
 text =
 Pi mit 5 signifikanten Stellen : 3.14159
-\end{lstlisting} 
+\end{matlab} 
 \item Ausgabe des Strings $X$ durch  \mcode{disp(X)}
 \begin{lstlisting}
->> disp(text)
-Pi mit 5 signifikanten Stellen : 3.14159
+disp(text)
 \end{lstlisting} 
+\begin{matlab} 
+Pi mit 5 signifikanten Stellen : 3.14159
+\end{matlab} 
 \item Ausgabe durch  \mcode{fprintf()}
 \begin{lstlisting}
->> fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \n',4,pi)
+fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \n',4,pi)
+\end{lstlisting} 
+\begin{matlab} 
 Pi mit 4 Nachkomma-Stellen : 3.1416 
-\end{lstlisting}
+\end{matlab}
 \end{itemize}
 \end{frame}
 %
@@ -560,7 +611,7 @@ Pi mit 4 Nachkomma-Stellen : 3.1416
 \begin{frame}[fragile]\frametitle{fprintf- Formartierte Ausgabe}
 {\tiny
 \begin{lstlisting}
-fprintf( Format, Argument1, Argument2,...)
+fprintf( <Format>, <Argument1>, <Argument2>,...)
 \end{lstlisting}
 {\it Format} ist ein String der das genaue Output-Form
 der Argumente (Werte der Variablen) bestimmt: 
@@ -608,7 +659,7 @@ Format='<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>...'
 %
 \begin{frame}[fragile]\frametitle{fopen}
 \begin{lstlisting}
-fid = fopen(dateiname, erlaubnis)
+fid = fopen(<dateiname>, <erlaubnis>)
 \end{lstlisting}
 
 \mcode{fopen} öffnet die Datei \mcode{dateiname} im Modus
@@ -630,14 +681,14 @@ fid = fopen(dateiname, erlaubnis)
 \item \mcode{fclose(fid)} schliesst die Datei mit dem Handle \mcode{fid}
 \item Mit dem Befehl
 \begin{lstlisting}
-fprintf( Datei-Handle, Format, Argument1, Argument2,..)
+fprintf( <Datei-Handle>, <Format>, <Argument1>, <Argument2>,..)
 \end{lstlisting}
 wird in die durch das Datei-Handle angegebene Datei gemäß der obigen
 Konventionen geschrieben.
 \item Durch ein  zusätzliches Output-Argument können Fehler aufgefangen
   werden. 
 \begin{lstlisting}
-[fid, message]=fopen(dateiname, erlaubnis)
+[fid, message]=fopen(<dateiname>, <erlaubnis>)
 \end{lstlisting}
 Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}. 
 \end{itemize}
@@ -653,7 +704,7 @@ Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}.
 %
 \begin{frame}[fragile]\frametitle{fscanf}
 \begin{lstlisting}
-[daten,anz] = fscanf(fid,format,Größe)
+[daten,anz] = fscanf(<fid>,<format>,<Größe>)
 \end{lstlisting}
 \begin{itemize}
 \item \mcode{fscanf} liest Daten aus der Datei mit dem Handle
@@ -795,11 +846,11 @@ disp(norm(A - C))
 \end{itemize}
 \end{frame}
 
-\section{Fehler}
+\section{Etwas Debugging}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Fehler}
+\begin{frame}[fragile]\frametitle{Debugging}
 % In MATLAB gibt es zwei Arten von Fehler.
 \begin{itemize}
 \item \alert{ Syntax Fehler}: z.B. Schreibfehler oder
@@ -820,7 +871,7 @@ an, in welcher Funktion der Fehler liegt.}
 \begin{frame}[fragile]\frametitle{Fehler abfangen}
 \begin{itemize}
 \item Der Befehl \alert{ \mcode{error('text')}} erzeugt die
-  Fehlermeldung \mcode{text} und bricht das Programm ab. Insebsondere
+  Fehlermeldung \mcode{text} und bricht das Programm ab. Insbesondere
   die Eingabeparameter sollten auf Fehler geprüft werden.
 \item Warnungen werden durch \alert{ \mcode{warning('text')}} erzeugt. Im
   Gegensatz zu \mcode{error} wird das Programm aber fortgesetzt. 
@@ -845,5 +896,9 @@ if ~ischar(f1)
 end
 \end{lstlisting}
 \end{frame}
+
+%keyboard, dbcont etc.
+
+
 \end{document}
 

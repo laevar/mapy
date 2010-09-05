@@ -1,4 +1,4 @@
-\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 2}
 \subtitle{Numerische Lineare Algebra, Programmieren}
 \input{../slide_header}
@@ -309,15 +309,35 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \item \alert{QR-Zerlegung}: \mcode{[Q,R]=qr(A)}\\
   $m \times n$- Matrix $A$ eine Zerlegung { $A=QR$} erzeugt,
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
+%Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
+%beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
+%zu behandeln. Sie ist integraler Bestandteil des QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
 \item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
   $U \subset \mathbb{C}^{m \times m}$, $V \subset  \mathbb{C}^{n \times n}$ unitäre Matrizen). 
+%Dieses Verfahren wird insbesondere in der numerischen Mathematik verwendet. Dort lassen sich beispielsweise quasisinguläre 
+%lineare Gleichungssysteme im Rahmen rechentechnischer Genauigkeiten passabel lösen.
+%In der Statistik ist die SVD der rechnerische Kern der Hauptkomponentenanalyse, dort auch Karhunen-Loève-Transformation genannt.
+%Einige moderne Bildkompressionsverfahren beruhen auf einem Algorithmus, der das Bild (=Matrix aus Farbwerten) in eine SVD überführt 
+%und anschließend nur die stark von null verschieden Elemente der Matrix Σ berücksichtigt und dann die zur Rückgewinnung der Matrix 
+%erforderlichen Vektoren sowie die verbliebenen Diagonalelemente speichert. Besonders effektiv ist diese Kompression bei 
+%bestimmten rechteckigen Mustern und natürlich, je größer (und je quadratischer) das Bild ist. Dies ist eine mögliche Anwendung 
+%von Modellreduktion. Das Weglassen von kleinen Singulärwerten ist ein verlustbehaftetes Modellreduktionsverfahren.
+
 \item \alert{Cholesky-Zerlegung}: \mcode{R=chol(A)}\\
   { $A=R^*R$} zu einer hermiteschen, positiv definiten Matrix
   $A$ ($R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen). 
 \end{itemize}
+%Eine Matrix A heißt hermitesch (nach Charles Hermite) oder selbstadjungiert genau dann, wenn sie gleich ihrer 
+%(hermitesch) Adjungierten A * , also gleich der transponierten und komplex konjugierten Matrix ist. D. h.
+
+%positiv definit, 	falls \langle v,v\rangle>0
+
+%Die Cholesky-Zerlegung kann auch zur Gewinnung eines Vorkonditionierungsverfahrens für lineare Gleichungssysteme mit 
+%positiv definiter Matrix benutzt werden; zu diesem Zweck gibt es speziell die Variante der unvollständigen Cholesky-Zerlegung 
+%sowie der modifizierten unvollständigen Cholesky-Zerlegung.
 \end{frame}
 % 
 % Slide 

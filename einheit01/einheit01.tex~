@@ -1,4 +1,4 @@
-\documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 1}
 \subtitle{Streifzug durch Matlab, Vektoren und Matrizen}
 \input{../slide_header}
@@ -434,7 +434,7 @@ y = aux_vector*transpose(a);
 % Folie 
 %----------------------------
 \begin{frame}[fragile]\frametitle{Struktur von Function-Files}
-Beispiel: 'my-file.m'
+Beispiel: 'myfunction.m'
 \begin{lstlisting}
 function [Out_1,..,Out_k] = myfunction(In_1,..,In_l)
 % Beschreibung der Funktion

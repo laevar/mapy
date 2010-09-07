@@ -24,6 +24,6 @@ for i=1:it_max
     plot([z(i) z(i)], [z(i) z(i+1)],'r--','LineWidth',1);
     pause;
     plot([z(i) z(i+1)],[z(i+1) z(i+1)],'r--','LineWidth',1);
-    hold on;
+    hold off;
     pause; % stoppt bis eine Taste gedrueckt wird
 end;

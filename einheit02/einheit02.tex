@@ -311,7 +311,8 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
 %Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
 %beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
-%zu behandeln. Sie ist integraler Bestandteil des QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
+%zu behandeln. 
+%QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
 \item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
@@ -333,11 +334,13 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %Eine Matrix A heißt hermitesch (nach Charles Hermite) oder selbstadjungiert genau dann, wenn sie gleich ihrer 
 %(hermitesch) Adjungierten A * , also gleich der transponierten und komplex konjugierten Matrix ist. D. h.
 
-%positiv definit, 	falls \langle v,v\rangle>0
+%positiv definit, 	falls x^T Ax > 0
 
 %Die Cholesky-Zerlegung kann auch zur Gewinnung eines Vorkonditionierungsverfahrens für lineare Gleichungssysteme mit 
 %positiv definiter Matrix benutzt werden; zu diesem Zweck gibt es speziell die Variante der unvollständigen Cholesky-Zerlegung 
 %sowie der modifizierten unvollständigen Cholesky-Zerlegung.
+% determinante
+% test ob es eine positiv definite matrix ist
 \end{frame}
 % 
 % Slide 

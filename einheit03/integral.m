@@ -1,10 +1,6 @@
-%----------------------------------
 %   integral.m
-% 
 % berechnet approximativ ein Integral 
 % ueber  (0,1) durch die Mittelpunktregel
-%----------------------------------
-
 N=5; % Anzahl Unterteilungen
 
 x=(0+1/(2*N)):(1/N):(1-1/(2*N));

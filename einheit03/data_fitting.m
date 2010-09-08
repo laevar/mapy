@@ -11,7 +11,7 @@ subplot(2,3,1),
 plot(x,y,'ro'), title('Punkte');
 % Standardinterpolation
 z=-5:0.1:5;
-y1=polyval(polyfit(x,y,length(x)-1),z);
+y1=polyval(polyfit(x,y,length(x)-6),z);
 subplot(2,3,2), plot(x,y,'ro',z,y1,'b-.','Linewidth',3), title('polynomial');
 % linearer Spline
 y2=interp1(x,y,z,'linear');

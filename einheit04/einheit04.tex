@@ -40,7 +40,8 @@ figure, plot3(x,y,z,'.')
 xi = linspace(min(x),max(x),40);
 yi = linspace(min(y),max(y),40);
 [XI,YI] = meshgrid(xi,yi);
-ZI = griddata(x,y,z,XI,YI,'cubic');
+F = TriScatteredInterp(x,y,z,'linear');
+ZI = F(XI,YI);
 surf(XI,YI,ZI)
 \end{lstlisting}
 \begin{center}
@@ -52,21 +53,22 @@ surf(XI,YI,ZI)
 % 
 \begin{frame}[fragile]\frametitle{griddata}
 \begin{lstlisting}
-ZI = griddata(<x>,<y>,<z>,<XI>,<YI>,<methode>); 
+F = TriScatteredInterp(<x>,<y>,<z>,<methode>);
+ZI = F(<XI>,<YI>);
 \end{lstlisting}
-\vspace*{-0.5cm}
-{\small
 \begin{itemize}
 \item Vektoren $x,y,z$ enthalten Werte $(x(i),y(i),z(i))$.
-\item \mcode{griddata} interpoliert auf die Stellen $(XI(i,j),YI(i,j))$
-  mit Matrizen $XI,YI$. Ergebnis $ZI(i,j)$.
-\item Die Art des Interpolierens ist entweder \mcode{'nearest'}, \mcode{'linear'}
-  oder \mcode{'cubic'}. Entsprechend wird entweder st\"uckweise konstant, linear
-  oder durch bi-kubische Splines interpoliert. 
-\item Es wird nur innerhalb der konvexen H\"ulle der Punkte $(x(i),y(i))$
-  interpoliert. Ansonsten Funktionswert $NaN$. 
+\item Interpolationsstellen $(XI(i,j),YI(i,j))$ mit Matrizen \mcode{XI, YI}. 
+\item Funktionsauswertung mit \mcode{F}: Ergebnis $ZI(i,j)$.
+\item Art des Interpolierens:
+\begin{itemize}
+ \item \mcode{'nearest'}: st\"uckweise konstant
+ \item \mcode{'linear'}: linear
+ \item \mcode{'natural'}: natürliche Nachbarn (Voronoi-Diagramm)
 \end{itemize}
-}
+\item Es wird nur innerhalb der konvexen H\"ulle der Punkte $(x(i),y(i))$
+  interpoliert. Ansonsten Funktionswert \mcode{NaN}. 
+\end{itemize}
 \end{frame}
 
 %
@@ -78,7 +80,7 @@ ZI = griddata(<x>,<y>,<z>,<XI>,<YI>,<methode>);
   $(x(i),y(i))$ sind Eckpunkte der entstehenden Dreiecksmenge.
 \item Danach werden mit Hilfe der Dreiecke Funktionen  definiert, die
   entsprechende Werte besitzen. 
-\item Mittels \mcode{griddata} ist die Technik auch auf h\"ohere Dimensionen
+\item Mittels \mcode{TriScatteredInterp} ist die Technik auch auf h\"ohere Dimensionen
   anwendbar. Dreiecke werden durch entsprechende höher-dimensionale
   Simplizes ersetzt. \\
 (In 3D Tetraeder)
@@ -266,9 +268,9 @@ ans =
 % Folie
 %
 \begin{frame}[fragile]\frametitle{Operator Rangfolge}
-\begin{tabular}{|lp{10cm}|}
-%\hline
-%Level & Operator\\
+\begin{tabular}{|cp{10cm}|}
+\hline
+Level & Operator\\
 \hline
 1 &   Exponent (\mcode{^}, \mcode{.^}), \mcode{transpose}\\
 2 & logische Verneinung (\mcode{\~})\\
@@ -279,7 +281,7 @@ ans =
 7 & Logisches und (\mcode{\&})\\
 8 & Logisches oder (\mcode{|})\\
 \hline
-\end{tabular}\\
+\end{tabular}\\[0.5cm]
 {\scriptsize Bei gleicher Rangfolge wertet MATLAB von links nach rechts
   aus. \\
 Die Rangfolge kann durch Klammersetzung geändert werden.}
@@ -483,11 +485,21 @@ ans =   31
 %
 \begin{frame}[fragile]\frametitle{Benutzereingabe}
 \begin{itemize}
-\item Standardeingabe: \alert{ \mcode{input}}
+\item Standardeingabe: 
+\begin{lstlisting}
+input 
+\end{lstlisting}
 %\item Eingabe eines Zeichens:
-\item Informationssteuerung durch die Maus: \alert{ \mcode{ginput}}
-\item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: \alert{
-  \mcode{pause}} 
+\item Informationssteuerung durch die Maus:
+\begin{lstlisting}
+ginput 
+\end{lstlisting}
+
+\item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: 
+\begin{lstlisting}
+pause
+\end{lstlisting}
+
 \end{itemize}
 \end{frame} 
 %
@@ -559,22 +571,7 @@ befindet.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Bezier-Polynom}
-\begin{lstlisting}
-% Eingabe der 4 Kontrollpunkte
-axis([0 1 0 1]); hold on;
-for k=1:4
-[x(k),y(k)]=ginput(1);
-plot(x(k),y(k),'*'); 
-text(x(k)+0.01,y(k)+0.01,strcat('P_',num2str(k)));
-end;
-
-% Zeichnen der Kontrollpolygons
-fill(x,y,'y');
-
-u=0:0.01:1;
-umat=[(1-u).^3; 3.*u.*(1-u).^2; 3.*u.^2.*(1-u);u.^3];
-plot(x*umat, y*umat,'--','Linewidth',4); hold off;
-\end{lstlisting}
+\lstinputlisting{bezier.m}
 \end{frame}
 %
 % Slide
@@ -609,31 +606,29 @@ Pi mit 4 Nachkomma-Stellen : 3.1416
 % Slide
 %
 \begin{frame}[fragile]\frametitle{fprintf- Formartierte Ausgabe}
-{\tiny
 \begin{lstlisting}
 fprintf( <Format>, <Argument1>, <Argument2>,...)
 \end{lstlisting}
-{\it Format} ist ein String der das genaue Output-Form
-der Argumente (Werte der Variablen) bestimmt: 
-\begin{lstlisting}[basicstyle=\scriptsize]
-Format='<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>...'
+\textit{Format}: Output-Form der Argumente (Werte der Variablen): 
+\begin{lstlisting}
+'<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>..'
 \end{lstlisting} 
-\begin{itemize}
+\begin{description}
 \item [<*>] Hier kann beliebiger Text eingegeben werden.
-\item [<(-|+)>] Durch '+' wird die Angabe des Vorzeichens
-  erzwungen. Durch '-' wird eine linksbündige Ausgabe
-  erzeugt. Weglassen von <(-|+)> erzeugt eine rechtsbündige Ausgabe
-  ohne Anzeige des '+' Zeichens.
-\item [v\textit{i}] Durch $vi$ wird die Anzahl der insgesamt dargestellten Zeichen 
-   von Argument\textit{i} gesteuert.
-\item [n\textit{i}] Hierdurch wird entsprechend die Anzahl von Nachkommastellen
-  angegeben. 
-\item [typ\textit{i}] Gibt den Datentyp und Darstellungsformat von Argument\textit{i}
-  an: \alert{f} (Standarddarstellung von Gleitkommazahlen), \alert{e}
-  (Expontialdarstellung von Gl.), \alert{ g} (entweder Darst. $f$ oder
-  $e$), $s$ (Strings),... 
+\item [<(-|+)>] '+': Vorzeichen-Anzeige erzwungen.\\
+  '-': linksbündige Ausgabe.\\
+ Weglassen von <(-|+)>: rechtsbündige Ausgabe ohne Anzeige des '+' Zeichens.
+\item [v\textit{i}] Anzahl der insgesamt dargestellten Zeichen von Argument\textit{i}.
+\item [n\textit{i}] Anzahl von Nachkommastellen. 
+\item [typ\textit{i}] Datentyp und Darstellungsformat von Argument\textit{i}:
+\begin{itemize}
+ \item \alert{f} (Standarddarstellung von Gleitkommazahlen)
+ \item \alert{e} (Expontialdarstellung von Gl.)
+ \item \alert{g} (entweder Darst. $f$ oder $e$)
+ \item \alert{s} (Strings),... 
 \end{itemize}
-}
+
+\end{description}
 \end{frame}
 %
 % Slide
@@ -666,12 +661,12 @@ fid = fopen(<dateiname>, <erlaubnis>)
   \mcode{erlaubnis} und erzeugt einen
   Datei-Handle \mcode{fid}. Für \mcode{erlaubnis} gibt es u.a. die folgenden
   Möglichkeiten:
-\begin{itemize}
+\begin{description}
 \item ['r']  Lesen aus der Datei.
 \item ['w']  Schreiben in die Datei (Erzeugen falls nötig)
 \item ['a']  Hinzufügen (Erzeugen falls nötig)
 \item ['r+'] Lesen und schreiben (aber nicht erzeugen) 
-\end{itemize}
+\end{description}
 \end{frame}
 %
 % Slide
@@ -800,12 +795,11 @@ fclose(fid);
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
 \item Es ist auch möglich temporäre Dateien zu erzeugen.
-\item Binäre Dateien können erzeugt und gelesen werden mit Hilfe der
-  Befehle \mcode{fread} und \mcode{fwrite}. 
-\item  Mittels \mcode{xlsread} können Excel-Tabellen eingeladen werden.
-\item Bilddateien werden durch \mcode{imread} importiert.
-\item  Audiodateien (.wav) bzw. Videodateien (.avi) können durch
-  \mcode{wavread} bzw. \mcode{aviread} importiert werden. 
+\item Binäre Dateien: \alert{\mcode{fread}} und \alert{\mcode{fwrite}}. 
+\item Excel-Tabellen esen: \alert{\mcode{xlsread}} 
+\item Bilddateien importieren: \alert{\mcode{imread}}.
+\item Audiodateien (.wav) bzw. Videodateien (.avi):
+ \alert{\mcode{wavread}} bzw. \alert{\mcode{aviread}}. 
 \end{itemize}
 \end{frame}
 %

@@ -9,14 +9,13 @@
 %
 % Folie
 %
-\begin{frame}[fragile]\frametitle{Characters (char)}
-Characters (Zeichen) sind einzelne
-Zeichen. \\
+\begin{frame}[fragile]\frametitle{Characters (char) - Zeichen}
+\begin{itemize}
+ \item Darstellung durch Integer
+ \item Die Werte zwischen 0 und 128 entsprechen den ASCII Werten. 
+\item 2 Bytes Speicherbedarf $\Rightarrow$ Zahl zwischen 0 und $2^{16}-1$ 
+\end{itemize}
 
-Intern werden Characters in MATLAB durch Integer dargestellt. Die Werte zwischen 0 und
-128 entsprechen den ASCII Werten. Insgesamt wird zur Speicherung eines Zeichens 2
-Bytes ben\"otigt. Es wird also jedem Zeichen eine Zahl zwischen 0 und $2^{16}-1$
-zugeordnet. 
 \begin{lstlisting}
 s='d'
 \end{lstlisting}
@@ -39,9 +38,8 @@ s2 = d
 %
 % Folie
 %
-\begin{frame}[fragile]\frametitle{Strings}
-Ein String ist ein Vektor von character (Zeichen). Intern werden sie
-durch die ASCII Werte dargestellt. 
+\begin{frame}[fragile]\frametitle{Strings - Vektor von Zeichen}
+Die Zeichen werden wiederum durch die ASCII Werte dargestellt. 
 \begin{lstlisting}
 s='AB6de*'
 \end{lstlisting}  
@@ -94,7 +92,7 @@ ans = Hello world
 % 
 \begin{frame}[fragile]\frametitle{Standard-Plot}
 \begin{lstlisting}
-plot(x,y)
+plot(<x>,<y>)
 \end{lstlisting}
 zeichnet für Vektoren $x=(x_1, \ \dots \ ,x_N)$ und  $y=(y_1, \dots \ ,y_N)$
 eine Grafik, die die Punkte $(x_i,y_i)$ und $(x_{i+1},y_{i+1})$ miteinander
@@ -117,7 +115,7 @@ plot(x,y1)
 % 
 \begin{frame}[fragile]\frametitle{Erweiterungen}
 \begin{lstlisting}
-plot(x,y,string)
+plot(<x>,<y>,<string>)
 \end{lstlisting}
 \alert{String} besteht aus drei Elementen, die die Farbe, Linienstil
 und die Markierung der Punkte kontrollieren. Die Reihenfolge der drei
@@ -156,7 +154,7 @@ Läßt man den Linien-Stil weg, so werden die Punkte nicht verbunden.
 % 
 \begin{frame}[fragile]\frametitle{Optionen II}
 \begin{lstlisting}
-plot(x,y,string,Eigenschaft, Spez.) 
+plot(<x>,<y>,<string>,<Eigenschaft>, <Spez.>) 
 \end{lstlisting}
 \alert{ Eigenschaften:}\\
 \mcode{'MarkerSize'} (Default 6), \mcode{'LineWidth'} (Default 0.5),
@@ -395,10 +393,11 @@ bar(y)
 \begin{lstlisting}
 hist(y,5)
 \end{lstlisting}
-\item einfacher Plot: 
+\item einfacher ausgefüllter Plot: 
 \begin{lstlisting}
 area(n,[y',2*y'])
 \end{lstlisting}
+% y und 2*y werden addiert!
 \item Tortengrafik: 
 \begin{lstlisting}
 pie3([ 1 2 3 4])
@@ -455,26 +454,7 @@ für gegebenes $N \in \mathbb{N}$. \textbf{Beispiel}: $f(x)=x^3$
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Integral - Implementation}
-\begin{lstlisting}
-%   integral.m
-
-N = 20; % Anzahl Unterteilungen
-
-x = (0+1/(2*N)):(1/N):(1-1/(2*N));
-y = x.^3;
-% Berechnung des Integrals
-result = sum(y)*(1/N);
-
-% Plot
-for i = 1:N
-    fill([(i-1)/N (i-1)/N i/N i/N], ...
-      [0 ((i-0.5)/N).^3  ((i-0.5)/N).^3 0], 'r');
-    hold on;
-end;
-plot(0:0.01:1,(0:0.01:1).^3,'LineWidth',3);
-title(['\int_0^1 x^3! = ',num2str(result),...
-  ' fuer N =', num2str(N)]); 
-\end{lstlisting}
+\lstinputlisting{integral.m}
 \end{frame}
 
 \subsection{Dreidimensionale Grafiken}
@@ -590,7 +570,7 @@ subplot(2,2,4),
 % 
 \begin{frame}[fragile]\frametitle{subplot}
 \begin{lstlisting}
-subplot(n,m,k),
+subplot(<n>,<m>,<k>)
 \end{lstlisting}
 zerlegt das Grafikfenster in $n \times m$ Teilfenster. 
 
@@ -620,6 +600,7 @@ Dann hat \alert{ \mcode{Z=X.*Y}} die Komponenten
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Darstellungsmöglichkeiten}
+% Das hier ist eigentlich doppelt..
 \begin{itemize}
 \item Contourplot (zeichnet die Niveaulinien): \alert{ \mcode{contour}}
 \item Darstellung des Graphen mit Gitterlinien: \alert{ \mcode{mesh} ,
@@ -684,19 +665,7 @@ subplot(2,2,4), Z=X.^2.*Y;
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Contour Plots - Listing}
-\begin{lstlisting}
-% verschiedenen Darstellungen
-subplot(2,2,1),
- contourf(X,Y,Z,10), title('contourf')
-subplot(2,2,2),
- contour(X,Y,Z,[0 0.2 0.4]), title('special contours');
-subplot(2,2,3),
- [C,h] = contour(X,Y,Z,[0 0.05 0.1 0.15 0.2 ]); 
- title('contour with labeling');
- clabel(C,h)
-subplot(2,2,4),
-  contour3(X,Y,Z,10), title('contour3')
-\end{lstlisting}
+\lstinputlisting{contour_plot.m}
 \end{frame}
 
 % 
@@ -725,15 +694,7 @@ zeichnet  Schnitte zu den Funktionswerten $V(i)$ zu
 $(X(i),Y(i),Z(i))$. Schnitte sind durch die Vektoren $sx$, $sy$ und $sz$
 gegeben.\\
 \textbf{Beispiel}: \alert{ \[ f(x,y,z):=\exp(-x^2-y^2)\sin(\pi x y z) \]}
-\begin{lstlisting}
-x = linspace(-2,2,20);
-[X,Y,Z] = meshgrid(x,x,x);
-V =  exp(-X.^2-Y.^2).*sin(pi*X.*Y.*Z);
-sx = [-0.5,0,0.5]; sy = [-1,0,1]; 
-sz = [];
-slice(X,Y,Z,V,sx,sy,sz)
-alpha(0.6) % Transparency
-\end{lstlisting}
+\lstinputlisting{beispiel_slice.m}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Beispiel: slice}
@@ -856,12 +817,12 @@ surf(X,Y,Z)
 Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
 $n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.
 \begin{matlabin}
-p = polyfit(x,y,n)}
+p = polyfit(x,y,n)
 \end{matlabin}
 
 Ruft man
 \begin{matlabin}
-p = polyfit(x,y,m)}
+p = polyfit(x,y,m)
 \end{matlabin}
  mit $m<n$ auf, so sucht MATLAB
 die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
@@ -884,11 +845,11 @@ Als \mcode{'method'} gibt es\\
 
 %{\scriptsize
 \begin{tabular}{ll}
-'nearest' &  stückweise konstante Approximation \\
-'linear'  & Lineare Interpolation \\ 
-'spline' & stückweise kubischer Spline $u$ ($u \in C^2$,
+\mcode{'nearest'} &  stückweise konstante Approximation \\
+\mcode{'linear'}  & Lineare Interpolation \\ 
+\mcode{'spline'} & stückweise kubischer Spline $u$ ($u \in C^2$,
 $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
-'cubic' & kubische Hermite Interpolation\\ 
+\mcode{'cubic'} & kubische Hermite Interpolation\\ 
 \end{tabular}
 %}
 \end{frame}

@@ -11,3 +11,8 @@ yi = linspace(min(y),max(y),40);
 figure
 ZI = griddata(x,y,z,XI,YI,'cubic');
 surf(XI,YI,ZI)
+
+F = TriScatteredInterp(x,y,z,'linear');
+ZI = F(XI,YI);
+figure
+surf(XI,YI,ZI)

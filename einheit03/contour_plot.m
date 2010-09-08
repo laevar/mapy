@@ -1,5 +1,3 @@
-%------------------contour_plot.m
-
 % Erzeugen des Gitters
 x=linspace(-2,2,30);
 y=linspace(-2,2,30);
@@ -7,7 +5,7 @@ y=linspace(-2,2,30);
 % Funktionswerte
 Z=exp(-X.^2-Y.^2).*sin(pi*X.*Y);
 
-% verschiedenen Darstellungen
+% verschiedene Darstellungen
 subplot(2,2,1),
  contourf(X,Y,Z,10), title('contourf')
 subplot(2,2,2),

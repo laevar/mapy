@@ -1,11 +1,9 @@
-%--------------------------------------------------
 %         plot_funktion_3d_2.m
 %
 %    Beispiel der verschiedenen Moeglichkeiten eine
 %     Funktion f:R^2 --> R zu plotten
 %
 % Gerd Rapin             29.11.2003
-%---------------------------------------------------
 
 % Erzeugen des Gitters
 x=linspace(-2,2,30);

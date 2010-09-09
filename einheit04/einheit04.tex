@@ -715,10 +715,15 @@ Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}.
 %
 \begin{frame}[fragile]\frametitle{Weitere Befehle}
 \begin{itemize}
-\item Der Befehl \alert{ \mcode{fgetl(fid)}} liest eine Zeile aus der Datei mit
-  Handle \mcode{fid} und gibt die Zeile als String zurück.
-\item Ob das Dateiende erreicht ist, kann durch den Befehl \alert{
-  \mcode{feof(fid)}} geprüft werden. \mcode{feof(fid)} gibt eine $1$
+\item Zeile aus der Datei mit  Handle \mcode{fid} lesen und als String zurückgeben:
+\begin{lstlisting}
+fgetl(fid) 
+\end{lstlisting}
+\item Prüfen ob das Dateiende erreicht ist:
+\begin{lstlisting}
+feof(fid)
+\end{lstlisting}
+\mcode{feof(fid)} gibt eine $1$
   zurück, falls das Dateiende erreicht ist und $0$ sonst. 
 \end{itemize}
 \end{frame}

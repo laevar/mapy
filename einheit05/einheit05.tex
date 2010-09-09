@@ -5,25 +5,27 @@
 \maketitle
 
 \section{Mehrdimensionale Arrays}
-%line 422: Theorie sobolevsche Mittelungsfunktion
-% allgemein die Programme noch austesten!
 %
 %
 % Slide: 
 %
 \begin{frame}[fragile]\frametitle{Mehrdimensionale Arrays}
 \begin{itemize}
-\item In MATLAB existieren auch mehrdimensionale Arrays (Dim. > 2).
+\item mehrdimensionale Arrays (Dim. > 2).
 \begin{lstlisting}
->> A(:,:,1) = ones(3);
->> A(:,:,2) = 2*ones(3);
->> whos
+A(:,:,1) = ones(3);
+A(:,:,2) = 2*ones(3);
+whos
+\end{lstlisting}
+\begin{matlab}
   Name   Size   Bytes  Class  
   A      3x3x2    144  double  
-\end{lstlisting}
-\item \alert{ \mcode{cat(dim,A1,A2,..)}} f\"ugt die Arrays \mcode{A1},
+\end{matlab}
+\item \alert{ \mcode{cat(<dim>,<A1>,<A2>,..)}} f\"ugt die Arrays \mcode{A1},
   \mcode{A2},.. entlang der Dimension \mcode{dim} zusammen. 
-(\mcode{A = cat(3,ones(3), 2*ones(3))})
+\begin{lstlisting}
+ A = cat(3,ones(3), 2*ones(3))
+\end{lstlisting}
 \item Befehle wie \alert{ \mcode{zeros}}, \alert{ \mcode{ones}} oder \alert{
   \mcode{repmat}} funktionieren auch im multidimensionalen Kontext.
 \end{itemize}
@@ -32,19 +34,21 @@
 % Slide: 
 %
 \begin{frame}[fragile]\frametitle{Umsortieren von Arrays}
-Durch den Befehl \alert{ \mcode{reshape(X,n1,..,ns)}} wird $X$ spaltenweise
-ausgelesen, und die Elemente werden spaltenweise in ein $(n_1, \dots,
-n_s)$-Array geschrieben. 
 \begin{lstlisting}
->> B = reshape(hilb(4), 8,2)
+reshape(X,n1,..,ns)
 \end{lstlisting}
+Der Befehl liest $X$ spaltenweise
+aus, und schreibt die Elemente spaltenweise in ein $(n_1, \dots,
+n_s)$-Array. 
 \begin{itemize}
 \item $X$ muss $n_1 \cdots n_s$ Elemente enthalten.
 \item Der Befehl ist sehr n\"utzlich.
-\begin{lstlisting}
->> reshape(hilb(4), 4,2,2)
-\end{lstlisting}
 \end{itemize}
+\textbf{Beispiele:}
+\begin{lstlisting}
+reshape(hilb(4), 8,2)
+reshape(hilb(4), 4,2,2)
+\end{lstlisting}
 \end{frame}
 %
 % Slide: 
@@ -53,7 +57,9 @@ n_s)$-Array geschrieben.
 Intern werden Arrays als Spalten abgespeichert. Zugriff durch linearen
   Index m\"oglich. 
 \begin{lstlisting}
->> B = reshape(1:12,2,3,2)
+B = reshape(1:12,2,3,2)
+\end{lstlisting}
+\begin{matlab}
 B(:,:,1) =
      1     3     5
      2     4     6
@@ -61,10 +67,14 @@ B(:,:,2) =
 
      7     9    11
      8    10    12
->> B(7:9)
+\end{matlab}
+\begin{lstlisting}
+B(7:9)
+\end{lstlisting}
+\begin{matlab}
 ans =
      7     8     9
-\end{lstlisting}
+\end{matlab}
 \end{frame}
 %
 % Slide
@@ -77,11 +87,13 @@ ans =
   \mcode{ind2sub}}
 \item Umwandlung von Array-Indizierung in lineare Indizierung: \alert{ \mcode{sub2ind}}
 \begin{lstlisting}
->> A = reshape(1:12,2,3,2);
->> A(ind2sub(size(A),5))
+A = reshape(1:12,2,3,2);
+A(ind2sub(size(A),5))
+\end{lstlisting}
+\begin{matlab}
 ans =
      5
-\end{lstlisting}
+\end{matlab}
 \item Man kann auch mit mehrdimensionalen Arrays rechnen.
 \end{itemize}
 
@@ -117,9 +129,18 @@ ans =
 Ein {\it Function Handle} ist ein MATLAB Datentyp, das alle Informationen
 enth\"alt, die zur Auswertung einer Funktion n\"otig sind.\\
 \begin{itemize}
-\item Definition, z.B. \mcode{Sinus = @sin}.
-\item Anwendung bei der \"Ubergabe von Funktionen: \mcode{quad(Sinus,0,1)}
-\item Anonyme Funktion: \alert{ \mcode{f = @(x) sin(x)*cos(x)}}
+\item Definition, z.B. 
+\begin{lstlisting}
+Sinus = @sin 
+\end{lstlisting}
+\item Anwendung bei der \"Ubergabe von Funktionen:
+\begin{lstlisting}
+quad(Sinus,0,1)
+\end{lstlisting}
+\item Anonyme Funktion: 
+\begin{lstlisting}
+ f = @(x) sin(x)*cos(x)
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 %
@@ -129,20 +150,26 @@ enth\"alt, die zur Auswertung einer Funktion n\"otig sind.\\
 \begin{itemize}
 \item Funktion mit Parameter
 \begin{lstlisting}
->> y = 1; f = @(x) sin(x)./(x+y) ;
->> f(2)
+y = 1; f = @(x) sin(x)./(x+y) ;
+f(2)
+\end{lstlisting}
+\begin{matlab}
 ans =
     0.3031
-\end{lstlisting}
+\end{matlab}
+
 \item Gamma-Funktion $\Gamma(s) = \int_0^\infty x^{s-1} e^{-x} dx$.
 \begin{lstlisting}
->> k = @(s) quad( @(x) x.^(s-1).*exp(-x),0.1,500) ;
->> k(4),k(5)
+k = @(s) quad( @(x) x.^(s-1).*exp(-x),0.1,500) ;
+k(4),k(5)
+\end{lstlisting}
+\begin{matlab}
 ans =
     6.0000
 ans =
    24.0000
-\end{lstlisting}
+\end{matlab}
+
 \end{itemize}
 \end{frame}
 
@@ -152,8 +179,14 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Funktionen als Strings}
 \begin{itemize}
-\item Eingabe als String: \alert{ \mcode{a = 'exp(z)-1+z'}}
-\item Plotten der zugeh\"origen Funktion \alert{ \mcode{ezplot(a,[-1 1])}}
+\item Eingabe als String: 
+\begin{lstlisting}
+a = 'exp(z)-1+z'
+\end{lstlisting}
+\item Plotten der zugeh\"origen Funktion 
+\begin{lstlisting}
+ezplot(a,[-1 1]) 
+\end{lstlisting}
 %\item Konvertieren zwischen Strings und Funktionen: \alert{
 %  \mcode{str2func}}, \alert{ \mcode{func2str}} 
 \end{itemize}
@@ -165,23 +198,26 @@ Besser andere Konstrukte (wie Inline-Funktionen) benutzen!
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Function-Files} 
+\begin{frame}[fragile]\frametitle{Ein-/Ausgabe - Parameter} 
 \begin{itemize}
-\item {\it Function-Files} sind m-Files, die mit dem Stichwort \mcode{function}
-beginnen.
-\item Steuerung der Ein- und Ausgabeparameter:
-{\tiny \begin{itemize}
-\item Innerhalb einer Funktion gibt der Befehl \mcode{varargin} die
-  Eingabeparameter als Cell-Array zur\"uck. Die Anzahl der Inputvariablen
-  erh\"alt man  durch
-  \mcode{nargin}. 
-\item \mcode{varargout} ist ein Cell-Array, in die die Ausgabewerte
-  geschrieben werden. Die Anzahl der Ausgabevariablen erh\"alt man durch
-  \mcode{nargout}. 
-\end{itemize}} 
-\item Ist \mcode{func_name.m} ein Function-File, so ist der entsprechende
-  Function-Handle \mcode{@func_name}.
-\end{itemize} 
+ \item Eingabeparameter als Cell-Array
+\begin{lstlisting}
+varargin
+\end{lstlisting}
+\item Die Anzahl der Inputvariablen
+\begin{lstlisting}
+nargin
+\end{lstlisting}
+\item Cell-Array der Ausgabewerte
+\begin{lstlisting}
+varargout
+\end{lstlisting}
+\item Die Anzahl der Outputvariablen
+\begin{lstlisting}
+nargout
+\end{lstlisting}
+\end{itemize}
+\textit{Function-Handle:} \mcode{@func_name} von Funktion in \mcode{func_name.m}
 \end{frame}
 %
 % Slide
@@ -189,7 +225,6 @@ beginnen.
 \begin{frame}[fragile]\frametitle{Beispiel: varargin}
 \begin{lstlisting}
 function result = integral(varargin)
-%   integral.m
 % berechnet approximativ ein Integral ueber (a,b) 
 % durch die Mittelpunktregel mit Hilfe von N Punkten
 % Eingabe: 0 Parameter:       (N=20, a=0, b=1)
@@ -200,14 +235,14 @@ N = 20; a = 0; b = 1; % Default-Einstellung
 anzahl_parameter = nargin; % Anz. Input-argumente
 if anzahl_parameter == 1 
     N = varargin{1};
-end;
+end
 if anzahl_parameter == 3
     N = varargin{1}; a = varargin{2}; 
     b = varargin{3};
-end;
+end
 if anzahl_parameter ~= [0 1 3]
     error('Falsche Anzahl an Input-Argumenten');
-end;
+end
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]\frametitle{Beispiel: varargin}
@@ -222,7 +257,7 @@ x1 = linspace(a,b,N+1);
 for i = 1:N
     fill([x1(i) x1(i)  x1(i+1) x1(i+1)], [0 y(i)  y(i) 0], 'r');
     hold on;
-end;
+end
 plot(a:(b-a)/100:b,(a:(b-a)/100:b).^3,'LineWidth',3);
 title(strcat('\int x^3 = ',num2str(result),...
 ' fuer N =', num2str(N))); 
@@ -233,33 +268,41 @@ title(strcat('\int x^3 = ',num2str(result),...
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Inline-Funktionen}
-Eine {\it Inline Funktion} ist im Wesentlichen eine einzeilige
-Funktion. Sie wird definiert durch einen String. \\[1cm]
+Eine {\it Inline Funktion} ist im wesentlichen eine einzeilige
+Funktion. Sie wird definiert durch einen String. \\[0.5cm]
 
-\alert{Beispiele:} \\
+\textbf{Beispiele:} \\
 \begin{columns}[t]
  \column{0.48\textwidth}
 \begin{lstlisting}
->> a = 'exp(z) - 1 + z'; 
->> f = inline(a)
+a = 'exp(z) - 1 + z'; 
+f = inline(a)
+\end{lstlisting}
+\begin{matlab}
 f =
      Inline function:
      f(z) = exp(z)-1+z
->> g = inline('x+y^2','x','y')
+\end{matlab}
+\begin{lstlisting}
+g = inline('x+y^2','x','y')
+\end{lstlisting}
+\begin{matlab}
 g =
      Inline function:
      g(x,y) = x+y^2
-\end{lstlisting}
+\end{matlab}
 \column{0.48\textwidth}
 \begin{lstlisting}
->> f(1),g(1,2),a(2)
+f(1),g(1,2),a(2)
+\end{lstlisting}
+\begin{matlab}
 ans =
     2.7183
 ans =
      5
 ans =
      x
-\end{lstlisting}
+\end{matlab}
 \end{columns}
 \end{frame}
 
@@ -269,15 +312,25 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Befehle f\"ur Funktionen}
 \begin{itemize}
-\item Durch \alert{ \mcode{feval(fun,x1,..,xn)}} wird die Funktion
-  \mcode{fun} an der Stelle $(x1,..,xn)$ ausgewertet. \mcode{fun} ist dabei
+\item Auswertung der Funktion  \mcode{fun} an der Stelle $(x1,..,xn)$. 
+\begin{lstlisting}
+feval(<fun>,<x1>,..,<xn>)
+\end{lstlisting}
+\mcode{fun} ist dabei
   entweder ein Funktionsname oder ein Function-Handle. 
-\item Durch \alert{ \mcode{f = fcnchk(g)}} wird ein String $g$ in ein
-  Inline-Funktion umgewandelt (vgl. \mcode{inline}). Ist $g$ ein
+\item Wandlung eines Strings \mcode{g} in eine Inline-Funktion (vgl. \mcode{inline}). 
+\begin{lstlisting}
+f = fcnchk(<g>) 
+\end{lstlisting}
+Ist \mcode{g} ein
   Function-Handle oder eine Inline-Funktion so ist $f = g$.  
-\item Durch  \alert{ \mcode{vectorize(f)}} wird $f$ f\"ur
-  Strings oder Inline-Funktionen \textsl{vektorisiert}, d.h. \mcode{'*'} wird durch
-  \mcode{'.*'} ersetzt, \mcode{'^'} durch \mcode{'.^'}, usw. 
+
+\item Strings oder Inline-Funktionen \mcode{f} \textsl{vektorisieren}
+\begin{lstlisting}
+vectorize(<f>)
+\end{lstlisting}
+d.h. \mcode{'*'} $\Rightarrow$ \mcode{'.*'} , \mcode{'^'} $\Rightarrow$ \mcode{'.^'}, usw. 
+
 \end{itemize}
 \end{frame}
 %
@@ -286,11 +339,9 @@ ans =
 \begin{frame}[fragile]\frametitle{Beispiel: integral2.m (Auszug)}
 \begin{lstlisting}
 function result = integral2(varargin)
-%   integral2.m
 % Eingabe: 1 Parameter: f       (N=20, a=0, b=1)
 %          2 Parameter: f,N     (a=0,b=1)
 %          4 Parameter: f,N,a,b
-% Jochen Schulz	16.08.2009
 N = 20; a = 0; b = 1; % Default-Einstellung
 anzahl_parameter = nargin; % Anz. Input-argumente
 if anzahl_parameter == 2 
@@ -318,7 +369,7 @@ y = feval(f,x);
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispielfunktion}
+\begin{frame}[fragile]\frametitle{Beispiel: Sobolevsche Mittelungsfunktion}
 \alert{ \[ f(x) := \left \{ \begin{array}{ll} \exp(- \frac{1}{1-\|x\|^2}), &
 \|x \| <1 \\ 0, & \|x \| \geq 1 
 \end{array} \right .  
@@ -335,13 +386,13 @@ mit $\|x\|^2:=\sum_{i=1}^N x_i^2$, $x=(x_1, \dots x_N) \in
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispielfunktion - 1d-Fall}
+\begin{frame}[fragile]\frametitle{1d-Fall}
 \lstinputlisting{f_1d.m}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispielfunktion -  n-dimensionaler-Fall}
+\begin{frame}[fragile]\frametitle{n-dimensionaler-Fall}
 \begin{lstlisting}
 function result = f(varargin)
 % f.m     Sobolevsche Mittelungsfunktion
@@ -424,39 +475,53 @@ ezcontourf(@f);
 %
 \begin{frame}[fragile]\frametitle{Beispiel}
 \begin{lstlisting}
->> A = 2*diag(ones(10,1),0) ...
+A = 2*diag(ones(10,1),0) ...
        - diag(ones(9,1),-1) ...
        - diag(ones(9,1),1);
->> B = sparse(A)
-B =
-   (1,1)        2
-   (2,1)       -1
-   (1,2)       -1
-   (2,2)        2
-       ...
->> C = 2*diag(ones(100,1),0) ...
+B = sparse(A)
+\end{lstlisting}
+\begin{matlab}
+B =   (1,1)        2
+      (2,1)       -1
+      (1,2)       -1
+      (2,2)        2
+\end{matlab}
+\begin{lstlisting}
+C = 2*diag(ones(100,1),0) ...
        - diag(ones(99,1),-1) ...
        - diag(ones(99,1),1);
->> D = sparse(C); whos
+D = sparse(C); whos
+\end{lstlisting}
+\begin{matlab}
   Name      Size           Bytes  Class
-
   A        10x10             800  double array
   B        10x10             380  sparse array
   C       100x100          80000  double array
   D       100x100           3980  sparse array
-\end{lstlisting}
+\end{matlab}
 \end{frame}
 % 
 % Slide 
 %
 \begin{frame}[fragile]\frametitle{Einige Befehle}
 \begin{itemize}
-\item Durch \alert{ \mcode{sparse(n,m)}} wird eine d\"unnbesetzte Matrix
-  der Gr\"osse $n \times m$ erzeugt. Alle Eintr\"age sind $0$.
-\item Durch \alert{ \mcode{B = sparse(A)}} wird die dichtbesetzte Matrix
-  $A$ in eine d\"unnbesetzte Matrix $B$ umgewandelt.
-\item Die Struktur der Matrix $A$ kann durch \alert{ \mcode{spy(A)}}
-  visualisiert werden.
+\item Erzeugung einer d\"unnbesetzten Matrix
+  der Gr\"osse $n \times m$. Alle Eintr\"age sind $0$.
+\begin{lstlisting}
+sparse(n,m) 
+\end{lstlisting}
+
+\item Konvertierung der dichtbesetzten Matrix
+  $A$ in eine d\"unnbesetzte Matrix.
+\begin{lstlisting}
+sparse(A)
+\end{lstlisting}
+
+\item Die Struktur der Matrix $A$ visualisieren.
+\begin{lstlisting}
+spy(A)
+\end{lstlisting}
+
 \item Die meisten Standardoperationen funktionieren auch mit
   d\"unnbesetzten Matrizen.  
 \end{itemize}
@@ -466,14 +531,19 @@ B =
 %
 \begin{frame}[fragile]\frametitle{Dichte und d\"unnbesetzte Matrizen}
 \begin{itemize}
-\item Durch \alert{ \mcode{B = full(A)}} wird die d\"unnbesetzte Matrix $A$
-  in eine dichtbesetzte Matrix $B$ umgewandelt.
+\item Konvertierung der d\"unnbesetzten Matrix $A$ in eine dichtbesetzte Matrix $B$ .
+\begin{lstlisting}
+B = full(A)
+\end{lstlisting}
 \item Bei bin\"aren Operationen, z.B. $A+B$ oder $A*B$ ist das Ergebnis
   bei d\"unnbesetzten Matrizen $A$ und $B$ wieder eine d\"unnbesetzte
-  Matrix. Ist eine der Matrizen dichtbesetzt, so ist auch das Ergebnis
+  Matrix. \\Ist eine der Matrizen dichtbesetzt, so ist auch das Ergebnis
   dichtbesetzt. 
-\item Durch \alert{ \mcode{eigs(A,k)}} werden die $k$ betragsm\"a{\ss}ig
-  gr\"ossten Eigenwerte berechnet. (Default: $k=6$)
+\item Berechnung der $k$ betragsm\"a{\ss}ig  gr\"ossten Eigenwerte (Default: $k=6$):
+\begin{lstlisting}
+eigs(A,k) 
+\end{lstlisting}
+
 \end{itemize}
 \end{frame}
 % 
@@ -487,8 +557,11 @@ B =
   Matrizen. 
 \item Eine \"Ubesicht aller Funktionen f\"ur d\"unnbesetzte Matrizen erh\"alt
   man durch \alert{ \mcode{help sparfun}}.  
-\item Durch \alert{ \mcode{[I,J] = find(X)}} kann man die Indizes aller
-  Zeilen und Spalten erhalten, in denen Nichtnullelemente stehen. 
+\item Indizes aller Zeilen und Spalten erhalten, in denen Nichtnullelemente stehen: 
+\begin{lstlisting}
+[I,J] = find(X)
+\end{lstlisting}
+
 \end{itemize}
 \end{frame}
 
@@ -679,10 +752,10 @@ z = -y-5*exp(-t)*sin(5*t);
 \begin{itemize}
 \item Ausrechnen und Plotten
 \begin{lstlisting}
->> tspan = [0,3]; aw = 1;
->> [t,y] = ode45(@rechte_seite1,tspan,aw);
->> plot(t,y,'*--','Linewidth',3)
->> xlabel('t'), ylabel('y(t)')
+tspan = [0,3]; aw = 1;
+[t,y] = ode45(@rechte_seite1,tspan,aw);
+plot(t,y,'*--','Linewidth',3)
+xlabel('t'), ylabel('y(t)')
 \end{lstlisting}
 \end{itemize}
 \begin{center}
@@ -693,26 +766,24 @@ z = -y-5*exp(-t)*sin(5*t);
 % Slide
 %
 \begin{frame}[fragile]\frametitle{ODE in MATLAB} 
-In MATLAB gibt es den Befehl
 \begin{lstlisting}
-[t,y]=ode45(@fun, tspan, aw, options)
+[<t>,<y>] = ode45(<@fun>, <tspan>, <aw>, <options>)
 \end{lstlisting}
-{\scriptsize \begin{itemize}
-\item \mcode{@fun} steht f\"ur die rechte Seite der Dgl.. Die rechte Seite ist
-  gegeben durch ein geeignetes m-File.
+\begin{itemize}
+\item \mcode{@fun} steht f\"ur die rechte Seite der Dgl. (m-File).
 \item $aw \in \mathbb{R}^n$ ist der Anfangswert.
 \item $tspan$ gibt das Zeitintervall an, auf dem die Dgl. berechnet
   werden soll. Normalerweise ist es von der Form
   \mcode{tspan=[t_0, t_1]}. Dann wird die Dgl. auf dem Intervall $[t_0,
   t_1]$ berechnet (Anfangswert: $y(t_0)=aw$).
-\item MATLAB gibt  Vektoren $t$ und Matrizen $y$ zur\"uck. Dabei ist
+\item Rückgabewerte: Vektoren $t$ und Matrizen $y$. Dabei ist
   $y(:,i)$ die L\"osung an der Stelle $t(i)$. Die Punkte $t_i$ werden
-  von MATLAB automatisch bestimmt.
+  automatisch bestimmt.
 \item Durch die optionale Angabe von \mcode{options} kann der L\"oser
   gezielt eingestellt werden. 
 \item Spezifiziert man mehr als zwei Zeitpunkte in \mcode{tspan}, so gibt MATLAB die
   L\"osung genau an diesen Zeitschritten zur\"uck.
-\end{itemize}}
+\end{itemize}
 \end{frame}
 %
 % Slide
@@ -729,7 +800,7 @@ gesteuert werden. Die wichtigsten Parameter sind \mcode{AbsTol}
 (Default $10^{-6}$) und \mcode{RelTol} (Default: $10^{-3}$). \\[0.5cm]
 \alert{Beispiel:}
 \begin{lstlisting}
-options =odeset('AbsTol',1e-7,'RelTol',1e-4)
+options = odeset('AbsTol',1e-7,'RelTol',1e-4)
 \end{lstlisting}
 \end{frame}
 %
@@ -761,6 +832,11 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 \frac{d}{dt} y_2(t) & = & 28 y_1(t) -y_2(t) -y_1(t)y_3(t)\\ 
 \frac{d}{dt} y_3(t) & = & y_1(t)y_2(t) -8y_3(t)/3
 \end{eqnarray*}
+\begin{itemize}
+ \item Chaostheorie / Schmetterlingseffekt.
+\end{itemize}
+
+
 rechte Seite:
 \begin{lstlisting}
 function z = lorenz_rechte_seite(t,y)

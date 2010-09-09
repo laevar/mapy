@@ -95,42 +95,42 @@ Zahl $n$ berechnet mit
 \begin{aufg}
 Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
 \begin{itemize}
-\item [(a)]
-\begin{verbatim}
->> x=[ 1 2 3 4];
->> y=[ 0 3 2 4];
->> x1= (y-x > 0) & (x ~= 1)
-\end{verbatim}
-\item [(b)]
-\begin{verbatim}
->> x=sin(1:100);
->> x2=length(x)
-\end{verbatim}
-\item [(c)]
-\begin{verbatim}
->> x=linspace(0,1,10);
->> y=1:2:6;
->> x3=x(y)
-\end{verbatim}
+\item (a) 
+\begin{lstlisting}
+x = [ 1 2 3 4];
+y = [ 0 3 2 4];
+x1 = (y-x > 0) & (x ~= 1)
+\end{lstlisting}
+\item (b)
+\begin{lstlisting}
+x = sin(1:100);
+x2 = length(x)
+\end{lstlisting}
+\item (c)
+\begin{lstlisting}
+x = linspace(0,1,10);
+y = 1:2:6;
+x3 = x(y)
+\end{lstlisting}
 \end{itemize} 
 \end{aufg}
 
 \begin{aufg}
 Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
 \begin{itemize}
-\item [(a)]
-\begin{verbatim}
->> x=100:200;
->> y=linspace(300,400,100);
->> z=x.*y.*2
-\end{verbatim}
-\item [(b)]
-\begin{verbatim}
->> clear all
->> z(5)=10;
->> a=(6:10).^z;
->> b=a.*ones(5,1)
-\end{verbatim}
+\item (a)
+\begin{lstlisting}
+x = 100:200;
+y = linspace(300,400,100);
+z = x.*y.*2
+\end{lstlisting}
+\item (b)
+\begin{lstlisting}
+clear all
+z(5) = 10;
+a = (6:10).^z;
+b = a.*ones(5,1)
+\end{lstlisting}
 
 \end{itemize} 
 

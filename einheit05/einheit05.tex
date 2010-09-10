@@ -81,11 +81,22 @@ ans =
 % 
 \begin{frame}[fragile]\frametitle{N\"utzliche Befehle}
 \begin{itemize}
-\item Anzahl der Dimensionen von $X$: \alert{ \mcode{ndims(X)}}
-\item Gr\"o{\ss}e von $X$: \alert{ \mcode{size(X)}}
-\item Umwandlung von linearer Indizierung in Array-Indizierung: \alert{
-  \mcode{ind2sub}}
-\item Umwandlung von Array-Indizierung in lineare Indizierung: \alert{ \mcode{sub2ind}}
+\item Anzahl der Dimensionen von $X$: 
+\begin{lstlisting}
+ndims(X) 
+\end{lstlisting}
+\item Gr\"o{\ss}e von $X$: 
+\begin{lstlisting}
+size(X)
+\end{lstlisting}
+\item Umwandlung von linearer Indizierung in Array-Indizierung: 
+\begin{lstlisting}
+ind2sub
+\end{lstlisting}
+\item Umwandlung von Array-Indizierung in lineare Indizierung:
+ \begin{lstlisting}
+sub2ind
+\end{lstlisting}
 \begin{lstlisting}
 A = reshape(1:12,2,3,2);
 A(ind2sub(size(A),5))
@@ -109,18 +120,20 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Funktionen}
 \begin{itemize}
-\item Eine Funktion kann ein m.-File, eine Inline-Funktion, eine anonyme Funktion oder auch ein String
-  sein. 
+ \item Funktions-Typen
+\begin{itemize}
+\item m.-File
+\item inline
+\item anonyme
+\item string
+\end{itemize}
 \item Funktionen werden in einem eigenen {\it Workspace} verwaltet.
 \item Beim ersten Aufruf speichert MATLAB die Funktion im Workspace bis MATLAB
   verlassen wird oder die Funktion \mcode{fun} mit  \mcode{clear fun} gel\"oscht wird.
-\item MATLAB nutzt zur Unterscheidung der Funktionen die ersten 63 Zeichen
-  des Namens. Funktionen (und Variablen) m\"ussen mit einem Buchstaben
-  beginnen. 
+\item Namen: Buchstaben mit 1-63 Zeichen (Ohne -,+,*,/ !). 
 \end{itemize}
 \end{frame}
 
-\subsection{Function-Handles} 
 %
 % Slide
 %
@@ -137,64 +150,16 @@ Sinus = @sin
 \begin{lstlisting}
 quad(Sinus,0,1)
 \end{lstlisting}
-\item Anonyme Funktion: 
-\begin{lstlisting}
- f = @(x) sin(x)*cos(x)
-\end{lstlisting}
-\end{itemize}
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Beispiel: Anonyme Funktion}
-\begin{itemize}
-\item Funktion mit Parameter
-\begin{lstlisting}
-y = 1; f = @(x) sin(x)./(x+y) ;
-f(2)
-\end{lstlisting}
-\begin{matlab}
-ans =
-    0.3031
-\end{matlab}
-
-\item Gamma-Funktion $\Gamma(s) = \int_0^\infty x^{s-1} e^{-x} dx$.
-\begin{lstlisting}
-k = @(s) quad( @(x) x.^(s-1).*exp(-x),0.1,500) ;
-k(4),k(5)
-\end{lstlisting}
-\begin{matlab}
-ans =
-    6.0000
-ans =
-   24.0000
-\end{matlab}
-
+\item m-File Funktionen haben ihren Namen als Handle ( \mcode{@func_name} für \mcode{func_name.m})
+% \item Anonyme Funktion: 
+% \begin{lstlisting}
+%  f = @(x) sin(x)*cos(x)
+% \end{lstlisting}
 \end{itemize}
 \end{frame}
 
-\subsection{Funktionen-Typen}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Funktionen als Strings}
-\begin{itemize}
-\item Eingabe als String: 
-\begin{lstlisting}
-a = 'exp(z)-1+z'
-\end{lstlisting}
-\item Plotten der zugeh\"origen Funktion 
-\begin{lstlisting}
-ezplot(a,[-1 1]) 
-\end{lstlisting}
-%\item Konvertieren zwischen Strings und Funktionen: \alert{
-%  \mcode{str2func}}, \alert{ \mcode{func2str}} 
-\end{itemize}
-\alert{Bemerkung:} \\
-Funktionen gegeben als Strings sind im allgemeinen zu vermeiden!
-Besser andere Konstrukte (wie Inline-Funktionen) benutzen!
-\end{frame}
 
+\subsection{Ein-/Ausgabe - Parameter}
 %
 % Slide
 %
@@ -217,7 +182,7 @@ varargout
 nargout
 \end{lstlisting}
 \end{itemize}
-\textit{Function-Handle:} \mcode{@func_name} von Funktion in \mcode{func_name.m}
+
 \end{frame}
 %
 % Slide
@@ -264,12 +229,76 @@ title(strcat('\int x^3 = ',num2str(result),...
 \end{lstlisting}
 \end{frame}
 
+
+\subsection{Funktionen-Typen}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Anonyme Funktion}
+\begin{lstlisting}
+ @(<x>) <funktion(x)>
+\end{lstlisting}
+
+\begin{itemize}
+\item Funktion mit Parameter
+\begin{lstlisting}
+y = 1; f = @(x) sin(x)./(x+y) ;
+f(2)
+\end{lstlisting}
+\begin{matlab}
+ans =
+    0.3031
+\end{matlab}
+
+\item Gamma-Funktion $\Gamma(s) = \int_0^\infty x^{s-1} e^{-x} dx$.
+\begin{lstlisting}
+k = @(s) quad( @(x) x.^(s-1).*exp(-x),0.1,500) ;
+k(4),k(5)
+\end{lstlisting}
+\begin{matlab}
+ans =
+    6.0000
+ans =
+   24.0000
+\end{matlab}
+
+\end{itemize}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{String-Funktionen}
+\begin{lstlisting}
+<fun> = '<funktions-string>' 
+\end{lstlisting}
+
+\begin{itemize}
+\item Eingabe als String: 
+\begin{lstlisting}
+a = 'exp(z)-1+z'
+\end{lstlisting}
+\item Plotten der zugeh\"origen Funktion 
+\begin{lstlisting}
+ezplot(a,[-1 1]) 
+\end{lstlisting}
+%\item Konvertieren zwischen Strings und Funktionen: \alert{
+%  \mcode{str2func}}, \alert{ \mcode{func2str}} 
+\end{itemize}
+\alert{Bemerkung:} \\
+Funktionen gegeben als Strings sind im allgemeinen zu vermeiden!
+Besser andere Konstrukte (wie Inline-Funktionen) benutzen!
+\end{frame}
+
+
+
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Inline-Funktionen}
-Eine {\it Inline Funktion} ist im wesentlichen eine einzeilige
-Funktion. Sie wird definiert durch einen String. \\[0.5cm]
+\begin{lstlisting}
+<fun> =  inline('<funktions-string>')
+\end{lstlisting}
 
 \textbf{Beispiele:} \\
 \begin{columns}[t]
@@ -366,6 +395,9 @@ y = feval(f,x);
 \centering\alert{ \mcode{integral2('log(x.^2)',30,1,5)}}\\
 \begin{center}\includegraphics[width=0.8\textwidth]{./figures/plot_log}\end{center} 
 \end{frame}
+
+
+
 %
 % Slide
 %
@@ -444,10 +476,12 @@ ezcontourf(@f);
 \includegraphics[width=0.8\textwidth]{./figures/plot_f}  
 \end{center}
 \end{frame}
+
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{integral2(@f,50,-1.1,1.1)}
+\begin{frame}[fragile]\frametitle{}
+\centering\alert{ \mcode{integral2(@f,50,-1.1,1.1)}}\\
 \begin{center}
 \includegraphics[width=0.8\textwidth]{./figures/plot_sobolev} 
 \end{center}
@@ -551,17 +585,19 @@ eigs(A,k)
 %
 \begin{frame}[fragile]\frametitle{D\"unnbesetzte Matrizen}
 \begin{itemize}
-\item Zur Norm- und Konditionsberechnung stehen die Befehle \alert{
-  \mcode{normest}} bzw. \alert{ \mcode{condest}} zur Verf\"ugung. 
+\item Norm- und Konditionsberechnung:
+\begin{lstlisting}
+normest(<A>) , condest(<A>)
+\end{lstlisting}
+
 \item Alle iterativen Verfahren funktionieren auch mit d\"unnbesetzten
   Matrizen. 
-\item Eine \"Ubesicht aller Funktionen f\"ur d\"unnbesetzte Matrizen erh\"alt
-  man durch \alert{ \mcode{help sparfun}}.  
 \item Indizes aller Zeilen und Spalten erhalten, in denen Nichtnullelemente stehen: 
 \begin{lstlisting}
 [I,J] = find(X)
 \end{lstlisting}
-
+\item Eine \"Ubesicht aller Funktionen f\"ur d\"unnbesetzte Matrizen erh\"alt
+  man durch \alert{ \mcode{help sparfun}}.  
 \end{itemize}
 \end{frame}
 
@@ -646,7 +682,7 @@ $u_{0,i}=u_{N,i}=u_{i,0}=u_{i,N}=0$, $i=0, \dots ,N$.
 (h,h), & (2h,h) & \hdots & ((N-1)h,h)\\
 \end{array} \]
 }
-ergibt $U_{i+(N-1)(j-1)}=u_{i,j}$.
+ergibt Vektor $U_{i+(N-1)(j-1)}=u_{i,j}$.
 \end{itemize}
 \end{frame}
 %
@@ -704,8 +740,8 @@ loes.mesh = [loes.mesh, [0:1/n:1; zeros(1,n+1)]];
 plot3(loes.mesh(1,:),loes.mesh(2,:),loes.x,'*');
 figure;
 [X,Y] = meshgrid(0:1/n:1,0:1/n:1);
-Z = griddata(loes.mesh(1,:), loes.mesh(2,:), ...
-    loes.x,X,Y,'linear');
+Fi = TriScatteredInterp(loes.mesh(1,:)', loes.mesh(2,:)',loes.x,'linear');
+Z = Fi(X,Y);
 surf(X,Y,Z);
 \end{lstlisting}
 \end{frame}
@@ -819,6 +855,12 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 \mcode{ode23t} & mittel steif & implizite Trapez Regel& 2, 3\\
 \mcode{ode23tb} & steif & Implizites Runge-Kutta Verf.& 2, 3\\
 \end{tabular}
+%Ein lineares DG System mit konstanten Koeffizienten heißt steif, wenn
+%seine Eigenwerte alle negativen Realteil besitzen und sein Steifigkeitsquotient
+%groß ist.
+%Sei µ1 der betragsgrößte und µ2 der betragskleinste Realteil der Eigenwerte einer Jacobi-Matrix, 
+%dann wird der Steifigkeitsquotient q dieser Matrix definiert durch:
+%q = µ1/µ2
 \end{frame}
 
 \subsection{Lorenz-Gleichungen}
@@ -826,15 +868,15 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Die Lorenz-Gleichungen}
+\begin{itemize}
+ \item Chaostheorie / Schmetterlingseffekt.
+\end{itemize}
 
 \begin{eqnarray*}
 \frac{d}{dt} y_1(t) & = & 10 (y_2(t) -y_1(t)) \\
 \frac{d}{dt} y_2(t) & = & 28 y_1(t) -y_2(t) -y_1(t)y_3(t)\\ 
 \frac{d}{dt} y_3(t) & = & y_1(t)y_2(t) -8y_3(t)/3
 \end{eqnarray*}
-\begin{itemize}
- \item Chaostheorie / Schmetterlingseffekt.
-\end{itemize}
 
 
 rechte Seite:

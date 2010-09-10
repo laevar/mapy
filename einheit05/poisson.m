@@ -26,11 +26,10 @@ for i = 1:(n-1)
         loes.mesh(:,i+(n-1)*(j-1)) = [i/n; j/n]; 
     end
 end
-
 %-------------- Loese das lineare System
 loes.x = A \ F;
 
-% Ergänze Randbedingungen
+% Ergï¿½nze Randbedingungen
 loes.x = [ loes.x; zeros(4*(n+1),1)];
 loes.mesh = [loes.mesh, [zeros(1,n+1); 0:1/n:1]];
 loes.mesh = [loes.mesh, [ones(1,n+1);  0:1/n:1]];
@@ -41,5 +40,6 @@ loes.mesh = [loes.mesh, [0:1/n:1; zeros(1,n+1)]];
 plot3(loes.mesh(1,:),loes.mesh(2,:),loes.x,'*');
 figure;
 [X,Y] = meshgrid(0:1/n:1,0:1/n:1);
-Z = griddata(loes.mesh(1,:), loes.mesh(2,:),loes.x,X,Y,'linear');
+Fi = TriScatteredInterp(loes.mesh(1,:)', loes.mesh(2,:)',loes.x,'linear');
+Z = Fi(X,Y);
 surf(X,Y,Z);

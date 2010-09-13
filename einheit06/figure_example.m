@@ -1,7 +1,4 @@
-% This example shows how the properties of a 
-% graphic can be modified
-close all;
-
+% This example shows how the properties of a graphic can be modified
 % Generate Grid
 x = linspace(-2,2,30);
 [X,Y] = meshgrid(x,x);

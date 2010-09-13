@@ -29,12 +29,12 @@ void mexFunction( int nlhs, mxArray *plhs[],
 
 void ggt( double result[], double a, double b)
 {
-    while (a!=b)
-    {
-        if (a>b) 
-            a = a - b;
-         else
-            b = b - a;      
-    }
-    result[0] = a;
-    }
+  while (a!=b)
+  {
+    if (a>b) 
+      a = a - b;
+    else
+      b = b - a;      
+  }
+  result[0] = a;
+}

@@ -7,6 +7,8 @@
 \section{Grafik-Handle}
 \begin{frame}[fragile]\frametitle{Grafik-Objekte}
 \begin{itemize}
+\item Die Grafikobjekte sind hierarchisch angeordnet. Sie haben also Kinder
+und V\"ater. 
 \item Jedes Grafik-Objekt ist eindeutig bestimmt durch seine Eigenschaften
 (engl. {\it properties}). 
 \item Die Eigenschaften  der Objekte sind  in  sogenannten
@@ -20,24 +22,17 @@ existierender Grafik-Objekte ge\"andert werden.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Hierachische Struktur von Grafik-Objekten}
-{\scriptsize
 \begin{tabular}{lp{3cm}p{7cm}}
-Level 1 & Root & Das Wurzel-Objekt  bezieht sich auf den
-Computerschirm. Es wird automatisch erzeugt und es gibt nur eins. Alle
-anderen Objekte stammen von diesem ab.\\
+Level 1 & Root & Wurzel-Objekt. Gesamter Darstellungsbereich. Es wird automatisch erzeugt und es gibt nur eins.\\
 
-Level 2 & Figure & Diese Objekte sind durch die einzelnen
-Grafik-Fenster gegeben. Alle Figuren sind Kinder von Root. \\
+Level 2 & Figure & Grafik-Fenster. \\
 
-Level 3 & Axes, Uicontrol, Uimenu, Uicontextmenu & Die Objekte
-Ui... sind benutzerdefinierte Grafik-Interfaces (werden hier nicht
-betrachtet). Die Axes Objekte definieren eine Region im Grafikfenster und ordnen ihre Kinder in
+Level 3 & Axes, Uicontrol, Uimenu, Uicontextmenu & Benutzerdefinierte Grafik-Interfaces. 
+Die Axes Objekte definieren eine Region im Grafikfenster und ordnen ihre Kinder in
 dieser Region an.\\
 
-Level 4 & Image, Line, Text, Surface,... & Die Objekte bestimmen das
-Aussehen der Grafik-Fenster. Sie sind Kinder der Axes Objekte.\\
+Level 4 & Image, Line, Text, Surface,... & Die eigentlichen Grafiken. Sie sind Kinder der Axes Objekte.\\
 \end{tabular}
-}
 \end{frame}
 % 
 % Slide
@@ -46,28 +41,33 @@ Aussehen der Grafik-Fenster. Sie sind Kinder der Axes Objekte.\\
 \begin{itemize}
 \item Konstruktion einer Grafik
 \begin{lstlisting}
->> x=0:0.2:2*pi; plot(x,sin(x))
+x = 0:0.2:2*pi;
+plot(x,sin(x))
 \end{lstlisting}
 \item Abfragen und Bedeutung der Handles aller Objekte\\
 \begin{columns}[t]
 \column{0.38\textwidth}
 \begin{lstlisting}
->> h=findobj
+h = findobj
+\end{lstlisting}
+\begin{matlab}
 h =
          0
     1.0000
   100.0015
     3.0016
-\end{lstlisting}
+\end{matlab}
 \column{0.38\textwidth}
 \begin{lstlisting}
->> get(h,'type')
+get(h,'type')
+\end{lstlisting}
+\begin{matlab}
 ans = 
     'root'
     'figure'
     'axes'
     'line'
-\end{lstlisting} 
+\end{matlab} 
 \end{columns}
 \end{itemize}
 \end{frame}
@@ -78,22 +78,26 @@ ans =
 \begin{itemize}
 \item Momentane Einstellung des 'Axes'-Objekts
 \begin{lstlisting}
->>  set(h(3))
+set(h(3))
+\end{lstlisting}
+\begin{matlab}
         ActivePositionProperty: [position | {outerposition}]
         ALim
         ALimMode: [ {auto} | manual ]
         AmbientLightColor
                ... 
-\end{lstlisting}
+\end{matlab}
 \item Eigenschaften des 'Line'-Objekts
 \begin{lstlisting}
->> set(h(4))
+get(h(4))
+\end{lstlisting}
+\begin{matlab}
         DisplayName: {}
         Color: {}
         LineStyle: {5x1 cell}
         LineWidth: {}
                ... 
-\end{lstlisting}
+\end{matlab}
 \end{itemize}
 \end{frame}
 % 
@@ -114,7 +118,7 @@ set(h(3),'XtickLabel','0|pi/2|pi|2pi')
   aktuelle {\it Axes}, die aktuelle {\it Figure} und das aktuelle {\it
   Objekt} des 4. Levels.
 \begin{columns}[t]
-\column{0.48\textwidth}
+\column{0.5\textwidth}
 \begin{lstlisting}
 set(gcf,'Name','Tolle Abb.')
 set(gca,'Fontsize',15) 
@@ -132,15 +136,13 @@ set(l,'FontSize',20);
 %
 \begin{frame}[fragile]\frametitle{Hierachie}
 \begin{itemize}
-\item Die Grafikobjekte sind hierarchisch angeordnet. Sie haben also Kinder
-und V\"ater. 
 \item Informationen zu den zugeordneten Kindern
 \begin{lstlisting}
-a=get(l,'Children'), get(a,'type')
+a = get(l,'Children'), get(a,'type')
 \end{lstlisting}
 \item Information zum Vater
 \begin{lstlisting}
-d=get(l,'Parent'), get(d,'type')
+d = get(l,'Parent'), get(d,'type')
 \end{lstlisting}
 \item \"Andern der Kindeigenschaften
 \begin{lstlisting}
@@ -159,14 +161,23 @@ set(a(3),'Color',[1 0 0])
 %
 \begin{frame}[fragile]\frametitle{Umgang mit Objekten}
 \begin{itemize}
-\item L\"oschen von Objekten: \alert{ \mcode{delete(handle)}}
+\item L\"oschen von Objekten:
+\begin{lstlisting}
+delete(handle) 
+\end{lstlisting}
 
-\item Kopieren von Objekten: \alert{ \mcode{copyobj(handle,new_parent)}}.
+
+\item Kopieren von Objekten: 
+\begin{lstlisting}
+copyobj(handle,new_parent) 
+\end{lstlisting}
 H\"angt das Objekt mit Handle \mcode{handle} an einen anderen Vater
 \mcode{new_parent} an.
 
-\item Finden von Objekten mit bestimmten Eigenschaften: \alert{
-\mcode{findobj(Eigenschaft, Spezifikation)}}.
+\item Finden von Objekten mit bestimmten Eigenschaften: 
+\begin{lstlisting}
+findobj(Eigenschaft, Spezifikation)
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 %
@@ -176,7 +187,7 @@ H\"angt das Objekt mit Handle \mcode{handle} an einen anderen Vater
 \begin{itemize}
 \item Ansehen der Defaultwerte
 \begin{lstlisting}
-a=get(0,'Factory')
+a = get(0,'Factory')
 \end{lstlisting}
 \item \"Andern der Defaultwerte
 \begin{lstlisting}
@@ -220,13 +231,20 @@ set(0,'DefaultAxesFontSize','remove')
 \begin{itemize}
 \item Das Graphical User Interface(GUI) erm\"oglicht das Steuern von Programmen
   mit Hilfe der grafischen Oberfl\"ache. 
-\item Hierdurch k\"onnen Programme von Usern ohne MATLAB-Kenntnisse genutzt
-  werden. Weiterhin kann dies die Benutzung auch für den Implementierer von numerischen Algorithmen hilfreich sein.
-\item Im Wesentlichen werden GUIs durch Grafik-Objekte der Typen
-  \mcode{uimenus}, \mcode{uicontextmenu} und \mcode{uicontrols} gesteuert. Sie
-  sind auf der gleichen Hierachie-Ebene wie \mcode{axes}-Objekte. 
-\item Es existiert eine grafische Oberfl\"ache zur Erstellung von GUIs. Aufruf
-  \alert{ \mcode{guide}}
+\item Programme können von Usern ohne MATLAB-Kenntnisse genutzt werden. 
+\item Hilfreich selbst für den Implementierer von numerischen Algorithmen.
+\item Steuerung der GUIs durch Grafik-Objekte der Typen
+\begin{itemize}
+\item \mcode{uimenus}
+\item \mcode{uicontextmenu} 
+\item \mcode{uicontrols}
+\end{itemize}
+(Gleiche Hierachie-Ebene wie \mcode{axes}-Objekte)
+\item Grafische Oberfl\"ache zur Erstellung von GUIs:
+\begin{lstlisting}
+guide
+\end{lstlisting}
+ 
 \end{itemize}
 \end{frame}
 %
@@ -269,17 +287,18 @@ ein grafisches Objekt anklickt (wird nicht behandelt).
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Arten von UiControls}
+\centering
 \begin{tabular}{ll}
-'checkbox' & Wahl von Zust\"anden an/aus \\
-'edit'     & Editierbare Texteingabe\\
-'frame'    & graf. Gruppierung von Kontrollen\\
-'popup'    & Auswahl aus Liste bei Anklicken\\ 
-'listbox'  & Auswahl aus einer skrollbaren Liste \\
-'pushbutton' & Starten eines Events \\
-'radio'    & Auswahl einer Option \\
-'toggle'   & Wahl des Zustandes: an/aus  \\
-'slider'   & Auswahl aus Wertebereich\\
-'text'     & Anzeige von Text in einer Box\\
+\mcode{'checkbox'} & Wahl von Zust\"anden an/aus \\
+\mcode{'edit'}     & Editierbare Texteingabe\\
+\mcode{'frame'}    & graf. Gruppierung von Kontrollen\\
+\mcode{'popup'}    & Auswahl aus Liste bei Anklicken\\ 
+\mcode{'listbox'}  & Auswahl aus einer skrollbaren Liste \\
+\mcode{'pushbutton'} & Starten eines Events \\
+\mcode{'radio'}    & Auswahl einer Option \\
+\mcode{'toggle'}  & Wahl des Zustandes: an/aus  \\
+\mcode{'slider'}   & Auswahl aus Wertebereich\\
+\mcode{'text'}     & Anzeige von Text in einer Box\\
 \end{tabular}
 
 \end{frame}
@@ -289,6 +308,7 @@ ein grafisches Objekt anklickt (wird nicht behandelt).
 \begin{frame}[fragile]\frametitle{Eigenschaften von UiControls}
 \begin{tabular}{lp{0.85\linewidth}}
 Style & Art des UiControls \\
+\hline
 CallBack & Durch Anklicken des Users auszuf\"uhrende Aktion\\
 Position & Lage des Uicontrol-Objekts in der \mcode{figure}\newline
           {\scriptsize Eingabe: [links unten Breite H\"ohe]} \newline
@@ -309,12 +329,11 @@ Tag      & String zum Auffinden des Objekts durch \mcode{findobj}
 UiControl-Objekte k\"onnen durch \alert{ \mcode{uicontrol}} erzeugt
 werden. Aufruf: 
 \begin{lstlisting}
-handle = uicontrol('eig1','wert1',...
-                 'eign','wertn')
+handle = uicontrol('<eig1>',<wert1>,'<eign>',<wertn>)
 \end{lstlisting}
 \alert{Beispiel:}
 \begin{lstlisting}
->>u = uicontrol('style','listbox',...
+u = uicontrol('style','listbox',...
 'string','Option1|Option2|Option3',...
 'units','centimeters','position',[0 0 3 3])
 \end{lstlisting} 
@@ -332,29 +351,45 @@ handle = uicontrol('eig1','wert1',...
   aktiviert. 
 \item CallBack kann eine Funktion oder ein String, der durch \mcode{eval}
   ausf\"uhrbar ist, sein. 
-\item Syntax der Callback-Funktion
-\begin{lstlisting}
-function varargout = objectTag_Callback(h,ev_data,...
-                       handles, varargin)
-\end{lstlisting}
-\begin{itemize}
-\item \mcode{objectTag} ist der Name, der im Tag des Objects gespeichert wird.
-\item \mcode{h} ist der Handle des Objekts, dass die CallBack-Funktion
-  aufruft. 
-\item \mcode{ev_data} wird nicht ben\"otigt (ist reserviert).
-\item \mcode{handles} Struktur aller Objekte in der GUI
-\item \mcode{varargin} ist eine  Liste von Argumenten, die an die Funktion
-  \"ubergeben wird.  
-\end{itemize} 
+\item Syntax der Callback-Funktion (durch \mcode{guide} erstellt)
+
 \end{itemize}
 \end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{CallBack - Syntaxvarianten}
+\begin{itemize}
+ \item \mcode{function myfile} \\
+\mcode{set(h, 'CallBack', 'myfile')}\\
+\item \mcode{function myfile(obj, event)} \\
+ \mcode{set(h, 'CallBack', @myfile)}\\
+\item \mcode{function myfile(obj, event, arg1, arg2)}\\ 
+\mcode{set(h, 'CallBack', {'myfile', 5, 6})}\\
+\item \mcode{function myfile(obj, event, arg1, arg2)}\\ 
+\mcode{set(h, 'CallBack', {@myfile, 5, 6})}\\
+ \item 
+\mcode{function varargout = <objectTag>_Callback(h,ev_data,handles, varargin)}
+\begin{itemize}
+\item \mcode{objectTag}: ist der Name, der im Tag des Objects gespeichert wird.
+\item \mcode{h}: ist der Handle des Objekts, dass die CallBack-Funktion
+  aufruft. 
+\item \mcode{ev_data}: event-data (normalerweise unnötig).
+\item \mcode{handles}: Struktur aller Objekte in der GUI
+\item \mcode{varargin}: ist eine  Liste von Argumenten, die an die Funktion
+  \"ubergeben wird.  
+\end{itemize}
+\end{itemize} 
+\end{frame}
+
 % 
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Hinweise}
 \begin{itemize}
 \item Callback-Funktionen werden immer im Haupt-Workspace
-  gestartet. \"Ubergabe von Variablen schwierig.
+  gestartet. 
 \item Mit Hilfe der \mcode{figure}-Eigenschaft \mcode{UserData} k\"onnen Daten an
   das \mcode{figure}-Objekt geh\"angt werden.
 \item Der User kann grafische Objekte per Hand schlie{\ss}en. Dies kann zu
@@ -377,7 +412,6 @@ function varargout = objectTag_Callback(h,ev_data,...
 \begin{frame}[fragile]\frametitle{bild\_funktion.m}
 \begin{lstlisting}
 function han = bild_funktion()
-%------------------- Hauptprogram
 x = linspace(-1,1,50);
 y = linspace(-1,1,50);
 t = 0:1:30;
@@ -392,9 +426,7 @@ han.pushbutton = uicontrol(fig,'Parent',fig,'Style',...
   'pushbutton','units','normalized','position',...
   [0.8 0.2 0.15 0.15],'String','Aktualisieren',...
   'Callback','darstGrafik');
-
-han.grafikachse = axes('Position',[0.1 0.5 0.6 0.3],'tag',...
-  'axesGUI');
+han.grafikachse = axes('Position',[0.1 0.5 0.6 0.3],'tag','axesGUI');
 han.grafik = surf(A(:,:,1));
 \end{lstlisting}
 \end{frame}
@@ -409,9 +441,14 @@ han.slider = uicontrol(fig,'style','slider','sliderstep',...
   [0.2 0.2],'min',0,'max',30, 'units','normalized',...
   'position', [0.1 0.2 0.6 0.05],'tag','slider',...
   'Callback','darstGrafik');
-han.text1 = uicontrol(fig,'style','text', 'tag','text1',...
-  'units','normalized','position', [0.3 0.25 0.1 0.03],...
-  'String','Zeit t = 0');
+han.text1 = uicontrol(fig,'style','text', 'tag',...
+  'text1','units','normalized','position', ...
+  [0.3 0.25 0.1 0.03],'String','Zeit t = 0');
+han.frame2=uibuttongroup('units','normalized','tag','radio',...
+  'position',[0.8 0.5 0.15 0.3]);
+han.text2=uicontrol(fig,'style','text','parent',han.frame2,...
+  'units','normalized','position', [0.1 0.6 0.8 0.3],...
+  'String','Darstellung');
 \end{lstlisting}
 \end{frame}
 % 
@@ -419,11 +456,6 @@ han.text1 = uicontrol(fig,'style','text', 'tag','text1',...
 %
 \begin{frame}[fragile]\frametitle{bild\_funktion.m}
 \begin{lstlisting}
-han.frame2=uibuttongroup('units','normalized','tag','radio',...
-  'position',[0.8 0.5 0.15 0.3]);
-han.text2=uicontrol(fig,'style','text','parent',han.frame2,...
-  'units','normalized','position', [0.1 0.6 0.8 0.3],...
-  'String','Darstellung');
 han.radio1=uicontrol(fig,'style','radio','parent',han.frame2,...
   'tag','r1', 'units','normalized',...
   'position', [0.1 0.45 0.8 0.15],'String','Surf');
@@ -444,26 +476,7 @@ end
 % Slide
 %
 \begin{frame}[fragile]\frametitle{darstGrafik.m}
-\begin{lstlisting}
-function darstGrafik()
-
-A = get(findobj('tag','figGUI'),'UserData');
-
-t = round(1+get(findobj('tag','slider'),'Value'));
-set(findobj('tag','text1'), 'string', ...
-  strcat('Zeit: t = ',num2str(t-1)) );
-selection = findobj('tag','radio');
-switch get(get(selection,'SelectedObject'),'tag')
-  case 'r1'
-    surf(A(:,:,t));
-  case 'r2'
-    mesh(A(:,:,t));
-  case 'r3'
-    contour(A(:,:,t));
-  otherwise
-    error('Keines oder zuviele entsprech. GUIs geoeffnet');
-end;
-\end{lstlisting}
+\lstinputlisting{darstGrafik.m}
 \end{frame}
 
 \end{document}

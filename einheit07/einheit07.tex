@@ -11,7 +11,7 @@
 \begin{frame}[fragile]\frametitle{Schnittstellen in MATLAB}
 \begin{itemize}
 \item MATLAB l\"a{\ss}t sich mit anderen Programmiersprachen kombinieren. 
-\item Die Verkn\"upfung geschieht \"uber sogenannte {\it Schnittstellen}. 
+\item Die Verkn\"upfung geschieht \"uber sogenannte \alert{Schnittstellen}. 
 \item Es existieren Schnittstellen zu C, Fortran und Java.
 \item \"Uber diese Schnittstellen werden in der Regel Kommandos und
   insbesondere Daten \"ubermittelt.
@@ -26,10 +26,9 @@
   gestartet werden, ohne dass sie als $m$-Files neugeschrieben werden
   m\"ussen. 
 \item Bottleneck Berechnungen (in der Regel Schleifen), die in MATLAB nicht
-  schnell genug laufen, k\"onnen aus Effizienzgr\"unden in C neu programmiert
+  schnell genug laufen, k\"onnen aus Effizienzgr\"unden in z.B. C neu programmiert
   werden. 
-\item Man kann aus C-Programmen heraus, den gro{\ss}en Befehlsumfang von
-  MATLAB nutzen (einfaches Erstellen von Grafiken).
+\item Man kann aus C-Programmen heraus, den Befehlsumfang von MATLAB nutzen (einfaches Erstellen von Grafiken).
 \end{itemize}
 \end{frame}
 
@@ -39,11 +38,11 @@
 \begin{frame}[fragile]\frametitle{Schnittstellen zu C}
 Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden. 
 \begin{itemize}
-\item Das Einbinden von C-Funktionen in MATLAB. Dies geschieht durch die sogenannten
-      mex-Dateien. Sie bestehen aus 2 Teilen: der eigentlichen $C$-Funktion und
+\item \textit{Das Einbinden von C-Funktionen in MATLAB}. Dies geschieht durch die sogenannten
+      \alert{mex-Dateien}. Sie bestehen aus 2 Teilen: der eigentlichen $C$-Funktion und
       einer Schnittstellen-Routine zwischen C und MATLAB.
-\item Das Starten eines MATLAB-Fensters aus einem C-Programm heraus. Hier bindet
-      man passende Bibliotheken ein: die sogenannte Engine.
+\item \textit{Das Einbinden von MATLAB-Funktionen in C}. Hier bindet
+      man passende Bibliotheken ein: die sogenannte \alert{Engine}.
 \end{itemize}
 \end{frame}
 %
@@ -73,8 +72,13 @@ m-File.
 \begin{itemize}
 \item Mex-Dateien verhalten sich genau wie m-Files oder built-in Funktionen.
 \item Mex-Dateien sind plattform-abh\"angig.
-\item Die Plattform ist an der Endung zu erkennen: \mcode{mexaxp} (Alpha),
-  \mcode{mexglx} (Linux), \mcode{mexsol} (Solaris), \mcode{dll} (Windows).
+\item Die Plattform ist an der Endung zu erkennen:
+\begin{itemize}
+ \item \mcode{mexaxp} (Alpha)
+\item \mcode{mexglx} (Linux)
+\item \mcode{mexsol} (Solaris)
+\item \mcode{dll} (Windows)
+\end{itemize}
 \end{itemize}
 \end{frame}
 %
@@ -93,7 +97,10 @@ mex filename -f optionsfile
 \end{lstlisting}
 Beispiele: \mcode{lccengmatops.bat} (MATLAB-Compiler, Windows),
 \mcode{gccopts.sh} (gcc, Linux) 
-\item Durch \mcode{mex -help} erh\"alt man weitere Informationen zum Aufruf von \mcode{mex}.
+\item Weitere Informationen zum Aufruf von \mcode{mex}:
+\begin{lstlisting}
+mex -help
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 %
@@ -101,21 +108,32 @@ Beispiele: \mcode{lccengmatops.bat} (MATLAB-Compiler, Windows),
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Linken mehrere Files}
-Beim Erzeugen von mex-Routinen ist es m\"oglich verschiedene Objekt- und
-Bibliothek-Files zu kombinieren. Das Beispiel erzeugt unter Windows
+\begin{itemize}
+\item Beim Erzeugen von mex-Routinen ist es m\"oglich verschiedene Objekt- und
+Bibliothek-Files zu kombinieren. \\
+\textbf{Beispiel:}
 \begin{lstlisting}
 mex circle.c square.obj rectangle.c 
     shapes.lib
 \end{lstlisting}
-die ausf\"uhrbare Datei \mcode{circle.dll}. Benutzen von Befehlen wie \mcode{make}
-ist m\"oglich. Dateien werden am Ende durch \mcode{mex} zusammengebunden. 
+erzeugt unter Windows die ausf\"uhrbare Datei \mcode{circle.dll}. \\
+
+\item Benutzen von Befehlen wie \mcode{make}
+ist m\"oglich. 
+
+\item Dateien werden am Ende durch \mcode{mex} zusammengebunden. 
+\end{itemize}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Aufbau von mex-Files}
-Sie bestehen aus 2 Teilen: Einer Gateway Routine und der eigentlichen
-C-Funktion. Aufruf der Gateway-Funktion:
+Sie bestehen aus 2 Teilen:
+\begin{itemize}
+ \item  Gateway Routine
+\item eigentliche C-Funktion
+\end{itemize}
+Aufruf der Gateway-Funktion:
 \begin{lstlisting}[language=C++]
 void mexFunction(
    int nlhs, mxArray *plhs[],
@@ -129,12 +147,23 @@ void mexFunction(
 \begin{frame}[fragile]\frametitle{Gateway Routine}
 
 \begin{itemize}
-\item Benutzen Sie  \mcode{mxCreate} Funktionen, um die MATLAB Arrays f\"ur die Output
-  Argumente zu erzeugen. Setzen Sie \mcode{plhs[0],[1],..} auf die Zeiger von
-  den neuerzeugten MATLAB-Arrays.
-\item Benutzen Sie die \mcode{mxGet} Funktionen, um die Daten von
-  \mcode{prhs[0],[1],..} zu lesen.
-\item Aufruf der $C$-Unterroutine mit den Input- und Output-Zeigern als
+\item MATLAB Arrays f\"ur die Output Argumente zu erzeugen:
+\begin{lstlisting}[language=C++]
+mxCreate
+\end{lstlisting}
+\item Zeiger auf die neuerzeugten MATLAB-Arrays setzen:
+\begin{lstlisting}[language=C++]
+plhs[0],[1],..
+\end{lstlisting}
+\item Daten aus 
+\begin{lstlisting}[language=C++]
+prhs[0],[1],.. 
+\end{lstlisting}
+lesen:
+\begin{lstlisting}[language=C++]
+mxGet
+\end{lstlisting}
+\item Aufruf der $C$-Unterroutine mit den Input- und Output-Zeigern (\mcode{prhs},\mcode{plhs}) als
   Funktionsparameter. 
 \end{itemize}
 \end{frame}
@@ -143,8 +172,11 @@ void mexFunction(
 %
 \begin{frame}[fragile]\frametitle{Arbeitsweise von mex-Files}
 \begin{itemize}
-\item Aufruf MATLAB: \alert{ \mcode{[C,D]=func_beispiel(A,B)}}.
-\item Startet \mcode{func_beispiel.c}:
+\item Aufruf in MATLAB:
+\begin{lstlisting}
+[C,D]=func_beispiel(A,B)
+\end{lstlisting}
+Startet \mcode{func_beispiel.c}:
 \begin{lstlisting}[language=C++]
 const mxArray *B,*A;
 A = prhs[0];
@@ -266,15 +298,13 @@ Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datens
 \begin{itemize}
 \item Definieren von \mcode{double}-Matrizen
 \begin{lstlisting}[language=C++]
-mxArray *mxCreateDoubleMatrix(int m, 
-int n, mxComplexity Flag);
+mxArray *mxCreateDoubleMatrix(int m, int n, mxComplexity Flag);
 \end{lstlisting}
 $m$ ist die Anzahl von Zeilen, $n$ die Anzahl von Spalten und \mcode{Flag} ist
 entweder $mxREAL$ or $mxCOMPLEX$.
 \item Definieren eines \mcode{double}-Skalars mit Wert \mcode{value}
 \begin{lstlisting}[language=C++]
-mxArray *mxCreateDoubleScalar
-(double value);
+mxArray *mxCreateDoubleScalar(double value);
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -323,20 +353,20 @@ Es findet keine automatische \"Uberpr\"ufung der Ein- und
 \begin{lstlisting}[language=C++]
 /* Ueberpruefen der Anzahl von Argumenten */
   if(nrhs!=2) {
-    mexErrMsgTxt("Genau zwei Input-Variablen erforderlich.");
+    mexErrMsgTxt("Genau 2 Input-Variablen erforderlich");
   } else if(nlhs!=1) {
     mexErrMsgTxt("Falsche Anzahl an Output-argumente");
   }
   /* Input Variablen muessen nichtnegative Double sein.*/
   mrows = mxGetM(prhs[0]);
   ncols = mxGetN(prhs[0]);
-  if( !mxIsDouble(prhs[0])  || !(mrows==1 && ncols==1) ) {
+  if( !mxIsDouble(prhs[0]) || !(mrows==1 && ncols==1) ){
     mexErrMsgTxt("Erster Eingabeparameter muss 
       ein reelles Skalar sein.");
   }
   mrows = mxGetM(prhs[1]);
   ncols = mxGetN(prhs[1]);
-  if( !mxIsDouble(prhs[1])  || !(mrows==1 && ncols==1) ) {
+  if( !mxIsDouble(prhs[1]) || !(mrows==1 && ncols==1) ){
     mexErrMsgTxt("Zweiter Eingabeparameter muss 
       ein reelles Skalar sein.");
   } 
@@ -366,8 +396,11 @@ erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine.
 \begin{lstlisting}[language=C++]
 bool mxIsDouble( mxArray *array_zeiger);
 \end{lstlisting}
-ist wahr (1), falls durch \mcode{*array_zeiger} eine Matrix mit \mcode{double} oder
-\mcode{float} repr\"asentiert werden, sonst ist der R\"uckgabewert $0$.\\[2cm]
+\begin{itemize}
+ \item wahr(1): wenn \mcode{*array_zeiger} eine Matrix mit \mcode{double} oder
+\mcode{float} repr\"asentiert.
+\item falsch(0): sonst
+\end{itemize}
 
 \alert{Weitere Abfragen:}  \\
 \mcode{mxIsComplex}, \mcode{mxIsChar},
@@ -434,11 +467,11 @@ void mandel_c( double result[], double x1[], double y1[],
 void mexFunction( int nlhs, mxArray *plhs[],
 int nrhs, const mxArray *prhs[] )
 {
-    double *a,*b,*result;
-    int acols, bcols;
+  double *a,*b,*result;
+  int acols, bcols;
 
-    acols = mxGetN(prhs[0]);
-    bcols = mxGetN(prhs[1]);
+  acols = mxGetN(prhs[0]);
+  bcols = mxGetN(prhs[1]);
 \end{lstlisting}
 \end{frame}
 %-------------------------------------------------
@@ -446,18 +479,18 @@ int nrhs, const mxArray *prhs[] )
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Routine - C (Teil II)}
 \begin{lstlisting}[language=C++]  
-    printf("\n Erzeuge (%d x %d)-Matrix \n \n",bcols,acols);
+  printf("\n Erzeuge (%d x %d)-Matrix \n\n",bcols,acols);
     
-    /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
-    plhs[0] = mxCreateDoubleMatrix(bcols,acols, mxREAL);
+  /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
+  plhs[0] = mxCreateDoubleMatrix(bcols,acols, mxREAL);
 
-    /* Die pointer fuer die Variablen  setzen. */
-    a = mxGetPr(prhs[0]);
-    b = mxGetPr(prhs[1]);
-    result = mxGetPr(plhs[0]);
+  /* Die pointer fuer die Variablen  setzen. */
+  a = mxGetPr(prhs[0]);
+  b = mxGetPr(prhs[1]);
+  result = mxGetPr(plhs[0]);
 
-    /* Aufruf der Routine */
-    mandel_c ( result, a, b, acols, bcols);
+  /* Aufruf der Routine */
+  mandel_c ( result, a, b, acols, bcols);
 }
 \end{lstlisting}
 \end{frame}
@@ -469,22 +502,21 @@ int nrhs, const mxArray *prhs[] )
 void mandel_c( double result[], double x1[], double y1[], 
    int x1_laenge, int y1_laenge)
 {
-    int MAX_IT = 150;
-    int i,j;
-    double m,a,b,x,y,t;
-    for (i =0;  i< x1_laenge; i++)
+  int MAX_IT = 150;
+  int i,j;
+  double m,a,b,x,y,t;
+  for (i =0;  i< x1_laenge; i++)
+  {
+    for (j = 0; j< y1_laenge; j++)
     {
-      for (j = 0; j< y1_laenge; j++)
+      /* Berechnen der Folge */        
+      while (sqrt(x*x+y*y)<2 & m<MAX_IT)
       {
-        /* Berechnen der Folge */        
-     ...
-        while (sqrt(x*x+y*y)<2 & m<MAX_IT)
-        {
-     ...
-        }
-        result[i*y1_laenge+j] = m;
+       ...
       }
+      result[i*y1_laenge+j] = m;
     }
+  }
 }
 \end{lstlisting}
 \end{frame}
@@ -511,28 +543,33 @@ void mandel_c( double result[], double x1[], double y1[],
 %
 \begin{frame}[fragile]\frametitle{Kompilieren unter Linux}
 
-Befehle und Pfade gelten f\"ur MATLAB 7 (R2009a).
+Befehle und Pfade gelten f\"ur MATLAB 7 (R2010a).
 
 \begin{itemize}
-\item Einbinden der Shared Libraries (nur Linux)
-\begin{itemize}
-\item Bourne Shell
-\begin{lstlisting}[language=bash]
-LD_LIBRARY_PATH=/usr/local/matlab2009a/bin/glnx86/:\
-/usr/local/matlab2009a/sys/os/glnx86:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
-\end{lstlisting} %$
-\item C-Shell
-\begin{lstlisting}[language=bash]
-setenv  LD_LIBRARY_PATH \
-  $MATLAB/bin/glnx86/:$LD_LIBRARY_PATH
-\end{lstlisting}
-\end{itemize}
+%\item Einbinden der Shared Libraries (nur Linux, bash)
+%\begin{itemize}
+%\item Bourne Shell
+% \begin{lstlisting}[language=bash]
+% LD_LIBRARY_PATH=/usr/local/matlab2010a/bin/glnx86/:\
+% /usr/local/matlab2010a/sys/os/glnx86:$LD_LIBRARY_PATH
+% export LD_LIBRARY_PATH
+% \end{lstlisting} %$
+% \item C-Shell
+% \begin{lstlisting}[language=bash]
+% setenv  LD_LIBRARY_PATH \
+%   $MATLAB/bin/glnx86/:$LD_LIBRARY_PATH
+%\end{lstlisting}
+%\end{itemize}
 \item Kompilieren von \mcode{test.c}
 \begin{lstlisting}[language=bash]
-/usr/local/matlab2009a/bin/mex -f \
-/usr/local/matlab2009a/bin/engopts.sh test.c
+/usr/local/matlab2010a/bin/mex -f \
+/usr/local/matlab2010a/bin/engopts.sh test.c
 \end{lstlisting}
+oder
+\begin{lstlisting}[language=bash]
+./compile test.c
+\end{lstlisting}
+
 \end{itemize}
 \end{frame}
 % 
@@ -583,18 +620,18 @@ kompiliert die Datei \mcode{datei.c}.
 #include <stdio.h>
 #include "engine.h"
  
- main(int argc, char* argv[])
- {
-     Engine *ep;
-     mxArray *x_m = NULL;
-     
-     double n=10;
+main(int argc, char* argv[])
+{
+  Engine *ep;
+  mxArray *x_m = NULL;
+   
+  double n=10;
       
-     printf("\n Open MATLAB engine...\n");
-     ep = engOpen(NULL);
+  printf("\n Open MATLAB engine...\n");
+  ep = engOpen(NULL);
      
-     x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
-     *mxGetPr(x_m) = n;
+  x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
+  *mxGetPr(x_m) = n;
 \end{lstlisting}
 \end{frame}
 %
@@ -602,13 +639,13 @@ kompiliert die Datei \mcode{datei.c}.
 %
 \begin{frame}[fragile]\frametitle{hilbert1.c (Forts.)}
 \begin{lstlisting}[language=C++]   
-     engPutVariable(ep,"x_m",x_m);
-     engEvalString(ep,"a=hilb(x_m)");
-     engEvalString(ep,"semilogy(eig(a),'*')");
+  engPutVariable(ep,"x_m",x_m);
+  engEvalString(ep,"a=hilb(x_m)");
+  engEvalString(ep,"semilogy(eig(a),'*')");
      
-     printf("Please press Return \n");
-     fgetc(stdin);
-     engClose(ep);
+  printf("Please press Return \n");
+  fgetc(stdin);
+  engClose(ep);
 }
 \end{lstlisting}
 \end{frame}
@@ -759,8 +796,8 @@ y-Richtung in 50 Punkten entsteht.
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil I)}
 \begin{lstlisting}[language=C++]
 /*-----------------------------------------
-  -       plot_poisson.c
-  ---------------------------------------*/
+ * -       plot_poisson.c
+ * -----------------------------------------------*/
 
 #include <stdio.h>
 #include <math.h>
@@ -771,11 +808,11 @@ y-Richtung in 50 Punkten entsteht.
 
 /* Function for plotting data on cartesian grids */
 int plot_graph(
-               double *x,   /* vector of x-values             */
-               double *y,   /* vector of y-values             */
-               double *z,   /* value at (x[i],y[j]) (row-wise)*/
-               int    x_n,  /* size of array x                */
-               int    y_n); /* size of array y                */
+  double *x,   /* vector of x-values             */
+  double *y,   /* vector of y-values             */
+  double *z,   /* value at (x[i],y[j]) (row-wise)*/
+  int    x_n,  /* size of array x                */
+  int    y_n); /* size of array y                */
 \end{lstlisting}
 \end{frame}
 %
@@ -819,8 +856,7 @@ for (i = 0; i<x_n; i++)
 }      
 if (plot_graph(x,y,z,x_n,y_n)==0) 
   printf("\n Ungueltiger Aufruf von 'plot_graph' \n");
-return  0;
-}
+return  0; }
 \end{lstlisting}
 \end{frame}
 %
@@ -836,10 +872,8 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
   mxArray *y_m = NULL;
   mxArray *z_m = NULL;
   int i,j;
-  if ((x_n ==0) || (y_n==0)) 
-    return (int) 0;
+  if ((x_n ==0) || (y_n==0))  return (int) 0;
   printf("\n Open MATLAB engine...\n");
-  /*---------------------- Start MATLAB engine */
   if (!(ep = engOpen("\0"))) {
     fprintf(stderr, "\n Can't start MATLAB engine\n");
     return EXIT_FAILURE;
@@ -870,9 +904,7 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
   printf("Please press Return \n");
   fgetc(stdin);  
   printf("\n Close MATLAB engine... \n");
-  engClose(ep);
-  return (int) 1;
-}  
+  engClose(ep);  return (int) 1; }  
 \end{lstlisting}
 \end{frame}
 \end{document}

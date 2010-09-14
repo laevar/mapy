@@ -547,19 +547,15 @@ Befehle und Pfade gelten f\"ur MATLAB 7 (R2010a).
 
 \begin{itemize}
 %\item Einbinden der Shared Libraries (nur Linux, bash)
-%\begin{itemize}
-%\item Bourne Shell
-% \begin{lstlisting}[language=bash]
-% LD_LIBRARY_PATH=/usr/local/matlab2010a/bin/glnx86/:\
-% /usr/local/matlab2010a/sys/os/glnx86:$LD_LIBRARY_PATH
-% export LD_LIBRARY_PATH
-% \end{lstlisting} %$
+\item Bourne Shell
+\begin{lstlisting}[language=bash]
+export LD_LIBRARY_PATH=/usr/local/matlab2010a/bin/glnx86/:/usr/local/matlab2010a/sys/os/glnx86:$LD_LIBRARY_PATH
+\end{lstlisting} %$
 % \item C-Shell
 % \begin{lstlisting}[language=bash]
 % setenv  LD_LIBRARY_PATH \
 %   $MATLAB/bin/glnx86/:$LD_LIBRARY_PATH
-%\end{lstlisting}
-%\end{itemize}
+% \end{lstlisting}
 \item Kompilieren von \mcode{test.c}
 \begin{lstlisting}[language=bash]
 /usr/local/matlab2010a/bin/mex -f \

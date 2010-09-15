@@ -1,4 +1,2 @@
 #!/bin/bash
-LD_LIBRARY_PATH=/usr/local/matlab2009a/bin/glnx86/:/usr/local/matlab2009a/sys/os/glnx86:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
-/usr/local/matlab2009a/bin/mex -v -f /usr/local/matlab2009a/bin/engopts.sh $*
+/usr/local/matlab2010a/bin/mex -v -f /usr/local/matlab2010a/bin/engopts.sh $*

@@ -20,6 +20,8 @@ safeggt(227,24523);
 
 disp('*** aufgabe 4');
 clear
+mex mandel_c.c
+
 
 MAX_IT = 150;
 

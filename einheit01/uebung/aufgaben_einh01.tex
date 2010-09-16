@@ -19,14 +19,21 @@ Erklären Sie das Programm \mcode{ausw_poly2}.
 Stellen Sie das Polynom 
 \[ p(x)= x^5-4x^4 -10x^3 +40x^2 +9x -36\]
  grafisch dar. Wo sind die Nullstellen?\\
-Hinweis: Benutzen sie die Eigenwerte (\mcode{eig}) der Begleitmatrix
+\textit{Hinweis:} Benutzen sie die Eigenwerte (\mcode{eig}) der Begleitmatrix
+\[ \left( \begin{array} {ccccccc}
+ 0 & 0 & 0 & 0 & 36\\
+1 & 0  & 0 & 0  & -9\\ 
+0 & 1  & 0 & 0  & -40\\ 
+ 0 & 0& 1 & 0 &  10\\
+ 0 & 0 & 0 & 1  &  4 \\ 
+\end{array} \right) \]
 \end{aufg}
 
 %--------------------------------------------------
 \begin{aufg}
 Geben Sie die folgende Zeile ein: 
 \begin{lstlisting}
->>  x=1e-15; ((1+x)-1)/x
+x=1e-15; ((1+x)-1)/x
 \end{lstlisting} 
 Wie interpretieren Sie das Ergebnis? 
 (Testen Sie auch \lstinline!x=1e-16!!)
@@ -50,13 +57,14 @@ Betrachten Sie die Mandelbrot-Menge in $[-1,-0.4]\times
 \begin{aufg}
  Interpretieren Sie das Ergebnis der Eingabe 
 \begin{lstlisting}
->> a=100:2:200; b=[1 4 10]; a(b)
+a=100:2:200;
+b=[1 4 10];
+a(b)
 \end{lstlisting}
 \end{aufg}
 %--------------------------------------------------
 \begin{aufg}
 Erzeugen Sie die $(100 \times 100)$ - Matrix 
-{ 
 \[ \left( \begin{array} {ccccccc}
  2 & -1 &  & &   0 \\
 -1 & 2  & -1 &    & \\ 
@@ -64,7 +72,6 @@ Erzeugen Sie die $(100 \times 100)$ - Matrix
    & &  -1 & 2  & -1  \\ 
 0 &  &    & -1 & 2 \\
 \end{array} \right) \]
-}
 und berechnen Sie ihre Determinante.
 \end{aufg}
 

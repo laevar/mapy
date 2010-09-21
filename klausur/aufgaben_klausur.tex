@@ -23,29 +23,29 @@ approximiert.
 %-----------------------------------------------------------------------------------
 % das muss komplizierter werden!
 %-----------------------------------------------------------------------------------
-\begin{aufg}{3}
-Wie erzeugen sie ohne Schleifen in \textsc{Matlab} aus einem Vektor
- $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
-{ \[ V:= \left(\begin{array}{ccccc} 
-1 & x_1 & x_1^2 & \hdots & x_1^{n-1}\\
-1 & x_2 & x_2^2 & \hdots & x_2^{n-1}\\
-\vdots & \vdots & \vdots & \vdots & \vdots\\
-1 & x_n & x_n^2 & \hdots & x_n^{n-1}\\
-\end{array} \right)?  \]}
-\end{aufg}
+% \begin{aufg}{3}
+% Wie erzeugen sie ohne Schleifen in \textsc{Matlab} aus einem Vektor
+%  $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
+% { \[ V:= \left(\begin{array}{ccccc} 
+% 1 & x_1 & x_1^2 & \hdots & x_1^{n-1}\\
+% 1 & x_2 & x_2^2 & \hdots & x_2^{n-1}\\
+% \vdots & \vdots & \vdots & \vdots & \vdots\\
+% 1 & x_n & x_n^2 & \hdots & x_n^{n-1}\\
+% \end{array} \right)?  \]}
+% \end{aufg}
 
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{4}
-Betrachten sie die folgenden Eingaben:
-\begin{lstlisting}
->> A = reshape(1:4,2,2);
->> B = [ 8 9; 10 11];
->> C = cat(3,A,B);
->> D = C([1 3 5]);  
-\end{lstlisting}
-Welche Werte haben \mcode{A}, \mcode{B}, \mcode{C} und \mcode{D}?
-\end{aufg}
+% \begin{aufg}{4}
+% Betrachten sie die folgenden Eingaben:
+% \begin{lstlisting}
+% A = reshape(1:4,2,2);
+% B = [ 8 9; 10 11];
+% C = cat(3,A,B);
+% D = C([1 3 5]);  
+% \end{lstlisting}
+% Welche Werte haben \mcode{A}, \mcode{B}, \mcode{C} und \mcode{D}?
+% \end{aufg}
 
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
@@ -56,57 +56,57 @@ Schreiben sie eine Funktion mit Input-Variablen $x_0$ und $TOL$, die die Folge
 berechnet und abbricht, wenn $|x_{n}-x_{n-1}| \leq TOL$ ist. Die Funktion soll
 $x_{n}$ und das zugeh\"orige $n$ zur\"uckgeben. 
 \end{aufg}
-\newpage
+%\newpage
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{6}
-Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
-\begin{itemize}
-\item [(a)]
-\begin{lstlisting}
->> a = [ 1 2 3 4];
->> b = [ 0 3 0 4];
->> x1 = (a-b > 1) | (b ~= 0)
-\end{lstlisting}
-
-\item [(b)] 
-\begin{lstlisting}
->> A = diag (1:10);
->> A(1:8,:) = [];
->> x2 = size(A(:,2:4));
-\end{lstlisting}
-
-\item [(c)]
-\begin{lstlisting}
->> x = [Inf NaN];
->> y = [Inf NaN];
->> x3 = ( x == y );
-\end{lstlisting}
-\end{itemize} 
-\end{aufg}
+% \begin{aufg}{6}
+% Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
+% \begin{itemize}
+% \item [(a)]
+% \begin{lstlisting}
+% a = [ 1 2 3 4];
+% b = [ 0 3 0 4];
+% x1 = (a-b > 1) | (b ~= 0)
+% \end{lstlisting}
+% 
+% \item [(b)] 
+% \begin{lstlisting}
+% A = diag (1:10);
+% A(1:8,:) = [];
+% x2 = size(A(:,2:4));
+% \end{lstlisting}
+% 
+% \item [(c)]
+% \begin{lstlisting}
+% >> x = [Inf NaN];
+% >> y = [Inf NaN];
+% >> x3 = ( x == y );
+% \end{lstlisting}
+% \end{itemize} 
+% \end{aufg}
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 
-\begin{aufg}{4}
-Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren sie jeweils den Fehler!
-\begin{itemize}
-\item [(a)]
-\begin{lstlisting}
->> f = 'x.^2+1';
->> g = [1 1 1];
->> h = g(f(1));
-\end{lstlisting}
-
-\item [(b)]
-\begin{lstlisting}
->> a = 1 + 0:4;
->> b(6) = 5;
->> plot(a,b);
-\end{lstlisting}
-\end{itemize} 
-
-\end{aufg}
+% \begin{aufg}{4}
+% Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren sie jeweils den Fehler!
+% \begin{itemize}
+% \item [(a)]
+% \begin{lstlisting}
+% >> f = 'x.^2+1';
+% >> g = [1 1 1];
+% >> h = g(f(1));
+% \end{lstlisting}
+% 
+% \item [(b)]
+% \begin{lstlisting}
+% >> a = 1 + 0:4;
+% >> b(6) = 5;
+% >> plot(a,b);
+% \end{lstlisting}
+% \end{itemize} 
+% 
+% \end{aufg}
 
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
@@ -117,8 +117,10 @@ der Funktion
 \[ f(x,y,z) = \sin(2x) \cos(3y) \sin(z), \quad (x,y,z) \in [0,1]^3 \]
 mit Hilfe des Kommandos \mcode{slice}.
 \end{aufg}
-\newpage
-\begin{aufg}{10}
+
+
+%\newpage
+\begin{aufg}{10 (rausnehmen?)}
 %GUI
 Schreiben sie ein Programm, das eine Matlab-GUI erzeugt, welches folgende Elemente 
 enthalten soll:
@@ -169,7 +171,7 @@ Default-Werte, falls diese nicht übergeben werden. Danach sollen alle Funktione
 
 
 \begin{aufg}{6}
-Gegeben sei eine Datei \texttt{'dummy.csv'} mit folgendem Inhalt:
+Gegeben sei eine Datei \mcode{'dummy.csv'} mit folgendem Inhalt:
 
 \begin{lstlisting}
 0,5,3,7
@@ -179,7 +181,7 @@ Gegeben sei eine Datei \texttt{'dummy.csv'} mit folgendem Inhalt:
 Schreiben sie ein Programm, welches diese Datei einliest und die jeweiligen 
 Werte in einer Matrix abspeichert. Das Programm soll so flexibel sein, dass es auch
 Dateien einlesen kann, welche eine unterschiedliche Anzahl von kommaseparierten 
-Zeilen und Spalten besitzen (vorausgesetzt in jeder Zeile, sind stets genauso viele Einträge).
+Zeilen und Spalten besitzen (vorausgesetzt in jeder Zeile sind stets genauso viele Einträge).
 
 \emph{Hinweis:} \mcode{csvread} darf nicht benutzt werden und es brauchen keine Überprüfungen gemacht werden.
 \end{aufg}

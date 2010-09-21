@@ -1,34 +1,16 @@
-\usepackage[psamsfonts]{amssymb}
+\usepackage{amssymb}
 \usepackage{amsmath}
-%\usepackage{latexsym}
-\usepackage{theorem}
-
-
-\usepackage{fontspec,xunicode,xltxtra}
-\usepackage[ngerman]{babel}
-\selectlanguage{ngerman}
-
-
 \usepackage[svgnames]{xcolor} %color definitions
+
+\input{../common_header.tex}
+
 %\usepackage{tikz}
 %\usetikzlibrary{shadows}
 %\usetikzlibrary{fit}
 %\usetikzlibrary{shapes}
 %\usetikzlibrary{backgrounds}
 
-\usepackage{cellspace}
-\setlength{\cellspacetoplimit}{8pt}
-\setlength{\cellspacebottomlimit}{8pt}
-
-\usepackage{mcode}
-%\usepackage{pstricks,pst-node,pst-text,pst-3d}
 \parindent0cm % Abs�tze nicht einr�cken 
-
-%---- neue Umgebung f�r Aufgaben
-\theoremstyle{break}
-\theoremheaderfont{\Large \bf}
-\theorembodyfont{\normalfont}
-
 
 % Definieren einer neuen Farbe
 \definecolor{light-gray}{gray}{.9}
@@ -39,17 +21,20 @@
 \newenvironment{aufg}[1]
 %---- Header
 {\begin{samepage}%
-\colorbox{light-gray}{%                         % Box in gray
- \makebox[\textwidth]{%                           % Box in linewidth
-\textbf{Aufgabe \arabic{zaehler} } }\hspace{-\textwidth}\makebox[\textwidth]{\hfill #1 Punkte} }\\[0.1cm]       % Header
-\begin{minipage}{\textwidth}}
+%\colorbox{light-gray}{%                         % Box in gray
+% \makebox[\textwidth]{%                           % Box in linewidth
+%\textbf{Aufgabe \arabic{zaehler} } }\hspace{-\textwidth}\makebox[\textwidth]{\hfill #1 Punkte} }\\[0.05cm]       % Header
+{\large\textbf{Aufgabe \arabic{zaehler} }\hfill #1 Punkte}\\[0.4cm]
+\begin{minipage}{\textwidth}
+}
 %-----  foot
 {\end{minipage} \nopagebreak %\begin{minipage}{1cm} \end{minipage}
-\\[0.1cm] 
+%\\ 
 %\begin{minipage}{0.1cm} \end{minipage} 
 %\hrulefill \begin{minipage}{1cm} \end{minipage}\\[1cm]  
 \stepcounter{zaehler}                           % increase counter
- \end{samepage}%
+\end{samepage}%
+\bigskip
 }
 
 %-------------------------------------------------------------------------------
@@ -58,15 +43,15 @@
 
 %--------------------------------------------------- Header
 \begin{center}
-\textbf{\LARGE Einf\"uhrung in MATLAB }\\
+\textbf{\LARGE Mathematische Anwendersysteme }\\
+\textbf{\LARGE Einführung in MATLAB}\\\medskip
 \end{center}
 \begin{minipage}{6cm}
-Dr. J. Schulz
+Jochen Schulz
 \end{minipage}\hfill
 \begin{minipage}{4cm}
 %\textbf{Klausur}\\
-%30.07.2007
-18.09.2009
+24.09.2010
 \end{minipage}\\[1cm]
 %------------------------------
 
@@ -76,11 +61,13 @@ Dr. J. Schulz
 \bigskip\bigskip\bigskip
 \Large
 \begin{center}
-\begin{tabular}{|Sl||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}||p{1cm}|}
+\begin{tabular}{|Sl||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}||Sc|}
 \hline
-Aufgabe & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10   & 11 & $\sum$ \\
+Aufgabe & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{Summe}\\
 \hline
-Punkte &    &   &   &   &   &   &   &   &   &    &  &    \\
+Mögl. Pkt. &  4  & 2  & 2  & 3  & 5  & 8  & 5  &  29  \\
+\hline
+Erreichte Pkt. &    &   &   &   &   &   &     &    \\
 \hline
 \end{tabular}
 \end{center}
@@ -103,9 +90,10 @@ Immatrikulationsnummer: & \\
 \end{tabular}\\[1cm]
 \textbf{Hinweise:}
 \begin{itemize}
-\item Die Klausur beginnt um 10.00 Uhr und endet um 12.00 Uhr.
+\item Die Klausur beginnt um 10.00 Uhr und endet um 11.30 Uhr.
 \item Ben\"otigte Hilfsmittel sind Stift und Papier.
 \item Erlaubte Hilfsmittel sind gedruckte sowie handgeschriebene Notizen oder Skripte. 
+%\item Benutzen Sie zum Aufschreiben der Aufgaben Sage-Syntax.
 \end{itemize}
 \end{center}
 

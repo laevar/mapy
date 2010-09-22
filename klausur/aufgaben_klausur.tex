@@ -1,9 +1,9 @@
 \documentclass[a4paper,12pt,DIV15]{scrartcl}
 \input{klausur_header}
-\lstset{basicstyle={\lstbasicfont}}
+%\lstset{basicstyle={\lstbasicfont}}
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{3}
+\begin{aufg}[3]
 Was ist ein Cell-Array? Worin unterscheidet sich ein Cell-Array von einem
 normalen Array? Geben sie einen typischen Fall an, in dem mit Cell-Arrays
 gearbeitet wird!
@@ -11,7 +11,7 @@ gearbeitet wird!
 
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{3}
+\begin{aufg}[3]
 Schreiben sie eine anonyme Funktion, die 
 \[ f(s) = \int_0^1 e^{-s t} \sin( t^2) dt \]
 approximiert. 
@@ -47,10 +47,18 @@ approximiert.
 % Welche Werte haben \mcode{A}, \mcode{B}, \mcode{C} und \mcode{D}?
 % \end{aufg}
 
+\begin{aufg}[6]
+Erkl\"aren sie die Funktionsweise von \mcode{meshgrid} am Beispiel eines Plots
+der Funktion 
+\[ f(x,y,z) = \sin(2x) \cos(3y) \sin(z), \quad (x,y,z) \in [0,1]^3 \]
+mit Hilfe des Kommandos \mcode{slice}.
+\end{aufg}
+
+
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{5}
+\begin{aufg}[5]
 Schreiben sie eine Funktion mit Input-Variablen $x_0$ und $TOL$, die die Folge
 \[ x_{n+1} = x_n - \frac{x_n^2-5}{2 x_n}, \quad n \in \mathbb{N} \]
 berechnet und abbricht, wenn $|x_{n}-x_{n-1}| \leq TOL$ ist. Die Funktion soll
@@ -111,40 +119,35 @@ $x_{n}$ und das zugeh\"orige $n$ zur\"uckgeben.
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\begin{aufg}{6}
-Erkl\"aren sie die Funktionsweise von \mcode{meshgrid} am Beispiel eines Plots
-der Funktion 
-\[ f(x,y,z) = \sin(2x) \cos(3y) \sin(z), \quad (x,y,z) \in [0,1]^3 \]
-mit Hilfe des Kommandos \mcode{slice}.
-\end{aufg}
+
 
 
 %\newpage
-\begin{aufg}{10 (rausnehmen?)}
-%GUI
-Schreiben sie ein Programm, das eine Matlab-GUI erzeugt, welches folgende Elemente 
-enthalten soll:
-\begin{itemize}
- \item 2 Axen-Elemente und
- \item ein editierbares Text-Feld. 
-\end{itemize}
-Die GUI soll $f(x,y) = sin(x)cos(y)$ verarbeiten. Die Datenpunkte für $x$ und $y$ sollen 
-durch zufällig verteilte Punkte erzeugt werden (Hinweis: \mcode{rand}) und die Funktionswerte sollen in der einen
-\mcode{axes} mit \mcode{plot3} ausgegeben werden. In der anderen \mcode{axes} soll die Funktion per \mcode{surf} dargestellt 
-werden. Dafür müssen die Datenpunkte auf einem regelmässigen Gitter interpoliert werden. In dem Textfeld soll die
-Interpolationsmethode gewählt werden können (\mcode{'cubic'} oder \mcode{'linear'})
-(Dies ist auch das einzige Element mit einem Callback).
-%Welche Hierarchie besitzen die grafischen Elemente von Matlab beginnend vom root-Element ?
-%Wie werden Grafik-Handles abgespeichert und wie bekommt man Informationen über die handles ?
-%\item [$\square$] Die Callback-Funktion einer GUI benutzt den globalen Workspace. 
-
-\emph{Hinweis:} Die \mcode{positions} können aus Gründen der Vereinfachung weggelassen werden.
-
-\emph{Tip:} für \mcode{axes} muss ein Vater angegeben werden.
-\end{aufg}
+% \begin{aufg}{10 (rausnehmen?)}
+% %GUI
+% Schreiben sie ein Programm, das eine Matlab-GUI erzeugt, welches folgende Elemente 
+% enthalten soll:
+% \begin{itemize}
+%  \item 2 Axen-Elemente und
+%  \item ein editierbares Text-Feld. 
+% \end{itemize}
+% Die GUI soll $f(x,y) = sin(x)cos(y)$ verarbeiten. Die Datenpunkte für $x$ und $y$ sollen 
+% durch zufällig verteilte Punkte erzeugt werden (Hinweis: \mcode{rand}) und die Funktionswerte sollen in der einen
+% \mcode{axes} mit \mcode{plot3} ausgegeben werden. In der anderen \mcode{axes} soll die Funktion per \mcode{surf} dargestellt 
+% werden. Dafür müssen die Datenpunkte auf einem regelmässigen Gitter interpoliert werden. In dem Textfeld soll die
+% Interpolationsmethode gewählt werden können (\mcode{'cubic'} oder \mcode{'linear'})
+% (Dies ist auch das einzige Element mit einem Callback).
+% %Welche Hierarchie besitzen die grafischen Elemente von Matlab beginnend vom root-Element ?
+% %Wie werden Grafik-Handles abgespeichert und wie bekommt man Informationen über die handles ?
+% %\item [$\square$] Die Callback-Funktion einer GUI benutzt den globalen Workspace. 
+% 
+% \emph{Hinweis:} Die \mcode{positions} können aus Gründen der Vereinfachung weggelassen werden.
+% 
+% \emph{Tip:} für \mcode{axes} muss ein Vater angegeben werden.
+% \end{aufg}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}{10}
+\begin{aufg}[8]
 Schreiben sie eine Funktion, die einen bis mehrere zu übergebene Strings in inline-functions 
 konvertiert und vektorisiert. Die Funktion soll ansonsten noch die Anzahl der Evaluationspunkte, die untere Schranke und die obere Schranke übergeben bekommen können (in dieser Reihenfolge). Setzen sie für alle Variablen 
 Default-Werte, falls diese nicht übergeben werden. Danach sollen alle Funktionen in einem 2D-Plot grafisch dargestellt werden.
@@ -170,7 +173,7 @@ Default-Werte, falls diese nicht übergeben werden. Danach sollen alle Funktione
 %\end{aufg}
 
 
-\begin{aufg}{6}
+\begin{aufg}[6]
 Gegeben sei eine Datei \mcode{'dummy.csv'} mit folgendem Inhalt:
 
 \begin{lstlisting}
@@ -201,5 +204,22 @@ Zeilen und Spalten besitzen (vorausgesetzt in jeder Zeile sind stets genauso vie
 %   Matrizen bei denen fast alle Eintr\"age $0$ sind.  
 % \item [$\square$] Im Datentyp \mcode{int8} k\"onnen Zahlen zwischen $0$ und $2^8-1$
 %   dargestellt werden.
+
+\begin{aufg}[5]
+Betrachten sie das eindimensionale Integral
+\[
+\int_0^1 \phi(x)e^{-\abs{x-y}}\sin(\abs{x-y})^2 dx
+\]
+für $y \in [0,1]$ mit der Dichte $\phi(x)$.
+Konstruieren sie die Matrix $A$ so, dass die Gleichung 
+\[
+ A \phi = f
+\]
+gilt, wobei $f$ gegeben ist durch $f(x)=\sin(x),  x \in [0,1]$.
+Lösen sie das Gleichungssystem nach $\phi$.
+
+%\textit{Hinweis:} für $A$ steigt $x$ in den Spalten, und $y$ in den Zeilen.
+\end{aufg}
+
 
 \end{document}

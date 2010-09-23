@@ -150,7 +150,8 @@ $x_{n}$ und das zugeh\"orige $n$ zur\"uckgeben.
 \begin{aufg}[8]
 Schreiben sie eine Funktion, die einen bis mehrere zu übergebene Strings in inline-functions 
 konvertiert und vektorisiert. Die Funktion soll ansonsten noch die Anzahl der Evaluationspunkte, die untere Schranke und die obere Schranke übergeben bekommen können (in dieser Reihenfolge). Setzen sie für alle Variablen 
-Default-Werte, falls diese nicht übergeben werden. Danach sollen alle Funktionen in einem 2D-Plot grafisch dargestellt werden.
+Default-Werte, falls diese nicht übergeben werden. Danach sollen alle Funktionen in einem 2D-Plot grafisch dargestellt werden.\\
+\emph{Tipp:} \mcode{ischar} überprüft, ob eine Variable ein Character-Array ist.
 \end{aufg}
 
 %-----------------------------------------------------------------------------------
@@ -186,7 +187,8 @@ Werte in einer Matrix abspeichert. Das Programm soll so flexibel sein, dass es a
 Dateien einlesen kann, welche eine unterschiedliche Anzahl von kommaseparierten 
 Zeilen und Spalten besitzen (vorausgesetzt in jeder Zeile sind stets genauso viele Einträge).
 
-\emph{Hinweis:} \mcode{csvread} darf nicht benutzt werden und es brauchen keine Überprüfungen gemacht werden.
+\emph{Hinweis:} \mcode{csvread} darf nicht benutzt werden, es brauchen keine Überprüfungen gemacht werden.\\
+\emph{Tipp:} \mcode{fscanf} liest ohne zusätzlichen Parameter solange ein, bis der Format-String nicht mehr passt.
 \end{aufg}
 
 
@@ -210,12 +212,13 @@ Betrachten sie das eindimensionale Integral
 \[
 \int_0^1 \phi(x)e^{-\abs{x-y}}\sin(\abs{x-y})^2 dx
 \]
-für $y \in [0,1]$ mit der Dichte $\phi(x)$.
-Konstruieren sie die Matrix $A$ so, dass die Gleichung 
+für $y \in [0,1]$ mit der Dichte $\phi(x)$. Für gegebenes $x \in [0,1]$
+konstruieren sie die Matrix $A$ so, dass die Gleichung 
 \[
  A \phi = f
 \]
-gilt, wobei $f$ gegeben ist durch $f(x)=\sin(x),  x \in [0,1]$.
+gilt, wobei $f$ gegeben ist durch $f(x)=\sin(x),  x \in [0,1]$. Weiterhin kann der Einfachheit halber angenommen werden, 
+dass $x_i = y_i$ für alle Komponenten $i$ der Koordinatenvektoren.
 Lösen sie das Gleichungssystem nach $\phi$.
 
 %\textit{Hinweis:} für $A$ steigt $x$ in den Spalten, und $y$ in den Zeilen.

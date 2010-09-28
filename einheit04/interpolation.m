@@ -23,10 +23,10 @@ x=linspace(-1,1,N);
 y=feval(f,x);
 plot(x,y,'or','Markersize',8);
 hold on;
-
+profile on
 % Berechnen der Koeffizienten
 p=interpol2(x,y);
-
+profile off
 % Plotten
 x1=linspace(-1,1,100);
 y1=ausw_poly2(p',x1);
@@ -39,3 +39,4 @@ hold off
 
 disp('Maximaler Interpolationsfehler:')
 max(abs(y1'-y2))
+profile viewer

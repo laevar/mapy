@@ -1,15 +1,16 @@
 %---------------- mandelbrot.m
-close all;
-clear all;
+%close all;
+%clear all;
 
-tic;
+%tic;
 MAX_IT = 150;
 
-x1 = linspace(-2.1,0.6,601);
+x1 = linspace(-2.1,0.6,201);
 y1 = linspace(-1.1,1.1,401);
 
 C = zeros(length(y1),length(x1));
-
+%profile clear
+profile on 
 for i = 1:length(x1)
   for j = 1:length(y1)
     
@@ -25,14 +26,14 @@ for i = 1:length(x1)
       y = b+2*t*y;
       m = m+1;
     end;
-    
     C(j,i) = m;
     
   end
 end
+profile viewer
 
 disp('Benoetigte Zeit')
-toc;
+%toc;
 
 C = (1/MAX_IT) * C;
 

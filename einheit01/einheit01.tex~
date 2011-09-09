@@ -10,15 +10,15 @@
 \item Anmeldung über StudIP \\
       \url{https://www.studip.uni-goettingen.de/}
 
-{\color{blue}{Einführung in Sage (Mathematische Anwendersysteme) (WS 2010/2011)}}
-\item Alle Unterlagen (Aufgabenblätter, Vorlesungsfolien, Beispiele, Musterlösungen) können von der  StudIP-Seite (Reiter Dateien) heruntergeladen werden 
+{\color{blue}{Einführung in Matlab (Mathematische Anwendersysteme)}}
+\item Alle Unterlagen (Aufgabenblätter, Vorlesungsfolien, Beispiele, Musterlösungen) $\rightarrow$ StudIP
 \pause
 \begin{block}{Dozent}
 Jochen Schulz\\
 NAM, Zimmer 04 (Erdgescho{\ss})\\
-Telefon: 39-4525
-Email: \href{mailto:schulz@math.uni-goettingen.de}{\texttt{schulz@math.uni-goettingen.de}}\\
-XMPP: \url{schulz@jabber.num.math.uni-goettingen.de}\\
+\textbf{Telefon}: 39-4525\\
+\textbf{Email}: \href{mailto:schulz@math.uni-goettingen.de}{\texttt{schulz@math.uni-goettingen.de}}\\
+\textbf{XMPP}: \url{schulz@jabber.num.math.uni-goettingen.de}\\
 
 \end{block}
 \end{itemize}
@@ -26,38 +26,32 @@ XMPP: \url{schulz@jabber.num.math.uni-goettingen.de}\\
 
 \begin{frame}{Ablauf der Veranstaltung}
 \begin{itemize}
-\item Blockveranstaltung vom  21.2-4.3.2011
-\item \alert{Vorlesung:} 9.15 Uhr bis 11.30 Uhr
-\item \alert{Übungsbetrieb}: 4 Gruppen \`a je 1h 15min (Besprechung Aufgaben u. Praktikum, Teilnahme freiwillig)
+\item Blockveranstaltung vom  12.9 - 23.9.2011
+\item \alert{Vorlesung:} 9.15 - 11.30  (MN )
+\item \alert{Übungsbetrieb/Praktikum}: 13:00 - 18:00  (MM-Raum oder NAM-CIP)
 \begin{itemize}
-\item 13:00-14:15 (Tutor: C. Rügge)	
-\item 14:15-15:30 (Tutor: T. Groth)
-\item 15:30-16:45 (Tutor: A. Behnen)
-\item 16:45-18:00 (Tutor: J. Schulz)
-\end{itemize}
-\item \alert{Praktikum:} von 13:15 bis 18:00 Uhr Computerraum Keller.
-\item \alert{Übungsbetrieb:}
-\begin{itemize}
-%\item Projektarbeit durchführen
 \item 1 Übungszettel/Tag.
-\item Klausurzulassung: 3 beliebige markierte Aufgaben/Woche testieren lassen. 
+\item Besprechung Aufgaben vom Vortag
+\item Hilfestellung beim Bearbeiten der aktuellen Aufgaben
+%\item Klausurzulassung: 3 beliebige markierte Aufgaben/Woche testieren lassen. 
 \end{itemize}
-\item \alert{Klausur:} 10.3.2011; 10:00 - 11:30; Anmeldung über FlexNow.
+\item \alert{Klausur:} 30.9.2011; 10:00 - 11:30; Anmeldung über FlexNow.
 \end{itemize}
+
 \end{frame}
 
-\begin{frame}[<+->]{Inhalt der Vorlesung}
+\begin{frame}{Inhalt der Vorlesung}
 \begin{description}
  \item[1. Tag] Organisatorisches, Streifzug durch Matlab
-\item [2. Tag] 
-\item [3. Tag] 
-\item [4. Tag] 
-\item [5. Tag] 
-\item [6. Tag] 
-\item [7. Tag] 
+\item [2. Tag] Numerische Lineare Algebra, Programmieren
+\item [3. Tag] Strings, Grafik, Polynome
+\item [4. Tag] Visualisieren, Datenstrukturen, In- und Output, Etwas Debugging
+\item [5. Tag] Mehrdimensionale Arrays, Funktionen, Dünnbesetzte Matrizen, Numerische Mathematik
+\item [6. Tag] Grafik-Handle, GUIs
+\item [7. Tag] profiler
 \item [8. Tag] Schnittstelle zu C
-%\item [9. Tag] Strings, interaktive Grafiken, GeoGebra, Komplexe Beispiele
-%\item [10. Tag] Fragestunde
+\item [9. Tag] ?
+\item [10. Tag] Fragestunde
 \end{description}
 \end{frame}
 
@@ -96,7 +90,7 @@ XMPP: \url{schulz@jabber.num.math.uni-goettingen.de}\\
 \end{itemize}
 \item Vielfältige Visualisierungsmöglichkeiten.
 \item MATLAB-Programme sind vollständig portierbar zwischen Architekturen (cross-plattform).
-\item Integration zusätzlicher Toolboxes (Symb. Math T., PDE T., Wavelet T.)  
+\item zusätzliche Toolboxes (Symb. Math T., PDE T., Wavelet T.)  
 \item Ausgereifte Oberfläche.
 \end{itemize}
 \end{frame}
@@ -131,14 +125,14 @@ Starten von MATLAB: Eingabe von \mcode{matlab &} (in einem Terminal).
 \begin{columns}[c]
 \column{0.48\textwidth}
 \begin{itemize}
-\item \alert{Launch Pad:} Startmenü.
-\item \alert{Command Window:} Befehlseingabe und Standardausgabe.
+\item \alert{Launch Pad:} Startmenü
+\item \alert{Command Window:} Befehlseingabe und Standardausgabe
 \end{itemize}
 \column{0.48\textwidth}
 \begin{itemize}
 \item \alert{Workspace:} Ansicht von Variablen und deren Art und Grösse; Ändern der
 Einträge 
-\item \alert{Grafik:} normalerweise in seperaten Fenstern.
+\item \alert{Grafik:} normalerweise in separaten Fenstern
 \end{itemize}
 
 \end{columns}
@@ -445,7 +439,7 @@ Zu Werten $(x_i)_{i=1}^n$ muß man $(p(x_i))_{i=1}^n$ berechnen,
 d.h. Funktionswerte müssen sehr oft berechnet werden.
 
 \alert{Lösung:}\\
-Es gibt Funktionen in MATLAB.
+Funktionen
 \end{frame}
 
 %----------------------------
@@ -509,7 +503,7 @@ Soll keine Variable zurückgegeben werden, so besteht die erste Zeile aus
 function myfunction(In_1,..,In_k)
 \end{lstlisting}
 
-\alert{Wichtig:} Funktionsname muss identisch sein mit dem Dateinamen.
+\alert{Wichtig:} Funktionsname = Dateiname.
 \end{frame}
 %----------------------------
 % Folie 
@@ -525,8 +519,8 @@ function myfunction(In_1,..,In_k)
 \end{itemize}
 \item Variablen lokal, d.h.
 \begin{itemize}
- \item Variablen des Workspace sind innerhalb nicht verfügbar
-\item im Programm definierte Variablen werden nicht im  Workspace gespeichert.
+ \item Variablen des Workspace sind  nicht verfügbar.
+\item definierte Variablen werden nicht im  Workspace gespeichert.
 \end{itemize}
  
 %oder kurz \alert{ \mcode{function myfile(In_1,...,In_k)}}.
@@ -538,13 +532,34 @@ function myfunction(In_1,..,In_k)
 %----------------------------
 % Folie 
 %----------------------------
-\begin{frame}[fragile]\frametitle{Starten von Programmen}
+\begin{frame}[fragile]\frametitle{Priorität beim Programmaufruf}
+Beispiel-Programmaufruf
+\begin{lstlisting}
+>> name
+\end{lstlisting}
+
+Testet ob,..
+\begin{enumerate}
+\item  \alert{Variable}
+\item  \alert{Unterfunktion}. Eine
+  Unterfunktion ist ein Programm/Funktion, die in derselben Datei wie der
+  Aufruf steht.
+\item  Programm im \alert{aktuellen Verzeichnis}.
+\item  \textit{private function}.
+\item  Programm im \alert{Suchpfad}. 
+\end{enumerate}
+Bei gefundenem Namen wird die Suche beendet.
+\end{frame}
+
+%----------------------------
+% Folie 
+%----------------------------
+\begin{frame}[fragile]\frametitle{Suchpfad}
+
+Der Suchpfad (Variable \mcode{path}) enthält Verzeichnisse in einer geordneten Liste.
+
 \begin{itemize}
-\item Befindet man sich im selben Verzeichnis wie das Programm
-  \mcode{name.m}, so kann man das Programm starten durch Eingabe von  
-\mcode{name}. 
-\item Danach durchsucht MATLAB die in \mcode{path} angegebenen
-  Verzeichnisse nach dem Programm.
+\item Abarbeitung erfolgt der Ordnung gemäss.
 \item  Suchpfade hinzufügen:
 \begin{lstlisting}
 addpath <pfadname>
@@ -562,33 +577,20 @@ rmpath <pfadname>
 %----------------------------
 \begin{frame}[fragile]\frametitle{Verwalten von m-Files}
 \begin{itemize}
-\item \alert{ \mcode{doc <name>}} startet das grafische Hilfefenster mit einem ausführlichen Hilfetext zu dem jeweiligen Programm.
-\item \alert{ \mcode{lookfor <name>}} sucht nach dem Stichwort \mcode{name} in den
-  Kommentaren zu den Funktionen. Ansonsten kann auch das grafische Hilfefenster zur Rate gezogen werden.
-\item  \alert{ \mcode{what}} zeigt die m-Files im aktuellen Verzeichnis an.
-\item  \alert{ \mcode{type <name>}} zeigt den Inhalt von \mcode{name.m} im 'Command  Window' an.
-\item  \alert{ \mcode{which <name>}} gibt den genauen Pfad an, in dem die  Funktion
-  \mcode{name.m} gespeichert ist. 
-\item \alert{ \mcode{edit <name>}} Ruft den Editor mit \mcode{name.m} auf.
+\item \alert{ \mcode{doc <name>}}\\ öffnet grafisches Hilfefenster zum jeweiligen Programm.
+\item \alert{ \mcode{lookfor <name>}} \\ Suche nach \mcode{name} in den
+  Kommentaren zu den Funktionen (auch: grafisches Hilfefenster).
+\item  \alert{ \mcode{what}}\\ m-Files im aktuellen Verzeichnis.
+\item  \alert{ \mcode{type <name>}}\\ Inhalt von \mcode{name.m} (Command Window).
+\item  \alert{ \mcode{which <name>}}\\ absoluter Pfad der Datei, in dem die  Funktion
+  \mcode{name} gespeichert ist. 
+\item \alert{ \mcode{edit <name>}}\\ Ruft den Editor mit \mcode{name.m} auf.
 \end{itemize}
 \end{frame}
 
 
 
-%----------------------------
-% Folie 
-%----------------------------
-\begin{frame}[fragile]\frametitle{Priorität beim Programmaufruf}
-\begin{enumerate}
-\item  Testet, ob der Name eine Variable ist.
-\item  Testet, ob der Name eine Unterfunktion ist. Eine
-  Unterfunktion ist ein Programm, das in derselben Datei wie der
-  Aufruf steht.
-\item  Testet, ob das Programm im aktuellen Verzeichnis steht.
-\item  Testet, ob der Name eine \textit{private function} ist.
-\item  Testet, ob das Programm im Suchpfad enthalten ist. 
-\end{enumerate}
-\end{frame}
+
 
 
 
@@ -605,7 +607,7 @@ rmpath <pfadname>
 \begin{itemize}
 \item Erzeugen 'per Hand'
 \begin{lstlisting}
-> b = [1 2 4]
+>> b = [1 2 4]
 b =
      1     2     4
 \end{lstlisting}
@@ -625,7 +627,7 @@ Index $\equiv$ Position im Vektor\\
 % Slide: 
 %
 \begin{frame}[fragile]\frametitle{Doppelpunkt - Notation}
-$x:s:z$ erzeugt einen Vektor der Form 
+\mcode{x:s:z} erzeugt einen Vektor der Form 
 \[ (x,x+s,x+2s,x+3s, \ldots , z). \]
 \begin{lstlisting}
 >> a = 2:11
@@ -643,8 +645,8 @@ c =
 %
 \begin{frame}[fragile]\frametitle{Vektoren II}
 \begin{itemize}
-\item \mcode{length(a)} gibt die Länge des Vektors $a$ an.
-\item \mcode{linspace(x1,x2,N)} erzeugt den Vektor
+\item \mcode{length(a)}\\ Länge des Vektors $a$ an.
+\item \mcode{linspace(x1,x2,N)}\\ Vektor
 \[ x1, x1+\frac{x2-x1}{N-1}, x1+2 \frac{x2-x1}{N-1}, \dots ,x2  \]
 der Länge $N$.
 \begin{lstlisting}
@@ -652,7 +654,7 @@ der Länge $N$.
 ans =
     1.0000    1.3333    1.6667    2.0000
 \end{lstlisting}
-\item \mcode{logspace(x1,x2,N)} wie \mcode{linspace}, nur logarith. Skalierung
+\item \mcode{logspace(x1,x2,N)}\\ wie \mcode{linspace}, nur logarith. Skalierung
 \end{itemize}
 \end{frame}
 
@@ -669,15 +671,14 @@ B =
      1     3     4
      5     6     7
 \end{lstlisting}
-\item Erzeugen von 'Einheitsmatrizen' 
+\item \mcode{eye(n,m)}\\ $(n \times m)$-EinheitsMatrix)
 \begin{lstlisting}
 >> eye(2,3)
 ans =
      1     0     0
      0     1     0
 \end{lstlisting}
-\mcode{eye(n,m)} erzeugt eine $(n \times m)$- Matrix mit $1$ auf der
-Hauptdiagonalen und 0 sonst.
+($1$ auf der Hauptdiagonalen und 0 sonst).
 \end{itemize}
 \end{frame} 
 %
@@ -685,8 +686,8 @@ Hauptdiagonalen und 0 sonst.
 %
 \begin{frame}[fragile]\frametitle{Erzeugen von Matrizen II}
 \begin{itemize}
-\item \mcode{zeros(n,m)}: $(n \times m)$- Matrix mit $0$ als Einträge.
-\item \mcode{ones(n,m)}: $(n \times m)$- Matrix mit $1$ als Einträge.
+\item \mcode{zeros(n,m)}\\$(n \times m)$- Matrix mit $0$ als Einträge.
+\item \mcode{ones(n,m)}\\$(n \times m)$- Matrix mit $1$ als Einträge.
 \item Blockmatrizen
 \begin{lstlisting}
 >> C = [B zeros(2,2); eye(2,3) eye(2,2)]
@@ -705,7 +706,7 @@ Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 %
 \begin{frame}[fragile]\frametitle{Erzeugen von Matrizen III}
 \begin{itemize}
-\item \mcode{repmat(A,n,m)}: Blockmatrix mit $(n \times m)$
+\item \mcode{repmat(A,n,m)}\\ Blockmatrix mit $(n \times m)$
   aus A bestehenden Blöcken
 \begin{lstlisting}
 >> D = repmat(B,1,2)
@@ -713,8 +714,8 @@ D =
      1     3     4     1     3     4
      5     6     7     5     6     7
 \end{lstlisting}
-\item \mcode{blkdiag(A,B)}: Blockdiagonalmatrix.
-\item \mcode{diag(v,k)}: Matrix der Größe $(n+|k|) \times
+\item \mcode{blkdiag(A,B)}\\ Blockdiagonalmatrix.
+\item \mcode{diag(v,k)} \\Matrix der Größe $(n+|k|) \times
   (n+|k|)$ mit den Einträgen des Vektors $v$ auf der $k$-ten Nebendiagonalen. 
 \end{itemize}
 \end{frame}
@@ -725,8 +726,8 @@ D =
 %
 \begin{frame}[fragile]\frametitle{Beispiel-Matrizen}
 \begin{itemize}
-\item Einen Überblick erhält man durch \mcode{help gallery}
-\item Ein Beispiel
+\item Überblick: \mcode{help gallery}
+\item Beispiel
 \begin{lstlisting}
 >> E = gallery('moler',4)
 E =
@@ -871,19 +872,19 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Andere Operatoren}
 \begin{itemize}
-\item \mcode{A\\\B}:  Lösung $X$ von \mcode{A*X=B}. \\
+\item \mcode{A\\\B}\\ Lösung $X$ von \mcode{A*X=B}. \\
 
-\item \mcode{A/B}: Lösung $X$ von \mcode{X*A=B}.\\
+\item \mcode{A/B}\\ Lösung $X$ von \mcode{X*A=B}.\\
 
-\item \mcode{inv(A)}: Inverse von $A$.\\
+\item \mcode{inv(A)}\\ Inverse von $A$.\\
 
-\item \mcode{A'} oder \mcode{ctranspose(A)}: komplex Transponierte von $A$. \\
+\item \mcode{A'}\\ oder \mcode{ctranspose(A)}: komplex Transponierte von $A$. \\
 
-\item \mcode{A.'} oder \mcode{transpose(A)}: Transponierte von $A$. \\
+\item \mcode{A.'}\\ oder \mcode{transpose(A)}: Transponierte von $A$. \\
 
-\item \mcode{A^z}: (quadratische Matrizen) $\underbrace{A*A*\cdots *A}_{z-mal}$ \\
+\item \mcode{A^z}\\ (quadratische Matrizen) $\underbrace{A*A*\cdots *A}_{z-mal}$ \\
 
-\item \mcode{size(A)}: Gr\"o{\ss}e einer Matrix $A$ . 
+\item \mcode{size(A)}\\ Gr\"o{\ss}e einer Matrix $A$ . 
 \end{itemize}
 \end{frame}
 %
@@ -894,14 +895,16 @@ ans =
 >> A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{lstlisting}
 \begin{itemize}
-\item \mcode{C = A.*B} ergibt $C$ mit $C(i,j)=A(i,j)*B(i,j)$.
+\item $C(i,j)=A(i,j)*B(i,j)$.
 \begin{lstlisting}
+>> C = A.*B
 C =
      2     4
      6     8
 \end{lstlisting}
-\item \mcode{C = A./B} ergibt $C$ mit $C(i,j)=A(i,j)/B(i,j)$.
+\item $C(i,j)=A(i,j)/B(i,j)$.
 \begin{lstlisting}
+>> C = A./B
 C =
     0.5000    1.0000
     1.5000    2.0000
@@ -913,14 +916,16 @@ C =
 %
 \begin{frame}[fragile]\frametitle{Punktnotation}
 \begin{itemize}
-\item \mcode{C = A.\B} ergibt $C$ mit $C(i,j)=B(i,j)/A(i,j)$.
+\item $C(i,j)=B(i,j)/A(i,j)$.
 \begin{lstlisting}
+>> C = A.\B
 C =
     2.0000    1.0000
     0.6667    0.5000
 \end{lstlisting}
-\item \mcode{C = A.^B} ergibt $C$ mit $C(i,j)=A(i,j)^{B(i,j)}$
+\item $C(i,j)=A(i,j)^{B(i,j)}$
 \begin{lstlisting}
+>> C = A.^B
 C =
      1     4
      9    16

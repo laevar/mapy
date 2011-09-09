@@ -311,7 +311,8 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
 %Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
 %beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
-%zu behandeln. Sie ist integraler Bestandteil des QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
+%zu behandeln. 
+%QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
 \item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
@@ -333,9 +334,13 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %Eine Matrix A heißt hermitesch (nach Charles Hermite) oder selbstadjungiert genau dann, wenn sie gleich ihrer 
 %(hermitesch) Adjungierten A * , also gleich der transponierten und komplex konjugierten Matrix ist. D. h.
 
-%positiv definit, 	falls \langle v,v\rangle>0
+%positiv definit, 	falls x^T Ax > 0
 
-%
+%Die Cholesky-Zerlegung kann auch zur Gewinnung eines Vorkonditionierungsverfahrens für lineare Gleichungssysteme mit 
+%positiv definiter Matrix benutzt werden; zu diesem Zweck gibt es speziell die Variante der unvollständigen Cholesky-Zerlegung 
+%sowie der modifizierten unvollständigen Cholesky-Zerlegung.
+% determinante
+% test ob es eine positiv definite matrix ist
 \end{frame}
 % 
 % Slide 
@@ -353,7 +358,7 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \end{itemize}
 \end{frame}
 
-\section{Programmieren - Fixpunktiteration}
+\section{Programmieren}
 %\item Aufgaben
  
 %
@@ -373,6 +378,52 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \end{frame}
 
 \subsection{Schleifen}
+%
+% - Folie
+%
+\begin{frame}[fragile]\frametitle{for - Schleife}
+\begin{lstlisting}
+for <variable> = <Ausdruck>
+  <Befehle>
+end
+\end{lstlisting}
+\alert{Bemerkungen:} 
+\begin{itemize}
+\item Der Ausdruck ist normalerweise von der Form
+\mcode{i:s:j}. 
+\item Die {\it Befehle} werden eingerückt. 
+\item auch weitere Schleifen-Konstrukte wie \mcode{while} und \mcode{switch} sind verfügbar.
+\end{itemize}
+\end{frame}
+
+%
+% - Folie
+%
+\begin{frame}[fragile]\frametitle{Schleifen - Beispiele}
+\begin{itemize}
+\item Berechne $\sum_{i=1}^{1000} \frac{1}{i}$
+\begin{lstlisting}
+>> sum=0; for j=1:1000, sum=sum+1/j; end, sum
+sum =  7.4855
+\end{lstlisting}
+\item Berechnen dreier Werte
+\begin{lstlisting}
+>> for x=[pi/6 pi/4 pi/3], sin(x), end
+ans =    0.5000
+ans =    0.7071
+ans =    0.8660
+\end{lstlisting}
+\item Matrix als {\it Ausdruck}
+\begin{lstlisting}
+>> for x=eye(3),  x' ,end
+ans =     1     0     0
+ans =     0     1     0
+ans =     0     0     1
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
 %
 % - Folie
 %
@@ -397,7 +448,7 @@ bei geeignetem Startwert $x_0$.  \\
 %
 % - Folie
 %
-\begin{frame}[fragile]\frametitle{Implementierung}
+\begin{frame}[fragile]\frametitle{Fixpunkt-Iteration - Implementation}
 \begin{lstlisting}
 % Plot 1
 x = linspace(0,1.5,50);
@@ -432,50 +483,7 @@ end;
   gewechselt.  
 \end{itemize}
 \end{frame}
-%
-% - Folie
-%
-\begin{frame}[fragile]\frametitle{for - Schleife}
-\begin{lstlisting}
-for <variable> = <Ausdruck>
-  <Befehle>
-end
-\end{lstlisting}
-\alert{Bemerkungen:} 
-\begin{itemize}
-\item Der Ausdruck ist normalerweise von der Form
-\mcode{i:s:j}. 
-\item Die {\it Befehle} werden eingerückt. 
-\item auch weitere Schleifen-Konstrukte wie \mcode{while} und \mcode{switch} sind verfügbar.
-\end{itemize}
-\end{frame}
-%
-% - Folie
-%
-\begin{frame}[fragile]\frametitle{Beispiele}
-\begin{itemize}
-\item Berechne $\sum_{i=1}^{1000} \frac{1}{i}$
-\begin{lstlisting}
->> sum=0; for j=1:1000, sum=sum+1/j; end, sum
-sum =  7.4855
-\end{lstlisting}
-\item Berechnen dreier Werte
-\begin{lstlisting}
->> for x=[pi/6 pi/4 pi/3], sin(x), end
-ans =    0.5000
-ans =    0.7071
-ans =    0.8660
-\end{lstlisting}
-\item Matrix als {\it Ausdruck}
-\begin{lstlisting}
->> for x=eye(3),  x' ,end
-ans =     1     0     0
-ans =     0     1     0
-ans =     0     0     1
-\end{lstlisting}
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile]\frametitle{Vandermonde-Matrix }
+\begin{frame}[fragile]\frametitle{Vandermonde-Matrix I}
 Berechne zu einem gegebenen Vektor
   $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
 { \[ V:= \left(\begin{array}{ccccc} 
@@ -488,7 +496,7 @@ Berechne zu einem gegebenen Vektor
 %
 %
 %
-\begin{frame}[fragile]\frametitle{Implementierung II}
+\begin{frame}[fragile]\frametitle{Vandermonde-Matrix II}
 \lstinputlisting{vandermonde2.m}
 \end{frame}
 

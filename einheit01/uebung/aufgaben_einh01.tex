@@ -6,20 +6,20 @@
 \end{minipage}\\[1cm]
 %-----------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------
-\emph{Hinweis:} Alle Aufgaben (bis auf Aufgabe 6) sollen ohne Verwendung von
-Schleifen gel\"ost werden.\\
+\emph{Hinweis:} Lösen sie alle Aufgaben wenn möglich ohne Verwendung von
+Schleifen!\\
  
-\begin{aufg}
+\begin{aufg}[0]
 Starten Sie das Programm
 \mcode{plot_poly}. Der Graph welchen Polynoms wird dargestellt?
 Erklären Sie das Programm \mcode{ausw_poly2}.
 \end{aufg}
 
-\begin{aufg}
+\begin{aufg}[0]
 Stellen Sie das Polynom 
 \[ p(x)= x^5-4x^4 -10x^3 +40x^2 +9x -36\]
  grafisch dar. Wo sind die Nullstellen?\\
-\textit{Hinweis:} Benutzen sie die Eigenwerte (\mcode{eig}) der Begleitmatrix
+\textit{Hinweis:} Die Nullstellen sind die Eigenwerte (\mcode{eig}) der Begleitmatrix
 \[ \left( \begin{array} {ccccccc}
  0 & 0 & 0 & 0 & 36\\
 1 & 0  & 0 & 0  & -9\\ 
@@ -30,31 +30,22 @@ Stellen Sie das Polynom
 \end{aufg}
 
 %--------------------------------------------------
-\begin{aufg}
-Geben Sie die folgende Zeile ein: 
-\begin{lstlisting}
-x=1e-15; ((1+x)-1)/x
-\end{lstlisting} 
-Wie interpretieren Sie das Ergebnis? 
-(Testen Sie auch \lstinline!x=1e-16!!)
-\end{aufg}
-%--------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 Berechnen Sie $\sum_{j=2}^{1000} \frac{1}{log(j)j}$ und
   $\sum_{j=1}^{1000} \frac{1}{j}$.
 \end{aufg}
 %--------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 Welchen Grenzwert hat $\frac{1}{\pi^2} \sum_{j=1}^\infty
 \frac{1}{j^2}$?
 \end{aufg}
 %--------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 Betrachten Sie die Mandelbrot-Menge in $[-1,-0.4]\times
 [-0.6,0]$!
 \end{aufg}
 %--------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
  Interpretieren Sie das Ergebnis der Eingabe 
 \begin{lstlisting}
 a=100:2:200;
@@ -63,7 +54,9 @@ a(b)
 \end{lstlisting}
 \end{aufg}
 %--------------------------------------------------
-\begin{aufg}
+\newpage
+\begin{aufg}[0]
+\label{vander}
 Erzeugen Sie die $(100 \times 100)$ - Matrix 
 \[ \left( \begin{array} {ccccccc}
  2 & -1 &  & &   0 \\
@@ -76,18 +69,18 @@ und berechnen Sie ihre Determinante.
 \end{aufg}
 
 %--------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 Erzeugen Sie eine Hilbert Matrix der Größe $50$. (Befehl
   \lstinline!hilb!) Addieren
   Sie die Einträge der dritten Spalte! 
 \end{aufg}
 
-\begin{aufg}
+\begin{aufg}[0]
 Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
   dessen Durchschnitt berechnet und zurückgibt.
 \end{aufg}
 
-\begin{aufg}
+\begin{aufg}[0]
 Schreiben Sie eine Funktion, die zu einem gegebenen Vektor
   $x=(x_1, \dots ,x_n)$ die Vandermonde-Matrix
 \[ V:= \left(\begin{array}{ccccc} 

@@ -1,87 +1,104 @@
 \documentclass[notes=hide,hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 3}
-\subtitle{Strings, Grafik, Polynome}
+\subtitle{Rekursionen, Grafik}
 \input{../slide_header}
 \maketitle
 
 
-\section{Etwas Chars und Strings}
+\section{Rekursionen}
 %
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Characters (char) - Zeichen}
-\begin{itemize}
- \item Darstellung durch Integer
- \item Die Werte zwischen 0 und 128 entsprechen den ASCII Werten. 
-\item 2 Bytes Speicherbedarf $\Rightarrow$ Zahl zwischen 0 und $2^{16}-1$ 
-\end{itemize}
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Rekursive Funktionen}
+Rekursive Funktionen sind Funktionen, die sich selbst aufrufen.\\
+Bei jedem Aufruf wird ein neuer lokaler Workspace erzeugt.\\[1cm]
 
-\begin{lstlisting}
-s='d'
-\end{lstlisting}
-\begin{matlab}
-s = d
-\end{matlab}
-\begin{lstlisting}
-s1=double(s)
-\end{lstlisting}
-\begin{matlab}
-s1 =  100
-\end{matlab}
-\begin{lstlisting}
-s2=char(100)
-\end{lstlisting}
-\begin{matlab}
-s2 = d
-\end{matlab}
+\textbf{Beispiel:} Fakult"at: $n!=\fak(n)$\\
+\begin{eqnarray*}
+ n!& = & n(n-1)!=n \fak(n-1)\\
+& = & n(n-1)\fak(n-2)\\
+& = & \cdots= n(n-1)\cdots 1 
+\end{eqnarray*}
 \end{frame}
 %
-% Folie
+% Slide
 %
-\begin{frame}[fragile]\frametitle{Strings - Vektor von Zeichen}
-Die Zeichen werden wiederum durch die ASCII Werte dargestellt. 
-\begin{lstlisting}
-s='AB6de*'
-\end{lstlisting}  
-\begin{matlab}
-s =
-AB6de*
-\end{matlab}
-\begin{lstlisting}
-sd=double(s)
-\end{lstlisting}  
-\begin{matlab}
-sd =
-    65    66    54   100   101    42
-\end{matlab}
-\begin{lstlisting}
-s2=char(sd)
-\end{lstlisting}  
-\begin{matlab}
-s2 =
-AB6de*
-\end{matlab}
+\begin{frame}[fragile]\frametitle{Fakult"at - rekursiv}
+\lstinputlisting{fak.m}
 \end{frame}
-
 %
-% Folie
+% Slide
 %
-\begin{frame}[fragile]\frametitle{Befehle für Strings}
+\begin{frame}[fragile]\frametitle{Fakult"at - direkt}
+\lstinputlisting{fak_it.m}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Fakult"at - Zeitvergleich}
+\lstinputlisting{fak_vergleich.m}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{rekursive Implementierung GGT}
+\lstinputlisting{ggt_rekursiv.m}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Sierpinski Dreieck}
 \begin{itemize}
-\item Durch \mcode{strcat} werden Strings verbunden, z.B. 
-\begin{lstlisting}
-strcat('Hello',' world') 
-\end{lstlisting}
-\begin{matlab}
-ans = Hello world 
-\end{matlab}
-\item \alert{\mcode{num2str(x,n)}} konvertiert $x$ in einen String mit $n$
-  signifikanten Stellen. (Default: $n=4$)
-\item \alert{\mcode{int2str(x)}} rundet $x$ und konvertiert es in einen String.
-\item \alert{\mcode{strcmp(s,t)}} vergleicht die Strings $s$ und $t$. 
-\item Durch \alert{\mcode{help strfun}} erhält man eine Liste aller Befehle im
-  Zusammenhang mit Strings.
+\item Wir beginnen mit einem Dreieck mit Eckpunkten $P_a$, $P_b$ und $P_c$. 
+\item Wir entfernen daraus das Dreieck, das durch die Mittelpunkte der
+  Kanten entsteht.
+\item Die verbliebenden drei Dreiecke werden der gleichen Prozedur
+  unterzogen.
+\item Diesen Prozess können wir rekursiv wiederholen.
+\item Das Ergebnis ist das Sierpinski Dreieck.
 \end{itemize}
+\end{frame}
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Sierpinski Dreieck}
+\begin{minipage}{5cm}
+\includegraphics[height=4cm]{figures/sierpinski_0}
+\end{minipage} \hfill
+\begin{minipage}{5cm}
+\includegraphics[height=4cm]{figures/sierpinski_1}
+\end{minipage}\\ 
+\begin{minipage}{5cm}
+\includegraphics[height=4cm]{figures/sierpinski_2}
+\end{minipage} \hfill
+\begin{minipage}{5cm}
+\includegraphics[height=4cm]{figures/sierpinski_3}
+\end{minipage} \\
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Implementierung}
+\lstinputlisting{sierpinski_plot.m}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Implementierung}
+\lstinputlisting{sierpinski.m}
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Zeichnen von Polygonen}
+
+Ein Polygon sei durch die Eckpunkte $(x_i,y_i)_{i=1}^n$ gegeben. Dann
+kann er in MATLAB durch den Befehl
+\begin{lstlisting}
+fill(x,y,char)
+\end{lstlisting}
+dargestellt werden. \mcode{char} gibt die Farbe des Polygons an, z.B. rot
+wäre 'r'.
 \end{frame}
 
 
@@ -306,72 +323,6 @@ xlim([-1.1,1.1])
 \end{itemize}
 \end{frame}
 
-\subsection{Anwendung: polynomiale Interpolation}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Polynomiale Interpolation}
-\begin{columns}[b]
- \column{0.6\textwidth}
-Suche ein Polynom vom Grad 3
-\[ p(x)= p_0 +p_1 x +p_2 x^2 +p_3 x^3,  \]
- dass durch die vier Punkte
-$(0,1)$, $(1,1)$, $(2,4)$, $(5,3)$
-verläuft.
-\column{0.4\textwidth}
-\includegraphics[width=\textwidth]{figures/grafik_6}
-\end{columns}
-$\Rightarrow  \alert{ p(0)=1, \ p(1)=1, \ p(2)=4, \ p(5)=3}$
-
-$\Rightarrow \quad$ Lineares GLS \alert{ $Ap=b$} mit
-{\scriptsize \[ A= \left( \begin{array}{cccc}
-1 & 0 & 0 & 0\\
-1 & 1 & 1 & 1\\
-1 & 2 & 2^2 & 2^3 \\
-1 & 5 & 5^2 & 5^3 \\
-\end{array} \right), \
-p=\left( \begin{array}{c} 
-p_0 \\ p_1 \\ p_2 \\p_3\\
-\end{array} \right),
-\
-b=\left( \begin{array}{c} 
-1 \\ 1 \\ 4 \\ 3\\
-\end{array} \right),
-\]}  
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Polynomiale Interpolation II}
-Suche ein Polynom vom Grad n
-\[ p(x)= p_0 +p_1 x +p_2 x^2 +p_3 x^3+ \dots +p_n x^n,  \]
- dass durch die  $n+1$ Punkte $(x_i,y_i)_{i=0}^n$
-verläuft.\\[1cm]
-
-\textbf{Beispiel}: Interpolation von
-\[ (x_i,y_i)_{i=0}^{12} \]
-mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$. 
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Polynomiale Interpolation: Beispiel}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{figures/grafik_7}
-\end{center}
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Programm 1}
-\lstinputlisting{interpol2.m}
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Programm 2}
-\lstinputlisting{interpol3.m}
-\end{frame}
 
 \subsection{Weitere zweidimensionale Darstellungsmöglichkeiten}
 
@@ -379,28 +330,23 @@ mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$.
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Darstellung von Daten}
-Daten:
-\begin{lstlisting}
-n=linspace(0,10,40);
-y=n.^2.*exp(-n);
-\end{lstlisting}
 \begin{itemize}
 \item Balkendiagramm:
 \begin{lstlisting}
-bar(y) 
+bar(<Daten>) 
 \end{lstlisting}
 \item Histogramm: 
 \begin{lstlisting}
-hist(y,5)
+hist(<Daten>,<Anzahl Bars>)
 \end{lstlisting}
 \item einfacher ausgefüllter Plot: 
 \begin{lstlisting}
-area(n,[y',2*y'])
+area(<x>,[<y1>,<y2>])
 \end{lstlisting}
-% y und 2*y werden addiert!
+(y1 und y2 werden addiert)
 \item Tortengrafik: 
 \begin{lstlisting}
-pie3([ 1 2 3 4])
+pie3([<anteil1> <anteil2> .. <anteilx>])
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -726,176 +672,7 @@ gegeben.\\
 %
 % Slide
 %
-\section{Polynome und Interpolation}
 
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Polynome}
-In MATLAB werden Polynome
-\[ p(x)=p_1 x^n+ p_2 x^{n-1}+ \cdots + p_{n+1} \]
-repr\"asentiert durch einen Zeilenvektor $p=[p(1) \ p(2) \ \dots
-\   p(n+1)]$. \vspace*{0.5cm}\\
-
-\alert{ Vorsicht:} Normalerweise werden Polynome in der Form
-$\sum_{i=0}^n p_ix^i$ dargestellt. In MATLAB dagegen ist die
-Darstellung invers und beginnt bei $1$.
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Problemstellungen}
-\begin{itemize}
-\item [1.] \alert{ Auswerten:} Bei gegebenen Koeffizienten, das
-  zugeh\"orige Polynom an bestimmten Stellen auswerten.
-\item [2.] \alert{ Nullstellenbestimmung:} Bestimme zu gegebenen
-  Koeffizienten die Nullstellen des zugeh\"origen Polynoms.
-\item [3.]  \alert{ Interpolation}: Bestimme zu einer gegebenen Menge von
-  Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $n$.-ten Grades, das durch
-  diese Punkte verl\"auft.
-\end{itemize}
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Auswerten}
-Durch 
-\begin{lstlisting}
-y=polyval(p,x)
-\end{lstlisting}
-werden aus einem vorgegebenen Koeffizientenvektor $p$ und
-entsprechenden Stellen $x$ die zugeh\"origen Funktionswerte $y$
-berechnet. $x$ kann eine Matrix sein. $y$ ist dann von der gleichen
-Dimens. wie $x$.\\[0.2cm]
-
-\alert{Beispiel:} $p(x):= x^3 - x^2 +1$\\
-\begin{columns}[c]
-\column{0.55\textwidth}
-\begin{lstlisting}
-x=-2:0.1:2; 
-y=polyval([1 -1 0 1],x); 
-plot(x,y,'r--','Linewidth',3);
-\end{lstlisting}
-\column{0.45\textwidth}
-%\includegraphics[width=5cm, height=3cm]{grafik_1}
-\includegraphics[width=\textwidth]{figures/polynom1}
-\end{columns}
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Bestimmung von Nullstellen}
-Ist $p$ der obige Koeffizientenvektor, so k\"onnen die Nullstellen $z$
-durch \mcode{z = roots(p)} berechnet werden. 
-
-\textbf{Beispiel:} \\
-Nullstellen von $p(x):= x^3 - x^2 +1$\\
-\begin{columns}[c]
-\column{0.58\textwidth}
-\begin{lstlisting}
-roots([1 -1 0 1])
-\end{lstlisting}
-\begin{matlab}
-ans =
-   0.8774 + 0.7449i
-   0.8774 - 0.7449i
-  -0.7549  
-\end{matlab}
-\begin{lstlisting}
-x=-1:0.1:1; [X,Y]=meshgrid(x,x);
-Z=abs(polyval([1 -1 0 1],X+i*Y)); 
-surf(X,Y,Z)
-\end{lstlisting}
-\column{0.43\textwidth}
-\includegraphics[width=\textwidth]{figures/polynom2}
-\end{columns}
-\end{frame}
-% 
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Interpolation}
-Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
-$n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.
-\begin{matlabin}
-p = polyfit(x,y,n)
-\end{matlabin}
-
-Ruft man
-\begin{matlabin}
-p = polyfit(x,y,m)
-\end{matlabin}
- mit $m<n$ auf, so sucht MATLAB
-die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
-welches \\
- $\sum_{i=0}^n (p(x_i)-y_i)^2$ minimiert.
-\end{frame}
-
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Data Fitting}
-Ein weiterer Befehl  zur Interpolation ist
-\begin{lstlisting}
-yi=interp1(x,y,xi,'method').
-\end{lstlisting}
-Dabei sind $(x,y)$ die gegebenen Punkte, $xi$ sind die Stellen, an die
-die Interpolante berechnet wird und $yi$ sind die entsprechenden
-Funktionswerte. 
-Als \mcode{'method'} gibt es\\
-
-%{\scriptsize
-\begin{tabular}{ll}
-\mcode{'nearest'} &  stückweise konstante Approximation \\
-\mcode{'linear'}  & Lineare Interpolation \\ 
-\mcode{'spline'} & stückweise kubischer Spline $u$ ($u \in C^2$,
-$u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
-\mcode{'cubic'} & kubische Hermite Interpolation\\ 
-\end{tabular}
-%}
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Beispiel}
-\hfil\includegraphics[width=0.8\textwidth]{figures/data_fitting}\hfil
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Bemerkungen}
-\begin{itemize}
-\item  Nur für die Spline-Methoden können   bei \mcode{interp1}  auch
-  Stellen außerhalb des
-  Interpolationsintervalls berechnet werden.
-\item Data Fitting kann auch über die Oberfläche durchgeführt werden.
- Plotten Sie die Daten und wählen Sie \mcode{Basic Fitting} im Men\"u
- \mcode{Tools}. 
-\end{itemize}
-\end{frame}
-%
-% Slide
-% 
-% \begin{frame}[fragile]\frametitle{Lineare Regression}
-% \begin{lstlisting}
-% % Example for Linear Regression 
-% x = (1:0.5:4)';
-% y = exp(x);
-% plot(x,y,'o');
-% hold on;
-% pause;
-% %--- Determine least square fit for
-% 
-% %    f(t)=a(1) + a(2) t + a(3) t^2
-% 
-% n=length(x);
-% A = [ ones(n,1), x, x.^2 ];
-% a = A \ y;
-% %--- Plot new curve
-% x1 = 1:0.1:4;
-% y1 = a(1) + a(2)*x1 + a(3)*x1.^2;
-% plot(x1,y1,'LineWidth',2)
-% \end{lstlisting}
-% \end{frame}
 
 \end{document}
 

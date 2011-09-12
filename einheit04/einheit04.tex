@@ -1,8 +1,250 @@
 \documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 4}
-\subtitle{Visualisieren, Datenstrukturen, In- und Output, Etwas Debugging}
+\subtitle{Polynome, Interpolation, Visualisieren, Debugging}
 \input{../slide_header}
 \maketitle
+
+\section{Polynome und Interpolation}
+
+\subsection{Polynomiale Interpolation selbstgemacht}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Polynomiale Interpolation}
+\begin{columns}[b]
+ \column{0.6\textwidth}
+Suche ein Polynom vom Grad 3
+\[ p(x)= p_0 +p_1 x +p_2 x^2 +p_3 x^3,  \]
+ dass durch die vier Punkte
+$(0,1)$, $(1,1)$, $(2,4)$, $(5,3)$
+verläuft.
+\column{0.4\textwidth}
+\includegraphics[width=\textwidth]{figures/grafik_6}
+\end{columns}
+$\Rightarrow  \alert{ p(0)=1, \ p(1)=1, \ p(2)=4, \ p(5)=3}$
+
+$\Rightarrow \quad$ Lineares GLS \alert{ $Ap=b$} mit
+{\scriptsize \[ A= \left( \begin{array}{cccc}
+1 & 0 & 0 & 0\\
+1 & 1 & 1 & 1\\
+1 & 2 & 2^2 & 2^3 \\
+1 & 5 & 5^2 & 5^3 \\
+\end{array} \right), \
+p=\left( \begin{array}{c} 
+p_0 \\ p_1 \\ p_2 \\p_3\\
+\end{array} \right),
+\
+b=\left( \begin{array}{c} 
+1 \\ 1 \\ 4 \\ 3\\
+\end{array} \right),
+\]}  
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Polynomiale Interpolation II}
+Suche ein Polynom vom Grad n
+\[ p(x)= p_0 +p_1 x +p_2 x^2 +p_3 x^3+ \dots +p_n x^n,  \]
+ dass durch die  $n+1$ Punkte $(x_i,y_i)_{i=0}^n$
+verläuft.\\[1cm]
+
+\textbf{Beispiel}: Interpolation von
+\[ (x_i,y_i)_{i=0}^{12} \]
+mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$. 
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Polynomiale Interpolation: Beispiel}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/grafik_7}
+\end{center}
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Programm 1}
+\lstinputlisting{interpol2.m}
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Programm 2}
+\lstinputlisting{interpol3.m}
+\end{frame}
+
+\subsection{Polynome - Matlab built-in}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Polynome}
+In MATLAB werden Polynome
+\[ p(x)=p_1 x^n+ p_2 x^{n-1}+ \cdots + p_{n+1} \]
+repr\"asentiert durch einen Zeilenvektor $p=[p(1) \ p(2) \ \dots
+\   p(n+1)]$. \vspace*{0.5cm}\\
+
+\alert{ Vorsicht:} Normalerweise werden Polynome in der Form
+$\sum_{i=0}^n p_ix^i$ dargestellt. In MATLAB dagegen ist die
+Darstellung invers und beginnt bei $1$.
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Problemstellungen}
+\begin{itemize}
+\item [1.] \alert{ Auswerten:} Bei gegebenen Koeffizienten, das
+  zugeh\"orige Polynom an bestimmten Stellen auswerten.
+\item [2.] \alert{ Nullstellenbestimmung:} Bestimme zu gegebenen
+  Koeffizienten die Nullstellen des zugeh\"origen Polynoms.
+\item [3.]  \alert{ Interpolation}: Bestimme zu einer gegebenen Menge von
+  Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $n$.-ten Grades, das durch
+  diese Punkte verl\"auft.
+\end{itemize}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Auswerten}
+Durch 
+\begin{lstlisting}
+y=polyval(p,x)
+\end{lstlisting}
+werden aus einem vorgegebenen Koeffizientenvektor $p$ und
+entsprechenden Stellen $x$ die zugeh\"origen Funktionswerte $y$
+berechnet. $x$ kann eine Matrix sein. $y$ ist dann von der gleichen
+Dimens. wie $x$.\\[0.2cm]
+
+\alert{Beispiel:} $p(x):= x^3 - x^2 +1$\\
+\begin{columns}[c]
+\column{0.55\textwidth}
+\begin{lstlisting}
+x=-2:0.1:2; 
+y=polyval([1 -1 0 1],x); 
+plot(x,y,'r--','Linewidth',3);
+\end{lstlisting}
+\column{0.45\textwidth}
+%\includegraphics[width=5cm, height=3cm]{grafik_1}
+\includegraphics[width=\textwidth]{figures/polynom1}
+\end{columns}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Bestimmung von Nullstellen}
+Ist $p$ der obige Koeffizientenvektor, so k\"onnen die Nullstellen $z$
+durch \mcode{z = roots(p)} berechnet werden. 
+
+\textbf{Beispiel:} \\
+Nullstellen von $p(x):= x^3 - x^2 +1$\\
+\begin{columns}[c]
+\column{0.58\textwidth}
+\begin{lstlisting}
+roots([1 -1 0 1])
+\end{lstlisting}
+\begin{matlab}
+ans =
+   0.8774 + 0.7449i
+   0.8774 - 0.7449i
+  -0.7549  
+\end{matlab}
+\begin{lstlisting}
+x=-1:0.1:1; [X,Y]=meshgrid(x,x);
+Z=abs(polyval([1 -1 0 1],X+i*Y)); 
+surf(X,Y,Z)
+\end{lstlisting}
+\column{0.43\textwidth}
+\includegraphics[width=\textwidth]{figures/polynom2}
+\end{columns}
+\end{frame}
+
+
+\subsection{Interpolation}
+% 
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Interpolation}
+Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
+$n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.
+\begin{matlabin}
+p = polyfit(x,y,n)
+\end{matlabin}
+
+Ruft man
+\begin{matlabin}
+p = polyfit(x,y,m)
+\end{matlabin}
+ mit $m<n$ auf, so sucht MATLAB
+die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
+welches \\
+ $\sum_{i=0}^n (p(x_i)-y_i)^2$ minimiert.
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Data Fitting}
+Ein weiterer Befehl  zur Interpolation ist
+\begin{lstlisting}
+yi=interp1(x,y,xi,'method').
+\end{lstlisting}
+Dabei sind $(x,y)$ die gegebenen Punkte, $xi$ sind die Stellen, an die
+die Interpolante berechnet wird und $yi$ sind die entsprechenden
+Funktionswerte. 
+Als \mcode{'method'} gibt es\\
+
+%{\scriptsize
+\begin{tabular}{ll}
+\mcode{'nearest'} &  stückweise konstante Approximation \\
+\mcode{'linear'}  & Lineare Interpolation \\ 
+\mcode{'spline'} & stückweise kubischer Spline $u$ ($u \in C^2$,
+$u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
+\mcode{'cubic'} & kubische Hermite Interpolation\\ 
+\end{tabular}
+%}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Beispiel}
+\hfil\includegraphics[width=0.8\textwidth]{figures/data_fitting}\hfil
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Bemerkungen}
+\begin{itemize}
+\item  Nur für die Spline-Methoden können   bei \mcode{interp1}  auch
+  Stellen außerhalb des
+  Interpolationsintervalls berechnet werden.
+\item Data Fitting kann auch über die Oberfläche durchgeführt werden.
+ Plotten Sie die Daten und wählen Sie \mcode{Basic Fitting} im Men\"u
+ \mcode{Tools}. 
+\end{itemize}
+\end{frame}
+%
+% Slide
+% 
+% \begin{frame}[fragile]\frametitle{Lineare Regression}
+% \begin{lstlisting}
+% % Example for Linear Regression 
+% x = (1:0.5:4)';
+% y = exp(x);
+% plot(x,y,'o');
+% hold on;
+% pause;
+% %--- Determine least square fit for
+% 
+% %    f(t)=a(1) + a(2) t + a(3) t^2
+% 
+% n=length(x);
+% A = [ ones(n,1), x, x.^2 ];
+% a = A \ y;
+% %--- Plot new curve
+% x1 = 1:0.1:4;
+% y1 = a(1) + a(2)*x1 + a(3)*x1.^2;
+% plot(x1,y1,'LineWidth',2)
+% \end{lstlisting}
+% \end{frame}
 
 \section{Visualisieren von 3D-Daten}
 
@@ -105,366 +347,7 @@ ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
 \end{itemize}
 \end{frame}
 
-\section{Datenstrukturen}
-%
-%
-%
-\begin{frame}[fragile]\frametitle{Datenstrukturen}
-\begin{itemize}
-\item In MATLAB gibt es verschiedene {\it Datentypen}. 
-Sie werden bestimmt durch ihre Eigenschaften.
-\item Einzelne Elemente eines Datentyps werden {\it Objekte} genannt. 
-\item Ein {\it Objekt} besteht meist aus drei Teilen: {\it Bezeichner}, {\it
-Referenzen} und {\it Werte} des Objekts.  
-\item {\it Variablen} sind Datenobjekte deren Werte w\"ahrend eines
-Programmablaufs ver\"andert werden k\"onnen. 
-\end{itemize}
-\end{frame}
-%
-%
-%
-\begin{frame}[fragile]\frametitle{Datentypen in MATLAB}
-\begin{itemize}
-\item MATLAB speichert alle Variablen als Felder. Ein Skalar ist eine $1 \times
-1$-Matrix. 
-\item MATLAB weist den Datentyp {\it implizit} zu. Durch die Zuweisung eines
-Wertes wird der Typ implizit bestimmt. 
-\item Den Datentyp eines Objekts $a$ kann durch den Befehl \alert{
-\mcode{class(a)}} bestimmt werden.
-\end{itemize}
-\end{frame}
-%
-%
-%
-\begin{frame}[fragile]\frametitle{Datentypen in MATLAB}
-\begin{itemize}
-\item Gleitkommazahlen (Komplexe Zahlen)
-\item Characters und Strings
-\item Strukturen
-\item Cell Arrays
-\item Funktionen
-\item Sparse Matrizen
-\item Integer-Zahlen
-\item Logische Ausdr\"ucke
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Gleitkommazahlen}
-\begin{itemize}
-\item Standard-Datentyp ist ein Array von Gleitkommazahlen (\mcode{double}).
-\item Abstand von $1$ zur nächsten Gleitkommazahl in MATLAB: $\epsilon
-  =2^{-52}$ (vgl. \mcode{eps} in MATLAB)
-\item Sei $x \in \mathbb{R}$ eine reelle Zahl und $\tilde x$ die
-  Darstellung in MATLAB. Dann gilt für den Rundungsfehler \\[-0.5cm]
-\[ \frac{|x - \tilde x|}{|x|}\leq \frac{1}{2} \epsilon .\]
-\item Die größte bzw. kleinste in MATLAB darstellbare positive Zahl
-  ist in
-\mcode{realmin} bzw. \mcode{realmax} gespeichert. 
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Ausnahmen}
-\begin{itemize}
-\item Ist eine Zahl größer als \mcode{realmax}, so meldet MATLAB einen
-  'Overflow' und gibt als Ergebnis \mcode{Inf} zurück.
-\begin{lstlisting}
-realmax*1.1
-\end{lstlisting}
-\begin{matlab}
- ans =   Inf
-\end{matlab}
 
-\item Bei Operationen wie $0/0$  oder $\infty / \infty$, erhält man als Ergebnis
-  \mcode{NaN} ({\it Not a Number}).
-\begin{lstlisting}
-0/0 
-\end{lstlisting}
-\begin{matlab}
-Warning: Divide by zero.
-ans =   NaN 
-\end{matlab}
-
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Umgang mit NaN und       Inf  }
-\begin{itemize}
-\item Mit Hilfe von \alert{ \mcode{isinf}} und \alert{ \mcode{isnan}} kann auf
-$\infty$ bzw. NaN getestet werden.
- \begin{lstlisting}
-isnan(0/0), isinf(1.2*realmax)
-\end{lstlisting}
-\begin{matlab}
-ans =   1  ans =   1
-\end{matlab}
-\item Test auf NaN durch $==$ ist nicht m\"oglich
-\begin{lstlisting}
-0/0 == NaN
-\end{lstlisting}
-\begin{matlab}
-ans =     0
-\end{matlab}
-\item Bei Inf ist der Test durch $==$  m\"oglich!
-\begin{lstlisting}
-(1.2*realmax)==Inf
-\end{lstlisting}
-\begin{matlab}
-ans =     1
-\end{matlab}
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Single}
-\begin{itemize}
-\item \"Ahnlich wie in C gibt es den Datentyp \mcode{single}. Es ist eine
-Darstellung in geringerer Genauigkeit. 
-\item Durch den Befehl \alert{ \mcode{single()}} wird eine \mcode{double}-Zahl in
-eine \mcode{single}-Zahl konvertiert. 
-\item Arithmetische Operationen mit \mcode{double}- und \mcode{single}-Objekten
-ergeben  \mcode{single}-Objekte.
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Single}
-\begin{lstlisting}
-a = sqrt(2); b = single(a);
-c = a+b; d = a-b
-\end{lstlisting}
-\begin{matlab}
-d =
-  2.4203e-08
-\end{matlab}
-\begin{lstlisting}
-whos
-\end{lstlisting}
-\begin{matlab}
-  Name   Size     Bytes  Class    
-  a      1x1        8  double              
-  b      1x1        4  single              
-  c      1x1        4  single              
-  d      1x1        4  single  
-\end{matlab}
-\begin{lstlisting}
-[realmax, single(realmax)], realmax
-\end{lstlisting}
-\begin{matlab}
-ans =
-   Inf   Inf
-ans =
-  1.7977e+308
-\end{matlab}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Operator Rangfolge}
-\begin{tabular}{|cp{10cm}|}
-\hline
-Level & Operator\\
-\hline
-1 &   Exponent (\mcode{^}, \mcode{.^}), \mcode{transpose}\\
-2 & logische Verneinung (\mcode{\~})\\
-3 & Multiplikation (*,.*), Division (\mcode{/},\mcode{./},\mcode{\\}, \mcode{.\\})\\
-4 & Addition (+), Subtraktion (-)\\
-5 & Doppelpunktoperator (:)\\
-6 & Vergleichsoperatoren (\mcode{<},\mcode{>},\mcode{<=},\mcode{>=},\mcode{==},\mcode{\~=})\\ 
-7 & Logisches und (\mcode{\&})\\
-8 & Logisches oder (\mcode{|})\\
-\hline
-\end{tabular}\\[0.5cm]
-{\scriptsize Bei gleicher Rangfolge wertet MATLAB von links nach rechts
-  aus. \\
-Die Rangfolge kann durch Klammersetzung geändert werden.}
-
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Darstellungsformate am Beispiel $1/7$}
-\begin{tabular}{ll}
-\alert{ \mcode{format short}} &  0.1429 \\
-\alert{ \mcode{format short e} }& 1.4286e-01\\
-\alert{ \mcode{format short g} }&0.14286\\
-\alert{ \mcode{format long} }& 0.14285714285714\\
-\alert{ \mcode{format long g} }& 0.142857142857143\\
-\alert{ \mcode{format long e} }& 1.428571428571428e-01\\
-\end{tabular}
-
-Das Default-Format ist \mcode{short}. 
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Komplexe Zahlen}
-Komplexe Zahlen $z \in \mathbb{C}$ haben die Form
-\[ z = x +iy, \quad x,y \in \mathbb{R} \]
-mit $i=\sqrt{-1}$. 
-\begin{itemize}
-\item $\sqrt{-1}$ ist in MATLAB vordefiniert in den Variablen $i$,$j$.
-\item Durch \mcode{complex(x,y)}  kann aus $x,y \in
-  \mathbb{R}$ die komplexe Zahl $x + iy$ erzeugt werden.
-\item Für $z=x+iy \in \mathbb{C}$ erhält man den Realteil mit
-  $real(z)$ und den Imaginärteil durch $imag(z)$. 
-\end{itemize} 
-\end{frame}
-\begin{frame}[fragile]\frametitle{Polarkoordinaten}
-\alert{ \[ z \in \mathbb{C}, \quad z=re^{i \varphi}=r(\cos \varphi + i \sin
-  \varphi) \]}
-\begin{itemize}
-\item \mcode{abs(z)} ergibt den Betrag $r$ von $z$.
-\item $\varphi$ erhält man durch \mcode{angle(z)}.
-\item grafische Darst.:  \mcode{compass(z)} ($z=3+3i$). \\
- \centering{\includegraphics[width=0.3\textwidth]{../figures/kompass}}\\ 
-\end{itemize}
-\end{frame}
-
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Structures}
-\alert{Structures:}\\
-Strukturen sind eine Möglichkeit verschiedene Objekte in einer
-Datenstruktur zu bündeln.\\[1cm]
-
-\alert{Beispiel:} komplexe Zahlen
-\begin{lstlisting}
-komp_Zahl.real=1;
-komp_Zahl.imag=1;
-komp_Zahl
-\end{lstlisting}
-\begin{matlab}
-komp_Zahl = 
-
-    real: 1
-    imag: 1
-\end{matlab}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Structures II}
-\begin{itemize}
-\item Alternativ können Strukturen durch
-\begin{lstlisting}
-struktur = struct('Feld1',<Wert1>,'Feld2',<Wert2>,..)
-\end{lstlisting}
-definiert werden.
-\item Ein Feld einer Struktur \mcode{struktur} kann durch 
-\begin{lstlisting}
-struc2 = rmfield( <struktur> ,'Feld')
-\end{lstlisting}
-gel\"oscht werden. 
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Cell Arrays}
-\alert{Cell Arrays:} \\
-Cell Arrays sind spezielle Matrizen, deren  Einträge aus unterschiedlichen
-Datentypen bestehen können. Erzeugt
-werden sie durch geschweifte Klammern.\\
-\begin{lstlisting}
-C = { 1:10, hilb(4);...
-       'Hilbert Matrix', pi}
-\end{lstlisting} 
-\begin{matlab}
-C = 
-       [1x10 double]    [4x4 double]
-    'Hilbert Matrix'    [    3.1416]
-\end{matlab} 
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Befehle für Cell Arrays}
-\begin{itemize}
-\item Zugriff auf Cell-Arrays:\\ 
-\begin{columns}[c]
-\column{0.45\textwidth}
-\begin{lstlisting} 
-C{2,1}
-\end{lstlisting}
-\begin{matlab}
-ans =
-Hilbert Matrix
-\end{matlab}
-\column{0.45\textwidth}
-\begin{lstlisting}
-C{1,2}(2,3)
-\end{lstlisting}
-\begin{matlab}
-ans =
-    0.2500
-\end{matlab}
-\end{columns}
-\item Durch \mcode{celldisp(C)} wird der Inhalt von $C$ dargestellt.
-%\item \mcode{struct2cell} bzw. \mcode{num2cell} erzeugt ein Cell Array
-%  aus einer Struktur bzw. einer normalen Matrix.
-\item \mcode{cellplot(C)} stellt $C$ grafisch dar.
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Integer}
-\begin{itemize}
-\item In diesen Datentypen werden ganze bzw. nat\"urliche Zahlen gepeichert.  
-\item Zur effizienten Speicherung gibt es die Datentypen \mcode{int8},
-\mcode{uint8}, \mcode{int16}, \mcode{uint16}, \mcode{uint16}, \mcode{int32},
-\mcode{uint32}, \mcode{int64}, \mcode{uint64}. 
-\item In den Datentypen, die mit \mcode{u} beginnen, werden nat\"urliche Zahlen
-gespeichert, sonst ganze Zahlen.
-\item Die abschlie{\ss}ende Zahl gibt den Speicherbedarf an. \mcode{uint8}
-ben\"otigt z.B. $8$-Bit. (Wertebereich $0 \dots 2^8-1$).
-\end{itemize}
-\end{frame}
-%
-% Folie
-%
-\begin{frame}[fragile]\frametitle{Integer}
-\begin{lstlisting}
-a = int8(20); b = int16(20); c = int8(20);
-a*c, a*b
-\end{lstlisting}
-\begin{matlab}
-ans =  127
-??? Error using ==> mtimes
-Integers can only be combined with integers
-of the same class, or scalar doubles.
-\end{matlab}
-\begin{lstlisting}
-a+0.2
-\end{lstlisting}
-\begin{matlab}
-ans =   20
-\end{matlab}
-\begin{lstlisting}
-a+0.5
-\end{lstlisting}
-\begin{matlab}
-ans =   21
-\end{matlab}
-\begin{lstlisting}
-a*1.54
-\end{lstlisting}
-\begin{matlab}
-ans =   31
-\end{matlab}
-\end{frame}
-%
-%
-%
 \section{In- und Output}
 %
 % Slide

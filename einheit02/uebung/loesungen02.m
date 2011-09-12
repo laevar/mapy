@@ -1,3 +1,8 @@
+disp ('*** aufgabe 1');
+clear
+x = 1e-15; ((1+x)-1)/x
+x = 1e-16; ((1+x)-1)/x
+
 disp('*** aufgabe 1');
 clear
 A = [ 2 3 4 5; 1 1 1 1 ; 1 0 1 0; 9 3 2 1];

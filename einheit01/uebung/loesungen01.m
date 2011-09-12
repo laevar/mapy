@@ -27,12 +27,8 @@ eig(B)
 figure
 plot(x,y,'r*-','LineWidth',3,'MarkerSize',4)
 
-disp ('*** aufgabe 3');
-clear
-x = 1e-15; ((1+x)-1)/x
-x = 1e-16; ((1+x)-1)/x
 
-disp ('*** aufgabe 4');
+disp ('*** aufgabe 3');
 clear
 
 j = 2:1000;
@@ -42,12 +38,12 @@ j = 1:1000;
 idx = ones(1000,1);
 1./j*idx
 
-disp ('*** aufgabe 5');
+disp ('*** aufgabe 4');
 clear
 j = 1:10000;
 1/pi^2*sum(1./j.^2)
 
-disp ('*** aufgabe 6');
+disp ('*** aufgabe 5');
 clear
 
 x = linspace(-1,-0.4,401);
@@ -68,11 +64,11 @@ figure
 image(x,y,Anz);
 title('Mandelbrot Set', 'FontSize',16);
 
-disp ('*** aufgabe 7');
+disp ('*** aufgabe 6');
 clear
 a =100:2:200; b=[1 4 10] ; a (b)
 
-disp ('*** aufgabe 8');
+disp ('*** aufgabe 7');
 clear
 
 A = diag (2*ones(100,1),0) + ...
@@ -80,18 +76,18 @@ A = diag (2*ones(100,1),0) + ...
     diag (-1*ones(99,1),1);
 det(A)
 
-disp ('*** aufgabe 9');
+disp ('*** aufgabe 8');
 clear
 
 A = hilb(50);
 sum(A(:,3))
 
-disp('*** aufgabe 10');
+disp('*** aufgabe 9');
 clear
 x = [ 1 2 3 4];
 meanv(x)
 
-disp('*** aufgabe 11');
+disp('*** aufgabe 10');
 clear
 
 x = [ 1 2 3 4];

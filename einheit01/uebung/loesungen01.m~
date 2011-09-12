@@ -19,7 +19,7 @@ x = linspace(0,4,30); % Betrachte [0,4]
 y = ausw_poly2(a,x);
 
 B=zeros(5);
-B(:,5) = -flipdim(a/(-36)(1:5),2);
+B(:,5) = -a(1:5);
 B(2:5,1:4)=eye(4);
 eig(B)
 
@@ -28,21 +28,7 @@ figure
 plot(x,y,'r*-','LineWidth',3,'MarkerSize',4)
 
 
-%alternative
-%x0 = 2;
-%[xsolve,fval] = fsolve (@(x)ausw_poly2(a,x),x0)
-
-roots(flipdim(a,2)) %Eigenwerte der begleitmatrix entsprechen den Nullstellen
-
-%figure
-%plot(x,polyval(flipdim(a,2),x))
-
 disp ('*** aufgabe 3');
-clear
-x = 1e-15; ((1+x)-1)/x
-x = 1e-16; ((1+x)-1)/x
-
-disp ('*** aufgabe 4');
 clear
 
 j = 2:1000;

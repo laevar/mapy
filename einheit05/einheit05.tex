@@ -601,6 +601,361 @@ normest(<A>) , condest(<A>)
 \end{itemize}
 \end{frame}
 
+\section{Numerische Lineare Algebra}
+
+\subsection{Normen}
+% 
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Vektornorm}
+Die $p$-Norm eines Vektors $x=(x_1, {} \dots , x_n)$
+\[ \|x \|_p := \left( \sum_{i=1}^n  |x_i|^p \right)^{1/p} \] 
+(definiert für $p\geq 1$).
+\begin{itemize}
+\item in MATLAB: \mcode{norm(x,p)} (Default: $p=2$) 
+\item $p=\infty$ entspricht der Maximum-Norm 
+\[  \|x \|_\infty = \max_{i=1, \dots n} |x_i|. \]
+\end{itemize}
+\end{frame}
+% 
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Matrixnorm}
+Seien  $A\in \mathbb{C}^{n \times m}$ und
+$p \geq 1$. Die
+{\it Matrixnorm} ist definiert durch
+\[ \| A \|_p = \sup_{x\in \mathbb{C}^m \setminus \{ 0 \}} \frac{\|Ax
+  \|_p}{\| x \|_p}. \]
+\begin{itemize}
+\item In MATLAB: \mcode{norm(A,p)} (Default $p=2$).
+\item $p=\infty$ kann charakterisiert werden durch
+\[ \|A\|_\infty = \max_{1 \leq j \leq m} \sum_{i=1}^n |a_{ij}|, \quad
+\mbox{Zeilensummennorm.} \]
+\end{itemize} 
+\end{frame}
+% 
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Kondition}
+Kondition einer quadratischen Matrix $A$: 
+{ \[ \cond_p(A):=\|A\|_p\|A^{-1}\|_p. \] }
+\vspace*{-0.8cm}
+\begin{itemize}
+\item In MATLAB: 
+  \mcode{cond(A,p)} (Default $p=2$) 
+\item Es gilt $\cond_p(A)\geq 1$.
+\item Die Kondition mißt die Empfindlichkeit der Lösung $x$ von $Ax=b$
+  gegenüber  Störungen
+  von $A$ und $b$.
+\item Ist $\cond_p(A) >> 1$, so ist die Matrix beinahe singulär. Die Matrix ist {\it schlecht konditioniert}.
+\end{itemize}
+\end{frame}
+% 
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Beispiele}
+\begin{itemize}
+\item Vektornormen für $x=(1/100) (1, 2, \dots, 100)$
+\begin{lstlisting}
+>> x = (1:100)/100; [norm(x,1) norm(x,2) norm(x,inf)]
+ans =   50.5000    5.8168    1.0000
+\end{lstlisting}
+\item Matrixnorm für die Hilbert-Matrix $H=(\frac{1}{i+j-1})_{ij}$
+\begin{lstlisting}
+>> H = hilb(10); [norm(H,1) norm(H,2) norm(H,inf)]
+ans =    2.9290    1.7519    2.9290
+\end{lstlisting}
+\item Kondition der Hilbert-Matrix
+\begin{lstlisting}
+>> H = hilb(10); [cond(H,1) cond(H,2) cond(H,inf)]
+ans =
+   1.0e+13 *
+    3.5354    1.6025    3.5354
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\subsection{Lösen linearer Gleichungssyteme}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Lineare Gleichungssysteme}
+Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
+lineare Gleichungssystem 
+{ \[ A x=b \]}
+wird in MATLAB gelöst durch  \mcode{ x=A\\b}.\\
+
+\begin{lstlisting}
+>> x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
+y =
+    1.0000    1.0000    1.0000    1.0000    1.0000
+\end{lstlisting}
+
+\alert{Warnung:} Benutze nie
+\mcode{x=inv(A)*b}, da das Berechnen von $A^{-1}$ sehr aufwendig sein kann.
+\end{frame}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{LU-Zerlegung}
+{\centering  Was bedeutet \mcode{A\\b}?}\\[0.5cm]
+
+MATLAB berechnet die LU-Zerlegung von $A$ (Gaussverfahren):
+\begin{itemize}
+ \item obere Dreiecksmatrix $U$
+ \item untere Dreiecksmatrix $L$ mit Einsen auf der Diagonalen
+\end{itemize}
+so dass $PA=LU$ gilt ($P$ Permutationsmatrix).
+
+Dann wird das LGS durch Rückwärts- und Vorwärtseinsetzen gelöst
+($Lz = Pb$, $Ux = z$)
+
+\begin{lstlisting}
+>> [L,U,P]=lu(hilb(5)); norm(P*hilb(5)-L*U)
+ans =  2.7756e-17
+\end{lstlisting}
+\end{frame}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Inverse,  Determinante}
+\begin{itemize}
+\item Berechnung der Inversen
+\begin{columns}[onlytextwidth]
+\column{0.45\textwidth}
+\begin{lstlisting}
+>> A=pascal(3)
+A =
+     1     1     1
+     1     2     3
+     1     3     6
+\end{lstlisting}
+\column{0.45\textwidth}
+\begin{lstlisting}
+>> X=inv(A)
+X =
+     3    -3     1
+    -3     5    -2
+     1    -2     1
+\end{lstlisting}
+\end{columns}
+\item Berechnung der Determinante
+\begin{lstlisting}
+>> det(A)
+ans = 1
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Pseudoinverse}
+\begin{block}{(Moore-Penrose) Pseudoinverse}
+Sei $A$ singulär, Bestimme $X$ so dass 
+\[ A X A=A,  X A X =X,  (X A)^* =X A,  (A X )^* = A X \]
+\end{block}
+\begin{lstlisting}
+>> pinv(ones(3,3))
+ans =
+    0.1111    0.1111    0.1111
+    0.1111    0.1111    0.1111
+    0.1111    0.1111    0.1111
+\end{lstlisting}
+\end{frame}
+
+\subsection{Anwendung: Zwei-Punkt-Randwert-Aufgabe}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Zwei-Punkt-Randwert-Aufgabe}
+
+Suche eine Funktion 
+\begin{equation*}
+u:[0,1] \quad \rightarrow \quad \mathbb{R}, 
+\end{equation*}
+so dass 
+\begin{eqnarray*}
+-u''(x) & = & e^x, \quad x \in (0,1)\\
+u(0) & = & u(1) =0
+\end{eqnarray*}
+\alert{Problem:} Es kann i.A. keine geschlossene
+Lösungsdarstellung angegeben werden. \\ %Wieso ?
+
+\alert{Ausweg:} Approximation der Lösung. 
+\end{frame}
+%
+% Slide: 
+%
+\begin{frame}[fragile]\frametitle{Finite Differenzen Verfahren}
+
+Diskretisierung: $0=x_0 < \dots < x_{n}=1$ mit $x_i=\frac{i}{n}$\\
+
+Differenzenquotient: 
+\[ u''(x_i) \sim \frac{u(x_{i-1}) - 2 u(x_i) + u(x_{i+1})}{ 
+  h^2}, \quad h:=\frac{1}{n} \]
+
+Einsetzen in $-u''(x)=e^x$ ergibt 
+\[ -u(x_{i-1}) + 2 u(x_i) - u(x_{i+1}) =  h^2 e^{x_i}, \quad
+i=1,\dots ,n-1 \] 
+Randbedingungen $\Rightarrow $ $u(x_0)=u(x_n)=0$.\\
+
+$\Rightarrow$ Lineares Gleichungssystem für 
+$u(x_1), \dots ,u(x_{n-1})$.
+\end{frame}
+
+%
+% Slide: 
+%
+\begin{frame}[fragile]\frametitle{Diskretes Problem}
+
+Setze $z=(z_1,\dots ,z_{n-1})^t=(u(x_1), \dots ,u(x_{n-1}))^t$. \\
+
+Löse das Gleichungssystem  $Az=F$  mit 
+\[ A:= 
+\left( \begin{array} {ccccccc}
+ 2 & -1 &  & &   0 \\
+-1 & 2  & -1 &    & \\ 
+   & \ddots & \ddots & \ddots   &\\
+   & &  -1 & 2  & -1  \\ 
+0 &  &    & -1 & 2 \\
+\end{array} \right), \  F:=
+h^2 \left( \begin{array}{c} e^\frac{1}{n}\\   \vdots \\ e^\frac{n-1}{n}
+\end{array} \right) .
+\] 
+\end{frame}
+%
+% Slide: 
+%
+\begin{frame}[fragile]\frametitle{Lösung für $n=21$}
+\begin{itemize}
+\item Zerlegung des Intervalls $[0,1]$
+\begin{lstlisting}
+x = 0:(1/21):1
+\end{lstlisting}
+\item Eleminieren der Randpunkte
+\begin{lstlisting}
+x_i = x(2:21)
+\end{lstlisting}
+\item Erzeugen der Matrix $A$ (Übungsaufgabe)
+\end{itemize}
+\end{frame}
+%
+% Slide: 
+%
+\begin{frame}[fragile]\frametitle{Lösung für $n=21$}
+\begin{itemize}
+\item Berechnen der rechten Seite:
+\begin{lstlisting}
+F = (1/21)^2*transpose(exp(x_i));
+\end{lstlisting}
+\item Lösen des linearen Gls.\\
+\begin{lstlisting}
+z_i = A\F;
+\end{lstlisting}
+\item Zufügen der Werte am Rand
+\begin{lstlisting}
+>> z = [0; z_i;0];
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%
+% Slide: 
+%
+\begin{frame}[fragile]\frametitle{Lösung für $n=21$}
+\begin{columns}[c]
+\column{0.48\textwidth}
+\begin{lstlisting}[basicstyle=\tiny]
+plot(x,z,'r*','MarkerSize',8)
+\end{lstlisting}
+\includegraphics[width=\textwidth]{figures/bild1_27_10}
+
+\column{0.48\textwidth}
+\begin{lstlisting}[basicstyle=\tiny]
+plot(x,z,'r*-','LineWidth',3,'MarkerSize',8)
+\end{lstlisting}%
+\includegraphics[width=\textwidth]{figures/bild2_27_10}
+\end{columns}
+\end{frame}
+
+
+\subsection{Bestimmung von Eigenwerten}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Eigenwerte}
+\begin{block}{Eigenwert}
+Sei $A \in \mathbb{C}^{n \times n}$. $\lambda \in \mathbb{C}$ ist
+Eigenwert von $A$, falls ein Vektor $x \in \mathbb{C}^n$ ungleich $0$ existiert, so
+dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.  
+\end{block}
+
+\begin{itemize}
+\item {}\mcode{x=eig(A)}\\ berechnet die Eigenwerte von $A$ und schreibt
+  sie in den Vektor $x$.
+\item
+  {}\mcode{[V,D]=eig(A)}\\
+  $D$ ist eine Diagonalmatrix mit den Eigenwerten auf der
+  Diagonalen. Die Spalten von $V$ bilden die zugehörigen Eigenvektoren. 
+\end{itemize}
+\end{frame}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Weitere Zerlegungen}
+\begin{itemize}
+\item \alert{QR-Zerlegung}: \mcode{[Q,R]=qr(A)}\\
+  $m \times n$- Matrix $A$ eine Zerlegung { $A=QR$} erzeugt,
+  ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
+%Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
+%beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
+%zu behandeln. 
+%QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
+\item \alert{Singulärwertzerlegung}: \mcode{[U,S,V]=svd(A)}\\
+  { $A=U \Sigma V^*$}. 
+  ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
+  $U \subset \mathbb{C}^{m \times m}$, $V \subset  \mathbb{C}^{n \times n}$ unitäre Matrizen). 
+%Dieses Verfahren wird insbesondere in der numerischen Mathematik verwendet. Dort lassen sich beispielsweise quasisinguläre 
+%lineare Gleichungssysteme im Rahmen rechentechnischer Genauigkeiten passabel lösen.
+%In der Statistik ist die SVD der rechnerische Kern der Hauptkomponentenanalyse, dort auch Karhunen-Loève-Transformation genannt.
+%Einige moderne Bildkompressionsverfahren beruhen auf einem Algorithmus, der das Bild (=Matrix aus Farbwerten) in eine SVD überführt 
+%und anschließend nur die stark von null verschieden Elemente der Matrix Σ berücksichtigt und dann die zur Rückgewinnung der Matrix 
+%erforderlichen Vektoren sowie die verbliebenen Diagonalelemente speichert. Besonders effektiv ist diese Kompression bei 
+%bestimmten rechteckigen Mustern und natürlich, je größer (und je quadratischer) das Bild ist. Dies ist eine mögliche Anwendung 
+%von Modellreduktion. Das Weglassen von kleinen Singulärwerten ist ein verlustbehaftetes Modellreduktionsverfahren.
+
+\item \alert{Cholesky-Zerlegung}: \mcode{R=chol(A)}\\
+  { $A=R^*R$} zu einer hermiteschen, positiv definiten Matrix
+  $A$ ($R$ ist eine obere Dreiecksmatrix mit reellen, positiven
+  Diagonalelementen). 
+\end{itemize}
+%Eine Matrix A heißt hermitesch (nach Charles Hermite) oder selbstadjungiert genau dann, wenn sie gleich ihrer 
+%(hermitesch) Adjungierten A * , also gleich der transponierten und komplex konjugierten Matrix ist. D. h.
+
+%positiv definit, 	falls x^T Ax > 0
+
+%Die Cholesky-Zerlegung kann auch zur Gewinnung eines Vorkonditionierungsverfahrens für lineare Gleichungssysteme mit 
+%positiv definiter Matrix benutzt werden; zu diesem Zweck gibt es speziell die Variante der unvollständigen Cholesky-Zerlegung 
+%sowie der modifizierten unvollständigen Cholesky-Zerlegung.
+% determinante
+% test ob es eine positiv definite matrix ist
+\end{frame}
+% 
+% Slide 
+%
+\begin{frame}[fragile]\frametitle{Bemerkungen}
+\begin{itemize}
+\item LGS können auch mit Hilfe iterativer Verfahren gelöst werden,
+  z.B. \mcode{gmres}, \mcode{pcg}, \mcode{bicgstab}.
+\item $A\in \mathbb{C}^{n \times m}$, $n \neq m$ bei \mcode{A\\b}:
+\begin{itemize}
+\item $n>m$ (überbestimmter Fall): Least-Square Lösung, d.h. der Ausdruck
+  \mcode{norm(A*x-b)} wird minimiert. 
+\item $n<m$ (unterbestimmter Fall): Grundlösung. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 \section{Numerische Mathematik}
 
 \subsection{Poisson Problem}

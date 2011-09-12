@@ -35,7 +35,7 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \item Hilfestellung beim Bearbeiten der aktuellen Aufgaben
 %\item Klausurzulassung: 3 beliebige markierte Aufgaben/Woche testieren lassen. 
 \end{itemize}
-\item \alert{Klausur:} 30.9.2011; 10:00 - 11:30; Anmeldung über FlexNow.
+\item \alert{Klausur:} 30.9.2011 (?); 10:00 - 11:30; Anmeldung über FlexNow.
 \end{itemize}
 
 \end{frame}
@@ -43,14 +43,14 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \begin{frame}{Inhalt der Vorlesung}
 \begin{description}
  \item[1. Tag] Organisatorisches, Streifzug durch Matlab
-\item [2. Tag] Numerische Lineare Algebra, Programmieren
-\item [3. Tag] Strings, Grafik, Polynome
-\item [4. Tag] Visualisieren, Datenstrukturen, In- und Output, Etwas Debugging
+\item [2. Tag] Programmieren, Datenstrukturen
+\item [3. Tag] Rekursionen, Grafik
+\item [4. Tag] Polynome, Interpolation, Visualisieren, Debugging
 \item [5. Tag] Mehrdimensionale Arrays, Funktionen, Dünnbesetzte Matrizen, Numerische Mathematik
-\item [6. Tag] Grafik-Handle, GUIs
-\item [7. Tag] profiler?
+\item [6. Tag] ?%profiler?, objektorientierung?
+\item [7. Tag] Grafik-Handle, GUIs
 \item [8. Tag] Schnittstelle zu C
-\item [9. Tag] ?
+\item [9. Tag] Wunschvorlesung
 \item [10. Tag] Fragestunde
 \end{description}
 \end{frame}
@@ -226,11 +226,11 @@ A = [0 2 3 ; 4 5 6; 7 8 9];
 \end{lstlisting}
 \item Lösen des Gleichungssystems $A \cdot z=b$
 \begin{lstlisting}
->> z = A \ b
+z = A \ b
 \end{lstlisting}
 \item Probe 
 \begin{lstlisting}
->> A*z
+A*z
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -241,18 +241,20 @@ A = [0 2 3 ; 4 5 6; 7 8 9];
 \begin{itemize}
 \item Berechnen der Determinante von $A$
 \begin{lstlisting}
->> det(A)
+det(A)
 \end{lstlisting}
 \item Hilfe zu \mcode{det} 
 \begin{lstlisting}
->> help det
- DET    Determinant.
-    DET(X) is the determinant of the square matrix X.
-    Use COND instead of DET to test for matrix singularity.
+help det 
 \end{lstlisting}
+\begin{matlab}
+DET    Determinant.
+  DET(X) is the determinant of the square matrix X.
+  Use COND instead of DET to test for matrix singularity.
+\end{matlab}
 \item Erzeugen einer Einheitsmatrix
 \begin{lstlisting}
->> B = eye(3,3)
+B = eye(3,3)
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -263,14 +265,17 @@ A = [0 2 3 ; 4 5 6; 7 8 9];
 \begin{itemize}
 \item Matrizenoperationen
 \begin{lstlisting}
->> A+B, A-B, A*B, inv(A)
+A+B, A-B, A*B, inv(A)
 \end{lstlisting}
 \item Anwendung von Vektoren
 \begin{lstlisting}
->> y = sqrt(x)
-y =
-    1.0000    1.4142    1.7321
+y = sqrt(x)
 \end{lstlisting}
+\begin{matlab}
+y =
+    1.0000    1.4142    1.7321 
+\end{matlab}
+
 \end{itemize}
 \end{frame}
 %-------------------------------------------------
@@ -280,19 +285,24 @@ y =
 \begin{itemize}
 \item Komponentenweise Multiplikation
 \begin{lstlisting}
->> y = x.*x
- y =
-     1     4     9
+y = x.*x
 \end{lstlisting}
+\begin{matlab}
+ y =
+     1     4     9 
+\end{matlab}
+
 \item Zeilenvektor mit Werten von $1$ bis $100$
 \begin{lstlisting}
->> a = [1:100];
+a = [1:100];
 \end{lstlisting}
 \item Berechne $\sum_{j=1}^{100} \frac{1}{j^2}$
 \begin{lstlisting}
->> (1./a)*transpose(1./a)
-ans = 1.6350
+(1./a)*transpose(1./a)
 \end{lstlisting}
+\begin{matlab}
+ans = 1.6350 
+\end{matlab}
 \end{itemize}
 \end{frame}
 
@@ -379,7 +389,7 @@ ab.
 \begin{itemize}
 \item Starten des Editors: 
 \begin{lstlisting}
->> edit datei_name 
+edit datei_name 
 \end{lstlisting}
 öffnet die Datei \mcode{datei_name}.
 \item Speichern der Datei mit Hilfe des Menüs: \mcode{File->Save}
@@ -411,13 +421,16 @@ spricht deswegen auch von $m$-Files.
 
 \item Beschreibung des Skript-Files:
 \begin{lstlisting}
->> help plot_poly
- ------------------------------------
-      plot_poly.m    
-   zeichnet den Graphen eines Polynoms 
-   Gerd Rapin           1.11.2003
- -------------------------------------------
+help plot_poly
 \end{lstlisting}
+\begin{matlab}
+------------------------------------
+     plot_poly.m    
+  zeichnet den Graphen eines Polynoms 
+  Gerd Rapin           1.11.2003
+------------------------------------------- 
+\end{matlab}
+
 
 \end{itemize}
 \end{frame}
@@ -535,7 +548,7 @@ function myfunction(In_1,..,In_k)
 \begin{frame}[fragile]\frametitle{Priorität beim Programmaufruf}
 Beispiel-Programmaufruf
 \begin{lstlisting}
->> name
+name
 \end{lstlisting}
 
 Testet ob,..
@@ -607,15 +620,21 @@ rmpath <pfadname>
 \begin{itemize}
 \item Erzeugen 'per Hand'
 \begin{lstlisting}
->> b = [1 2 4]
-b =
-     1     2     4
+b = [1 2 4]
 \end{lstlisting}
+\begin{matlab}
+b =
+     1     2     4 
+\end{matlab}
+
 \item Abfragen der Einträge von $b$
 \begin{lstlisting}
->> b(2)
-ans =      2
+b(2)
 \end{lstlisting}
+\begin{matlab}
+ans =      2 
+\end{matlab}
+
 Index $\equiv$ Position im Vektor\\
 
 \alert{Achtung}: Indizes beginnen immer mit $1$!
@@ -650,10 +669,13 @@ c =
 \[ x1, x1+\frac{x2-x1}{N-1}, x1+2 \frac{x2-x1}{N-1}, \dots ,x2  \]
 der Länge $N$.
 \begin{lstlisting}
->> linspace(1,2,4)
-ans =
-    1.0000    1.3333    1.6667    2.0000
+linspace(1,2,4)
 \end{lstlisting}
+\begin{matlab}
+ans =
+    1.0000    1.3333    1.6667    2.0000 
+\end{matlab}
+
 \item \mcode{logspace(x1,x2,N)}\\ wie \mcode{linspace}, nur logarith. Skalierung
 \end{itemize}
 \end{frame}
@@ -666,18 +688,24 @@ ans =
 \begin{itemize}
 \item Erzeugen 'per Hand'
 \begin{lstlisting}
->> B = [1 3 4; 5 6 7]
+B = [1 3 4; 5 6 7]
+\end{lstlisting}
+\begin{matlab}
 B =
      1     3     4
-     5     6     7
-\end{lstlisting}
+     5     6     7 
+\end{matlab}
+
 \item \mcode{eye(n,m)}\\ $(n \times m)$-EinheitsMatrix)
 \begin{lstlisting}
->> eye(2,3)
+eye(2,3)
+\end{lstlisting}
+\begin{matlab}
 ans =
      1     0     0
-     0     1     0
-\end{lstlisting}
+     0     1     0 
+\end{matlab}
+
 ($1$ auf der Hauptdiagonalen und 0 sonst).
 \end{itemize}
 \end{frame} 
@@ -690,13 +718,16 @@ ans =
 \item \mcode{ones(n,m)}\\$(n \times m)$- Matrix mit $1$ als Einträge.
 \item Blockmatrizen
 \begin{lstlisting}
->> C = [B zeros(2,2); eye(2,3) eye(2,2)]
+C = [B zeros(2,2); eye(2,3) eye(2,2)]
+\end{lstlisting}
+\begin{matlab}
 C =
      1     3     4     0     0
      5     6     7     0     0
      1     0     0     1     0
-     0     1     0     0     1
-\end{lstlisting}
+     0     1     0     0     1 
+\end{matlab}
+
 \alert{Achtung:} Matrizen in einer Zeile müssen dieselbe
 Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 \end{itemize}
@@ -709,11 +740,15 @@ Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 \item \mcode{repmat(A,n,m)}\\ Blockmatrix mit $(n \times m)$
   aus A bestehenden Blöcken
 \begin{lstlisting}
->> D = repmat(B,1,2)
+D = repmat(B,1,2)
+\end{lstlisting}
+\begin{matlab}
 D =
      1     3     4     1     3     4
-     5     6     7     5     6     7
-\end{lstlisting}
+     5     6     7     5     6     7 
+\end{matlab}
+
+
 \item \mcode{blkdiag(A,B)}\\ Blockdiagonalmatrix.
 \item \mcode{diag(v,k)} \\Matrix der Größe $(n+|k|) \times
   (n+|k|)$ mit den Einträgen des Vektors $v$ auf der $k$-ten Nebendiagonalen. 
@@ -729,13 +764,16 @@ D =
 \item Überblick: \mcode{help gallery}
 \item Beispiel
 \begin{lstlisting}
->> E = gallery('moler',4)
+E = gallery('moler',4)
+\end{lstlisting}
+\begin{matlab}
 E =
      1    -1    -1    -1
     -1     2     0     0
     -1     0     3     1
-    -1     0     1     4
-\end{lstlisting}
+    -1     0     1     4 
+\end{matlab}
+
 \item Hilfe zur Matrix 'moler' erhält man durch \mcode{help private/moler}
 \item weitere Matrizen: \mcode{magic, hilb, vander}
 \end{itemize}
@@ -747,12 +785,14 @@ E =
 \begin{columns}[c]%
 \column{0.45\textwidth}%
 \begin{lstlisting}[basicstyle=\tiny]
->>   A = [1 2 3; 4 5 6; 7 8 9]
+A = [1 2 3; 4 5 6; 7 8 9]
+\end{lstlisting}%
+\begin{matlab}
 A =
      1     2     3
      4     5     6
-     7     8     9
-\end{lstlisting}%
+     7     8     9 
+\end{matlab}%
 \end{columns}%
 \begin{columns}[t,onlytextwidth]
 \column{0.45\textwidth}
@@ -796,12 +836,14 @@ ans =
 \begin{columns}[c]%
 \column{0.45\textwidth}%
 \begin{lstlisting}[basicstyle=\tiny]
->>   A = [ 1 2 3; 4 5 6; 7 8 9]
+A = [ 1 2 3; 4 5 6; 7 8 9]
+\end{lstlisting} 
+\begin{matlab}
 A =
      1     2     3
      4     5     6
-     7     8     9
-\end{lstlisting} 
+     7     8     9 
+\end{matlab}%
 \end{columns}%
 \begin{columns}[t]
 \column{0.45\textwidth}%
@@ -832,7 +874,7 @@ A =
 
 Standard-Matrix Operationen \mcode{+,-,*}
 \begin{lstlisting}
->> A = [1 2; 3 4]; B = 2*ones(2,2);
+A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{lstlisting}
 \begin{columns}[t]%
 \column{0.25\textwidth}%

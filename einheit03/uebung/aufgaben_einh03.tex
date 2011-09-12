@@ -31,15 +31,11 @@ auf dem Intervall $[-3,3]$ plottet.
 %Erstellen Sie daraus eine Animation f\"ur $a \in [0,5]$.
 \end{aufg}
 
-%-----------------------------------------------------------------------------------
-\begin{aufg}
-Schreiben Sie eine Funktion, die einen String 'invertiert'.  
-\end{aufg}
 
 %-----------------------------------------------------------------------------------
 \begin{aufg}
 Versuchen Sie die Grafik selbst zu erstellen (inklusive
-allen Beschriftungen).
+aller Beschriftungen).
 {\it Hinweis:} $\pi$ wird durch {\lstinline!\pi!} dargestellt. 
 \begin{center}\includegraphics[width=0.6\textwidth]{../../figures/aufgabe2_24_11}\end{center}
 \end{aufg}
@@ -57,6 +53,24 @@ Stellen Sie die Funktion
 [-1,1]^3 \]
 grafisch dar.
 \end{aufg}
+
+-----------------------------------------------------------
+\begin{aufg}
+Seien $y_1,y_2$ zwei Punkte im $\mathbb{R}^2$. Wir betrachten die Strecke mit
+Endpunkten $y_1$ und $y_2$. Wir ersetzen  diese Strecke durch 4 Strecken 
+$\overline{y_1 z_1}$, $\overline{z_1 z_2}$, $\overline{z_2 z_3}$,
+$\overline{z_3 y_2}$ mit Endpunkten $z_1=\frac23 y_1 + \frac13 y_2$,
+$z_3=\frac13 y_1 + \frac23 y_2$ und 
+\[ z_2 = \frac{\sqrt{3}}{6} \left( \begin{array}{cc}
+0 & 1 \\ -1 & 0 \\
+\end{array} \right)
+(y_1 - y_2) + \frac12 (y_1 + y_2). \]
+Analog zum Beispiel des Sierpinski-Dreiecks soll jede neue Teilstrecke
+wiederum mittels der gleichen Prozedur durch 4 Strecken ersetzt werden. 
+Schreiben Sie ein Programm, dass
+diese Prozedur $k$-mal wiederholt und das Ergebnis plottet.
+\end{aufg}
+
 
 %-----------------------------------------------------------------------------------
 \begin{aufg}
@@ -90,10 +104,7 @@ auf dem Intervall $[-3,3]$ f\"ur $a=1:20$ und erstellen Sie daraus eine Animatio
 
 
 %-----------------------------------------------------------------------------------
-%\begin{aufg}
-%Schreiben Sie eine Funktion, die als Input-Parameter einen String erh\"alt und
-%die berechnet wie oft ein \lstinline!char! in dem String auftritt.
-%\end{aufg}
+
 
 %Polynom-Aufgabe mit polyfit etc.!
 %

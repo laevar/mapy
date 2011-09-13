@@ -33,10 +33,9 @@ quotienten. Plotten Sie den Approximationsfehler für die Approximation der
 ersten Ableitung durch den zentralen Differenzenquotienten für die 
 Exponentialfunktion an der Stelle $x=0$ mit doppelt logarithmischen Achsen und
 interpetieren sie das Ergebnis.
+
 Tips:
 \begin{enumerate}
- \item Machen Sie das Ganze nicht im Kommandofenster, sondern mit dem
-MATLAB-Editor in einem m-File.
 \item Bauen Sie sich einen Vektor, der eine passende Anzahl von positiven
 h–Werten $h_1 \ldots h_n$ enthält.
 \item Daraus bauen Sie sich Vektoren, die die Werte $exp(h_j)$ bzw. $exp(−h_j)$
@@ -49,22 +48,6 @@ Plot macht.
 \item Vermutlich werden Sie Gründe haben, Ihre Wahl der $h_j$ noch einmal
 zu revidieren, um den Effekt klarer herauskommen zu lassen.
 \end{enumerate}
-\end{aufg}
-
-
-\begin{aufg}[0]
-woanders hin?
-Sind die folgenden Vektoren linear unabhängig?
-{ \[
-v_1=
-\left( \begin{array}{c} 0 \\ 1 \\ 0 \\ 1 \end{array} \right), 
-\ v_2=
-\left( \begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \end{array} \right),
-\ v_3=
- \left( \begin{array}{c} 1 \\ 0 \\ 1 \\  0\end{array} \right),
-\ v_4=
- \left( \begin{array}{c} 0 \\ 0 \\ 1 \\ 1 \end{array} \right)
-. \] }
 \end{aufg}
 
 
@@ -87,7 +70,7 @@ Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
 %
 %-----------------------------------------------------------
 %
-%\newpage
+\newpage
 
 \begin{aufg}[0]
  Berechnen Sie die Nullstellen von 
@@ -111,86 +94,7 @@ und das entsprechende $g_k$ an.\\
 \end{aufg}
 %
 
-% \begin{aufg}
-% Finde die Lösung $x$ von $Ax=b$ mit 
-% \[ A:=\left( \begin{array}{cccc} 
-% 2 & 3 & 4 & 5 \\ 
-% 1 &    1 &    1 &    1\\
-% 1 &    0 &    1 &    0 \\
-% 9 &     3 &    2 &    1
-% \end{array} \right) , \qquad b:=\left( \begin{array}{c} 
-% 14\\
-%      4\\
-%      2\\
-%     15
-% \end{array} \right) . \] 
-% \end{aufg}
-% %--------------------------------------------------
-% \begin{aufg}
-% Finde die Lösung $x$ von $Ax=b$ mit 
-% { \[ A:=\left( \begin{array}{ccc} 
-% 1 & 2 & 3 \\ 
-% 4 &    5 &    6\\
-% 7 &    8 &    9  
-% \end{array} \right) , \qquad b:=\left( \begin{array}{c} 
-% 6\\
-%      15\\
-%      24
-% \end{array} \right) . \] }
-% \end{aufg}
-% %--------------------------------------------------
 
-% \begin{aufg}
-% Schreiben sie das Programm \mcode{randwertaufgabe} um in eine Funktion welche als Inputparameter 
-% den Parameter $n$ erhält. Die Funktion soll prüfen ob der Parameter n in dem Bereich 20-200 liegt und
-% falls nicht das programm abbrechen. Das Resultat der Berechnung soll als Vektor zurückgeben werden.
-% 
-% \emph{Hinweis:} das Abbrechen des Programms kann mit \mcode{return} erreicht werden.
-% \end{aufg}
-%--------------------------------------------------
-% \begin{aufg}
-% Zerlegen Sie das Intervall $[0,1]$ durch 
-%   \lstinline!0:(1/101):1!. Berechnen Sie mit Hilfe von 
-% Finiten Differenzen eine approx. Lösung von
-% {
-% \begin{eqnarray*}
-% -u''(x) & = & 1, \quad x \in (0,1)\\
-% u(0) & = & u(1) =0
-% \end{eqnarray*}}
-% %\vspace*{-0.5cm}
-% \end{aufg}
-
-% %--------------------------------------------------
-% \begin{aufg}
-% Berechnen Sie die Frobenius-Norm 
-% \[ \|A \|_F := \sqrt{ \sum_{i,j=1}^n a_{ij}^2 }, \quad A=(a_{ij}) \in
-% \mathbb{R}^{n \times n}  \]
-% der Vandermode Matrix 
-% \lstinline!vander(0:0.02:1)! 
-% \end{aufg}
-% %--------------------------------------------------
-% \begin{aufg}
-% Ändern Sie in Aufgabe 11 die rechte Seite $1$ in
-%   $\sin(4 \pi x)$ und berechnen Sie eine Näherungslösung. 
-% \end{aufg}
-%--------------------------------------------------
-%\newpage
-% \begin{aufg}
-% Berechnen Sie die Eigenwerte und Eigenvektoren der Matrix
-% \[ A = \left( \begin{array}{cccc}
-% 30 & 1 & 2 & 3\\
-% 4 & 15 & -4 & -2\\
-% -1 & 0 & 3 & 5\\
-% -3 & 5 & 0 & -1 \end{array}
-% \right) \]
-% Bestimmen Sie auch die $QR$-Zerlegung.
-% \end{aufg}
-% 
-% \begin{aufg}
-% Sei \lstinline!A=hilb(n)! und \lstinline!x=ones(n,1)!. Berechnen Sie
-%   für $n=5$ und $n=15$ den Vektor $b=A*x$, \lstinline!norm(x-A\b)! und die Kondition
-%   von $A$. Was stellen Sie fest? Erklären Sie das Ergebnis!
-% \end{aufg}
 
 
 \begin{aufg}[0]

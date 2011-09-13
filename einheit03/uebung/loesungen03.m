@@ -1,27 +1,17 @@
 close all
-disp('*** aufgabe 1');
+disp('*** aufgabe 10');
 clear
 
-% Stuetzstellen
-x = linspace(-5,5,13);
-interpol
+level = 3;
 
-y1 = ausw_poly2(p',x);
-max(abs(y1'-y))
+y1 = [0;0];
+y2 = [2;1];
 
-% Stuetzstellen
-x = -5*cos(pi*(1:13-1)/12);
-interpol
+figure; axis equal;
+hold on;
+vierstrecker(y1,y2,level);
+hold off;
 
-y1 = ausw_poly2(p',x);
-max(abs(y1'-y))
-
-% Stuetzstellen
-x = -5*cos(pi*(1:50-1)/49);
-interpol
-
-y1 = ausw_poly2(p',x);
-max(abs(y1'-y))
 
 disp('*** aufgabe 2');
 clear
@@ -33,11 +23,6 @@ figure
 plot (x,f,'Linewidth',2);
 grid on; box on;
 title('$f(x) = \frac{1}{x^2+a}$','interpreter','latex')
-
-disp('*** aufgabe 3');
-clear
-
-inverstring ('qwertz');
 
 disp('*** aufgabe 4');
 clear

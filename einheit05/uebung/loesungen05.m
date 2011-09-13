@@ -52,3 +52,124 @@ clear
 myfplot('sin(x)*sin(y)');
 myfplot('sin(x)*sin(y)',5);
 
+
+disp('*** aufgabe 1');
+clear
+A = [ 2 3 4 5; 1 1 1 1 ; 1 0 1 0; 9 3 2 1];
+b = [14 4 2 15];
+x = A\b'
+
+disp('*** aufgabe 2');
+clear
+A = [ 1 2 3; 4 5 6; 7 8 9];
+b = [6 15 24];
+x = A\b'
+
+disp ('*** aufgabe 3');
+clear
+A = [0 1 1 0; 1 2 0 0; 0 3 1 1; 1 4 0 1];
+b = [0 0 0 0];
+x = A\b'
+
+disp('*** aufgabe 4');
+clear
+
+[z] = randwertaufgabe(40);
+
+disp ('*** aufgabe 12');
+clear
+A = vander(0:0.02:1);
+norm(A,'fro')
+sqrt(sum(sum(A.^2)))
+
+disp ('*** aufgabe 13');
+clear
+% Anzahl Stützstellen
+n = 101;
+
+% Erzeugen des Gitters
+x = 0:(1/n):1;
+x_i = x(2:n);
+
+% Aufstellen des lin. Gls.
+A = diag(2*ones(1,n-1),0)...
+   +diag(-1*ones(1,n-2),-1)...
+   +diag(-1*ones(1,n-2),1);
+F = (1/n)^2*sin(4*pi*x_i); % rechte Seite für f=1 
+
+% Lösen des lin. Gls.
+z_i = A\ F';
+
+% Darstellen der Lösung
+z = [0; z_i; 0];
+figure
+plot(x,z,'r*-');
+
+disp ('*** aufgabe 14');
+clear
+
+A = [30 1 2 3; 4 15 -4 -2; -1 0 3 5; -3 5 0 -1];
+[V,D] = eig(A)
+[Q,R] = qr(A) 
+
+disp ('*** aufgabe 15');
+clear
+n = 15;
+A = hilb(n);
+x = ones(n,1);
+b = A*x
+norm(x - A\b)
+cond (A)
+
+disp([ 'Da die Hilbertmatrix schlecht konditioniert ist, und dieser Effekt' ...
+    'mit der Groesse steigt, ist auch das loesen des linearen Gleichungssystems ' ...
+    'aufgrund von numerischen Rundungsfehlern instabil und bricht bereits frueh zusammen' ]);
+disp ('*** aufgabe 11');
+clear
+% Anzahl Stützstellen
+n = 101;
+
+% Erzeugen des Gitters
+x = 0:(1/n):1;
+x_i = x(2:n);
+
+% Aufstellen des lin. Gls.
+A = diag(2*ones(1,n-1),0)...
+   +diag(-1*ones(1,n-2),-1)...
+   +diag(-1*ones(1,n-2),1);
+F = (1/n)^2*ones(n-1,1); % rechte Seite für f=1 
+
+% Lösen des lin. Gls.
+z_i = A\ F;
+
+% Darstellen der Lösung
+z = [0; z_i; 0];
+figure
+plot(x,z,'r*-');
+
+
+
+disp('*** aufgabe 1');
+clear
+
+% Stuetzstellen
+x = linspace(-5,5,13);
+interpol
+
+y1 = ausw_poly2(p',x);
+max(abs(y1'-y))
+
+% Stuetzstellen
+x = -5*cos(pi*(1:13-1)/12);
+interpol
+
+y1 = ausw_poly2(p',x);
+max(abs(y1'-y))
+
+% Stuetzstellen
+x = -5*cos(pi*(1:50-1)/49);
+interpol
+
+y1 = ausw_poly2(p',x);
+max(abs(y1'-y))
+

@@ -45,7 +45,7 @@ end
 \begin{itemize}
 \item Der Ausdruck ist normalerweise von der Form
 \mcode{i:s:j}. 
-\item Die {\it Befehle} werden eingerückt. 
+\item Die \alert{<Befehle>} sollten eingerückt werden. 
 \item auch weitere Schleifen-Konstrukte wie \mcode{while} und \mcode{switch} sind verfügbar.
 \end{itemize}
 \end{frame}
@@ -234,8 +234,7 @@ end
 %
 \begin{frame}[fragile]\frametitle{Logische Operationen}
 \begin{itemize}
-\item Es gibt in MATLAB logische Variablen. Der Datentyp ist {\it
-  logical}. 
+\item logische Variablen (Datentyp ist \alert{logical}). 
 \item Variablen dieses Typs sind entweder \mcode{TRUE} (1) oder
   \mcode{FALSE} (0).
 \item Numerische Werte ungleich $0$ werden als \mcode{TRUE} gewertet.
@@ -589,10 +588,9 @@ hold off;
 %
 %
 %
-\begin{frame}[fragile]\frametitle{Datenstrukturen}
+\begin{frame}[fragile]\frametitle{Datentypen}
 \begin{itemize}
-\item In MATLAB gibt es verschiedene \alert{Datentypen}. 
-Sie werden bestimmt durch ihre Eigenschaften.
+\item \alert{Datentypen} werden bestimmt durch ihre Eigenschaften.
 \item Einzelne Elemente eines Datentyps werden \alert{Objekte} genannt. 
 \item Ein \alert{Objekt} besteht meist aus drei Teilen: \alert{Bezeichner}, \alert{Referenzen} 
 und \alert{Werte} des Objekts.  
@@ -635,7 +633,7 @@ Programmablaufs ver\"andert werden k\"onnen.
 \begin{itemize}
 \item Standard-Datentyp ist ein Array von Gleitkommazahlen (\mcode{double}).
 \item Abstand von $1$ zur nächsten Gleitkommazahl: $\epsilon
-  =2^{-52}$ (vgl. \mcode{eps})
+  = 2^{-52} \sim 2.2\cdot10^{-16}}$ (vgl. \mcode{eps})
 \item Sei $x \in \mathbb{R}$ eine reelle Zahl und $\tilde x$ die
   Darstellung in MATLAB. Dann gilt für den Rundungsfehler \\[-0.5cm]
 \[ \frac{|x - \tilde x|}{|x|}\leq \frac{1}{2} \epsilon .\]

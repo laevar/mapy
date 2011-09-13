@@ -33,6 +33,7 @@ clear
 
 j = 2:1000;
 sum(1./log(j).*j)
+(1./log(j))*transpose(j)
 
 j = 1:1000;
 idx = ones(1000,1);
@@ -80,6 +81,7 @@ disp ('*** aufgabe 8');
 clear
 
 A = hilb(50);
+transpose(A(:,3))*ones(length(A(:,3)),1)
 sum(A(:,3))
 
 disp('*** aufgabe 9');

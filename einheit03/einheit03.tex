@@ -385,7 +385,7 @@ pie3([ 1 2 3 4]); title('Tortengrafik');
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Approximation von Integralen}
-Approximiere $\int_0^1 f(x) dx$ durch
+Approximiere $\int_0^1 f(x) dx$ durch (Mittelpunktsregel)
 {\scriptsize \[ \int_0^1 f(x) dx \approx  \sum_{i=1}^{N} \frac{1}{N} f \left(
 \frac{i-\frac{1}{2}}{N} \right ) \]}
 für gegebenes $N \in \mathbb{N}$. \textbf{Beispiel}: $f(x)=x^3$
@@ -624,7 +624,7 @@ subplot(2,2,4), Z=X.^2.*Y;
   dem Vektor $n$ geplottet.
 \item \alert{\mcode{contourf}} funktioniert wie \mcode{contour} nur das die Flächen
   zwischen den Konturlinien ausgefüllt werden.
-\item \alert{\mcode{label(C,h)}} beschriftet die Konturlinien, deren Werte in $C$
+\item \alert{\mcode{clabel(C,h)}} beschriftet die Konturlinien, deren Werte in $C$
   gespeichert sind und die zum Grafik-Handle $h$ gehören.
 \item \alert{\mcode{contour3}} zeichnet jede Konturlinie auf einer anderen H\"ohe.
 \end{itemize}

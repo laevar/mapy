@@ -1,5 +1,5 @@
 close all
-disp('*** aufgabe 10');
+disp('*** aufgabe 1');
 clear
 
 level = 3;
@@ -13,7 +13,22 @@ vierstrecker(y1,y2,level);
 hold off;
 
 
+
 disp('*** aufgabe 2');
+clear
+
+ecken = plot_neck(6);
+streckenpunkte = [ecken ; ecken(1,:)];
+figure; axis equal;
+hold on;
+axis equal;
+for idx = 1:6
+  vierstrecker(streckenpunkte(idx,:)',streckenpunkte(idx+1,:)',3)
+end
+hold off
+
+
+disp('*** aufgabe 3');
 clear
 
 a = 5;
@@ -62,20 +77,8 @@ shading interp
 axis equal
 alpha(0.6) % Transparency
 
+
 disp('*** aufgabe 7');
-clear
-
-ecken = plot_neck(6);
-streckenpunkte = [ecken ; ecken(1,:)];
-figure; axis equal;
-hold on;
-axis equal;
-for idx = 1:6
-  vierstrecker(streckenpunkte(idx,:)',streckenpunkte(idx+1,:)',3)
-end
-hold off
-
-disp('*** aufgabe 8');
 clear
 
 x = linspace(-1,1,40);
@@ -96,7 +99,7 @@ surf (X,Y,sin(-pi*exp(-X.^2 - Y.^2) ) );
 shading interp
 
 
-disp('*** aufgabe 9');
+disp('*** aufgabe 8');
 clear
 
 x = linspace (-3,3,50);

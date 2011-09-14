@@ -1,15 +1,15 @@
 %   integral.m
 % berechnet approximativ ein Integral 
 % ueber  (0,1) durch die Mittelpunktregel
-N=5; % Anzahl Unterteilungen
+N = 5; % Anzahl Unterteilungen
 
-x=(0+1/(2*N)):(1/N):(1-1/(2*N));
-y=sin(pi*x.*x);
+x = (0+1/(2*N)):(1/N):(1-1/(2*N));
+y = x.^3;
 % Berechnung des Integrals
-result=sum(y)*(1/N);
+result = sum(y)*(1/N);
 
 % Plot
-for i=1:N
+for i = 1:N
     fill([(i-1)/N (i-1)/N i/N i/N],...
         [0 ((i-0.5)/N).^3  ((i-0.5)/N).^3 0], 'r');
     hold on;

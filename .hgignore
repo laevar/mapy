@@ -1,1 +1,9 @@
-/home/schulz/.hgignore
+syntax: glob
+*~
+*.bak
+*.aux
+*.toc
+*.nav
+*.out
+*.log
+*.vrb

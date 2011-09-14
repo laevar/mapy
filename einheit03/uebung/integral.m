@@ -5,7 +5,14 @@
 % ueber  (0,1) durch die Mittelpunktregel
 %----------------------------------
 
-%exakt: x e^x - e^x|_0^1 = 1
+%exakt: 
+% partielle integration
+% \int f' * g = f*g|a^b - \int f*g'
+% f'=e^x
+% g =x
+% f = e^x
+% g'=1
+% x e^x - e^x|_0^1 = 1
 N = 1; % Anzahl Unterteilungen
 TOL = 1e-4;
 err = 1;

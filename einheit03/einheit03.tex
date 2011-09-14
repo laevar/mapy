@@ -427,6 +427,9 @@ für gegebenes $N \in \mathbb{N}$. \textbf{Beispiel}: $f(x)=x^3$
 \item Streifenansichten \alert{ \mcode{slice}}
 \end{itemize}
 \end{itemize}
+\alert{ \mcode{mesh(X,Y,Z)}} z.B. stellt für Matrizen $X,Y,Z \in
+\mathbb{R}^{n \times k}$ die Punkte 
+\[\alert{  (X(i,j), Y(i,j), Z(i,j))} \quad \mbox{dar.}\]
 \end{frame}
 
 % 
@@ -542,22 +545,8 @@ enthält. \\
 Dann hat \alert{ \mcode{Z=X.*Y}} die Komponenten 
 \[ Z(i,j)=x(j)*y(i). \]
 \end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]\frametitle{Darstellungsmöglichkeiten}
-% Das hier ist eigentlich doppelt..
-\begin{itemize}
-\item Contourplot (zeichnet die Niveaulinien): \alert{ \mcode{contour}}
-\item Darstellung des Graphen mit Gitterlinien: \alert{ \mcode{mesh} ,
-  \mcode{meshc}} 
-\item Flächige Darstellung des Graphen: \alert{ \mcode{surf}, \mcode{surfc}}
-\end{itemize} 
 
-\alert{ \mcode{mesh(X,Y,Z)}} z.B. stellt für Matrizen $X,Y,Z \in
-\mathbb{R}^{n \times k}$ die Punkte 
-\[\alert{  (X(i,j), Y(i,j), Z(i,j))} \quad \mbox{dar.}\]
-\end{frame}
+%\end{frame}
 % 
 % Slide
 % 

@@ -1,6 +1,6 @@
 \documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 4}
-\subtitle{Polynome, Interpolation, Visualisieren, Debugging}
+\subtitle{Polynome u. Interpolation, Visualisieren, In- Output, Debugging}
 \input{../slide_header}
 \maketitle
 
@@ -105,21 +105,19 @@ Darstellung invers und beginnt bei $1$.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Auswerten}
-Durch 
 \begin{lstlisting}
-y=polyval(p,x)
+y = polyval(<p>,<x>)
 \end{lstlisting}
-werden aus einem vorgegebenen Koeffizientenvektor $p$ und
-entsprechenden Stellen $x$ die zugeh\"origen Funktionswerte $y$
-berechnet. $x$ kann eine Matrix sein. $y$ ist dann von der gleichen
-Dimens. wie $x$.\\[0.2cm]
+mit Koeffizientenvektor $p$ und Ort $x$ berechnet die Funktionswerte $y$.
+($x$ kann eine Matrix sein)
 
+\medskip
 \alert{Beispiel:} $p(x):= x^3 - x^2 +1$\\
 \begin{columns}[c]
 \column{0.55\textwidth}
 \begin{lstlisting}
-x=-2:0.1:2; 
-y=polyval([1 -1 0 1],x); 
+x = -2:0.1:2; 
+y = polyval([1 -1 0 1],x); 
 plot(x,y,'r--','Linewidth',3);
 \end{lstlisting}
 \column{0.45\textwidth}
@@ -131,11 +129,13 @@ plot(x,y,'r--','Linewidth',3);
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Bestimmung von Nullstellen}
-Ist $p$ der obige Koeffizientenvektor, so k\"onnen die Nullstellen $z$
-durch \mcode{z = roots(p)} berechnet werden. 
+\begin{lstlisting}
+z = roots(<p>)
+\end{lstlisting}
+Nullstellen $z$ mit Koeffizientenvektor $p$.
 
 \textbf{Beispiel:} \\
-Nullstellen von $p(x):= x^3 - x^2 +1$\\
+$p(x):= x^3 - x^2 +1$\\
 \begin{columns}[c]
 \column{0.58\textwidth}
 \begin{lstlisting}
@@ -148,7 +148,8 @@ ans =
   -0.7549  
 \end{matlab}
 \begin{lstlisting}
-x=-1:0.1:1; [X,Y]=meshgrid(x,x);
+x = -1:0.1:1;
+[X,Y] = meshgrid(x,x);
 Z=abs(polyval([1 -1 0 1],X+i*Y)); 
 surf(X,Y,Z)
 \end{lstlisting}
@@ -163,35 +164,37 @@ surf(X,Y,Z)
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Interpolation}
-Suche zu gegebenen Punkten $(x_i,y_i)_{i=0}^n$ ein Polynom $p$
-$n$.-ten Grades, so dass $p(x_i)=y_i$ gilt f\"ur $i=0, \dots ,n$.
-\begin{matlabin}
-p = polyfit(x,y,n)
-\end{matlabin}
-
-Ruft man
+Suche zu  ein Polynom $p$ gegebenen Punkten $(x_i,y_i)_{i=0}^n$
+$m$.-ten Grades
 \begin{matlabin}
 p = polyfit(x,y,m)
 \end{matlabin}
- mit $m<n$ auf, so sucht MATLAB
-die Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
-welches \\
- $\sum_{i=0}^n (p(x_i)-y_i)^2$ minimiert.
+\begin{itemize}
+ \item $m=n$:\\ 
+$p(x_i)=y_i$ f\"ur $i=0, \dots ,n$.
+\item  $m<n$:\\ 
+Least Square L\"osung, d.h. das Polynom $p$ der Ordnung $m$,
+welches 
+\[ 
+\sum_{i=0}^n (p(x_i)-y_i)^2
+\]
+minimiert. 
+\end{itemize}
+
 \end{frame}
 
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Data Fitting}
-Ein weiterer Befehl  zur Interpolation ist
 \begin{lstlisting}
-yi=interp1(x,y,xi,'method').
+yi = interp1(x,y,xi,<method>)
 \end{lstlisting}
 Dabei sind $(x,y)$ die gegebenen Punkte, $xi$ sind die Stellen, an die
 die Interpolante berechnet wird und $yi$ sind die entsprechenden
 Funktionswerte. 
-Als \mcode{'method'} gibt es\\
 
+\mcode{<method>}:
 %{\scriptsize
 \begin{tabular}{ll}
 \mcode{'nearest'} &  stückweise konstante Approximation \\
@@ -251,10 +254,10 @@ $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Problem}
+\begin{frame}[fragile]\frametitle{Nicht-reguläre Daten}
 \begin{itemize}
 \item Daten liegen h\"aufig in Form von Vektoren $(x,y,z)$ vor. Man m\"ochte
-  eine Funktion $F$ mit $z(i)=F(x(i),y(i))$ plotten.
+  eine Funktion $F$ mit $z(i) = F(x(i),y(i))$ plotten.
 \item Befehle \mcode{surf} und \mcode{mesh} funktionieren nur wenn  die
   Einträge in $x$ und $y$ monoton sind und die Daten auf einem kartesischen
   Gitter vorliegen.
@@ -318,14 +321,14 @@ ZI = F(<XI>,<YI>);
 % 
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
-\item Der Interpolation liegt eine Delaunay Triangulation zugrunde. Die Werte
+\item Der Interpolation liegt eine \alert{Delaunay} Triangulation zugrunde. Die Werte
   $(x(i),y(i))$ sind Eckpunkte der entstehenden Dreiecksmenge.
 \item Danach werden mit Hilfe der Dreiecke Funktionen  definiert, die
   entsprechende Werte besitzen. 
 \item Mittels \mcode{TriScatteredInterp} ist die Technik auch auf h\"ohere Dimensionen
   anwendbar. Dreiecke werden durch entsprechende höher-dimensionale
   Simplizes ersetzt. \\
-(In 3D Tetraeder)
+(In 3D: Tetraeder)
 \end{itemize}
 \end{frame}
 %
@@ -340,10 +343,12 @@ ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
   $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \mcode{meshgrid} erzeugt. 
 \item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
   ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
-\item Die Art des Interpolierens ist entweder \mcode{'nearest'}, \mcode{'linear'}
-  oder \mcode{'cubic'}. 
-%Entsprechend wird entweder st\"uckweise konstant, linear
-%  oder durch bikubische Splines interpoliert. 
+\item Art des Interpolierens:
+\begin{itemize}
+ \item \mcode{'nearest'}: st\"uckweise konstant
+ \item \mcode{'linear'}: linear
+ \item \mcode{'cubic'}: bikubische Splines
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -359,8 +364,7 @@ ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
 \item Schreiben in Dateien
 \item Einlesen von Daten aus Dateien
 \item Speichern und Laden von Variablen\\
-\item Durch \alert{ \mcode{help iofun}} erhält man eine Übersicht aller Ein- und
-  Ausgabe - Befehle
+\item \alert{ \mcode{help iofun}}: Übersicht über alle Ein- und  Ausgabe - Befehle
 \end{itemize}
 \end{frame}
 %
@@ -732,7 +736,7 @@ disp(norm(A - C))
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Debugging}
+\begin{frame}[fragile]\frametitle{Fehler-Arten}
 % In MATLAB gibt es zwei Arten von Fehler.
 \begin{itemize}
 \item \alert{ Syntax Fehler}: z.B. Schreibfehler oder
@@ -752,11 +756,16 @@ an, in welcher Funktion der Fehler liegt.}
 %
 \begin{frame}[fragile]\frametitle{Fehler abfangen}
 \begin{itemize}
-\item Der Befehl \alert{ \mcode{error('text')}} erzeugt die
-  Fehlermeldung \mcode{text} und bricht das Programm ab. Insbesondere
-  die Eingabeparameter sollten auf Fehler geprüft werden.
-\item Warnungen werden durch \alert{ \mcode{warning('text')}} erzeugt. Im
-  Gegensatz zu \mcode{error} wird das Programm aber fortgesetzt. 
+\item \alert{Fehlermeldungen}
+\begin{lstlisting}
+error(<text>) 
+\end{lstlisting}
+Bricht das Programm ab. Insbesondere die Eingabeparameter sollten auf Fehler geprüft werden.
+\item \alert{Warnungen}
+\begin{lstlisting}
+warning(<text>)
+\end{lstlisting}
+Programm wird fortgesetzt.
 \end{itemize}
 \end{frame}
 %
@@ -779,7 +788,19 @@ end
 \end{lstlisting}
 \end{frame}
 
-%keyboard, dbcont etc.
+\begin{frame}[fragile]\frametitle{Integrierter Debugger}
+\begin{itemize}
+ \item \alert{Breakpoints}: Halten das Programm an der Gegebenen Stelle an. Aktivierung: Klick in der linken Spalte rechtes neben der Zeilennummer. 
+ \item \alert{Debug-Modus}: Menu: Debug->Stop if Errors/Warnings auf \textit{always stop if error} setzen.
+ \item \alert{Step} (F10) Ein Schritt weiter im gegebenen Kontext.
+ \item \alert{Step in} (F11) Ein Schritt weiter im gegebenen Kontext. Wechselt zu aufgerufenen Funktionen. 
+\item \alert{continue} (F5) Führt das Programm normal fort.
+\end{itemize}
+
+\end{frame}
+
+
+
 
 
 \end{document}

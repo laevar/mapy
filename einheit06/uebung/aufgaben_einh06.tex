@@ -1,0 +1,30 @@
+\documentclass[a4paper,10pt,DIV15]{scrartcl}
+\input{aufg_header}
+\begin{minipage}{2cm}
+\textbf{Einheit 5}\\
+%30.07.2007
+\end{minipage}\\[0.3cm]
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Lösen Sie  die Dgl. $\frac{d}{dt} y(t) = f(y)$ mit
+  \[ f(y_1,y_2)=(y_1 -y_1 y_2, -y_2+y_2 y_1)\]
+ und Anfangswert
+  $y(0)=(0.5,0.5)$. Plotten Sie die Lösung im $y_1y_2$-Diagramm.
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}
+Betrachten Sie das folgende System gew\"ohnlicher Differentialgleichungen
+\begin{eqnarray*}
+y_1'(t) & = & - 0.04 y_1(t) + 10^4 y_2(t)y_3(t) \\
+y_2'(t) & = & 0.04 y_1(t) - 10^4 y_2(t) y_3(t) - 3 \cdot 10^7 y_2(t)^2\\
+y_3'(t) & = & 3 \cdot 10^7 y_2(t)^2.
+\end{eqnarray*}
+L\"osen Sie  das System zum Anfangswert $(1,0,0)$ an $0$ auf dem Zeitintervall $0 \leq
+t \leq 3$. Nutzen Sie die Solver \mcode{ode45} und \mcode{ode15s} und vergleichen Sie die Ergebnisse.
+\end{aufg}
+
+
+
+\end{document}

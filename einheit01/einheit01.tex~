@@ -934,7 +934,7 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Punktnotation}
 \begin{lstlisting}
->> A = [1 2; 3 4]; B = 2*ones(2,2);
+A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{lstlisting}
 \begin{itemize}
 \item $C(i,j)=A(i,j)*B(i,j)$.
@@ -997,9 +997,6 @@ ans =
 \end{lstlisting}  
 
 \end{frame}
-
-
-
 
 
 \end{document}

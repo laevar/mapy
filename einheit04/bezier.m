@@ -8,7 +8,7 @@ for k = 1:4
 end;
 
 % Zeichnen der Kontrollpolygons
-fill(x,y,'y');
+fill(x,y,'y')
 
 u = 0:0.01:1;
 umat = [(1-u).^3; 3.*u.*(1-u).^2; 3.*u.^2.*(1-u);u.^3];

@@ -6,7 +6,7 @@
 \end{minipage}\\[1cm]
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 \begin{itemize}
 \item Betrachten Sie die Datei '\mcode{daten.dat}' mittels des Befehls:
   \mcode{type daten.dat}.
@@ -16,7 +16,7 @@
 \end{aufg}
 %-----------------------------------------------------------------------------------
 
-\begin{aufg}
+\begin{aufg}[0]
 \begin{itemize}
 \item Erzeugen Sie drei Vektoren durch 
 \begin{lstlisting}
@@ -31,8 +31,9 @@ z = sin(4*pi*x).*cos(2*pi*y);
   Interpolationsmethoden. 
 \end{itemize}
 \end{aufg}
+
 %-----------------------------------------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 \begin{itemize}
 \item [(a)] Laden Sie mittels \mcode{load census} die
   U.S. Population  von  1790 bis 1990 in ihren Speicher und stellen Sie die Zahlen grafisch
@@ -40,11 +41,35 @@ z = sin(4*pi*x).*cos(2*pi*y);
 \item[(b)] Interpolieren Sie mit Hilfe der Matlab-Oberfläche die Daten!
   Welche Methode funktioniert am besten?
 \item [(c)] Schätzen Sie mit Hilfe des kubischen Splines die
-  Bevölkerungszahl 2050.
+  Bevölkerungszahl im Jahr 2050.
 \end{itemize}
 \end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}[0]
+Schreiben Sie eine Funktion, die eine beliebige Textdatei einliest und
+auswertet. Output-Argumente sollen die Anzahl der Zeilen und Zeichen der Datei
+und das h\"aufigste vorkommene Zeichen sein. 
+\end{aufg}
+
+%-----------------------------------------------------------------------------------
+\begin{aufg}[0]
+%zu einh3?
+Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
+\mathbb{N}$ die Potenz $x^n$ berechnet. \\
+{\it Hinweis:} Benutzen Sie 
+\[ x^n = \left \{ \begin{array}{ll} 
+x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
+x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
+\end{array} \right.  \]
+und die MATLAB-Funktion \mcode{mod(n,2)}, die $0$ ergibt, falls $n$ gerade ist und
+$1$ sonst.
+\end{aufg}
+
+
+\newpage
 %-----------------------------------------------------------------------------------%
-\begin{aufg}
+\begin{aufg}[0]
 Modifizieren Sie das Programm \mcode{mandel.m} aus der ersten Vorlesung derart,
 dass der analysierte Ausschnitt $[x_{min},x_{max}]\times [y_{min},y_{max}]$
 interaktiv verändert wird. 
@@ -64,80 +89,64 @@ ist.
 \item Drücken der mittleren Maustaste beendet das Programm. 
 \end{itemize} 
 \end{aufg}
-\newpage
+
+
+
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-Schreiben Sie eine Funktion, die eine beliebige Textdatei einliest und
-auswertet. Output-Argumente sollen die Anzahl der Zeilen und Zeichen der Datei
-und das h\"aufigste vorkommene Zeichen sein. 
-\end{aufg}
-%-----------------------------------------------------------------------------------
-\begin{aufg}
-zu einh3?
-Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
-\mathbb{N}$ die Potenz $x^n$ berechnet. \\
-{\it Hinweis:} Benutzen Sie 
-\[ x^n = \left \{ \begin{array}{ll} 
-x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
-x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
-\end{array} \right.  \]
-und die MATLAB-Funktion \mcode{mod(n,2)}, die $0$ ergibt, falls $n$ gerade ist und
-$1$ sonst.
-\end{aufg}
-%-----------------------------------------------------------------------------------
-\begin{aufg}
+\begin{aufg}[0]
 Wir betrachten die Folge 
 \[ x_{n+1} = \frac12 x_n + \frac{1}{x_n}, \qquad n =1,2,\dots \]
 Schreiben Sie eine Funktion, die zu einem gegebenen Startwert $x_1$ die kleinste
 Zahl $n$ berechnet mit 
 \[ |x_{n+1} - x_n| \leq 10^{-4} .\]
 \end{aufg}
+
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-doofe aufgabe..
-Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
-\begin{itemize}
-\item (a) 
-\begin{lstlisting}
-x = [ 1 2 3 4];
-y = [ 0 3 2 4];
-x1 = (y-x > 0) & (x ~= 1)
-\end{lstlisting}
-\item (b)
-\begin{lstlisting}
-x = sin(1:100);
-x2 = length(x)
-\end{lstlisting}
-\item (c)
-\begin{lstlisting}
-x = linspace(0,1,10);
-y = 1:2:6;
-x3 = x(y)
-\end{lstlisting}
-\end{itemize} 
-\end{aufg}
-
-\begin{aufg}
-doofe aufgabe..
-Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
-\begin{itemize}
-\item (a)
-\begin{lstlisting}
-x = 100:200;
-y = linspace(300,400,100);
-z = x.*y.*2
-\end{lstlisting}
-\item (b)
-\begin{lstlisting}
-clear all
-z(5) = 10;
-a = (6:10).^z;
-b = a.*ones(5,1)
-\end{lstlisting}
-
-\end{itemize} 
-
-\end{aufg}
+% \begin{aufg}[0]
+% doofe aufgabe..
+% Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
+% \begin{itemize}
+% \item (a) 
+% \begin{lstlisting}
+% x = [ 1 2 3 4];
+% y = [ 0 3 2 4];
+% x1 = (y-x > 0) & (x ~= 1)
+% \end{lstlisting}
+% \item (b)
+% \begin{lstlisting}
+% x = sin(1:100);
+% x2 = length(x)
+% \end{lstlisting}
+% \item (c)
+% \begin{lstlisting}
+% x = linspace(0,1,10);
+% y = 1:2:6;
+% x3 = x(y)
+% \end{lstlisting}
+% \end{itemize} 
+% \end{aufg}
+% 
+% \begin{aufg}[0]
+% doofe aufgabe..
+% Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
+% \begin{itemize}
+% \item (a)
+% \begin{lstlisting}
+% x = 100:200;
+% y = linspace(300,400,100);
+% z = x.*y.*2
+% \end{lstlisting}
+% \item (b)
+% \begin{lstlisting}
+% clear all
+% z(5) = 10;
+% a = (6:10).^z;
+% b = a.*ones(5,1)
+% \end{lstlisting}
+% 
+% \end{itemize} 
+% 
+% \end{aufg}
 
 %-------------------------------------------------------------------------------
 \end{document}

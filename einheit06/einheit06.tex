@@ -1,6 +1,6 @@
 \documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
 \title{Einführung in Matlab - Einheit 5}
-\subtitle{Numerische Mathematik}
+\subtitle{Numerische Mathematik, profiler, objektorientierung}
 \input{../slide_header}
 \maketitle
 
@@ -114,7 +114,7 @@ function loes = poisson (f,n)
 f = fcnchk(f);
 A = gallery('poisson',n-1); 
 % Erzeuge rechte Seite und Mesh
-mesh = zeros(2,(n-1)^2);
+loes.mesh = zeros(2,(n-1)^2);
 F = zeros((n-1)^2,1);
 for i = 1:(n-1)
     for j = 1:(n-1)
@@ -145,9 +145,13 @@ figure;
 [X,Y] = meshgrid(0:1/n:1,0:1/n:1);
 Fi = TriScatteredInterp(loes.mesh(1,:)', loes.mesh(2,:)',loes.x,'linear');
 Z = Fi(X,Y);
-surf(X,Y,Z);
+surf(X,Y,Z); shading flat;
 \end{lstlisting}
 \end{frame}
+
+%\begin{frame}[fragile]\frametitle{}
+%bild
+%\end{frame}
 
 \subsection{Differentialgleichungen}
 %
@@ -176,12 +180,7 @@ L\"ose f\"ur $0 \leq t \leq 3$ mit \alert{ ode45} die Dgl.
 \alert{ \[ \frac{d}{dt} y(t) = -y(t)-5e^{-t}\sin5t, \quad y(0)=1. \]}
 \begin{itemize}
 \item Die rechte Seite als eigene Funktion:
-\begin{lstlisting}
-function z = rechte_seite1(t,y)
-% rechte_seite1   ODE Beispiel
-%         z=rechte_seite1(t,y)
-z = -y-5*exp(-t)*sin(5*t);
-\end{lstlisting}
+\lstinputlisting{rechte_seite1.m}
 \end{itemize}
 \end{frame}
 %
@@ -190,12 +189,7 @@ z = -y-5*exp(-t)*sin(5*t);
 \begin{frame}[fragile]\frametitle{Skalares Beispiel}
 \begin{itemize}
 \item Ausrechnen und Plotten
-\begin{lstlisting}
-tspan = [0,3]; aw = 1;
-[t,y] = ode45(@rechte_seite1,tspan,aw);
-plot(t,y,'*--','Linewidth',3)
-xlabel('t'), ylabel('y(t)')
-\end{lstlisting}
+\lstinputlisting{dgl_example.m}
 \end{itemize}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{./figures/loesung_dgl1} 
@@ -283,31 +277,13 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 
 
 rechte Seite:
-\begin{lstlisting}
-function z = lorenz_rechte_seite(t,y)
-z = [10*(y(2)-y(1));...
-    28*y(1)-y(2)-y(1)*y(3);...
-    y(1)*y(2)-8*y(3)/3];
-\end{lstlisting}
+\lstinputlisting{lorenz_rechte_seite.m}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Die Lorenz-Gleichungen}
-\begin{lstlisting}
-%---------------------------------
-%   lorenz_gl.m
-%  Eine Approximation der Lorenzgleichungen
-%-----------------------------------------
-tspan = [0,30]; aw = [0;1;0];
-options = odeset ('AbsTol',1e-7,'RelTol',1e-4);
-[t,y] = ode45(@lorenz_rechte_seite,tspan,aw, options);
-
-subplot(2,2,1),plot3(y(:,1),y(:,2),y(:,3)), 
-subplot(2,2,2),plot(y(:,1),y(:,2)),xlabel('y_1'),ylabel('y_2');
-subplot(2,2,3),plot(y(:,1),y(:,3)),xlabel('y_1'),ylabel('y_3');
-subplot(2,2,4),plot(y(:,2),y(:,3)),xlabel('y_2'),ylabel('y_3');
-\end{lstlisting}
+\lstinputlisting{lorenz_gl.m}
 \end{frame}
 %
 % Slide
@@ -317,5 +293,121 @@ subplot(2,2,4),plot(y(:,2),y(:,3)),xlabel('y_2'),ylabel('y_3');
 \includegraphics[width=0.8\textwidth]{./figures/lorenz}
 \end{center}
 \end{frame}
+
+\subsection{Nichtlineare Gleichungen lösen und Optimierung}
+
+\begin{frame}[fragile]\frametitle{Gleichungslöser}
+Löst nichtlineare Gleichungen
+\begin{lstlisting}
+ [x,fval] = fsolve(fun,x0,options)
+\end{lstlisting}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Gleichungslöser - mit Nebenbedingungen}
+\begin{lstlisting}
+ x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Minimumsuche - Ableitungsfrei}
+ohne Nebenbedingungen, multidimensional:
+\begin{lstlisting}
+ [x,fval,exitflag,output] = fminsearch(f,x0,options)
+\end{lstlisting}
+\begin{itemize}
+ \item \mcode{f}: Function handle.
+\item \mcode{x0}: Start-wert/vektor/matrix.
+\item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{optimset}
+\begin{lstlisting}
+options = optimset('param1',value1,'param2',value2,..) 
+\end{lstlisting}
+\begin{itemize}
+ \item \mcode{'TolFun'}: Abbruchkriterium für den Funktionswert.
+\item \mcode{'TolX'}: Abbruchkriterium für aktuellen Punkt $x$.
+\item \mcode{'MaxIter'}: Maximale Anzahl Iterationen.
+\item \mcode{'Display'}: Regelt Ausgabe im Commandwindow.
+\end{itemize}
+\end{frame}
+
+
+
+
+\section{Profiler}
+
+\begin{frame}[fragile]\frametitle{Perfomance}
+
+Perfomance der ist bei realen Problemen schnell ein wichtiger Aspekt um Software zu erhalten die das gegebene Problem gut und schnell löst.
+
+\textbf{Einflussfaktoren:}
+\begin{itemize}
+ \item Algorithmus
+ \item \alert{Implementation}
+ \item Betriebssytem und Programmiersprache
+ \item Hardware
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Profiler}
+Tool um Bottlenecks und Fehler (Bugs) herauszufinden.
+
+\textbf{Features}
+\begin{itemize}
+ \item (zeilenweise) Ausführungszeit
+\item Eltern-Kind-Beziehungen der Funktionen und deren Ausführungszeit
+ \item Anzahl Funktionsaufrüfe
+\item Geschichte (History) der Funktionsaufrüfe
+\item Farbige Darstellung und Frontend
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Benutzung}
+\begin{lstlisting}
+profile on 
+<Befehle>
+profile viewer
+\end{lstlisting}
+Optionen und Kommandos:
+\begin{itemize}
+ \item \mcode{-history}: Speichert die Funktionsaufruf-history.
+ \item \mcode{-timer real}: Setzt die Zeitmessung auf Realzeit.
+\item \mcode{-timer cpu}: Setzt die Zeitmessung auf CPU-Zeit.
+ \item \mcode{resume}: Setzt den Profiler fort.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Profiler - Beispiel}
+\lstinputlisting{fout.m}
+\lstinputlisting{profilertest.m}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Profilerwindow}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./figures/profilertest}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{History der Funktionsaufrüfe}
+\lstinputlisting{profilertest2.m}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Profiling Poisson}
+\lstinputlisting{profile_poisson.m}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{./figures/profile_poisson}
+\end{center}
+\end{frame}
+
 
 \end{document}

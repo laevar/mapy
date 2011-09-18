@@ -10,28 +10,11 @@
 \begin{aufg}[0]
 Schreiben Sie eine Funktion, die Funktionen $f:[-1,1] \times [-1,1] \
 \rightarrow \mathbb{R}$ plottet. Das Intervall $[-1,1]$ soll
-dabei jeweils in $N$ Punkte zerlegt werden. Die Funktion $f$ soll dabei als
+dabei jeweils in $N$ Punkte zerlegt werden. Die Funktion $f$ soll als
 function-handle \"ubergeben werden. Schreiben Sie die Funktion so, dass wahlweise
 nur die Funktion $f$ \"ubergeben werden kann (dann $N=50$) oder aber $f$ und $N$.
 \end{aufg}
 
-%-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Modifizieren Sie das Programm \mcode{interpolation.m}. Schreiben Sie
-eine Funktion, die  eine als String gegebene Funktion $f$ an $N$
-äquidistanten Punkten in $[-1,1]$ interpoliert. \\
-{\it Hinweis:} Verwenden Sie den Befehl \mcode{f=fcnchk(f)} für den
-String $f$.
-\end{aufg}
-
-\begin{aufg}[0]
-Erstellen Sie die Funktion 
-\[ g(x) := \left \{ \begin{array}{ll} 1-|x|^2, & |x|<1 \\
-0, & |x| \geq  1 \\
-\end{array} \right. \quad x \in \mathbb{R}.  \vspace*{-0.3cm}
-\]
-Plotten Sie $g$ mit dem Befehl \mcode{ezplot}.  
-\end{aufg}
 
 %------------------------------------------------------------------------------
 
@@ -43,23 +26,18 @@ für $N=50$.
 %-----------------------------------------------------------------------------------
 
 
-%-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Plotten Sie   auf dem
-  Intervall $[-\pi, 2 \pi]$ die Funktion $h(x)=\sin (x) {\cos
-  (2x)}$. Unterteilen Sie  die $x$-Achse in
-  $\pi/2$-Schritte, und beschriften Sie diese. Fügen Sie eine Legende
-  in Schriftgröße $21$ hinzu. Ändern Sie auch die Schriftgröße der
-  Achsenbeschriftung.
-\end{aufg}
-
-
-%-----------------------------------------------------------------------------------
-
+% %-----------------------------------------------------------------------------------
+% \begin{aufg}[0]
+% Plotten Sie   auf dem
+%   Intervall $[-\pi, 2 \pi]$ die Funktion $h(x)=\sin (x) {\cos
+%   (2x)}$. Unterteilen Sie  die $x$-Achse in
+%   $\pi/2$-Schritte, und beschriften Sie diese. Fügen Sie eine Legende
+%   in Schriftgröße $21$ hinzu. Ändern Sie auch die Schriftgröße der
+%   Achsenbeschriftung.
+% \end{aufg}
 
 
 \begin{aufg}[0]
-woanders hin?
 Sind die folgenden Vektoren linear unabhängig?
 { \[
 v_1=
@@ -73,34 +51,7 @@ v_1=
 . \] }
 \end{aufg}
 
-\begin{aufg}[0]
-Finde die Lösung $x$ von $Ax=b$ mit 
-\[ A:=\left( \begin{array}{cccc} 
-2 & 3 & 4 & 5 \\ 
-1 &    1 &    1 &    1\\
-1 &    0 &    1 &    0 \\
-9 &     3 &    2 &    1
-\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
-14\\
-     4\\
-     2\\
-    15
-\end{array} \right) . \] 
-\end{aufg}
 
-%--------------------------------------------------
-\begin{aufg}[0]
-Finde die Lösung $x$ von $Ax=b$ mit 
-{ \[ A:=\left( \begin{array}{ccc} 
-1 & 2 & 3 \\ 
-4 &    5 &    6\\
-7 &    8 &    9  
-\end{array} \right) , \qquad b:=\left( \begin{array}{c} 
-6\\
-     15\\
-     24
-\end{array} \right) . \] }
-\end{aufg}
 
 %--------------------------------------------------
 \begin{aufg}[0]
@@ -112,8 +63,21 @@ falls nicht die Funktion abbrechen. Das Resultat der Berechnung soll als Vektor 
 \end{aufg}
 
 
+
 %--------------------------------------------------
 \begin{aufg}[0]
+Berechnen Sie die Frobenius-Norm (Schauen Sie in der Hilfe nach wie das geht)
+\[ \|A \|_F := \sqrt{ \sum_{i,j=1}^n a_{ij}^2 }, \quad A=(a_{ij}) \in
+\mathbb{R}^{n \times n}  \]
+der Vandermode Matrix 
+\lstinline!vander(0:0.02:1)! 
+\end{aufg}
+
+\newpage
+
+%--------------------------------------------------
+\begin{aufg}[0]
+\label{randwert}
 Zerlegen Sie das Intervall $[0,1]$ durch 
   \lstinline!0:(1/101):1!. Berechnen Sie mit Hilfe von 
 Finiten Differenzen eine approx. Lösung von
@@ -125,21 +89,15 @@ u(0) & = & u(1) =0
 %\vspace*{-0.5cm}
 \end{aufg}
 
+
 %--------------------------------------------------
 \begin{aufg}[0]
-Berechnen Sie die Frobenius-Norm 
-\[ \|A \|_F := \sqrt{ \sum_{i,j=1}^n a_{ij}^2 }, \quad A=(a_{ij}) \in
-\mathbb{R}^{n \times n}  \]
-der Vandermode Matrix 
-\lstinline!vander(0:0.02:1)! 
-\end{aufg}
-%--------------------------------------------------
-\begin{aufg}[0]
-Ändern Sie in Aufgabe 11 die rechte Seite $1$ in
+Ändern Sie in Aufgabe \ref{randwert} die rechte Seite $1$ in
   $\sin(4 \pi x)$ und berechnen Sie eine Näherungslösung. 
 \end{aufg}
---------------------------------------------------
-\newpage
+
+
+%\newpage
 \begin{aufg}[0]
 Berechnen Sie die Eigenwerte und Eigenvektoren der Matrix
 \[ A = \left( \begin{array}{cccc}
@@ -151,11 +109,6 @@ Berechnen Sie die Eigenwerte und Eigenvektoren der Matrix
 Bestimmen Sie auch die $QR$-Zerlegung.
 \end{aufg}
 
-\begin{aufg}[0]
-Sei \lstinline!A=hilb(n)! und \lstinline!x=ones(n,1)!. Berechnen Sie
-  für $n=5$ und $n=15$ den Vektor $b=A*x$, \lstinline!norm(x-A\b)! und die Kondition
-  von $A$. Was stellen Sie fest? Erklären Sie das Ergebnis!
-\end{aufg}
 
 \begin{aufg}[0]
 \begin{itemize}
@@ -171,35 +124,9 @@ Berechnen Sie erneut den maximalen Fehler.
 \[ x_i = - 5 \cos(\pi (i-1)/49), \quad i=1, \dots , 50. \] 
 \end{itemize}
 \end{aufg}
-% disp('*** aufgabe 8');
-% clear
-% 
-% x = [ 1 2 3 4];
-% y = [ 0 3 2 4];
-% x1 = (y-x > 0) & (x ~= 1)
-% 
-% x = sin(1:100);
-% x2 = length(x)
-% 
-% x = linspace(0,1,10);
-% y = 1:2:6;
-% x3 = x(y)
-% 
-% disp('*** aufgabe 9');
-% clear
-% 
-% x = 100:200;
-% y = linspace(300,400,100);
-% z = x.*y.*2
-% % 100:200 erzeugt einen punkt mehr, daher stimmen die matrizengroessen
-% % nicht ueberein.
-% 
-% clear all
-% z(5) = 10;
-% a = (6:10).^z;
-% b = a.*ones(5,1)
-% % hier stimmt zwar die groesse der vektoren, aber die orientierung ist
-% % nicht korrekt. Ein Zeilenvektor kann nicht direkt per .* mit einem
-% % Spaltenvektore multipliziert werden.
+
+
+%Aufgabe fuer dunnbesetzte Matrizen
+% Aufgabe(n) fuer reshape und find
 
 \end{document}

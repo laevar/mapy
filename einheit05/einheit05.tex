@@ -21,10 +21,13 @@ whos
   Name   Size   Bytes  Class  
   A      3x3x2    144  double  
 \end{matlab}
-\item \alert{ \mcode{cat(<dim>,<A1>,<A2>,..)}} f\"ugt die Arrays \mcode{A1},
-  \mcode{A2},.. entlang der Dimension \mcode{dim} zusammen. 
+\item 
 \begin{lstlisting}
- A = cat(3,ones(3), 2*ones(3))
+cat(<dim>,<A1>,<A2>,..) 
+\end{lstlisting}
+f\"ugt die Arrays \mcode{A1}, \mcode{A2},.. entlang der Dimension \mcode{dim} zusammen. 
+\begin{lstlisting}
+A = cat(3,ones(3), 2*ones(3))
 \end{lstlisting}
 \item Befehle wie \alert{ \mcode{zeros}}, \alert{ \mcode{ones}} oder \alert{
   \mcode{repmat}} funktionieren auch im multidimensionalen Kontext.
@@ -42,7 +45,6 @@ aus, und schreibt die Elemente spaltenweise in ein $(n_1, \dots,
 n_s)$-Array. 
 \begin{itemize}
 \item $X$ muss $n_1 \cdots n_s$ Elemente enthalten.
-\item Der Befehl ist sehr n\"utzlich.
 \end{itemize}
 \textbf{Beispiele:}
 \begin{lstlisting}
@@ -130,7 +132,7 @@ ans =
 \item Funktionen werden in einem eigenen {\it Workspace} verwaltet.
 \item Beim ersten Aufruf speichert MATLAB die Funktion im Workspace bis MATLAB
   verlassen wird oder die Funktion \mcode{fun} mit  \mcode{clear fun} gel\"oscht wird.
-\item Namen: Buchstaben mit 1-63 Zeichen (Ohne -,+,*,/ !). 
+\item Bezeichner: Buchstaben mit 1-63 Zeichen (Ohne -,+,*,/ !). 
 \end{itemize}
 \end{frame}
 
@@ -139,7 +141,7 @@ ans =
 %
 \begin{frame}[fragile]\frametitle{Function-Handles}
 
-Ein {\it Function Handle} ist ein MATLAB Datentyp, das alle Informationen
+Ein \alert{Function Handle} ist ein Datentyp, das alle Informationen
 enth\"alt, die zur Auswertung einer Funktion n\"otig sind.\\
 \begin{itemize}
 \item Definition, z.B. 
@@ -496,12 +498,16 @@ ezcontourf(@f);
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Vektornorm}
-Die $p$-Norm eines Vektors $x=(x_1, {} \dots , x_n)$
-\[ \|x \|_p := \left( \sum_{i=1}^n  |x_i|^p \right)^{1/p} \] 
-(definiert für $p\geq 1$).
+\begin{lstlisting}
+norm(x,p) 
+\end{lstlisting}
+(Default: $p=2$) 
+
+$x=(x_1, {} \dots , x_n)$
 \begin{itemize}
-\item in MATLAB: \mcode{norm(x,p)} (Default: $p=2$) 
-\item $p=\infty$ entspricht der Maximum-Norm 
+\item Die $p$-Norm (definiert für $p\geq 1$).
+\[ \|x \|_p := \left( \sum_{i=1}^n  |x_i|^p \right)^{1/p} \] 
+\item $p=\infty$  Maximum-Norm 
 \[  \|x \|_\infty = \max_{i=1, \dots n} |x_i|. \]
 \end{itemize}
 \end{frame}
@@ -509,16 +515,26 @@ Die $p$-Norm eines Vektors $x=(x_1, {} \dots , x_n)$
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Matrixnorm}
-Seien  $A\in \mathbb{C}^{n \times m}$ und
-$p \geq 1$. Die
-{\it Matrixnorm} ist definiert durch
-\[ \| A \|_p = \sup_{x\in \mathbb{C}^m \setminus \{ 0 \}} \frac{\|Ax
-  \|_p}{\| x \|_p}. \]
+\begin{lstlisting}
+norm(A,p) 
+\end{lstlisting}
+(Default $p=2$).
+
+Seien  $A\in \mathbb{C}^{n \times m}$ und $p \geq 1$. 
 \begin{itemize}
-\item In MATLAB: \mcode{norm(A,p)} (Default $p=2$).
-\item $p=\infty$ kann charakterisiert werden durch
-\[ \|A\|_\infty = \max_{1 \leq j \leq m} \sum_{i=1}^n |a_{ij}|, \quad
-\mbox{Zeilensummennorm.} \]
+\item $p=1$ Spaltensummennorm:
+\[ 
+%\| A \|_p = \sup_{x\in \mathbb{C}^m \setminus \{ 0 \}} \frac{\|Ax \|_p}{\| x \|_p}. 
+\| A \|_1 = max_j \sum_{i=1}^n \abs{a_{ij}}
+\]
+\item $p=2$ Spektralnorm ($\lambda_{max}$: größter Eigenwert):
+\[
+\| A \|_2 = \sqrt{\lambda_{max} (A^H \cdot A)}
+\]
+\item $p=\infty$ Zeilensummennorm:
+\[ 
+\|A\|_\infty = \max_{1 \leq j \leq m} \sum_{i=1}^n |a_{ij}|, \quad
+\]
 \end{itemize} 
 \end{frame}
 % 
@@ -528,9 +544,11 @@ $p \geq 1$. Die
 Kondition einer quadratischen Matrix $A$: 
 { \[ \cond_p(A):=\|A\|_p\|A^{-1}\|_p. \] }
 \vspace*{-0.8cm}
+\begin{lstlisting}
+cond(A,p)
+\end{lstlisting}
+(Default $p=2$)
 \begin{itemize}
-\item In MATLAB: 
-  \mcode{cond(A,p)} (Default $p=2$) 
 \item Es gilt $\cond_p(A)\geq 1$.
 \item Die Kondition mißt die Empfindlichkeit der Lösung $x$ von $Ax=b$
   gegenüber  Störungen
@@ -667,7 +685,7 @@ so dass
 u(0) & = & u(1) =0
 \end{eqnarray*}
 \alert{Problem:} Es kann i.A. keine geschlossene
-Lösungsdarstellung angegeben werden. \\ %Wieso ?
+Lösungsdarstellung angegeben werden. \\ %Wieso ->relativ offensichtlich.. (wegen randbedingungen)
 
 \alert{Ausweg:} Approximation der Lösung. 
 \end{frame}
@@ -676,19 +694,19 @@ Lösungsdarstellung angegeben werden. \\ %Wieso ?
 %
 \begin{frame}[fragile]\frametitle{Finite Differenzen Verfahren}
 
-Diskretisierung: $0=x_0 < \dots < x_{n}=1$ mit $x_i=\frac{i}{n}$\\
-
-Differenzenquotient: 
+\begin{itemize}
+ \item Diskretisierung: $0=x_0 < \dots < x_{n}=1$ mit $x_i=\frac{i}{n}$
+\item Differenzenquotient: 
 \[ u''(x_i) \sim \frac{u(x_{i-1}) - 2 u(x_i) + u(x_{i+1})}{ 
   h^2}, \quad h:=\frac{1}{n} \]
-
-Einsetzen in $-u''(x)=e^x$ ergibt 
+\item Einsetzen in $-u''(x)=e^x$ ergibt 
 \[ -u(x_{i-1}) + 2 u(x_i) - u(x_{i+1}) =  h^2 e^{x_i}, \quad
 i=1,\dots ,n-1 \] 
-Randbedingungen $\Rightarrow $ $u(x_0)=u(x_n)=0$.\\
-
-$\Rightarrow$ Lineares Gleichungssystem für 
+Randbedingungen $\Rightarrow $ $u(x_0)=u(x_n)=0$.
+\item $\Rightarrow$ Lineares Gleichungssystem für 
 $u(x_1), \dots ,u(x_{n-1})$.
+\end{itemize}
+
 \end{frame}
 
 %
@@ -714,15 +732,15 @@ h^2 \left( \begin{array}{c} e^\frac{1}{n}\\   \vdots \\ e^\frac{n-1}{n}
 %
 % Slide: 
 %
-\begin{frame}[fragile]\frametitle{Lösung für $n=21$}
+\begin{frame}[fragile]\frametitle{Implementation für $n=21$}
 \begin{itemize}
 \item Zerlegung des Intervalls $[0,1]$
 \begin{lstlisting}
-x = 0:(1/21):1
+x = 0:(1/n):1
 \end{lstlisting}
 \item Eleminieren der Randpunkte
 \begin{lstlisting}
-x_i = x(2:21)
+x_i = x(2:n)
 \end{lstlisting}
 \item Erzeugen der Matrix $A$ (Übungsaufgabe)
 \end{itemize}
@@ -742,7 +760,7 @@ z_i = A\F;
 \end{lstlisting}
 \item Zufügen der Werte am Rand
 \begin{lstlisting}
->> z = [0; z_i;0];
+z = [0; z_i;0];
 \end{lstlisting}
 \end{itemize}
 \end{frame}
@@ -832,8 +850,12 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
-\item LGS können auch mit Hilfe iterativer Verfahren gelöst werden,
-  z.B. \mcode{gmres}, \mcode{pcg}, \mcode{bicgstab}.
+\item LGS können auch mit Hilfe iterativer Verfahren gelöst werden:
+\begin{itemize}
+ \item \mcode{gmres} (generalized minimum residual)
+ \item \mcode{pcg} (preconditioned conjugate gradient)
+ \item \mcode{bicgstab} (biconjugate gradients stabilized)
+\end{itemize}
 \item $A\in \mathbb{C}^{n \times m}$, $n \neq m$ bei \mcode{A\\b}:
 \begin{itemize}
 \item $n>m$ (überbestimmter Fall): Least-Square Lösung, d.h. der Ausdruck

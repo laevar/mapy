@@ -8,8 +8,8 @@ function [z] = randwertaufgabe(n)
 %  Jochen Schulz           07.09.2009
 %-------------------------------------------
 
-if (n < 10 & n > 200 )
-  disp(['Die Anzahl der Stuetzstellen ist nicht im Bereich vbon 10-200']);
+if (n < 10 && n > 200 )
+  disp('Die Anzahl der Stuetzstellen ist nicht im Bereich vbon 10-200');
   exit
 end
 

@@ -1,6 +1,6 @@
 \documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
-\title{Einführung in Matlab - Einheit 5}
-\subtitle{Numerische Mathematik, profiler, objektorientierung}
+\title{Einführung in Matlab - Einheit 6}
+\subtitle{Numerische Mathematik, Profiler}
 \input{../slide_header}
 \maketitle
 
@@ -254,10 +254,13 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 \end{tabular}
 %Ein lineares DG System mit konstanten Koeffizienten heißt steif, wenn
 %seine Eigenwerte alle negativen Realteil besitzen und sein Steifigkeitsquotient
-%groß ist.
+%groß ist (negativ semidefinit)
 %Sei µ1 der betragsgrößte und µ2 der betragskleinste Realteil der Eigenwerte einer Jacobi-Matrix, 
 %dann wird der Steifigkeitsquotient q dieser Matrix definiert durch:
 %q = µ1/µ2
+%--
+%steif: Loesung aendert sich wenig in einem gebiet
+% ordnung: fourth-order method: meaning that the error per step is on the order of h^5, while the total accumulated error has order h^4
 \end{frame}
 
 \subsection{Lorenz-Gleichungen}
@@ -279,6 +282,10 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 rechte Seite:
 \lstinputlisting{lorenz_rechte_seite.m}
 \end{frame}
+%Attraktor (von lat. ad trahere = zu sich hin ziehen) ist ein Begriff aus der Theorie dynamischer Systeme 
+%und beschreibt eine unter der Zeitentwicklung des Systems invariante (d. h. sich zeitlich nicht ändernde) 
+%oder sich dieser asymptotisch nähernde Untermenge eines Phasenraums, die unter der Dynamik dieses Systems nicht mehr verlassen wird. 
+
 %
 % Slide
 %
@@ -296,34 +303,17 @@ rechte Seite:
 
 \subsection{Nichtlineare Gleichungen lösen und Optimierung}
 
-\begin{frame}[fragile]\frametitle{Gleichungslöser}
+\begin{frame}[fragile]\frametitle{Nichtlinearer Gleichungslöser}
 Löst nichtlineare Gleichungen
 \begin{lstlisting}
  [x,fval] = fsolve(fun,x0,options)
 \end{lstlisting}
-
-
-\end{frame}
-
-
-\begin{frame}[fragile]\frametitle{Gleichungslöser - mit Nebenbedingungen}
-\begin{lstlisting}
- x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
-\end{lstlisting}
-
-\end{frame}
-
-
-\begin{frame}[fragile]\frametitle{Minimumsuche - Ableitungsfrei}
-ohne Nebenbedingungen, multidimensional:
-\begin{lstlisting}
- [x,fval,exitflag,output] = fminsearch(f,x0,options)
-\end{lstlisting}
 \begin{itemize}
- \item \mcode{f}: Function handle.
-\item \mcode{x0}: Start-wert/vektor/matrix.
+ \item \mcode{fun}: Function handle.
+\item \mcode{x0}: Startvektor.
 \item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
 \end{itemize}
+
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{optimset}
@@ -335,11 +325,76 @@ options = optimset('param1',value1,'param2',value2,..)
 \item \mcode{'TolX'}: Abbruchkriterium für aktuellen Punkt $x$.
 \item \mcode{'MaxIter'}: Maximale Anzahl Iterationen.
 \item \mcode{'Display'}: Regelt Ausgabe im Commandwindow.
+\item \mcode{'Algorithm'}: Wahl des genutzten Algorithmus.
 \end{itemize}
 \end{frame}
 
 
+\begin{frame}[fragile]\frametitle{Beispiel}
+\lstinputlisting{fsolve_exp.m}
+\begin{matlab}
+x =
 
+   0.351733710993003
+
+fval =
+
+    -6.926083040426079e-10
+\end{matlab}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Ableitungsfrei / Nebenbedingungen}
+ohne Nebenbedingungen, multidimensional:
+\begin{lstlisting}
+ [x,fval,exitflag,output] = fminsearch(fun,x0,options)
+\end{lstlisting}
+\begin{itemize}
+ \item \mcode{fun}: Function handle.
+\item \mcode{x0}: Start-wert/vektor/matrix.
+\item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
+\end{itemize}
+
+mit Nebenbedingungen, multidimensional:
+\begin{lstlisting}
+ x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Newtonverfahren}
+
+Das Newtonverfahren ist ein Verfahren zum Lösen von Gleichungen mit stetig, differenzierbaren 
+Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
+
+\textbf{1D-Fall:}
+\[
+ x_{n+1} = x_n - \frac{f(x_n)}{f^{\,\prime}(x_n)}
+\]
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Newtonverfahren - Implementation}
+\lstinputlisting{newton.m}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{figures/newton.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
+\lstinputlisting{newton_konvergenz.m}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{figures/newton_konvergenz.pdf}
+\end{center}
+\end{frame}
 
 \section{Profiler}
 

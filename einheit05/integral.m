@@ -33,7 +33,7 @@ for i = 1:N
     fill([x1(i) x1(i)  x1(i+1) x1(i+1)], [0 y(i)  y(i) 0], 'r');
     hold on;
 end;
-plot(a:(b-a)/100:b,(a:(b-a)/100:b).^3,'LineWidth',3);
+plot(x1,y1,'LineWidth',3);
 title(strcat('\int x^3 = ',num2str(result),' fuer N =', num2str(N))); 
 
 

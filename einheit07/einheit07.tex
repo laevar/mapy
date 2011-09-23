@@ -4,13 +4,16 @@
 \input{../slide_header}
 \maketitle
 
+%
+%figure von ehemals einheit6 rausscueh!
+%
+
 \section{Grafik-Handle}
 \begin{frame}[fragile]\frametitle{Grafik-Objekte}
 \begin{itemize}
-\item Die Grafikobjekte sind hierarchisch angeordnet. Sie haben also Kinder
-und V\"ater. 
+\item Die Grafikobjekte sind hierarchisch angeordnet. Sie haben Kinder und Eltern. 
 \item Jedes Grafik-Objekt ist eindeutig bestimmt durch seine Eigenschaften
-(engl. {\it properties}). 
+(engl. \mcode{properties}). 
 \item Die Eigenschaften  der Objekte sind  in  sogenannten
 {\it handles} gespeichert. Sie liegen dort als \mcode{double}
 (Gleitkommazahl) vor.  
@@ -140,7 +143,7 @@ set(l,'FontSize',20);
 \begin{lstlisting}
 a = get(l,'Children'), get(a,'type')
 \end{lstlisting}
-\item Information zum Vater
+\item Information zu den Eltern
 \begin{lstlisting}
 d = get(l,'Parent'), get(d,'type')
 \end{lstlisting}
@@ -171,7 +174,7 @@ delete(handle)
 \begin{lstlisting}
 copyobj(handle,new_parent) 
 \end{lstlisting}
-H\"angt das Objekt mit Handle \mcode{handle} an einen anderen Vater
+H\"angt das Objekt mit Handle \mcode{handle} an andere Eltern
 \mcode{new_parent} an.
 
 \item Finden von Objekten mit bestimmten Eigenschaften: 

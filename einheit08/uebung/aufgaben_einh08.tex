@@ -1,59 +1,31 @@
 \documentclass[a4paper,10pt,DIV15]{scrartcl}
 \input{aufg_header}
 \begin{minipage}{2cm}
-\textbf{Einheit 7}\\
+\textbf{Einheit 8}\\
 %30.07.2007
 \end{minipage}\\[0.3cm]
 
 
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
- Kompilieren Sie \mcode{ggt_2.c} und testen Sie die Funktion.
-\end{aufg}
+\input{e8a1/e8a1}
 
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-Schreiben Sie eine mex-Funktion, die zu einem gegebenen Vektor den
-  Durchschnittswert und das Produkt aller Eintr\"age zur\"uckgibt.  
-\end{aufg}
+\input{e8a2/e8a2}
 
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
- Schreiben Sie eine Funktion in MATLAB, die die 
-  mex-Routine \mcode{ggt} gegen falsche Aufrufe sch\"utzt. 
-\end{aufg}
+\input{e8a3/e8a3}
 
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-\begin{itemize}
-\item Kompilieren Sie die Datei \mcode{mandel_c.c}. 
-\item Vergleichen Sie die Laufzeiten der Algorithmen \mcode{mandelbrot.m} und
-  \mcode{mandelbrot2.m} f\"ur verschiedene Anzahlen von Punkten in der
-  komplexen Ebene. Was stellen Sie fest?
-\end{itemize}
-\end{aufg}
+\input{e8a4/e8a4}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-Modifizieren Sie das Programm \mcode{plot_poisson.c} derart, dass  die
-Funktion 
-\[ f(x,y) = (x-1)(x+1)(y-1)(y+1) \]
-geplottet wird. Benutzen Sie dabei $60$ Punkte in $x$-Richtung und $30$ Punkte
-in $y$-Richtung. 
-\end{aufg}
+\input{e8a5/e8a5}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}
-Erstellen Sie ein C-Programm, das zu einem gegebenen $n \in \mathbb{N}$ in
-MATLAB die Hilbertmatrix $H=(h_{ij}) \in \mathbb{R}^{n \times n}$, $h_{ij}=\frac{1}{i+j-1}$
-berechnet. Danach soll in MATLAB das Gleichungssystem $H x = b$ mit $b=H (1, \dots,
-1)^t$ gel\"ost werden. Die Lösung soll dann an das C-Programm zur\"uckgegeben
-werden und dort ausgegeben werden. Testen Sie $n=4,5,8,10,20$!
-\end{aufg}
-
+\input{e8a6/e8a6}
 
 \end{document}

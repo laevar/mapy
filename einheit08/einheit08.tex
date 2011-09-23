@@ -11,10 +11,9 @@
 \begin{frame}[fragile]\frametitle{Schnittstellen in MATLAB}
 \begin{itemize}
 \item MATLAB l\"a{\ss}t sich mit anderen Programmiersprachen kombinieren. 
-\item Die Verkn\"upfung geschieht \"uber sogenannte \alert{Schnittstellen}. 
+\item Die Verkn\"upfung geschieht \"uber sogenannte \alert{Schnittstellen} (engl. interfaces). 
 \item Es existieren Schnittstellen zu C, Fortran und Java.
-\item \"Uber diese Schnittstellen werden in der Regel Kommandos und
-  insbesondere Daten \"ubermittelt.
+\item \"Uber diese Schnittstellen können Kommandos und Daten \"ubermittelt werden.
 \end{itemize}
 \end{frame}
 %
@@ -22,13 +21,13 @@
 %
 \begin{frame}[fragile]\frametitle{Warum Schnittstellen zu C?}
 \begin{itemize}
-\item Gro{\ss}e bereits existierende C-Programme k\"onnen von MATLAB aus
+\item \alert{Wiederverwendung}: Gro{\ss}e bereits existierende C-Programme k\"onnen von MATLAB aus
   gestartet werden, ohne dass sie als $m$-Files neugeschrieben werden
   m\"ussen. 
-\item Bottleneck Berechnungen (in der Regel Schleifen), die in MATLAB nicht
+\item \alert{Performance}: Bottleneck Berechnungen (in der Regel Schleifen), die in MATLAB nicht
   schnell genug laufen, k\"onnen aus Effizienzgr\"unden in z.B. C neu programmiert
   werden. 
-\item Man kann aus C-Programmen heraus, den Befehlsumfang von MATLAB nutzen (einfaches Erstellen von Grafiken).
+\item \alert{Stärken vereinen}: Man kann aus C-Programmen heraus, den Befehlsumfang von MATLAB nutzen (z.B. einfaches Erstellen von Grafiken).
 \end{itemize}
 \end{frame}
 
@@ -38,17 +37,21 @@
 \begin{frame}[fragile]\frametitle{Schnittstellen zu C}
 Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden. 
 \begin{itemize}
-\item \textit{Das Einbinden von C-Funktionen in MATLAB}. Dies geschieht durch die sogenannten
-      \alert{mex-Dateien}. Sie bestehen aus 2 Teilen: der eigentlichen $C$-Funktion und
-      einer Schnittstellen-Routine zwischen C und MATLAB.
-\item \textit{Das Einbinden von MATLAB-Funktionen in C}. Hier bindet
+\item \textbf{Das Einbinden von C-Funktionen in MATLAB}\\ Dies geschieht durch die sogenannten
+      \alert{mex-Dateien}. Sie bestehen aus 2 Teilen 
+\begin{itemize}
+\item  Schnittstellen-Routine zwischen C und MATLAB (Gateway).
+\item \textit{eigentliche} $C$-Funktion
+\end{itemize}
+
+\item \textbf{Das Einbinden von MATLAB-Funktionen in C}\\ Hier bindet
       man passende Bibliotheken ein: die sogenannte \alert{Engine}.
 \end{itemize}
 \end{frame}
 %
 % Slide
 %
-\section{Mex-Dateien}
+\subsection{C aus MATLAB}
 %
 % Slide
 %
@@ -422,7 +425,7 @@ definiert ist, beschr\"ankt ist.
 \begin{frame}[fragile]\frametitle{Reelle Darstellung}
 Mit $z=z_1+iz_2$, $x=x_1+ix_2$ und $c=c_1+ic_2$ ergibt sich aus
 \begin{eqnarray*}
-z_1 + i z_2 & = & z  =  x^2 + c = (x_1+ix_2)^2 + (c_1+c_2) \\
+z_1 + i z_2 & = & z  =  x^2 + c = (x_1+ix_2)^2 + (c_1+ic_2) \\
 & = & [ x_1^2 -x_2^2 +c_1] + i[2 x_1 x_2 +c_2]
 \end{eqnarray*}
 die Formel
@@ -442,7 +445,7 @@ for i = 1:length(x1)
     % Berechnen der Folge
     m = 0; a = x1(i); b = y1(j);
     x = a; y = b;
-    while (sqrt(x^2+y^2)<2 & m<MAX_IT)
+    while (sqrt(x^2+y^2)<2 && m<MAX_IT)
       t = x; x = a+x^2-y^2;
       y = b+2*t*y; m = m+1;
     end;
@@ -537,20 +540,25 @@ void mandel_c( double result[], double x1[], double y1[],
 %
 % Slide
 %
-\section{C-Programme mit MATLAB}
+\subsection{MATLAB aus C}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Kompilieren unter Linux}
 
-Befehle und Pfade gelten f\"ur MATLAB 7 (R2010a).
+Befehle und Pfade gelten f\"ur MATLAB 7 .
 
 \begin{itemize}
 %\item Einbinden der Shared Libraries (nur Linux, bash)
 \item Bourne Shell
 \begin{lstlisting}[language=bash]
-export LD_LIBRARY_PATH=/usr/local/matlab2010a/bin/glnx86/:/usr/local/matlab2010a/sys/os/glnx86:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnx86/:/usr/local/matlab2011b/sys/os/glnx86:$LD_LIBRARY_PATH
 \end{lstlisting} %$
+\begin{lstlisting}[language=bash]
+export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnxa64/:/usr/local/matlab2011b/sys/os/glnxa64:$LD_LIBRARY_PATH
+\end{lstlisting} %$
+
+
 % \item C-Shell
 % \begin{lstlisting}[language=bash]
 % setenv  LD_LIBRARY_PATH \
@@ -558,12 +566,11 @@ export LD_LIBRARY_PATH=/usr/local/matlab2010a/bin/glnx86/:/usr/local/matlab2010a
 % \end{lstlisting}
 \item Kompilieren von \mcode{test.c}
 \begin{lstlisting}[language=bash]
-/usr/local/matlab2010a/bin/mex -f \
-/usr/local/matlab2010a/bin/engopts.sh test.c
+/usr/local/matlab2011b/bin/mex -f /usr/local/matlab2011b/bin/engopts.sh test.c
 \end{lstlisting}
 oder
 \begin{lstlisting}[language=bash]
-./compile test.c
+./compile test.c ; ./run test
 \end{lstlisting}
 
 \end{itemize}

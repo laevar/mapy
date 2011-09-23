@@ -44,8 +44,8 @@ int y1_laenge)
 
     for (i =0;  i< x1_laenge; i++)
     {
-    for (j = 0; j< y1_laenge; j++)
-    {
+      for (j = 0; j< y1_laenge; j++)
+      {
         /* Berechnen der Folge */        
         m = 0;
         a = x1[i];
@@ -61,6 +61,6 @@ int y1_laenge)
         }
 
         result[i*y1_laenge+j] = m;
-        }
+      }
     }
 }

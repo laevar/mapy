@@ -24,8 +24,8 @@ function han = erzGUI(A)
 delete(findobj('tag','figGUI'));
 fig = figure('name','Beispiel eines GUIs','UserData',A,'tag','figGUI');
 
-han.pushbutton = uicontrol(fig,'Parent',fig,'Style','pushbutton','units','normalized',...
-    'position',[0.8 0.2 0.17 0.10],'String','Aktualisieren',...
+han.pushbutton = uicontrol(fig,'Parent',fig,'Style','pushbutton','Units','normalized',...
+    'Position',[0.8 0.2 0.17 0.10],'String','Aktualisieren',...
     'Callback','darstGrafik');
 
 han.grafikachse = axes('Position',[0.1 0.5 0.6 0.3],'tag','axesGUI');
@@ -52,8 +52,8 @@ end
 
 %------------------- Daten erzeugen
 function A = erzDaten(x,y,t)
-[X,Y,T] = meshgrid(x,y,t);
-A = cos(pi*T.^0.5.*exp(-X.^2-Y.^2));
+  [X,Y,T] = meshgrid(x,y,t);
+  A = cos(pi*T.^0.5.*exp(-X.^2-Y.^2));
 end
 
 

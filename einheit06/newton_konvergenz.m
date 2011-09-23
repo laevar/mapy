@@ -13,3 +13,5 @@ image(x,x,V,'CDataMapping','scaled');
 caxis([-2.5 2.5]);
 title('Konvergenzverhalten Newton')
 xlabel('x'),ylabel('i*y')
+
+roots([1 0 0 -1])

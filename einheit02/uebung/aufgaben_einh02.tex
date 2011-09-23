@@ -7,104 +7,29 @@
 
 
 %--------------------------------------------------
-\begin{aufg}[0]
-Geben Sie die folgende Zeile ein: 
-\begin{lstlisting}
-x=1e-15; ((1+x)-1)/x
-\end{lstlisting} 
-Wie interpretieren Sie das Ergebnis? 
-(Testen Sie auch \lstinline!x=1e-16!!)
-\end{aufg}
+\input{e2a1/e2a1}
 
-% \begin{aufg}[0]
-% \label{exp}
-% Worum gehts? loesung machen
-% 
-% Warum werden die Ergebnisse für negative $x$ groß? Warum sehen sie für positive x klein aus? Sind sie
-% wirklich klein? Oder kann man sie nur nicht sehen? Was passiert, wenn man
-% sich nur positive x ansieht? Man verändere das Programm an den richtigen
-% Stellen, um sich die Lage genauer anzusehen.
-% \end{aufg}
+\input{e2a2/e2a2}
 
+\input{e2a3/e2a3}
 
-\begin{aufg}[0]
-Differenzieren Sie $f(x)=exp(x)$ in $x=0$ durch den zentralen Differenzen-
-quotienten. Plotten Sie den Approximationsfehler für die Approximation der
-ersten Ableitung durch den zentralen Differenzenquotienten für die 
-Exponentialfunktion an der Stelle $x=0$ mit doppelt logarithmischen Achsen und
-interpetieren sie das Ergebnis.
+\input{e2a4/e2a4}
 
-Tips:
-\begin{enumerate}
-\item Bauen Sie sich einen Vektor, der eine passende Anzahl von positiven
-h–Werten $h_1 \ldots h_n$ enthält.
-\item Daraus bauen Sie sich Vektoren, die die Werte $exp(h_j)$ bzw. $exp(−h_j)$
-enthalten, und dann
-\item einen Vektor, der alle zentralen Differenzenquotienten enthält.
-\item Berechnen Sie dann den Vektor, der die absoluten Fehler enthält,
-\item und plotten Sie ihn gegen den Vektor der $h$-Werte.
-\item Schauen Sie in der Doku nach, wie man einen doppelt logarithmischen
-Plot macht.
-\item Vermutlich werden Sie Gründe haben, Ihre Wahl der $h_j$ noch einmal
-zu revidieren, um den Effekt klarer herauskommen zu lassen.
-\end{enumerate}
-\end{aufg}
-
-
-
-\begin{aufg}[0]
-Lösen Sie n\"aherungsweise die Fixpunktgleichung
-\[ x_f=e^{(-x_f)}. \]
-\end{aufg}
-
-\begin{aufg}[0]
-Berechnen Sie eine Nullstelle von 
-\[ f(x) = \cos^2(x) -x. \]
-\end{aufg}
-
-\begin{aufg}[0]
-Schreiben Sie eine Funktion, die für $n \in \mathbb{N}$ die
-  Hilbert-Matrix $H=(h_{ij})_{i,j=1}^n$ mit $h_{ij}=\frac{1}{i+j-1}$
-  berechnet. Berechnen Sie $H^{-1}$ für $n=4$. 
-\end{aufg}
+\input{e2a5/e2a5}
 %
 %-----------------------------------------------------------
 %
 \newpage
+\input{e2a6/e2a6}
 
-\begin{aufg}[0]
- Berechnen Sie die Nullstellen von 
-\[ x^2-2, \quad x^2-2x+1, \quad x^2 -4x +10. \]
-\end{aufg}
 %
 %-----------------------------------------------------------
 %
+\input{e2a7/e2a7}
 
-\begin{aufg}[0]
-Die Fibonacci-Folge ist definiert durch
-\[ f_1:=1, \quad f_2:=1, \quad f_{k+2}:=f_{k+1}+f_k, \ k \in \mathbb{N}.
-\]
-Schreiben Sie ein Programm, das 
-\[ g_{k}:= \frac{f_{k+1}}{f_k}, \quad k \in \mathbb{N} \]
-berechnet. Stoppen Sie, falls $|g_{k}-g_{k+1}| \leq TOL$.
-Geben Sie für $TOL=10^{-3}$ und  $TOL=10^{-4}$ das entsprechende $k$
-und das entsprechende $g_k$ an.\\
+\input{e2a8/e2a8}
 
-{\it Hinweis}: Benutzen Sie eine \mcode{while}-Schleife.
-\end{aufg}
-%
-
-
-
-
-\begin{aufg}[0]
-Schreiben Sie eine Funktion, die einen String 'invertiert' (D.h. die Reihenfolge der Buchstaben umkehrt).
-\end{aufg}
-
-\begin{aufg}[0]
-Schreiben Sie eine Funktion, die als Input-Parameter einen String und ein Zeichen erh\"alt
-und berechnet wie oft das gegebene Zeichen (\mcode{char}) in dem String auftritt.
-\end{aufg}
+\input{e2a9/e2a9}
 
 %-------------------------------------------------------------------------------
 \end{document}

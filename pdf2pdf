@@ -1,0 +1,2 @@
+#!/bin/bash
+gs -q -dSAFER -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$12 -sPAPERSIZE=a4 -c -r300 -f $1 && mv $12 $1 

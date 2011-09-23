@@ -6,147 +6,29 @@
 \end{minipage}\\[1cm]
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-\begin{itemize}
-\item Betrachten Sie die Datei '\mcode{daten.dat}' mittels des Befehls:
-  \mcode{type daten.dat}.
-\item Schreiben Sie ein Programm, dass die Daten importiert und die
-  Funktion anhand der gegebenen Daten plottet.
-\end{itemize}
-\end{aufg}
+\input{e4a1/e4a1}
 %-----------------------------------------------------------------------------------
 
-\begin{aufg}[0]
-\begin{itemize}
-\item Erzeugen Sie drei Vektoren durch 
-\begin{lstlisting}
-x = rand(2000,1);
-y = rand(2000,1);
-z = sin(4*pi*x).*cos(2*pi*y);
-\end{lstlisting}
-\item Plotten Sie zuerst nur die Punkte.
-\item Interpolieren sie die Punkte auf einem regelmässigen Gitter und erstellen Sie Grafiken mit \mcode{surf()}, \mcode{mesh()} und \mcode{contour()}.
-\item Beschriften Sie die Konturlinien von \mcode{contour}.
-\item Untersuchen Sie den Einflu{\ss} der verschiedenen
-  Interpolationsmethoden. 
-\end{itemize}
-\end{aufg}
+\input{e4a2/e4a2}
+
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-\begin{itemize}
-\item [(a)] Laden Sie mittels \mcode{load census} die
-  U.S. Population  von  1790 bis 1990 in ihren Speicher und stellen Sie die Zahlen grafisch
-  dar.
-\item[(b)] Interpolieren Sie mit Hilfe der Matlab-Oberfläche die Daten!
-  Welche Methode funktioniert am besten?
-\item [(c)] Schätzen Sie mit Hilfe des kubischen Splines die
-  Bevölkerungszahl im Jahr 2050.
-\end{itemize}
-\end{aufg}
+\input{e4a3/e4a3}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Schreiben Sie eine Funktion, die eine beliebige Textdatei einliest und
-auswertet. Output-Argumente sollen die Anzahl der Zeilen und Zeichen der Datei
-und das h\"aufigste vorkommene Zeichen sein. 
-\end{aufg}
+\input{e4a4/e4a4}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-%zu einh3?
-Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
-\mathbb{N}$ die Potenz $x^n$ berechnet. \\
-{\it Hinweis:} Benutzen Sie 
-\[ x^n = \left \{ \begin{array}{ll} 
-x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
-x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
-\end{array} \right.  \]
-und die MATLAB-Funktion \mcode{mod(n,2)}, die $0$ ergibt, falls $n$ gerade ist und
-$1$ sonst.
-\end{aufg}
+\input{e4a5/e4a5}
 
 
 \newpage
 %-----------------------------------------------------------------------------------%
-\begin{aufg}[0]
-Modifizieren Sie das Programm \mcode{mandel.m} aus der ersten Vorlesung derart,
-dass der analysierte Ausschnitt $[x_{min},x_{max}]\times [y_{min},y_{max}]$
-interaktiv verändert wird. 
-\begin{itemize}
-\item Durch Drücken der
-linken Maustaste auf einen bestimmten Punkt $(x,y)$ der Grafik soll  die Grafik neu
-erstellt werden, wobei $(x,y)$ das Zentrum des neuen Ausschnitts mit
-Gr\"o{\ss}e 
-\[ \left (  2\frac{x_{max}-x_{min}}{3},  2\frac{y_{max}-y_{min}}{3} \right)\]
-ist.
-\item Durch Drücken der
-rechten Maustaste auf einen bestimmten Punkt $(x,y)$ der Grafik soll  die Grafik neu
-erstellt werden, wobei $(x,y)$ das Zentrum des neuen Ausschnitts mit
-Gr\"o{\ss}e 
-\[ \left (  3\frac{x_{max}-x_{min}}{2},  3\frac{y_{max}-y_{min}}{2} \right)\]
-ist.
-\item Drücken der mittleren Maustaste beendet das Programm. 
-\end{itemize} 
-\end{aufg}
-
+\input{e4a6/e4a6}
 
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Wir betrachten die Folge 
-\[ x_{n+1} = \frac12 x_n + \frac{1}{x_n}, \qquad n =1,2,\dots \]
-Schreiben Sie eine Funktion, die zu einem gegebenen Startwert $x_1$ die kleinste
-Zahl $n$ berechnet mit 
-\[ |x_{n+1} - x_n| \leq 10^{-4} .\]
-\end{aufg}
-
-%-----------------------------------------------------------------------------------
-% \begin{aufg}[0]
-% doofe aufgabe..
-% Welche Werte besitzen $x1$, $x2$, $x3$  am Ende der jeweiligen Eingaben?
-% \begin{itemize}
-% \item (a) 
-% \begin{lstlisting}
-% x = [ 1 2 3 4];
-% y = [ 0 3 2 4];
-% x1 = (y-x > 0) & (x ~= 1)
-% \end{lstlisting}
-% \item (b)
-% \begin{lstlisting}
-% x = sin(1:100);
-% x2 = length(x)
-% \end{lstlisting}
-% \item (c)
-% \begin{lstlisting}
-% x = linspace(0,1,10);
-% y = 1:2:6;
-% x3 = x(y)
-% \end{lstlisting}
-% \end{itemize} 
-% \end{aufg}
-% 
-% \begin{aufg}[0]
-% doofe aufgabe..
-% Die folgenden Befehlszeilen sind fehlerhaft. Erkl\"aren Sie jeweils den Fehler!
-% \begin{itemize}
-% \item (a)
-% \begin{lstlisting}
-% x = 100:200;
-% y = linspace(300,400,100);
-% z = x.*y.*2
-% \end{lstlisting}
-% \item (b)
-% \begin{lstlisting}
-% clear all
-% z(5) = 10;
-% a = (6:10).^z;
-% b = a.*ones(5,1)
-% \end{lstlisting}
-% 
-% \end{itemize} 
-% 
-% \end{aufg}
+\input{e4a7/e4a7}
 
 %-------------------------------------------------------------------------------
 \end{document}

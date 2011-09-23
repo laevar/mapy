@@ -1,0 +1,15 @@
+\begin{aufg}[0]
+Seien $y_1,y_2$ zwei Punkte im $\mathbb{R}^2$. Wir betrachten die Strecke mit
+Endpunkten $y_1$ und $y_2$. Wir ersetzen  diese Strecke durch 4 Strecken 
+$\overline{y_1 z_1}$, $\overline{z_1 z_2}$, $\overline{z_2 z_3}$,
+$\overline{z_3 y_2}$ mit Endpunkten $z_1=\frac23 y_1 + \frac13 y_2$,
+$z_3=\frac13 y_1 + \frac23 y_2$ und 
+\[ z_2 = \frac{\sqrt{3}}{6} \left( \begin{array}{cc}
+0 & 1 \\ -1 & 0 \\
+\end{array} \right)
+(y_1 - y_2) + \frac12 (y_1 + y_2). \]
+Analog zum Beispiel des Sierpinski-Dreiecks soll jede neue Teilstrecke
+wiederum mittels der gleichen Prozedur durch 4 Strecken ersetzt werden. 
+Schreiben Sie ein Programm, dass
+diese Prozedur $k$-mal wiederholt und das Ergebnis plottet.
+\end{aufg}

@@ -8,3 +8,5 @@ syntax: glob
 *.log
 *.vrb
 *.snm
+*.zip
+*.backup

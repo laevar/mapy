@@ -1,0 +1,12 @@
+\begin{aufg}[0]
+%zu einh3?
+Schreiben Sie eine rekursive Funktion, die aus gegebenen $x$ und $n \in
+\mathbb{N}$ die Potenz $x^n$ berechnet. \\
+{\it Hinweis:} Benutzen Sie 
+\[ x^n = \left \{ \begin{array}{ll} 
+x^{n/2} x^{n/2}, & n \mbox{ gerade} \\
+x x^{(n-1)/2} x^{(n-1)/2}, &  n \mbox{ ungerade}\\
+\end{array} \right.  \]
+und die MATLAB-Funktion \mcode{mod(n,2)}, die $0$ ergibt, falls $n$ gerade ist und
+$1$ sonst.
+\end{aufg}

@@ -8,69 +8,18 @@
 %aufgaben per include einfuegen und ihnen namen geben?
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Lösen Sie  die Dgl. $\frac{d}{dt} y(t) = f(y)$ mit
-  \[ f(y_1,y_2)=(y_1 -y_1 y_2, -y_2+y_2 y_1)\]
- und Anfangswert
-  $y(0)=(0.5,0.5)$. Plotten Sie die Lösung im $y_1y_2$-Diagramm.
-\end{aufg}
+\input{e6a1/e6a1}
 
 %-----------------------------------------------------------------------------------
-\begin{aufg}[0]
-Betrachten Sie das folgende System gew\"ohnlicher Differentialgleichungen
-\begin{eqnarray*}
-y_1'(t) & = & - 0.04 y_1(t) + 10^4 y_2(t)y_3(t) \\
-y_2'(t) & = & 0.04 y_1(t) - 10^4 y_2(t) y_3(t) - 3 \cdot 10^7 y_2(t)^2\\
-y_3'(t) & = & 3 \cdot 10^7 y_2(t)^2.
-\end{eqnarray*}
-L\"osen Sie  das System zum Anfangswert $(1,0,0)$ an $0$ auf dem Zeitintervall $0 \leq
-t \leq 3$. Nutzen Sie die Solver \mcode{ode45} und \mcode{ode15s} und vergleichen Sie die Ergebnisse.
-\end{aufg}
+\input{e6a2/e6a2}
 
-\begin{aufg}[0]
-Führen Sie einen Vergleich zwischen einer numerischen und analytischen Differentation anhand der Funktion  $f(x)=\sin(\beta x),\, \beta,x \in \mathbb{R}$ durch.
-Fügen Sie  den Werten der Funktion einen normalverteilten Fehler hinzu (Hinweis: \mcode{randn}) und wählen sie verschiedene Schrittweiten $h$.
-Stellen Sie beide Ableitungen grafisch dar. Denken sie über die Gründe der Unterschiede nach.
-\end{aufg}
+\input{e6a3/e6a3}
 
-
-\begin{aufg}[0]
-Betrachten sie das eindimensionale Integral
-\[
-\int_0^1 \phi(x)e^{-\abs{x-y}}\sin(\abs{x-y})^2 dx\,,\, \in \mathbb{R}
-\]
-für $x,y \in [0,1]$ mit der Dichte $\phi(x) \in \mathbb{R}$. Schreiben Sie das Integral für diskrete Werte um in die Gleichung 
-\[
- A \phi = f
-\]
-mit $f(x)=\sin(x),  x \in [0,1]$ und entsprechend konstruierter Matrix $A$.
-%Weiterhin kann der Einfachheit halber angenommen werden, dass $x_i = y_i$ für alle Komponenten $i$ der Koordinatenvektoren.
-\begin{itemize}
-\item Lösen Sie das Gleichungssystem nach $\phi$.
-\item Machen Sie einen Konsistenz-Check (ist die rechte Seite rekonstruierbar?)
-\item Werten Sie das Integral für $y \in [2,4]$ aus.
-\item Plotten Sie die Werte.
-\end{itemize}
-%\textit{Hinweis:} für $A$ steigt $x$ in den Spalten, und $y$ in den Zeilen.
-\end{aufg}
+\input{e6a4/e6a4}
 \newpage
-\begin{aufg}[0]
-Schauen Sie sich die Funktion \mcode{interpolation.m} aus den M-Files von der Vorlesung Einheit 04 an und nutzen sie den Profiler mit der Funktion $f(x) = x^2$.
 
-\begin{itemize}
- \item Finden Sie heraus  wo die Geschwindigkeit der Funktion (und der dort aufgerufenen, selbstgeschriebenen Funktionen) verbesserbar wäre. 
-\item Vergleichen Sie die dort genutzte Funktion \mcode{vandermonde} mit \mcode{vandermonde2} 
-(welche for-Schleifen nutzt). 
-\item Vergleichen Sie ebenso unsere selbstgebaute Polynom-Interpolation mit der von Matlab.
-\item Versuchen Sie die Gesamtlaufzeit der Funktion bei gleicher Funktionalität möglichst stark zu reduzieren.
-\end{itemize}
+\input{e6a5/e6a5}
 
-\end{aufg}
-
-
-\begin{aufg}[0]
-Vergleichen Sie die Fixpunktiteration mit dem Newton-Verfahren f\"ur das Beispiel des Newton-Verfahrens aus der Vorlesung. Plotten sie beide Fehler in einer Grafik. Schauen 
-Sie sich dann verschiedene Startwerte und die Geschwindigkeit beider Algorithmen an.
-\end{aufg}
+\input{e6a6/e6a6}
 
 \end{document}

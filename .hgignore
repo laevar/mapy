@@ -1,12 +1,24 @@
+# use glob syntax.
 syntax: glob
-*~
+
+\#*# 
+.*~ 
+*~ 
+.#* 
+*.aux 
+*.log 
+*.backup 
+*.out 
+*.brf 
+*.bbl 
+tmp.inputs 
+*.idx 
 *.bak
-*.aux
-*.toc
 *.nav
-*.out
-*.log
-*.vrb
 *.snm
+*.toc
+*.vrb
+*.bz2
+*.pid
 *.zip
-*.backup
+*.mexglx

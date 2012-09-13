@@ -1,13 +1,14 @@
-\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={xetex}]{beamer}
 \title{Einführung in Matlab - Einheit 1}
 \subtitle{Streifzug durch Matlab, Vektoren und Matrizen}
 \input{../slide_header}
-\maketitle
+\begin{document}
+\titlepage
 
 
 \begin{frame}{Organisatorisches}
 \begin{itemize}
-\item Anmeldung über StudIP \\
+\item Anmeldung $\rightarrow$ StudIP \\
       \url{https://www.studip.uni-goettingen.de/}
 
 {\color{blue}{Einführung in Matlab (Mathematische Anwendersysteme)}}
@@ -24,18 +25,19 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}{Ablauf der Veranstaltung}
 \begin{itemize}
-\item Blockveranstaltung vom  12.9 - 23.9.2011
-\item \alert{Vorlesung:} 9.15 - 11.30  (MN )
-\item \alert{Übungsbetrieb/Praktikum}: 13:00 - 18:00  (MM-Raum oder NAM-CIP)
+\item Blockveranstaltung vom  17.9 - 28.9.2012
+\item \alert{Vorlesung:} 9.15 - 11.30  (MN67)
+\item \alert{Übungsbetrieb/Praktikum}: 11:30 - 18:00  (NAM-CIP-Räume)
 \begin{itemize}
 \item 1 Übungszettel/Tag.
-\item Besprechung Aufgaben vom Vortag
-\item Hilfestellung beim Bearbeiten der aktuellen Aufgaben
+\item Besprechung Aufgaben vom Vortag (individuell)
+\item Betreuung: Hilfestellung beim Bearbeiten der Aufgaben
 %\item Klausurzulassung: 3 beliebige markierte Aufgaben/Woche testieren lassen. 
 \end{itemize}
-\item \alert{Klausur:} 30.9.2011 (?); 10:00 - 11:30; Anmeldung über FlexNow.
+\item \alert{Klausur:} 5.10.2012; 10:00 - 11:30; Anmeldung über FlexNow.
 \end{itemize}
 
 \end{frame}
@@ -49,7 +51,7 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \item [5. Tag] Mehrdimensionale Arrays, Funktionen, Numerische Lineare Algebra, Dünnbesetzte Matrizen
 \item [6. Tag] Numerische Mathematik, Profiler
 \item [7. Tag] Grafik-Handle, GUIs
-\item [8. Tag] Schnittstelle zu C
+\item [8. Tag] Schnittstelle zu C (Optional)
 \item [9. Tag] Wunschvorlesung
 \item [10. Tag] Fragestunde
 \end{description}
@@ -84,9 +86,9 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \begin{itemize}
 \item \emph{High-Level} Sprache:
 \begin{itemize}
-\item Programmieren ist leicht (aber auch beschränkt(er))
-\item Schnelle Erfolge 
-\item Sehr geeignet für Prototyping und Debugging
+\item Programmieren ist leicht.
+\item Schnelle Erfolge.
+\item Sehr geeignet für Prototyping und Debugging.
 \end{itemize}
 \item Vielfältige Visualisierungsmöglichkeiten.
 \item MATLAB-Programme sind vollständig portierbar zwischen Architekturen (cross-plattform).
@@ -95,20 +97,31 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Nachteile von MATLAB}
+    \begin{itemize}
+        \item Kostenintensiv.
+        \item Nicht unbedingt gut für \emph{grosse} numerische Berechnungen geeignet.
+        \item Oberfläche langsam (Remote Desktop).
+        \item keine volle Objektorientierung.
+        \item Ein/Ausgabe von Dateien kann umständlich sein.
+        \item Funktionsumfang macht manche Programmierung schwer.
+    \end{itemize}
+\end{frame}
+
+
+
 %-------------------------------------------------
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Literatur}
 \begin{thebibliography}{10}
 \small
-\bibitem{1} Matlab online-help :-).
+\bibitem{1} {\Large \alert{Matlab online-help :-)}}.
 \bibitem{2}
 \alert{Matlab Guide}, D.J. Higham, N.J. Higham, SIAM, 2000, 
 \bibitem{3} \alert{Introduction to Scientific Computing}, C.F. van Loan, Prentice Hall,
 New Jersey, 1997,
 \bibitem{4} \alert{Scientific Computing with MATLAB}, A. Quarteroni, F. Saleri, Springer, 2003,
-\bibitem{5} \alert{Graphics and GUIs with MATLAB}, P. Marchand, O.Th. Holland, Chapman \& Hall, 2003, 3. Aufl.
-\bibitem{6} \alert{MATLAB 7}, C. \"Uberhuber, St. Katzenbeisser, D. Praetorius, Springer 2005.
 \bibitem{7} \alert {Using \textsc{Matlab}}, offizielle Handbücher.
 \end{thebibliography}
 \end{frame}
@@ -414,7 +427,7 @@ spricht deswegen auch von $m$-Files.
 \item Autor-Informationen und Datum
 \end{itemize}
 
-\item operiert auf Daten im \textit{Workspace}.
+\item operiert auf Variablen im \textit{Workspace}.
 
 \item Gestartet wird das Programm \mcode{name.m} durch Eingabe von
   \mcode{name}.

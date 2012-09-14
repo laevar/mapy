@@ -1,12 +1,9 @@
-\documentclass[hyperref={dvipdfmx,pdfpagelabels=false}]{beamer}
+\documentclass[hyperref={xetex}]{beamer}
 \title{Einführung in Matlab - Einheit 2}
 \subtitle{Programmieren, Datenstrukturen}
 \input{../slide_header}
-\maketitle
-
-
-
-
+\begin{document}
+\titlepage
 
 \section{Programmieren}
 %\item Aufgaben
@@ -43,10 +40,9 @@ end
 \end{lstlisting}
 \alert{Bemerkungen:} 
 \begin{itemize}
-\item Der Ausdruck ist normalerweise von der Form
-\mcode{i:s:j}. 
-\item Die \alert{<Befehle>} sollten eingerückt werden. 
-\item auch weitere Schleifen-Konstrukte wie \mcode{while} und \mcode{switch} sind verfügbar.
+\item Ausdruck: \mcode{i:s:j}. 
+\item Übersichtlichkeit: \alert{Befehle} einrücken. 
+\item Weitere Schleifen-Konstrukte: \mcode{while} und \mcode{switch}.
 \end{itemize}
 \end{frame}
 
@@ -144,7 +140,7 @@ end;
 startet ein Grafik-Fenster.
 \item \alert{ \mcode{hold on}}\\
  alle Grafiken in einem Fenster werden \"ubereinander gezeichnet. 
-\item \alert{ \mcode{hold off}} (Standard)\\
+\item \alert{ \mcode{hold off}} (Default)\\
  bestehende Grafik wird gel\"oscht und durch die neue Grafik ersetzt.
 \end{itemize}
 \end{frame}
@@ -525,27 +521,10 @@ globalen Workspace auch für Funktionen manipulierbar gemacht werden.
 \begin{columns}[t]
  \column{0.45\textwidth}
 \alert{ Funktion}
-\begin{lstlisting}
-function f=myfun(x)
-% myfun.m
-% f(x)=x^alpha sin(1/x)
-
-global alpha
-f=x.^alpha.*sin(1./x);
-\end{lstlisting}
+\lstinputlisting{myfun.m}
  \column{0.45\textwidth}
 \alert{ Plotten}
-\begin{lstlisting}
-% plot_myfun
-global alpha
-alpha_w=[0.4 0. 6 1 1.5 2];
-for i = 1:length(alpha_w)
-    alpha = alpha_w(i);
-    fplot(@myfun,[0.1,1])
-    hold on;
-end
-hold off;
-\end{lstlisting}
+\lstinputlisting{plot_myfun.m}
 \end{columns}
 \end{frame}
 %
@@ -554,9 +533,13 @@ hold off;
 \begin{frame}[fragile]\frametitle{Ein Guter Stil}
 \begin{itemize}
 \item Alle Programme sollten zu Beginn einen Kommentar enthalten, in
-  dem beschrieben wird, was das Programm macht. Insbesondere sollten
-  die Eingabe- und Ausgabevariablen  genau beschrieben
-  werden. 
+  dem beschrieben wird, was das Programm macht.
+  \begin{itemize}
+      \item Programmbeschreibung
+      \item Eingabevariablen
+      \item Ausgabevariablen
+      \item Beispiele
+  \end{itemize}
 \item Vor und nach logischen Operatoren und $=$ sollte ein Leerzeichen
   gesetzt werden.
 \item Man sollte pro Zeile nur einen Befehl verwenden.
@@ -769,7 +752,7 @@ Approximation der Exponentialfunktion durch eine Taylor-Reihe
 \lstinputlisting{calcexp.m}
 \end{frame}
 
-\begin{frame}[fragile]{Berechnung von $e$ - Figure}
+\begin{frame}[fragile]{Berechnung von $e$ - Relativer Fehler}
 \begin{center}
 \includegraphics[height=7cm]{figures/calcexp}
 \end{center}

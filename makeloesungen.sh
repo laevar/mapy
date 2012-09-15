@@ -18,16 +18,15 @@ Jochen Schulz
 " >> $outfile
 
 for einh in einheit0*; do
-	#xelatex $einh/$einh.tex
+    echo "****" $einh
 	nr=$(echo $einh | sed 's/[a-z]//g')
-	#zip -9r $einh/mfiles$nr.zip $einh/*.m $einh/*.c
-	#xelatex $einh/uebung/aufgaben_$einh.tex
 	rm $einh/uebung/loesungen$nr.zip
 	zip -9r $einh/uebung/loesungen$nr.zip $einh/uebung/e*
 	echo "\section{$einh}" >> $outfile
 	echo "\setcounter{zaehler}{0}" >> $outfile
 	for aufg in $einh/uebung/e*; do
 		texfile=$(ls $aufg/*.tex)
+        echo $texfile $aufg
 		echo "\input{$texfile}" >> $outfile
 		for file in $(find $aufg/ -name "*.m" -or -name "*.c"); do
 			echo "" >> $outfile

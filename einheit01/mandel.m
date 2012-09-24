@@ -1,3 +1,4 @@
+% Mein Mandel
 x = linspace(-2.1,0.6,601);
 y = linspace(-1.1,1.1,401);
 
@@ -5,7 +6,7 @@ y = linspace(-1.1,1.1,401);
 C = complex(X,Y);
 
 it_max = 50;
-
+% Kommentar
 Z = C; Anz = zeros(size(Z));
 
 for k = 1:it_max

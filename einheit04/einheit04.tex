@@ -297,7 +297,7 @@ surf(XI,YI,ZI)
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{griddata}
+\begin{frame}[fragile]\frametitle{TriScatteredInterp}
 \begin{lstlisting}
 F = TriScatteredInterp(<x>,<y>,<z>,<methode>);
 ZI = F(<XI>,<YI>);
@@ -353,6 +353,20 @@ ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
 \end{itemize}
 \end{frame}
 
+%
+% Slide
+% 
+\begin{frame}[fragile]\frametitle{Interp2 - Beispiel}
+\begin{lstlisting}
+xip = linspace(min(x),max(x),15); yip = linspace(min(y),max(y),15);
+[XIp,YIp] = meshgrid(xip,yip);
+ZIp = interp2(XI,YI,ZI,XIp,YIp,'linear');
+surf(XIp,YIp,ZIp)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_plot}
+\end{center}
+\end{frame}
 
 \section{In- und Output}
 %
@@ -394,11 +408,14 @@ pause
 % Slide
 %
 \begin{frame}[fragile]\frametitle{input}
-Die Benutzereingabe kann durch den Befehl \mcode{input('Text')} erfolgen. Es
-wird der 'Text'  angezeigt. Die Eingabe kann hinter 'Text' erfolgen
-und wird durch Return
-abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
-  
+Das Kommando 
+\begin{lstlisting}
+ein = input('Text'[,'s'])
+\end{lstlisting}
+fragt eine Eingabe vom Benutzer ab. Dabei wird 'Text' angezeigt. Die Eingabe kann hinter 'Text' erfolgen
+und wird durch Return abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
+
+\textbf{Beispiele:}
 \begin{lstlisting}
 startwert = input('Bitte geben Sie den Startwert ein: ')
 \end{lstlisting}

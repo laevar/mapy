@@ -10,7 +10,9 @@ else
     ecke13 = (ecke1+ecke3)/2;
     ecke23 = (ecke2+ecke3)/2;
     sierpinski(ecke1,ecke12,ecke13,level-1);
+    pause;
     sierpinski(ecke12,ecke2,ecke23,level-1);
+    pause;
     sierpinski(ecke13,ecke23,ecke3,level-1);
     
 end;

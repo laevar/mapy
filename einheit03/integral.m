@@ -15,5 +15,5 @@ for i = 1:N
     hold on;
 end;
 plot(0:0.01:1,(0:0.01:1).^3,'LineWidth',3);
-title(['\int_0^1 x^3 = ',num2str(result),' fuer N =', num2str(N) ]); 
+title(['\int_0^1 x^3 = ',num2str(result),' fuer N =', num2str(N) ],'FontSize',20); 
 

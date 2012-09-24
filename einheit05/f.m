@@ -18,12 +18,13 @@ end
 % Berechnen des Funktionswerts
 dimension=size(varargin{1});
 result=zeros(dimension(1),dimension(2));
+% das muss im multidimensionalen mehr schleifen haben! d.h. linearer index!
 for j=1:dimension(1)
     for k=1:dimension(2)
-    if betrag(j,k)<1
+      if betrag(j,k)<1
         result(j,k)=exp(-1/(1-betrag(j,k)));
-    else
+      else
         result(j,k)=0;
+      end;
     end;
-end;
 end;

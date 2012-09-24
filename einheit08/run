@@ -1,0 +1,5 @@
+#!/bin/bash
+#. /usr/local/matlab2011b/bin/engopts.sh 
+export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnx86/:/usr/local/matlab2011b/sys/os/glnx86:$LD_LIBRARY_PATH
+
+./$*

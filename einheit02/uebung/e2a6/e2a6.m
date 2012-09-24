@@ -18,3 +18,5 @@ p = -4;
 q = 10;
 [anz,nulls] = quad_gl(p,q)
 roots([1 -4 10] )
+
+

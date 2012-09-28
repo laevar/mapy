@@ -1,7 +1,7 @@
 function [gk,k] = fibonacci(TOL)
 % berechnet die Die Fibonacci-Folge f und deren term-verhaeltnis 
 % g_k = f_(k+1)/f_k
-% Stoppt die Iteration bei |g_k − g_(k+1) | ≤ TOL 
+% Stoppt die Iteration bei |g_k − g_(k+1) | <= TOL 
 % input:
 %   TOL: Tolerance
 % output:

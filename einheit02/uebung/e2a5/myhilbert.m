@@ -1,5 +1,5 @@
 function H = myhilbert (n)
-%für n ∈ N die Hilbert-Matrix H = (hij )n i,j=1 mit hij =1 i+j−1 berechnet.
+%für n in N die Hilbert-Matrix H = (hij )n i,j=1 mit hij =1 i+j−1 berechnet.
 %Berechnen Sie H −1 für n = 4.
 
 H = zeros (n);

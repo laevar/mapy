@@ -28,12 +28,12 @@ N
 err
 
 % Plot
-figure 
+figure
 for i = 1:N
-    fill([(i-1)/N (i-1)/N i/N i/N], [0 ((i-0.5)/N).^3  ((i-0.5)/N).^3 0], 'r');
+    fill([(i-1)/N (i-1)/N i/N i/N], [0 ((i-0.5)/N)*exp((i-0.5)/N) ((i-0.5)/N)*exp((i-0.5)/N) 0], 'r');
     hold on;
 end;
-plot(0:0.01:1,(0:0.01:1).^3,'LineWidth',3);
+plot(0:0.01:1,(0:0.01:1).*exp(0:0.01:1),'LineWidth',3);
 title(['\int_0^1 x e^x = ',num2str(result),' fuer N =', num2str(N) ]); 
 hold off
 

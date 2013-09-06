@@ -48,8 +48,8 @@ for t in targets:
         file = t + '/' + t + '.tex'
         env.PDF(file)
         file = t + '/uebung/aufgaben_einh' + t[-2:] + '.tex'
-        subprocess.call('rm '+t+'/mfiles'+t[-2:]+'.zip',shell=True)
-        subprocess.call('zip -9r '+t+'/mfiles'+t[-2:]+'.zip '+t+'/*.m '+t+'/*.c',shell=True)
+        #subprocess.call('rm '+t+'/mfiles'+t[-2:]+'.zip',shell=True)
+        #subprocess.call('zip -9r '+t+'/mfiles'+t[-2:]+'.zip '+t+'/*.m '+t+'/*.c',shell=True)
  
     # add builder for path
     env.PDF(file)

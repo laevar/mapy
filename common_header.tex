@@ -44,6 +44,7 @@
 %\usepackage{mcode}
 % This command allows you to typeset syntax highlighted Matlab
 % code ``inline''.
+% mcode fuer matlab
 \newcommand{\isage}[1]{\lstinline|#1|}
 
 \definecolor{lgray}{gray}{0.80}
@@ -52,11 +53,10 @@
 \definecolor{darkblue}{rgb}{0,0,0.8}
 \definecolor{key}{rgb}{0,0.5,0} 
 %\lstset{backgroundcolor=\color{lgray}, frame=single, basicstyle=\ttfamily, breaklines=true}
-\lstnewenvironment{matlab}[1][]{\lstset{xleftmargin=0.2cm,frame=none,backgroundcolor=\color{white},basicstyle=\color{darkblue}\ttfamily\small,#1}}{} 
-\lstnewenvironment{matlabin}[1][]{\lstset{#1}}{} 
 %\lstnewenvironment{sage}{\lstset{,language=python, keywordstyle=color{blue},    commentstyle=color{green}, emphstyle=\color{red}, %frame=single, stringstyle=\color{red}, basicstyle=\ttfamily, ,mathescape =true,escapechar=§}}{}
 
-\lstset{
+\lstnewenvironment{matlab}[1][]{\lstset{xleftmargin=0.2cm,frame=none,backgroundcolor=\color{white},basicstyle=\color{darkblue}\ttfamily\small,#1}}{} 
+\lstnewenvironment{matlabin}[1][]{\lstset{
 %language=python,
 backgroundcolor=\color[gray]{0.9},
 breaklines=true,
@@ -75,10 +75,52 @@ showstringspaces=false,
 %morecomment=[s]{"""}{"""},
 %commentstyle=\color{gray}\slshape,
 %framexleftmargin=1mm, framextopmargin=1mm, 
+%title=\tiny matlab,
 frame=single,
 %mathescape =true,
 %escapechar=§
+,#1}
+}{} 
+
+\lstnewenvironment{pyout}[1][]{\lstset{language=python,xleftmargin=0.2cm,frame=none,backgroundcolor=\color{white},basicstyle=\color{darkblue}\ttfamily\small,#1}}{}
+\lstnewenvironment{pyin}[1][]{\lstset{
+language=python,
+backgroundcolor=\color[gray]{0.7},
+breaklines=true,
+basicstyle=\ttfamily\small,
+%otherkeywords={ =},
+keywordstyle=\color{blue},
+stringstyle=\color{darkgreen},
+showstringspaces=false,
+emph={class, pass, in, for, while, if, is, elif, else, not, and, or,
+def, print, exec, break, continue, return},
+emphstyle=\color{blue},
+emph={[2]True, False, None, self},
+emphstyle=[2]\color{key},
+emph={[3]from, import, as},
+emphstyle=[3]\color{blue},
+upquote=true,
+morecomment=[s]{"""}{"""},
+%commentstyle=\color{gray}\slshape,
+%framexleftmargin=1mm, framextopmargin=1mm, 
+%title=\tiny python,
+%caption=python,
+frame=single,
+%frameround=tttt,
+mathescape =true,
+escapechar=§,
+#1
 }
+}{}
+
+%\usepackage{caption}
+%\DeclareCaptionFont{white}{ \color{white} }
+%\DeclareCaptionFormat{listing}{
+%  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+%      \parbox{\textwidth}{\hspace{15pt}#1#2#3}
+%        }
+%        }
+%        \captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
 
 
 \usepackage{mydef}

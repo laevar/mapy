@@ -1,39 +1,19 @@
-disp('*** Aufgabe 3');
-clear all
+disp('*** aufgabe 3');
+clear
 
-n = 400; %number of points 
-% Wird igrendwann mit zunehmenden n schlechter !
-beta = 1; %sin(beta*x)
-ax = -10; %left border 
-bx = 10; %right border
-hx = (bx-ax)/(n-1); %resulting mesh size
-x = ax:hx:bx; %construct coordinate-vector
-
-noise = sqrt(0.001)*randn(n); %add gaussian noise
-
-dxg = zeros(n,1); %initalize numerical derivative
-dxg2 = zeros(n,1); %initalize analytical derivative
-
-for j=1:n-1
-  %calculation of numerical derivative
-  dxg(j) = (sin(beta*(x(j+1)))- sin(beta*x(j)))*1/hx + (noise(j+1)-noise(j))*1/hx; 
-  
-  %calculation of analytical derivative
-  dxg2(j) = beta*cos(beta*x(j))+noise(j); 
-end
-
-
+tspan = [0,3]; aw = [1; 0 ; 0];
+% Unterschiedliche Methoden sind fuer unterschiedle Probleme geeignet
+% einer der Hauptkriterien ist die "Steifigkeit"
+% welche unterschiedlich definiert wird, vor allem
+% aber aussagt wie unterschiedliche Gradienten
+% in der Funktion vorkommen koennen.
+[t1,y1] = ode45(@rechte_seite2,tspan,aw);
+[t2,y2] = ode15s(@rechte_seite2,tspan,aw);
 figure
-%plotting numerical derivative
-subplot(3,1,1);
-plot(x,dxg);
-
-%plotting analytical derivative
-subplot(3,1,2);
-plot(x,dxg2);
-
-%both
-subplot(3,1,3);
-plot(x,dxg2,x,dxg);
-
-
+hold on
+plot3(y1(:,1),y1(:,2),y1(:,3),'r-','Linewidth',1)
+plot3(y2(:,1),y2(:,2),y2(:,3),'b-','Linewidth',1)
+box on, grid on
+xlabel('y(1)'), ylabel('y(2)'), zlabel ('y(3)')
+legend('ode45','oder15s',4)
+hold off

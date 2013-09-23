@@ -1,43 +1,43 @@
 disp('*** Aufgabe 4');
 clear all
 
-% A = e^{-\abs{x-y}}\sin(\abs{x-y})^2}
-% A \phi = rhs
+n = 400; %number of points 
+% Wird igrendwann mit zunehmenden n schlechter !
+beta = 1; %sin(beta*x)
+ax = -10; %left border 
+bx = 10; %right border
+hx = (bx-ax)/(n-1); %resulting mesh size
+x = ax:hx:bx; %construct coordinate-vector
 
-%points on domain
-n = 10;
-x = linspace (0,1,n);
-h = 1/(n-1);
-%difference-matrix
-xmat = ones(size(x)).'*x;
-rmat = xmat.'-xmat;
+noise = sqrt(0.001)*randn(n); %add gaussian noise
+
+dxg = zeros(n,1); %initalize numerical derivative
+dxg2 = zeros(n,1); %initalize analytical derivative
+
+for j=1:n-1
+  %calculation of numerical derivative
+  dxg(j) = (sin(beta*(x(j+1)))- sin(beta*x(j)))*1/hx + (noise(j+1)-noise(j))*1/hx; 
+  
+  %calculation of analytical derivative
+  dxg2(j) = beta*cos(beta*x(j))+noise(j); 
+  %noise can be added or left out for the analytical solution
+  %it doesn't make sense really either way. The main
+  % thing is to see, what happens with the noise in the numerical
+  % calculation.
+end
 
 
-%Matrix for igl
-A = exp(-abs(rmat)).*sin(abs(rmat).^2)*h;
+figure
+%plotting numerical derivative
+subplot(3,1,1);
+plot(x,dxg);
 
-%rhs
-rhs = sin(x)';
+%plotting analytical derivative
+subplot(3,1,2);
+plot(x,dxg2);
 
-%density
-phi = A\rhs
+%both
+subplot(3,1,3);
+plot(x,dxg2,x,dxg);
 
-%selfconsistancy
-norm(A*phi-rhs)
 
-%alternative calculation
-[X,Y] = meshgrid(x,x);
-A2 = exp(-abs(X-Y)).*sin(abs(X-Y).^2)*h;
-phi = A2\rhs;
-
-%evaluate
-y = linspace(2,4,30);
-xmat = ones(size(y)).'*x;
-ymat = ones(size(x)).'*y;
-rmat = ymat.'-xmat;
- 
-%Matrix for igl
-A = exp(-abs(rmat)).*sin(abs(rmat).^2)*h;
-field = A*phi;
- 
-plot(y,field)

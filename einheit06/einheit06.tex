@@ -1,5 +1,5 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab - Einheit 6}
+\title{Einführung in Matlab und Python - Einheit 6}
 \subtitle{Numerische Mathematik, Profiler}
 \input{../slide_header}
 \begin{document}
@@ -78,12 +78,12 @@ $u_{0,i}=u_{N,i}=u_{i,0}=u_{i,N}=0$, $i=0, \dots ,N$.
 % 
 \begin{frame}[fragile]\frametitle{Diskretisierung}
 \begin{itemize}
-\item Lexikografische Sortierung der inneren Unbekannten 
+\item 2D-Werte von $u$ in einen Vektor speichern: Lexikografische Sortierung der inneren Unbekannten 
 {\small \[ \begin{array}{cccc}
-(h,(N-1)h) & (2h,(N-1)h) & \hdots & ((N-1)h,(N-1)h)\\
+u(h,(N-1)h) & u(2h,(N-1)h) & \hdots & u((N-1)h,(N-1)h)\\
 \vdots & \vdots & \vdots & \vdots \\
-(h,2h) & (2h,2h) & \hdots & ((N-1)h,2h)\\
-(h,h), & (2h,h) & \hdots & ((N-1)h,h)\\
+u(h,2h) & u(2h,2h) & \hdots & u((N-1)h,2h)\\
+u(h,h), & u(2h,h) & \hdots & u((N-1)h,h)\\
 \end{array} \]
 }
 ergibt Vektor $U_{i+(N-1)(j-1)}=u_{i,j}$.
@@ -109,8 +109,8 @@ A & := & \frac{1}{h^2} tridiag(-I_{N-1}, T, -I_{N-1}) \in \mathbb{R}^{(N-1)^2
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Implementierung}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Implementierung}
+\begin{matlabin}
 function loes = poisson (f,n)
 f = fcnchk(f);
 A = gallery('poisson',n-1); 
@@ -125,13 +125,13 @@ for i = 1:(n-1)
 end
 % Loese das lineare System
 loes.x = A \ F;
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Implementierung}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Implementierung}
+\begin{matlabin}
 
 % Ergaenze Randbedingungen
 loes.x = [ loes.x; zeros(4*(n+1),1)];
@@ -147,12 +147,37 @@ figure;
 Fi = TriScatteredInterp(loes.mesh(1,:)', loes.mesh(2,:)',loes.x,'linear');
 Z = Fi(X,Y);
 surf(X,Y,Z); shading flat;
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 
-%\begin{frame}[fragile]\frametitle{}
-%bild
-%\end{frame}
+\begin{frame}[fragile]\frametitle{Python: Implementierung}
+  \begin{pyin}
+def poisson(f,n):
+    x,h = linspace(0,1,n+1,retstep=True)
+    A = poissonmatrix(n-1,1.) 
+    mesh = zeros((2,(n-1)**2))
+    F = zeros((n-1)**2)
+    for i in range(0,(n-1)):
+        for j in range(0,(n-1)):
+            F[i+(n-1)*j] = f(i/float(n),j/float(n))
+            mesh[:,i+(n-1)*j] = [i/float(n),j/float(n)]
+    loes = solve(A.todense(),F)
+    loes = hstack( (loes, zeros(4*n) ) ) 
+    mesh = hstack( (mesh, vstack((zeros(n), x[1:])) ) )
+    mesh = hstack( (mesh, vstack((ones(n), x[1:])) ) )
+    mesh = hstack( (mesh, vstack((x[:-1], ones(n)) ) ) )
+    mesh = hstack( (mesh, vstack((x[:-1], zeros(n)) ) ) )
+    fig=figure(), ax = Axes3D(fig)    
+    ax.plot(mesh[0,:],mesh[1,:],loes,'*')
+    fig=figure(), ax = Axes3D(fig) 
+  \end{pyin}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Poisson-Lösung}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./figures/poisson} 
+\end{center}
+\end{frame}
 
 \subsection{Differentialgleichungen}
 %
@@ -177,44 +202,60 @@ $\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Skalares Beispiel}
-L\"ose f\"ur $0 \leq t \leq 3$ mit \alert{ ode45} die Dgl.
+L\"ose f\"ur $0 \leq t \leq 3$ die Dgl.
 \alert{ \[ \frac{d}{dt} y(t) = -y(t)-5e^{-t}\sin5t, \quad y(0)=1. \]}
-\begin{itemize}
-\item Die rechte Seite als eigene Funktion:
-\lstinputlisting{rechte_seite1.m}
-\end{itemize}
-\end{frame}
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Skalares Beispiel}
-\begin{itemize}
-\item Ausrechnen und Plotten
-\lstinputlisting{dgl_example.m}
-\end{itemize}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{./figures/loesung_dgl1} 
 \end{center}
 \end{frame}
+
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{ODE in MATLAB} 
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Skalares Beispiel}
+Die rechte Seite als eigene Funktion:
+\matinput{rechte_seite1.m}
+Ausrechnen und Plotten
+\matinput{dgl_example.m}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: Skalares Beispiel}
+  \begin{pyin}
+from scipy.integrate import odeint
+def rechte_seite1(y,t):
+    """rechte_seite1   ODE Beispiel
+       z  =rechte_seite1(t,y)"""
+    return -y -5*exp(-t)*sin(5*t)
+
+tspan =  linspace(0,3,20)
+aw = 1
+y = odeint(rechte_seite1,aw,tspan,printmessg=True)
+plot(tspan,y,'r*--',linewidth=3,markersize=15)
+xlabel('t'), ylabel('y(t)')    
+  \end{pyin}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Matlab: ode45 - explizites Runge-Kutta} 
+\begin{matlabin}
 [<t>,<y>] = ode45(<@fun>, <tspan>, <aw>, <options>)
-\end{lstlisting}
+\end{matlabin}
 \begin{itemize}
 \item \mcode{@fun} steht f\"ur die rechte Seite der Dgl. (m-File).
-\item $aw \in \mathbb{R}^n$ ist der Anfangswert.
-\item $tspan$ gibt das Zeitintervall an, auf dem die Dgl. berechnet
+\item \mcode{aw} $\in \mathbb{R}^n$ ist der Anfangswert.
+\item \mcode{tspan} gibt das Zeitintervall an, auf dem die Dgl. berechnet
   werden soll. Normalerweise ist es von der Form
   \mcode{tspan=[t_0, t_1]}. Dann wird die Dgl. auf dem Intervall $[t_0,
   t_1]$ berechnet (Anfangswert: $y(t_0)=aw$).
 \item Rückgabewerte: Vektoren $t$ und Matrizen $y$. Dabei ist
   $y(:,i)$ die L\"osung an der Stelle $t(i)$. Die Punkte $t_i$ werden
   automatisch bestimmt.
-\item Durch die optionale Angabe von \mcode{options} kann der L\"oser
-  gezielt eingestellt werden. 
+\item \mcode{options}: optionale Parameter des L\"osers. 
 \item Spezifiziert man mehr als zwei Zeitpunkte in \mcode{tspan}, so gibt MATLAB die
   L\"osung genau an diesen Zeitschritten zur\"uck.
 \end{itemize}
@@ -222,37 +263,38 @@ L\"ose f\"ur $0 \leq t \leq 3$ mit \alert{ ode45} die Dgl.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Optionen}
+\begin{frame}[fragile]\frametitle{Matlab: Optionen}
 Die genauen Parameter der ODE-L\"oser k\"onnen durch\\
 
-\begin{lstlisting}
+\begin{matlabin}
 options = odeset('Eigenschaft 1','Spez. 1',...
   'Eigenschaft 2','Spez. 2',...) 
-\end{lstlisting}
+\end{matlabin}
 
 gesteuert werden. Die wichtigsten Parameter sind \mcode{AbsTol}
 (Default $10^{-6}$) und \mcode{RelTol} (Default: $10^{-3}$). \\[0.5cm]
 \alert{Beispiel:}
-\begin{lstlisting}
+\begin{matlabin}
 options = odeset('AbsTol',1e-7,'RelTol',1e-4)
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Andere L\"oser}
-\begin{tabular}{ccp{5.5cm}c}
-\hline
-L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
-\hline
-\mcode{ode45} & nicht steif & Expliziter Runge-Kutta L\"oser &  4, 5 \\
-\mcode{ode23} & nicht steif & Expliziter Runge-Kutta L\"oser &  2, 3 \\
-\mcode{ode113} & nicht steif & Explizites Mehrschrittverfahren & 1 - 13\\
-\mcode{ode15s} & steif & Implizites Mehrschrittverfahren& 1 - 5\\
-\mcode{ode23s} & steif &Modifiziertes Rosenbrockverfahren& 2, 3\\
-\mcode{ode23t} & mittel steif & implizite Trapez Regel& 2, 3\\
-\mcode{ode23tb} & steif & Implizites Runge-Kutta Verf.& 2, 3\\
-\end{tabular}
+%\begin{frame}[fragile]\frametitle{Matlab: Andere L\"oser}
+%\begin{tabular}{ccp{5.5cm}c}
+%\hline
+%L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
+%\hline
+%\mcode{ode45} & nicht steif & Expliziter Runge-Kutta L\"oser &  4, 5 \\
+%\mcode{ode23} & nicht steif & Expliziter Runge-Kutta L\"oser &  2, 3 \\
+%\mcode{ode113} & nicht steif & Explizites Mehrschrittverfahren & 1 - 13\\
+%\mcode{ode15s} & steif & Implizites Mehrschrittverfahren& 1 - 5\\
+%\mcode{ode23s} & steif &Modifiziertes Rosenbrockverfahren& 2, 3\\
+%\mcode{ode23t} & mittel steif & implizite Trapez Regel& 2, 3\\
+%\mcode{ode23tb} & steif & Implizites Runge-Kutta Verf.& 2, 3\\
+%\end{tabular}
+
 %Ein lineares DG System mit konstanten Koeffizienten heißt steif, wenn
 %seine Eigenwerte alle negativen Realteil besitzen und sein Steifigkeitsquotient
 %groß ist (negativ semidefinit)
@@ -262,6 +304,20 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 %--
 %steif: Loesung aendert sich wenig in einem gebiet
 % ordnung: fourth-order method: meaning that the error per step is on the order of h^5, while the total accumulated error has order h^4
+%\end{frame}
+
+\begin{frame}[fragile]{Python: scipy.integrate.ode - verschiedene Löser}
+  \begin{pyin}
+<r> = scipy.integrate.ode(<f>[,<jac>])
+  \end{pyin}
+\begin{itemize}
+  \item \isage{f}: Rechte Seite der DGL: $y^\prime(t) = f(t,y)$ 
+  \item \isage{jac}: (optionale)  Jacobi-Matrix
+  \item \isage{r.set_integrator(<name>[,<params>])}: Setzt den zu nutzenden Löser <name> mit den Parametern <params>.
+  \item \isage{r.set_initial_value(y[, t])}: Setzt den Anfangswert.
+  \item \isage{r.integrate(t)}: Findet $y(t)$ und setzt den neuen Anfangswert im Löser.
+  \item \isage{r.succesful()}: Wahrheitswert über Erfolg der Integration. 
+\end{itemize}
 \end{frame}
 
 \subsection{Lorenz-Gleichungen}
@@ -280,8 +336,6 @@ L\"oser & Steifigkeit & Algorithmus & Ordnungen\\
 \end{eqnarray*}
 
 
-rechte Seite:
-\lstinputlisting{lorenz_rechte_seite.m}
 \end{frame}
 %Attraktor (von lat. ad trahere = zu sich hin ziehen) ist ein Begriff aus der Theorie dynamischer Systeme 
 %und beschreibt eine unter der Zeitentwicklung des Systems invariante (d. h. sich zeitlich nicht ändernde) 
@@ -290,37 +344,62 @@ rechte Seite:
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Die Lorenz-Gleichungen}
-\lstinputlisting{lorenz_gl.m}
+\begin{frame}[fragile]\frametitle{Matlab: Die Lorenz-Gleichungen}
+\matinput{lorenz_rechte_seite.m}
+\matinput{lorenz_gl.m}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: Die Lorenz-Gleichungen}
+  \begin{pyin}
+def lorenz_rhs(t,y):
+    return array([[10*(y[1]-y[0])], [28*y[0]-y[1]-y[0]*y[2]], [y[0]*y[1]-8*y[2]/3]])
+y = array([0,1,0])
+r = ode(lorenz_rhs)
+r.set_initial_value(y, 0)
+r.set_integrator('dopri5',atol=1e-7,rtol=1e-4)
+tmax = 30,dt = 0.01,t=[]
+while r.successful() and r.t < tmax:
+    r.integrate(r.t+dt)
+    t.append(r.t)
+    y = vstack( (y, r.y) )
+fig = figure(figsize=(16,10))
+ax = fig.add_subplot(2, 2, 1, projection='3d')
+ax.plot(y[:,0],y[:,1],y[:,2]),xlabel('t'), ylabel('y(t)')
+subplot(2,2,2),plot(y[:,0],y[:,1]), xlabel('y_1')
+subplot(2,2,3),plot(y[:,0],y[:,2]), xlabel('y_1')
+subplot(2,2,4),plot(y[:,1],y[:,2]), xlabel('y_2')
+  \end{pyin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Die Lorenz-Gleichungen}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{./figures/lorenz}
+\includegraphics[width=1\textwidth]{./figures/lorenz}
 \end{center}
 \end{frame}
 
 \subsection{Nichtlineare Gleichungen lösen und Optimierung}
 
-\begin{frame}[fragile]\frametitle{Nichtlinearer Gleichungslöser}
-Löst nichtlineare Gleichungen
-\begin{lstlisting}
- [x,fval] = fsolve(fun,x0,options)
-\end{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Nichtlinearer Gleichungslöser}
+Löst nichtlineare Gleichungen $F(x) = 0$
+\begin{matlabin}
+ [<x>,<fval>] = fsolve(<fun>,<x0>,<options>)
+\end{matlabin}
 \begin{itemize}
- \item \mcode{fun}: Function handle.
+ \item \mcode{fun}: Function handle für $F(x)$.
 \item \mcode{x0}: Startvektor.
 \item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{optimset}
-\begin{lstlisting}
-options = optimset('param1',value1,'param2',value2,..) 
-\end{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: optimset}
+\begin{matlabin}
+<options> = optimset('<param1>',<value1>,'<param2>',<value2>,..) 
+\end{matlabin}
 \begin{itemize}
  \item \mcode{'TolFun'}: Abbruchkriterium für den Funktionswert.
 \item \mcode{'TolX'}: Abbruchkriterium für aktuellen Punkt $x$.
@@ -331,8 +410,8 @@ options = optimset('param1',value1,'param2',value2,..)
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{Beispiel}
-\lstinputlisting{fsolve_exp.m}
+\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
+\matinput{fsolve_exp.m}
 \begin{matlab}
 x =
 
@@ -345,11 +424,28 @@ fval =
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Ableitungsfrei / Nebenbedingungen}
-ohne Nebenbedingungen, multidimensional:
-\begin{lstlisting}
- [x,fval,exitflag,output] = fminsearch(fun,x0,options)
-\end{lstlisting}
+\begin{frame}[fragile]{Python: Beispiel}
+  \begin{pyin}
+from scipy import optimize
+x0 = -5  # Startwert
+f = lambda x: 2*x - exp(-x)
+res,info,i,mesg = optimize.fsolve(f,x0,xtol=1e-5,full_output=True) 
+print ("res: {} \nnfev: {} \nfvec: {}".format(res,info['nfev'],info['fvec']) )
+  \end{pyin}
+  \begin{pyout}
+res: [ 0.35173371]
+nfev: 13 
+fvec: [ -1.50035540e-12]
+  \end{pyout}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Matlab: Ableitungsfrei / Nebenbedingungen}
+Finde Minimum \ldots \\
+
+ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
+\begin{matlabin}
+ [<x>,<fval>,<exitflag>,<output>] = fminsearch(<fun>,<x0>,<options>)
+\end{matlabin}
 \begin{itemize}
  \item \mcode{fun}: Function handle.
 \item \mcode{x0}: Start-wert/vektor/matrix.
@@ -357,10 +453,28 @@ ohne Nebenbedingungen, multidimensional:
 \end{itemize}
 
 mit Nebenbedingungen, multidimensional:
-\begin{lstlisting}
- x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
-\end{lstlisting}
+\begin{matlabin}
+<x> = fmincon(<fun>,<x0>,<A>,<b>,<Aeq>,<beq>,<lb>,<ub>,<nonlcon>,<options>)
+\end{matlabin}
 
+\end{frame}
+
+\begin{frame}[fragile]{Python: Ableitungsfrei / Nebenbedingungen}
+Finde Minimum \ldots \\
+
+ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
+  \begin{pyin}
+fmin(<func>, <x0>, <args=()>, <xtol>=0.0001, <ftol>=0.0001, <maxiter>=None, <maxfun>=None, <full_output>=0, <disp>=1, <retall>=0, <callback>=None)
+  \end{pyin}
+  \begin{itemize}
+    \item \isage{func}: Function handle
+    \item \isage{x0}: Start-wert/-vektor
+    \item \isage{xtol}, \isage{ftol}: Abbruch-Toleranz in $x$ und $func$.
+  \end{itemize}
+mit Nebenbedingungen, multidimensional:
+  \begin{pyin}
+fminbound(<func>, <x1>, <x2>, <args=()>, <xtol>=1e-05, <maxfun>=500, <full_output>=0, <disp>=1)    
+  \end{pyin}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Newtonverfahren}
@@ -375,9 +489,10 @@ Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Newtonverfahren - Implementation}
-\lstinputlisting{newton.m}
+\begin{frame}[fragile]\frametitle{Matlab: Newtonverfahren - Implementation}
+\matinput{newton.m}
 \end{frame}
+
 
 \begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
 \begin{center}
@@ -386,10 +501,31 @@ Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
-\lstinputlisting{newton_konvergenz.m}
+\begin{frame}[fragile]\frametitle{Matlab: Newtonverfahren - Konvergenz}
+\matinput{newton_konvergenz.m}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Python: Newtonverfahren - Implementation}
+  \begin{pyin}
+def newton_konvergenz():
+    n = 1000
+    x = linspace(-1,1,n)
+    [X,Y] = meshgrid(x,x)
+    Z = X + 1j*Y
+    TOL = 0.02
+    V = zeros((n,n))
+    for idx in range(0,20):
+        Z = Z - (Z**3-1)/(3*Z**2)
+        ind = find (Z**3 - 1 < TOL)
+        V.ravel()[ind] = angle(Z.ravel()[ind])
+    figure()
+    imshow(V)
+    colorbar()
+    title('Konvergenzverhalten Newton')
+    xlabel('x'),ylabel('i*y')
+    return V    
+  \end{pyin}
+\end{frame}
 
 \begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
 \begin{center}
@@ -428,11 +564,11 @@ Tool um Bottlenecks und Fehler (Bugs) herauszufinden.
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Benutzung}
-\begin{lstlisting}
+\begin{matlabin}
 profile on 
 <Befehle>
 profile viewer
-\end{lstlisting}
+\end{matlabin}
 Optionen und Kommandos:
 \begin{itemize}
  \item \mcode{-history}: Speichert die Funktionsaufruf-history.
@@ -444,8 +580,8 @@ Optionen und Kommandos:
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Profiler - Beispiel}
-\lstinputlisting{fout.m}
-\lstinputlisting{profilertest.m}
+\matinput{fout.m}
+\matinput{profilertest.m}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Profilerwindow}
@@ -455,11 +591,11 @@ Optionen und Kommandos:
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{History der Funktionsaufrufe}
-\lstinputlisting{profilertest2.m}
+\matinput{profilertest2.m}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Profiling Poisson}
-\lstinputlisting{profile_poisson.m}
+\matinput{profile_poisson.m}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{./figures/profile_poisson}
 \end{center}

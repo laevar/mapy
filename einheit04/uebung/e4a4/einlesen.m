@@ -23,16 +23,17 @@ while 1
     nrrows = nrrows + 1;
     %anzahl chars
     nrchars = nrchars + length(tline);
-    %haeufigst vorkommene buchstabe
+    %der am haeufigsten vorkommene buchstabe
     for idx = 1:length(tline)
       if length(mcuchara) < tline(idx)
         mcuchara(tline(idx)) = 0;
       end
-      if tline(idx) ~= ' '
+      if tline(idx) ~= ' ' %alle Leerzeichen ausnehmen
         mcuchara(tline(idx)) = mcuchara(tline(idx)) + 1;
       end
     end
 end
+%Bilde Maximum ueber alle Zeichen
 [mcucharnr,mcucharidx] = max (mcuchara);
 mcuchar = char(mcucharidx);
 fclose(fid);

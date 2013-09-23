@@ -1,4 +1,12 @@
 \begin{aufg}[0]
-Vergleichen Sie die Fixpunktiteration mit dem Newton-Verfahren f\"ur das Beispiel des Newton-Verfahrens aus der Vorlesung. Plotten sie beide Fehler in einer Grafik. Schauen 
-Sie sich dann verschiedene Startwerte und die Geschwindigkeit beider Algorithmen an.
+Schauen Sie sich die Funktion \mcode{interpolation} (aus Vorlesung Einheit 04) an und nutzen sie den Profiler mit der Funktion $f(x) = x^2$.
+
+\begin{itemize}
+ \item Finden Sie heraus  wo die Geschwindigkeit der Funktion (und der dort aufgerufenen, selbstgeschriebenen Funktionen) verbesserbar wäre. 
+\item Vergleichen Sie die dort genutzte Funktion \mcode{vandermonde} mit \mcode{vandermonde2} 
+(welche for-Schleifen nutzt). 
+\item Vergleichen Sie ebenso unsere selbstgebaute Polynom-Interpolation mit der eingebauten Interpolation (\mcode{polyfit}).
+\item Versuchen Sie die Gesamtlaufzeit der Funktion bei gleicher Funktionalität möglichst stark zu reduzieren.
+\end{itemize}
+
 \end{aufg}

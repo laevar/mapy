@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab - Einheit 4}
-\subtitle{Polynome u. Interpolation, Visualisieren, In- Output, Debugging}
+\title{Einführung in Matlab und Python - Einheit 4}
+\subtitle{Polynome u. Interpolation, In- Output, Debugging}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -64,29 +64,49 @@ mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$.
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Programm 1}
-\lstinputlisting{interpol2.m}
+\begin{frame}[fragile]\frametitle{Matlab: eigene Interpolation I}
+\matinput{interpol2.m}
 \end{frame}
+
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Programm 2}
-\lstinputlisting{interpol3.m}
+\begin{frame}[fragile]\frametitle{Matlab: eigene Interpolation II}
+\matinput{interpol3.m}
+\end{frame}
+\begin{frame}[fragile]{Python: eigene Interpolation}
+\begin{pyin}
+def interpol2(x,y):
+    A=vander(x)
+    p=solve(A,y)
+    return p  
+x = linspace(-5,5,13)
+y = 1/(1+x*x)
+plot(x,y,'or',markersize=8)
+p = interpol2(x,y)
+x1 = linspace(-5,5,100)
+y1 = ausw_poly2(p[::-1],x1)
+y2 = 1/(1+x1*x1)
+plot(x1,y1,x1,y2,linewidth=3)
+xlim([-6,6])
+grid('on'),box('on')
+legend(('Interpolationspunkte','Interpolierende von f','$f(x)=1/(1+x^2)$'),loc='best')  
+\end{pyin}
+  
 \end{frame}
 
-\subsection{Polynome - Matlab built-in}
+\subsection{Polynome - built-in}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Polynome}
-In MATLAB werden Polynome
+Polynome 
 \[ p(x)=p_1 x^n+ p_2 x^{n-1}+ \cdots + p_{n+1} \]
-repr\"asentiert durch einen Zeilenvektor $p=[p(1) \ p(2) \ \dots
-\   p(n+1)]$. \vspace*{0.5cm}\\
+werden  durch einen Zeilenvektor $p=[p(1) \ p(2) \ \dots
+\   p(n+1)]$ repr\"asentiert. \vspace*{0.5cm}\\
 
 \alert{ Vorsicht:} Normalerweise werden Polynome in der Form
-$\sum_{i=0}^n p_ix^i$ dargestellt. In MATLAB dagegen ist die
-Darstellung invers und beginnt bei $1$.
+$\sum_{i=0}^n p_ix^i$ dargestellt. Dies ist hier invers!
 \end{frame}
 %
 % Slide
@@ -106,9 +126,9 @@ Darstellung invers und beginnt bei $1$.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Auswerten}
-\begin{lstlisting}
+\begin{matlabin}
 y = polyval(<p>,<x>)
-\end{lstlisting}
+\end{matlabin}
 mit Koeffizientenvektor $p$ und Ort $x$ berechnet die Funktionswerte $y$.
 ($x$ kann eine Matrix sein)
 
@@ -116,11 +136,11 @@ mit Koeffizientenvektor $p$ und Ort $x$ berechnet die Funktionswerte $y$.
 \alert{Beispiel:} $p(x):= x^3 - x^2 +1$\\
 \begin{columns}[c]
 \column{0.55\textwidth}
-\begin{lstlisting}
+\begin{matlabin}
 x = -2:0.1:2; 
 y = polyval([1 -1 0 1],x); 
 plot(x,y,'r--','Linewidth',3);
-\end{lstlisting}
+\end{matlabin}
 \column{0.45\textwidth}
 %\includegraphics[width=5cm, height=3cm]{grafik_1}
 \includegraphics[width=\textwidth]{figures/polynom1}
@@ -130,30 +150,30 @@ plot(x,y,'r--','Linewidth',3);
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Bestimmung von Nullstellen}
-\begin{lstlisting}
+\begin{matlabin}
 z = roots(<p>)
-\end{lstlisting}
+\end{matlabin}
 Nullstellen $z$ mit Koeffizientenvektor $p$.
 
 \textbf{Beispiel:} \\
 $p(x):= x^3 - x^2 +1$\\
 \begin{columns}[c]
 \column{0.58\textwidth}
-\begin{lstlisting}
+\begin{matlabin}
 roots([1 -1 0 1])
-\end{lstlisting}
+\end{matlabin}
 \begin{matlab}
 ans =
    0.8774 + 0.7449i
    0.8774 - 0.7449i
   -0.7549  
 \end{matlab}
-\begin{lstlisting}
+\begin{matlabin}
 x = -1:0.1:1;
 [X,Y] = meshgrid(x,x);
 Z=abs(polyval([1 -1 0 1],X+i*Y)); 
 surf(X,Y,Z)
-\end{lstlisting}
+\end{matlabin}
 \column{0.43\textwidth}
 \includegraphics[width=\textwidth]{figures/polynom2}
 \end{columns}
@@ -188,9 +208,13 @@ minimiert.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Data Fitting}
-\begin{lstlisting}
+\begin{matlabin}
 yi = interp1(x,y,xi,<method>)
-\end{lstlisting}
+\end{matlabin}
+\begin{pyin}
+f = sp.interpolate.interp1d(x,y,kind=<method>)
+yi = f(xi)
+\end{pyin}
 Dabei sind $(x,y)$ die gegebenen Punkte, $xi$ sind die Stellen, an die
 die Interpolante berechnet wird und $yi$ sind die entsprechenden
 Funktionswerte. 
@@ -200,8 +224,7 @@ Funktionswerte.
 \begin{tabular}{ll}
 \mcode{'nearest'} &  stückweise konstante Approximation \\
 \mcode{'linear'}  & Lineare Interpolation \\ 
-\mcode{'spline'} & stückweise kubischer Spline $u$ ($u \in C^2$,
-$u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
+\mcode{'spline'} & stückweise kubischer Spline (Matlab)\\
 \mcode{'cubic'} & kubische Hermite Interpolation\\ 
 \end{tabular}
 %}
@@ -217,19 +240,22 @@ $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 %
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
-\item  Nur für die Spline-Methoden können   bei \mcode{interp1}  auch
+\item Spline-interpolation: $u$ ($u \in C^2$,$u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
+(Python) Splines durch spezialisierte Funktionen z.B. \isage{UnivariateSpline}) 
+\item  (Matlab) Nur für die Spline-Methoden können   bei \mcode{interp1}  auch
   Stellen außerhalb des
   Interpolationsintervalls berechnet werden.
-\item Data Fitting kann auch über die Oberfläche durchgeführt werden.
+\item (Matlab) Data Fitting kann auch über die Oberfläche durchgeführt werden.
  Plotten Sie die Daten und wählen Sie \mcode{Basic Fitting} im Men\"u
  \mcode{Tools}. 
+
 \end{itemize}
 \end{frame}
 %
 % Slide
 % 
 % \begin{frame}[fragile]\frametitle{Lineare Regression}
-% \begin{lstlisting}
+% \begin{matlabin}
 % % Example for Linear Regression 
 % x = (1:0.5:4)';
 % y = exp(x);
@@ -247,10 +273,10 @@ $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 % x1 = 1:0.1:4;
 % y1 = a(1) + a(2)*x1 + a(3)*x1.^2;
 % plot(x1,y1,'LineWidth',2)
-% \end{lstlisting}
+% \end{matlabin}
 % \end{frame}
 
-\section{Visualisieren von 3D-Daten}
+\subsection{Interpolieren von 3D-Daten}
 
 %
 % Slide
@@ -269,11 +295,13 @@ $u|_{[x_i,x_{i+1}]} \in \mathbb{P}_3$) \\
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{Beispiel}
-\begin{lstlisting}
+\begin{matlabin}
 load seamount
 plot(x,y,'.','markersize',10)
-figure, plot3(x,y,z,'.')
-\end{lstlisting}
+\end{matlabin}
+\begin{pyin}
+x,y,z=loadtxt('seamount.csv',delimiter=',',unpack=True)  
+\end{pyin}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data}
 \end{center}
@@ -281,36 +309,53 @@ figure, plot3(x,y,z,'.')
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Beispiel}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
+\begin{matlabin}
 xi = linspace(min(x),max(x),40);
 yi = linspace(min(y),max(y),40);
 [XI,YI] = meshgrid(xi,yi);
 F = TriScatteredInterp(x,y,z,'linear');
 ZI = F(XI,YI);
 surf(XI,YI,ZI)
-\end{lstlisting}
+\end{matlabin}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data_plot}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Python: Beispiel}
+\begin{pyin}
+xi = linspace (min(x),max(x),40)
+yi = linspace (min(y),max(y),40)
+[XI ,YI] = meshgrid (xi ,yi)
+ZI = sp.griddata ((x,y),z,(XI,YI),method='linear')
+fig = figure() , ax = Axes3D(fig)
+ax.plot_surface(XI ,YI ,ZI,rstride=1,cstride=1) 
+\end{pyin}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figures/scattered_data_plot_py}
 \end{center}
 \end{frame}
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{TriScatteredInterp}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Unstrukturierte Gitter Interpolieren}
+\begin{matlabin}
 F = TriScatteredInterp(<x>,<y>,<z>,<methode>);
 ZI = F(<XI>,<YI>);
-\end{lstlisting}
+\end{matlabin}
+\begin{pyin}
+ZI = sp.interpolate.griddata ((<x>,<y>),<z>,(<XI>,<YI>),method='<methode>')  
+\end{pyin}
 \begin{itemize}
 \item Vektoren $x,y,z$ enthalten Werte $(x(i),y(i),z(i))$.
 \item Interpolationsstellen $(XI(i,j),YI(i,j))$ mit Matrizen \mcode{XI, YI}. 
-\item Funktionsauswertung mit \mcode{F}: Ergebnis $ZI(i,j)$.
+\item (Matlab) Funktionsauswertung mit \mcode{F}: Ergebnis $ZI(i,j)$.
 \item Art des Interpolierens:
 \begin{itemize}
  \item \mcode{'nearest'}: st\"uckweise konstant
  \item \mcode{'linear'}: linear
- \item \mcode{'natural'}: natürliche Nachbarn (Voronoi-Diagramm)
+% \item \mcode{'natural'}: natürliche Nachbarn (Voronoi-Diagramm)
 \end{itemize}
 \item Es wird nur innerhalb der konvexen H\"ulle der Punkte $(x(i),y(i))$
   interpoliert. Ansonsten Funktionswert \mcode{NaN}. 
@@ -320,7 +365,7 @@ ZI = F(<XI>,<YI>);
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Bemerkungen}
+\begin{frame}[fragile]\frametitle{Matlab: Bemerkungen}
 \begin{itemize}
 \item Der Interpolation liegt eine \alert{Delaunay} Triangulation zugrunde. Die Werte
   $(x(i),y(i))$ sind Eckpunkte der entstehenden Dreiecksmenge.
@@ -335,18 +380,22 @@ ZI = F(<XI>,<YI>);
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{interp2}
-\begin{lstlisting}
-ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
-\end{lstlisting}
+\begin{frame}[fragile]\frametitle{Auf beliebigen Punkten Interpolieren}
+\begin{matlabin}
+ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<method>)
+\end{matlabin}
+\begin{pyin}
+f=sp.interpolate.interp2d(<XI>,<YI>,<ZI>,kind='<method>')
+ZI= f(XIp,YIp)
+\end{pyin}
 \begin{itemize}
 \item Allgemein sind $X,Y,Z$ Matrizen. Dabei ist $Z(i,j)$ der Funktionswert an
   $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \mcode{meshgrid} erzeugt. 
 \item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
   ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
-\item Art des Interpolierens:
+\item Art des Interpolierens (method):
 \begin{itemize}
- \item \mcode{'nearest'}: st\"uckweise konstant
+% \item \mcode{'nearest'}: st\"uckweise konstant
  \item \mcode{'linear'}: linear
  \item \mcode{'cubic'}: bikubische Splines
 \end{itemize}
@@ -356,15 +405,30 @@ ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<methode>)
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Interp2 - Beispiel}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Interp2 - Beispiel}
+\begin{matlabin}
 xip = linspace(min(x),max(x),15); yip = linspace(min(y),max(y),15);
 [XIp,YIp] = meshgrid(xip,yip);
 ZIp = interp2(XI,YI,ZI,XIp,YIp,'linear');
 surf(XIp,YIp,ZIp)
-\end{lstlisting}
+\end{matlabin}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_plot}
+\end{center}
+\end{frame}
+
+%
+% Slide
+% TODO: interp2 stuerzt mit den gegeben daten immer noch ab...
+\begin{frame}[fragile]\frametitle{Python: Interp2 - Beispiel}
+\begin{pyin}
+xip = linspace (min(x),max(x),15), yip = linspace (min(y),max(y),15)
+[XIp ,YIp] = meshgrid (xip ,yip)
+f = inter.interp2d (xi,yi,ZI,kind='linear')  
+ZIp = f(XIp,YIp)
+\end{pyin}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
 \end{center}
 \end{frame}
 
@@ -379,59 +443,68 @@ surf(XIp,YIp,ZIp)
 \item Schreiben in Dateien
 \item Einlesen von Daten aus Dateien
 \item Speichern und Laden von Variablen\\
-\item \alert{ \mcode{help iofun}}: Übersicht über alle Ein- und  Ausgabe - Befehle
+\item Matlab: \alert{ \imatlab{help iofun}}: Übersicht über alle Ein- und  Ausgabe - Befehle
 \end{itemize}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Benutzereingabe}
-\begin{itemize}
-\item Standardeingabe: 
-\begin{lstlisting}
-input 
-\end{lstlisting}
-%\item Eingabe eines Zeichens:
-\item Informationssteuerung durch die Maus:
-\begin{lstlisting}
-ginput 
-\end{lstlisting}
+%\begin{frame}[fragile]\frametitle{Matlab: Benutzereingabe}
+%\begin{itemize}
+%\item Standardeingabe: 
+%\begin{matlabin}
+%input 
+%\end{matlabin}
+%\begin{pyin}
+%raw_input()
+%\end{pyin}
+%%\item Eingabe eines Zeichens:
+%\item Informationssteuerung durch die Maus:
+%\begin{matlabin}
+%ginput()
+%\end{matlabin}
+%
+%\item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: 
+%\begin{matlabin}
+%pause
+%\end{matlabin}
+%\begin{pyin}
+%raw_input()
+%\end{pyin}
 
-\item Anhalten der Prozedur bis eine Tastatureingabe erfolgt: 
-\begin{lstlisting}
-pause
-\end{lstlisting}
-
-\end{itemize}
-\end{frame} 
+%\end{itemize}
+%\end{frame} 
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{input}
-Das Kommando 
-\begin{lstlisting}
+\begin{matlabin}
 ein = input('Text'[,'s'])
-\end{lstlisting}
-fragt eine Eingabe vom Benutzer ab. Dabei wird 'Text' angezeigt. Die Eingabe kann hinter 'Text' erfolgen
-und wird durch Return abgeschlossen.  Durch die Option 's' wird ein String abgefragt.
+\end{matlabin}
+\begin{pyin}
+ein = raw_input('Text')  
+\end{pyin}
+Eingabe vom Benutzer abfragen und 'Text' anzeigen. Die Eingabe durch Return abschliessen. (Matlab: Option 's' erwartet ein String).
 
-\textbf{Beispiele:}
-\begin{lstlisting}
-startwert = input('Bitte geben Sie den Startwert ein: ')
-\end{lstlisting}
+\begin{matlabin}
+2*input('Bitte geben Sie den Startwert ein: ')
+\end{matlabin}
+\begin{pyin}
+2*float(raw_input('Bitte geben Sie den Startwert ein: '))
+\end{pyin}
 \begin{matlab}
-Bitte geben Sie den Startwert ein: 56
- startwert =
-     56
-
+Bitte geben Sie den Startwert ein: 8
+16.0
 \end{matlab}
-\begin{lstlisting}
+\begin{matlabin}
 f = input('Eingabe einer Funktion: ', 's')
-\end{lstlisting}
+\end{matlabin}
+\begin{pyin}
+f = raw_input('Eingabe einer Funktion: ')
+\end{pyin}
 \begin{matlab}
 Eingabe einer Funktion: sin(x)*cos(x)
-f =
-sin(x)*cos(x)
+f = sin(x)*cos(x)
 \end{matlab}
 \end{frame}
 %
@@ -439,16 +512,18 @@ sin(x)*cos(x)
 %
 \begin{frame}[fragile]\frametitle{ginput}
 Das Kommando 
-\begin{lstlisting}
-[x,y]=ginput(n)
-\end{lstlisting}
-gibt die Vektoren $x$ und $y$ der Koordinaten der nächsten $n$
-Maus-Klicks zurück, an denen sich die Maus im aktuellen Grafik-Fenster
-befindet.  
+\begin{matlabin}
+[x,y] = ginput(n)
+\end{matlabin}
+\begin{pyin}
+coord = ginput(n)  
+\end{pyin}
+gibt die Koordinaten der $n$ Maus-Klicks als Vektoren $x$ und $y$ bzw. als Liste von xy-Tuplen zurück, 
+an denen sich die Maus im aktuellen Grafik-Fenster befunden hat.  
 \begin{itemize}
-\item \mcode{[x,y]=ginput} sammelt so lange Daten ein, bis die
-  Return-Taste gedrückt wird.
-\item \mcode{[x,y,taste]=ginput(n)} gibt auch den Vektor \mcode{taste}
+  \item \mcode{[x,y]=ginput}| \isage{ginput(0)} sammelt so lange Daten ein, bis die
+  Return-Taste bzw. mittlere Maustaste gedrückt wird.
+\item \mcode{[x,y,taste]=ginput(n)}(Matlab) gibt auch den Vektor \mcode{taste}
   zurück, der aus Werten $1$ (linke Maustaste), $2$ (mittlere
   Maustaste) oder $3$ (rechte Maustaste) besteht. 
 \end{itemize} 
@@ -456,6 +531,7 @@ befindet.
 %
 % Slide
 %
+%TODO: Bezier fuer Python
 \begin{frame}[fragile]\frametitle{Bezier-Polynom}
 \alert{ \[ z (t):=\sum_{i=0}^n {\bf b}_i B_i^n(t), \quad t \in [0,1] \]}
 \begin{itemize}
@@ -469,39 +545,63 @@ befindet.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Bezier-Polynom}
+\begin{frame}[fragile]\frametitle{Matlab: Bezier-Polynom}
 \begin{center}\includegraphics[width=0.8\textwidth]{figures/bezier}\end{center}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Bezier-Polynom}
-\lstinputlisting{bezier.m}
+\begin{frame}[fragile]\frametitle{Matlab: Bezier-Polynom}
+\matinput{bezier.m}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Ausgabe}
+\begin{frame}[fragile]\frametitle{Python: Bezier-Polynom}
+  \begin{pyin}
+figure()
+axis ([0,1,0,1])
+x = zeros((4,))
+y = zeros((4,))
+for k  in range(0,4):
+    p = ginput(2)
+    x[k] = p[0][0]
+    y[k] = p[0][1]
+    plot(x[k],y[k],'*')
+    text(x[k]+0.01 ,y[k]+0.01 , 'P_{}'.format(k) )
+    draw()
+# Zeichnen der Kontrollpolygons
+fill(x,y,'y')
+u = arange(0,1,0.01)
+umat = array([(1 -u)**3, 3*u*(1 -u)**2, 3*u**2*(1-u), u**3 ])
+plot(dot(x,umat) , dot(y,umat) ,'--',linewidth=4)
+draw()    
+  \end{pyin}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Matlab: Ausgabe}
 \begin{itemize}
-\item Angeben einer Variable ohne Semicolon:
-\begin{lstlisting}
+\item Text durch String-Aneinanderhängen
+\begin{matlabin}
 text=['Pi mit 5 signifikanten Stellen : ' num2str(pi,6)]
-\end{lstlisting} 
+\end{matlabin} 
 \begin{matlab} 
 text =
 Pi mit 5 signifikanten Stellen : 3.14159
 \end{matlab} 
 \item Ausgabe des Strings $X$ durch  \mcode{disp(X)}
-\begin{lstlisting}
+\begin{matlabin}
 disp(text)
-\end{lstlisting} 
+\end{matlabin} 
 \begin{matlab} 
 Pi mit 5 signifikanten Stellen : 3.14159
 \end{matlab} 
 \item Ausgabe durch  \mcode{fprintf()}
-\begin{lstlisting}
+\begin{matlabin}
 fprintf('Pi mit %1.0f Nachkomma-Stellen : %6.4f \n',4,pi)
-\end{lstlisting} 
+\end{matlabin} 
 \begin{matlab} 
 Pi mit 4 Nachkomma-Stellen : 3.1416 
 \end{matlab}
@@ -510,14 +610,14 @@ Pi mit 4 Nachkomma-Stellen : 3.1416
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{fprintf- Formartierte Ausgabe}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: fprintf- Formartierte Ausgabe}
+\begin{matlabin}
 fprintf( <Format>, <Argument1>, <Argument2>,...)
-\end{lstlisting}
+\end{matlabin}
 \textit{Format}: Output-Form der Argumente (Werte der Variablen): 
-\begin{lstlisting}
-'<*>%<(-|+)> <v1.n1><typ1><*>%<(-|+)> <v2.n2><typ2><*>..'
-\end{lstlisting} 
+\begin{matlabin}
+'.. %<(-|+)> <v1.n1><typ1> .. %<(-|+)> <v2.n2><typ2> ..'
+\end{matlabin} 
 \begin{description}
 \item [<*>] Hier kann beliebiger Text eingegeben werden.
 \item [<(-|+)>] '+': Vorzeichen-Anzeige erzwungen.\\
@@ -538,29 +638,58 @@ fprintf( <Format>, <Argument1>, <Argument2>,...)
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Bemerkungen zu fprintf}
+\begin{frame}[fragile]\frametitle{Matlab: Bemerkungen zu fprintf}
 \begin{itemize} 
 \item Die formatierte Ausgabe ist an den Ansi-C Standard angelehnt.
-\item Durch \mcode{'\\n'} wird ein Zeilenumbruch bewirkt. \mcode{'\%'} erzeugt
+\item Durch \mcode{'\\n'} wird ein Zeilenumbruch bewirkt. \mcode{'\\\%'} erzeugt
   \mcode{\%}.
  \item \mcode{sprintf} funktioniert wie \mcode{fprintf}. Allerdings wird
   die Ausgabe als String zurückgegeben. 
 \item Ist ein Argument eine Matrix, so wird fprintf 'vektorisiert'.
 \end{itemize}
 \end{frame}
+
+%
+%
+%
+\begin{frame}[fragile]{Python: Formatierte Strings/Ausgabe}
+  \begin{pyin}
+'.. {<name|index>:<format>} .. {<name|index>:<format>} ... '.format(x,y,...) )
+  \end{pyin}
+
+  \isage{<format>}: [<flag>][<minwidth>][.<precision>]converter
+  \begin{itemize}
+    \item \emph{flag}: 0 für das Auffüllen mit Nullen
+    \item \emph{minwidth}: Minimale Breite der Darstellung
+    \item \emph{precision}: Genauigkeit (Nachkommastellen)
+    \item \emph{converter}:
+    \begin{itemize}
+      \item \alert{d}   ganze Zahl mit Vorzeichen 
+      \item \alert{e}  Gleitkommazahl mit Exponentialformat (kleingeschrieben) 
+      \item \alert{f}   Gleitkommazahl im Dezimalformat 
+      \item \alert{g}   Gleitkommazahl. Exponent $<$ -4: Exponentialform, Dezimalformat sonst
+      \item \alert{s}   Strings  
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
 %
 % Slide
-%
-\begin{frame}[fragile]\frametitle{Schreiben in Dateien - Beispiel}
-\lstinputlisting{waehrung.m}
+% TODO: Python code fehlt noch
+\begin{frame}[fragile]\frametitle{Matlab: Schreiben in Dateien - Beispiel}
+\matinput{waehrung.m}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{fopen}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Datei öffnen}
+\begin{matlabin}
 fid = fopen(<dateiname>, <erlaubnis>)
-\end{lstlisting}
+\end{matlabin}
+\begin{pyin}
+fid = open(<dateiname>, <erlaubnis>)  
+\end{pyin}
 
 \mcode{fopen} öffnet die Datei \mcode{dateiname} im Modus
   \mcode{erlaubnis} und erzeugt einen
@@ -572,40 +701,41 @@ fid = fopen(<dateiname>, <erlaubnis>)
 \item ['a']  Hinzufügen (Erzeugen falls nötig)
 \item ['r+'] Lesen und schreiben (aber nicht erzeugen) 
 \end{description}
+(Matlab) Durch ein  zusätzliches Output-Argument können Fehler aufgefangen
+  werden. 
+\begin{matlabin}
+[fid, message]=fopen(<dateiname>, <erlaubnis>)
+\end{matlabin}
+Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}. 
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Weitere Kommandos}
 \begin{itemize}
-\item \mcode{fclose(fid)} schliesst die Datei mit dem Handle \mcode{fid}
-\item Mit dem Befehl
-\begin{lstlisting}
+\item In Datei Schreiben
+\begin{matlabin}
 fprintf( <Datei-Handle>, <Format>, <Argument1>, <Argument2>,..)
-\end{lstlisting}
-wird in die durch das Datei-Handle angegebene Datei gemäß der obigen
-Konventionen geschrieben.
-\item Durch ein  zusätzliches Output-Argument können Fehler aufgefangen
-  werden. 
-\begin{lstlisting}
-[fid, message]=fopen(<dateiname>, <erlaubnis>)
-\end{lstlisting}
-Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}. 
+\end{matlabin}
+\begin{pyin}
+fid.write('Text')
+\end{pyin}
+  \item \imatlab{fclose(fid)} | \isage{fid.close()} schliesst die Datei mit dem Handle \mcode{fid}
 \end{itemize}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Lesen aus einer Datei}
-\lstinputlisting{waehrung_auslesen.m}
+\begin{frame}[fragile]\frametitle{Matlab: Lesen aus einer Datei - Beispiel}
+\matinput{waehrung_auslesen.m}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{fscanf}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: fscanf formatiertes Lesen}
+\begin{matlabin}
 [daten,anz] = fscanf(<fid>,<format>,<Größe>)
-\end{lstlisting}
+\end{matlabin}
 \begin{itemize}
 \item \mcode{fscanf} liest Daten aus der Datei mit dem Handle
   \mcode{fid}. 
@@ -615,21 +745,31 @@ Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}.
 \item Die \mcode{Größe} bestimmt das was gelesen wird, und damit auch die Dimension der Output-Matrix. \mcode{inf} bezeichnet dabei das Dateiende.
 \end{itemize}
 \end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: loadtext formatiertes Lesen}
+  dummy
+\end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Weitere Befehle}
 \begin{itemize}
 \item Zeile aus der Datei mit  Handle \mcode{fid} lesen und als String zurückgeben:
-\begin{lstlisting}
+\begin{matlabin}
 fgetl(fid) 
-\end{lstlisting}
+\end{matlabin}
+  \begin{pyin}
+fid.readline()
+  \end{pyin}
 \item Prüfen ob das Dateiende erreicht ist:
-\begin{lstlisting}
+\begin{matlabin}
 feof(fid)
-\end{lstlisting}
+\end{matlabin}
 \mcode{feof(fid)} gibt eine $1$
-  zurück, falls das Dateiende erreicht ist und $0$ sonst. 
+  zurück, falls das Dateiende erreicht ist und $0$ sonst. (In Python nicht nötig)
 \end{itemize}
 \end{frame}
 %
@@ -651,9 +791,9 @@ keine Vertauschungen mehr vorgenommen werden.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispiel - Bubblesort}
-\begin{lstlisting}
- function sortieren(dateiname1, dateiname2)
+\begin{frame}[fragile]\frametitle{Matlab: Bubblesort}
+\begin{matlabin}
+function sortieren(dateiname1, dateiname2)
 % sortieren   Die Datei dateiname1 wird alphabetisch sortiert
 %             und als dateiname2 abgespeichert.
 %   INPUT:    STRING dateiname1
@@ -671,13 +811,13 @@ while feof(fid)==0
     inhalt{anz}=fgetl(fid); 
 end
 fclose(fid);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispiel - Bubblesort (Forts.)}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Bubblesort (Forts.)}
+\begin{matlabin}
 % Sortieren
 sortierungen = 1; 
 while sortierungen>0
@@ -697,26 +837,54 @@ for k = 1:anz
    fprintf(fid,'%s \n',inhalt{k}); 
 end;
 fclose(fid);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
+
+\begin{frame}[fragile]{Python: Bubblesort}
+  \begin{pyin}
+def bubblesort(dateiname1, dateiname2):
+   fid = open(dateiname1,'r')
+   inhalt = []
+   for line in fid:
+       inhalt.append(line)
+   fid.close()
+   sortierungen = 1
+   while sortierungen>0:
+       sortierungen = 0
+       for k in range(0,len(inhalt)-1):
+           if vergleich_gr(inhalt[k+1],inhalt[k]):
+               hilf = inhalt[k]
+               inhalt[k] = inhalt[k+1]
+               inhalt[k+1] = hilf
+               sortierungen += 1
+   fid = open(dateiname2,'w')
+   for k in range(1,len(inhalt)):
+       fid.write('{}'.format(inhalt[k]))
+   fid.close()    
+  \end{pyin}
+\end{frame}
+
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Bemerkungen}
 \begin{itemize}
-\item Es ist auch möglich temporäre Dateien zu erzeugen.
-\item Binäre Dateien: \alert{\mcode{fread}} und \alert{\mcode{fwrite}}. 
-\item Excel-Tabellen esen: \alert{\mcode{xlsread}} 
-\item Bilddateien importieren: \alert{\mcode{imread}}.
-\item Audiodateien (.wav) bzw. Videodateien (.avi):
- \alert{\mcode{wavread}} bzw. \alert{\mcode{aviread}}. 
+%\item Es ist auch möglich temporäre Dateien zu erzeugen.
+\item Binäre Dateien: (Matlab) \alert{\imatlab{fread}} und \alert{\imatlab{fwrite}}. (Python) open mit 'br' für <Erlaubnis>
+%\item Excel-Tabellen lesen: \alert{\mcode{xlsread}} 
+%\item Python: \isage{loadtext} \isage{savetext} kann viele Textformate Lesen/Schreiben.
+\item Bilddateien: \alert{\imatlab{imread}/\imatlab{imwrite}} (SciPy)
+\item Matlab: Audiodateien (.wav) bzw. Videodateien (.avi):
+\alert{\imatlab{wavread}} bzw. \alert{\imatlab{aviread}}. 
+\item Python: \isage{io.video.Video}
+ \item Matlab-Dateien: \imatlab{save} \imatlab{load}| \isage{scipy.io.savemat} \isage{scipy.io.loadmat}
 \end{itemize}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispiel: Bin\"are Daten}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab:  Bin\"are Daten}
+\begin{matlabin}
 %-------------------- beispiel_bin_data.m
 A = hilb(10);
 
@@ -731,36 +899,34 @@ B = fread(freadid, count, 'double');
 C = reshape(B,10,10);
 
 disp(norm(A - C))
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Laden und Speichern von  Variablen}
-\begin{itemize}
-\item \alert{ \mcode{save filename}} speichert den gesamten
-  Workspace in der Datei \mcode{filename.mat}. Einladen des Workspace
-  ist möglich mittels  \alert{ \mcode{load filename}}. 
-\item Mittels \alert{ \mcode{save filename A x}} werden nur die
-  Variablen $A$ und $x$ in der Datei \mcode{filename.mat}
-  gespeichert. Durch  \alert{ \mcode{load filename}} werden nun die
-  Variablen $A$ und $x$ dem Workspace hinzugefügt. 
-\item Bei \mcode{load} werden bestehende Variablen mit dem gleichen
-  Namen überschrieben.
-\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]\frametitle{Laden und Speichern von  Variablen}
+%\begin{itemize}
+%\item \alert{ \mcode{save filename}} speichert den gesamten
+%  Workspace in der Datei \mcode{filename.mat}. Einladen des Workspace
+%  ist möglich mittels  \alert{ \mcode{load filename}}. 
+%\item Mittels \alert{ \mcode{save filename A x}} werden nur die
+%  Variablen $A$ und $x$ in der Datei \mcode{filename.mat}
+%  gespeichert. Durch  \alert{ \mcode{load filename}} werden nun die
+%  Variablen $A$ und $x$ dem Workspace hinzugefügt. 
+%\item Bei \mcode{load} werden bestehende Variablen mit dem gleichen
+%  Namen überschrieben.
+%\end{itemize}
+%\end{frame}
 
 \section{Etwas Debugging}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Fehler-Arten}
-% In MATLAB gibt es zwei Arten von Fehler.
 \begin{itemize}
 \item \alert{ Syntax Fehler}: z.B. Schreibfehler oder
-  Weglassen von Klammern. MATLAB entdeckt die meisten Syntax Fehler
-  und gibt eine entsprechende Fehlermeldung zurück mit Angabe der
-  Zeile. 
+  Weglassen von Klammern. Die meisten dieser Fehler werden im Editor angezeigt. 
+  und werden ansonsten als entsprechende Fehlermeldung ausgegeben. 
 \item \alert{ Run-time Fehler}: Diese Fehler sind
   normalerweise algorithmischer Natur. Oft passen z.B. bei
   Matrixoperationen die Matrizen nicht zusammen.
@@ -772,29 +938,29 @@ an, in welcher Funktion der Fehler liegt.}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Fehler abfangen}
+\begin{frame}[fragile]\frametitle{Matlab: Fehler abfangen}
 \begin{itemize}
 \item \alert{Fehlermeldungen}
-\begin{lstlisting}
+\begin{matlabin}
 error(<text>) 
-\end{lstlisting}
+\end{matlabin}
 Bricht das Programm ab. Insbesondere die Eingabeparameter sollten auf Fehler geprüft werden.
 \item \alert{Warnungen}
-\begin{lstlisting}
+\begin{matlabin}
 warning(<text>)
-\end{lstlisting}
+\end{matlabin}
 Programm wird fortgesetzt.
 \end{itemize}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Beispiel}
-\begin{lstlisting}
+\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
+\begin{matlabin}
 function interpolation(f1,N)
-\end{lstlisting}
+\end{matlabin}
 \alert{ \centering{$\cdots$}}\\
-\begin{lstlisting}
+\begin{matlabin}
 %----------------- Fehlerbehandlung
 if (round(abs(N)) ~= N) | (N==0)
     error(strcat('Bitte fuer die Anzahl der Stuetzstellen',...
@@ -803,10 +969,10 @@ end
 if ~ischar(f1)
     error('Bitte fuer die Funktion einen String verwenden');
 end
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Integrierter Debugger}
+\begin{frame}[fragile]\frametitle{Matlab: Integrierter Debugger}
 \begin{itemize}
  \item \alert{Breakpoints}: Halten das Programm an der Gegebenen Stelle an. Aktivierung: Klick in der linken Spalte rechtes neben der Zeilennummer. 
  \item \alert{Debug-Modus}: Menu: Debug->Stop if Errors/Warnings auf \textit{always stop if error} setzen.
@@ -814,8 +980,21 @@ end
  \item \alert{Step in} (F11) Ein Schritt weiter im gegebenen Kontext. Wechselt zu aufgerufenen Funktionen. 
 \item \alert{continue} (F5) Führt das Programm normal fort.
 \end{itemize}
-
 \end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Python: Integrierter Debugger}
+fehlt
+% TODO: noch schreiben
+%\begin{itemize}
+% \item \alert{Breakpoints}: Halten das Programm an der Gegebenen Stelle an. Aktivierung: 
+% \item \alert{Debug-Modus}: 
+% \item \alert{Step} (F10) Ein Schritt weiter im gegebenen Kontext.
+% \item \alert{Step in} (F11) Ein Schritt weiter im gegebenen Kontext. Wechselt zu aufgerufenen Funktionen. 
+%\item \alert{continue} (F5) Führt das Programm normal fort.
+%\end{itemize}
+\end{frame}
+
 
 
 

@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.1415926-2.4-0.9998 (TeX Live 2012/Debian) (format=xelatex 2012.7.4)  15 SEP 2012 17:15
+This is XeTeX, Version 3.1415926-2.4-0.9998 (TeX Live 2012/Debian) (format=xelatex 2012.11.19)  17 SEP 2013 11:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **aufgaben_einh07.tex
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/aufgaben_einh07.tex
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/aufgaben_einh07.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ng
 erman, german, swissgerman, ngerman-x-2012-05-30, german-x-2012-05-30, loaded.
@@ -106,7 +106,7 @@ Package typearea Info: These are the values describing the layout:
 \c@figure=\count87
 \c@table=\count88
 \bibindent=\dimen102
-) (/home/jschulz1/teaching/Matlab/einheit07/uebung/aufg_header.tex
+) (/home/jschulz1/teaching/Matlab_python/einheit07/uebung/aufg_header.tex
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
@@ -727,7 +727,7 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \cellspace@firstht=\dimen160
 \cellspace@lastdp=\dimen161
 )
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/mcode.sty
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/mcode.sty
 Package: `mcode' 1.3 <2008/08/28>
 Package: mcode 2008/08/28 1.3
 mcode: settings optimized for display!
@@ -756,7 +756,7 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 )
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/mydef.sty
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/mydef.sty
 Package: mydef 2007/06/12 mydef package (LN)
 \c@thm=\count194
 \c@lem=\count195
@@ -771,7 +771,7 @@ Package: colonequals 2006/08/01 v1.0 Colon equals symbols (HO)
 )
 \c@zaehler=\count201
 )
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/aufgaben_einh07.aux)
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/aufgaben_einh07.aux)
 \openout1 = `aufgaben_einh07.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -877,8 +877,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--7
 
  []
 
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a1/e7a1.tex)
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a2/e7a2.tex
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a1/e7a1.tex)
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a2/e7a2.tex
 LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/euenc/eu1lmtt.fd
@@ -887,24 +887,20 @@ File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 4.
 )
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a3/e7a3.tex)
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a4/e7a4.tex)
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a5/e7a5.tex)
-(/home/jschulz1/teaching/Matlab/einheit07/uebung/e7a6/e7a6.tex
-Underfull \hbox (badness 10000) in paragraph at lines 7--9
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a3/e7a3.tex)
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a4/e7a4.tex)
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a5/e7a5.tex)
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/e7a6/e7a6.tex) [1
 
- []
-
-) [1
-
-] (/home/jschulz1/teaching/Matlab/einheit07/uebung/aufgaben_einh07.aux) ) 
+]
+(/home/jschulz1/teaching/Matlab_python/einheit07/uebung/aufgaben_einh07.aux) ) 
 Here is how much of TeX's memory you used:
- 18486 strings out of 495668
- 367297 string characters out of 3186666
- 394443 words of memory out of 3000000
- 21397 multiletter control sequences out of 15000+200000
+ 18499 strings out of 495668
+ 367658 string characters out of 3186664
+ 394699 words of memory out of 3000000
+ 21410 multiletter control sequences out of 15000+200000
  5435 words of font info for 34 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 54i,8n,47p,619b,1069s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 54i,7n,47p,619b,1054s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on aufgaben_einh07.pdf (1 page).

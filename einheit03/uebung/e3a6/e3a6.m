@@ -1,5 +1,6 @@
 disp('*** aufgabe 6');
 clear
+%4d-Funtion (volumetrische Daten) daher z.B. farblich markierte Schnitte durch das Volumen
 
 x = linspace (-1,1,30);
 [X,Y,Z] = meshgrid(x,x,x);

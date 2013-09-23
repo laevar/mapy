@@ -19,4 +19,5 @@ it_max = 1000;
 for i = 1:it_max
     z(i+1) = ( cos(z(i)).^2 );
 end;
+% Ueberpruefe Loesung
 cos(z(i+1))^2-z(i+1)

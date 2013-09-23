@@ -1,6 +1,6 @@
 
 %  sierpinski_plot.m
-level=2;
+level=10;
 
 ecke1=[0;0];
 ecke2=[1;0];

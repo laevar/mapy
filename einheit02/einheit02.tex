@@ -27,12 +27,12 @@ for <indexvariable> in <Liste>:
   <Befehle>
 \end{pyin}
 \begin{pyin}
-[<Ausdruck> for <indexvariable> in <Liste>]
+[<Befehl> for <indexvariable> in <Liste>]
 \end{pyin}
 \alert{Bemerkungen:} 
 \begin{itemize}
 \item Ausdruck: \mcode{start:stepsize:end} oder Vektoren, Matrizen. 
-\item \alert{Befehle} einrücken (Übersichtlichkeit, in Python Pflicht!) 
+\item \alert{Befehle} einrücken (Übersichtlichkeit; in Python Pflicht!) 
 \end{itemize}
 
 \end{frame}
@@ -370,27 +370,22 @@ ans =
 \begin{frame}[fragile]{Bedingung}
 \begin{columns}[t,onlytextwidth]
  \column{0.45\textwidth}
-Einfache Bedingung
-\begin{matlabin}
-if  <Ausdruck>
-  <Befehle>
-end
-\end{matlabin}
-\begin{pyin}
-if <Ausdruck>:
-  <Befehle>
-\end{pyin}
- \column{0.45\textwidth}
-Bed. mit Alternative
+Matlab
 \begin{matlabin}
 if  <Ausdruck>
    <Befehle>
+elseif
+  <Befehle>
 else
    <Befehle>
 end
 \end{matlabin}
+ \column{0.45\textwidth}
+Python
 \begin{pyin}
 if <Ausdruck>:
+  <Befehle>
+elif:
   <Befehle>
 else:
   <Befehle>
@@ -398,11 +393,10 @@ else:
 \end{columns}
 
 Die Befehle zwischen \mcode{if} und \mcode{end} (bzw. nach : und bis Ende Einrückung) werden ausgeführt, wenn
-der \textit{Ausdruck} wahr (\isage{True}) ist. 
-Andernfalls werden (soweit vorhanden) die
-Befehle zwischen \mcode{else} und \mcode{end} ausgeführt.
+der \textit{Ausdruck} wahr (\isage{True}) ist.\\
+Sonst werden die \mcode{elseif}-Bedingungen geprüft, und falls keine dieser wahr ist, wird (soweit vorhanden) der \mcode{else}-Block ausgeführt.
 
-Hinweis: \textit{Ausdruck} ist wahr, wenn   alle Einträge von \textit{Ausdruck} ungleich $0$ sind.
+\alert{Hinweis}: \textit{Ausdruck} ist wahr, wenn   alle Einträge von \textit{Ausdruck} ungleich $0$ sind.
 \end{frame}
 %for k in [1..3]:
 %    if k>1:
@@ -929,12 +923,11 @@ Komplexe Zahlen $z \in \mathbb{C}$ haben die Form
 \[ z = x +iy, \quad x,y \in \mathbb{R} \]
 mit $i=\sqrt{-1}$. 
 \begin{itemize}
-\item Matlab: $\sqrt{-1}$  vordefiniert in den Variablen $i$,$j$.
-\item Python: $\sqrt{-1}$  vordefiniert in der Variablen $1j$.
-\item Durch \mcode{complex(x,y)}  kann aus $x,y \in
-  \mathbb{R}$ die komplexe Zahl $x + iy$ erzeugt werden.
-\item Für $z=x+iy \in \mathbb{C}$ erhält man den Realteil mit
-  $real(z)$ und den Imaginärteil durch $imag(z)$. 
+  \item \mcode{i,j}(Matlab) \isage{1j}(Python): vordefinierte Variablen für $\sqrt{-1}$ .
+\item \mcode{complex(x,y)}: Erzeugung der komplexen Zahl $x + iy$ aus $x,y \in
+  \mathbb{R}$.
+\item \mcode{real(z)}: Realteil für $z=x+iy \in \mathbb{C}$ 
+\item \mcode{imag(z)}: Imaginärteil für $z=x+iy \in \mathbb{C}$
 \end{itemize} 
 \end{frame}
 \begin{frame}[fragile]{Polarkoordinaten}
@@ -1005,7 +998,7 @@ mit $i=\sqrt{-1}$.
 % Folie
 %
 \begin{frame}[fragile]{Matlab: Structures}
-(Python: Listen)\\
+(Python: Listen oder Wörterbücher)\\
 \alert{Structures:}\\
 Strukturen sind eine Möglichkeit verschiedene Objekte in einer
 Datenstruktur zu bündeln.\\[1cm]
@@ -1083,7 +1076,7 @@ ans =
     0.2500
 \end{matlab}
 \end{columns}
-\item Durch \mcode{celldisp(C)} wird der Inhalt von $C$ dargestellt.
+\item \mcode{celldisp(C)}: Der Inhalt von $C$ wird dargestellt.
 %\item \mcode{struct2cell} bzw. \mcode{num2cell} erzeugt ein Cell Array
 %  aus einer Struktur bzw. einer normalen Matrix.
 \item \mcode{cellplot(C)} stellt $C$ grafisch dar.

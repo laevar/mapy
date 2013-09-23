@@ -1,19 +1,5 @@
 \begin{aufg}[0]
-Betrachten sie das eindimensionale Integral
-\[
-\int_0^1 \phi(x)e^{-\abs{x-y}}\sin(\abs{x-y})^2 dx\,,\, \in \mathbb{R}
-\]
-für $x,y \in [0,1]$ mit der Dichte $\phi(x) \in \mathbb{R}$. Schreiben Sie das Integral für diskrete Werte um in die Gleichung 
-\[
- A \phi = f
-\]
-mit $f(x)=\sin(x),  x \in [0,1]$ und entsprechend konstruierter Matrix $A$.
-%Weiterhin kann der Einfachheit halber angenommen werden, dass $x_i = y_i$ für alle Komponenten $i$ der Koordinatenvektoren.
-\begin{itemize}
-\item Lösen Sie das Gleichungssystem nach $\phi$.
-\item Machen Sie einen Konsistenz-Check (ist die rechte Seite rekonstruierbar?)
-\item Werten Sie das Integral für $y \in [2,4]$ aus.
-\item Plotten Sie die Werte.
-\end{itemize}
-%\textit{Hinweis:} für $A$ steigt $x$ in den Spalten, und $y$ in den Zeilen.
+Führen Sie einen Vergleich zwischen einer numerischen und analytischen Differentiation anhand der Funktion  $f(x)=\sin(\beta x),\, \beta,x \in \mathbb{R}$ durch.
+Fügen Sie  den Werten der Funktion einen normalverteilten Fehler hinzu (Hinweis: \mcode{randn}) und wählen sie verschiedene Schrittweiten $h$.
+Stellen Sie beide Ableitungen grafisch dar. Denken sie über die Gründe der Unterschiede nach.
 \end{aufg}

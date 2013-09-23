@@ -1,5 +1,5 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab - Einheit 8}
+\title{Einführung in Matlab und Python - Einheit 8}
 \subtitle{Schnittstelle zu C}
 \input{../slide_header}
 \begin{document}
@@ -60,9 +60,9 @@ Es gibt 2 M\"oglichkeiten, MATLAB mit C zu verbinden.
 \begin{itemize}
 \item Um eine Mex-Datei \mcode{mex_beispiel.c} ausf\"uhrbar zu machen, kompiliere
 man es durch 
-\begin{lstlisting}
+\begin{matlabin}
 mex mex_beispiel.c
-\end{lstlisting}
+\end{matlabin}
 \item Die Befehlseingabe kann sowohl im Command Window von  MATLAB als auch in einem beliebigen
   terminal (unter Linux) erfolgen (Pfad beachten).
 \item Die Funktion kann dann in MATLAB aufgerufen werden als sei sie ein normales
@@ -91,20 +91,20 @@ m-File.
 \begin{frame}[fragile]\frametitle{Optionen von mex}
 \begin{itemize}
 \item Ausw\"ahlen des Default-Compilers durch
-\begin{lstlisting}
+\begin{matlabin}
 mex -setup
-\end{lstlisting}
+\end{matlabin}
 \item Es ist auch m\"oglich, von Fall zu Fall verschiedene Compiler zu
   benutzen. Aufruf:
-\begin{lstlisting}
+\begin{matlabin}
 mex filename -f optionsfile
-\end{lstlisting}
+\end{matlabin}
 Beispiele: \mcode{lccengmatops.bat} (MATLAB-Compiler, Windows),
 \mcode{gccopts.sh} (gcc, Linux) 
 \item Weitere Informationen zum Aufruf von \mcode{mex}:
-\begin{lstlisting}
+\begin{matlabin}
 mex -help
-\end{lstlisting}
+\end{matlabin}
 \end{itemize}
 \end{frame}
 %
@@ -116,10 +116,10 @@ mex -help
 \item Beim Erzeugen von mex-Routinen ist es m\"oglich verschiedene Objekt- und
 Bibliothek-Files zu kombinieren. \\
 \textbf{Beispiel:}
-\begin{lstlisting}
+\begin{matlabin}
 mex circle.c square.obj rectangle.c 
     shapes.lib
-\end{lstlisting}
+\end{matlabin}
 erzeugt unter Windows die ausf\"uhrbare Datei \mcode{circle.dll}. \\
 
 \item Benutzen von Befehlen wie \mcode{make}
@@ -138,11 +138,11 @@ Sie bestehen aus 2 Teilen:
 \item eigentliche C-Funktion
 \end{itemize}
 Aufruf der Gateway-Funktion:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 void mexFunction(
    int nlhs, mxArray *plhs[],
    int nrhs, const mxArray *prhs[])
-\end{lstlisting}
+\end{matlabin}
 
 \end{frame}
 %
@@ -152,21 +152,21 @@ void mexFunction(
 
 \begin{itemize}
 \item MATLAB Arrays f\"ur die Output Argumente zu erzeugen:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxCreate
-\end{lstlisting}
+\end{matlabin}
 \item Zeiger auf die neuerzeugten MATLAB-Arrays setzen:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 plhs[0],[1],..
-\end{lstlisting}
+\end{matlabin}
 \item Daten aus 
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 prhs[0],[1],.. 
-\end{lstlisting}
+\end{matlabin}
 lesen:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxGet
-\end{lstlisting}
+\end{matlabin}
 \item Aufruf der $C$-Unterroutine mit den Input- und Output-Zeigern (\mcode{prhs},\mcode{plhs}) als
   Funktionsparameter. 
 \end{itemize}
@@ -177,11 +177,11 @@ mxGet
 \begin{frame}[fragile]\frametitle{Arbeitsweise von mex-Files}
 \begin{itemize}
 \item Aufruf in MATLAB:
-\begin{lstlisting}
+\begin{matlabin}
 [C,D]=func_beispiel(A,B)
-\end{lstlisting}
+\end{matlabin}
 Startet \mcode{func_beispiel.c}:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 const mxArray *B,*A;
 A = prhs[0];
 B = prhs[1];
@@ -189,7 +189,7 @@ B = prhs[1];
 mxArray *C,*D;
 C = plhs[0];
 D = plhs[1];
-\end{lstlisting} 
+\end{matlabin} 
 \item Ergebnis MATLAB: \mcode{plhs[0]} wird in $C$ geschrieben, \mcode{plhs[1]}
   wird in $D$ geschrieben. 
 \end{itemize}
@@ -230,13 +230,13 @@ Wiederhole,  bis $a=b$
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{MATLAB}
-\lstinputlisting{../einheit02/ggt.m}
+\matinput{../einheit02/ggt.m}
 \end{frame}
 %
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{C-File: ggt.c (Teil I)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 /*******************************************
  *     ggt.c  
  *******************************************/
@@ -251,13 +251,13 @@ void mexFunction( int nlhs, mxArray *plhs[],
   
   /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
   plhs[0] = mxCreateDoubleMatrix(1,1, mxREAL);  
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{C-File: ggt.c (Teil II)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
   /* Die pointer fuer die Variablen  setzen */
   a = mxGetPr(prhs[0]);
   b = mxGetPr(prhs[1]);
@@ -277,7 +277,7 @@ void ggt( double result[], double a, double b)
   }
   result[0] = a;
 }
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
@@ -285,13 +285,13 @@ void ggt( double result[], double a, double b)
 \begin{frame}[fragile]\frametitle{Erkl\"arungen}
 \begin{itemize}
 \item Einbinden der Header Datei
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 #include "mex.h"
-\end{lstlisting}
+\end{matlabin}
 \item Definieren eines Zeigers $x$ auf ein Objekt vom MATLAB-Typ \mcode{mxArray}. 
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
  mxArray *x = NULL;
-\end{lstlisting}
+\end{matlabin}
 Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datenstrukturen.
 \end{itemize}
 \end{frame}
@@ -301,15 +301,15 @@ Zeiger vom Typ \mcode{mxArray} dienen zur abstrakten Zuweisung von MATLAB-Datens
 \begin{frame}[fragile]\frametitle{Erzeugen von  Rückgabe-strukturen}
 \begin{itemize}
 \item Definieren von \mcode{double}-Matrizen
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxArray *mxCreateDoubleMatrix(int m, int n, mxComplexity Flag);
-\end{lstlisting}
+\end{matlabin}
 $m$ ist die Anzahl von Zeilen, $n$ die Anzahl von Spalten und \mcode{Flag} ist
 entweder $mxREAL$ or $mxCOMPLEX$.
 \item Definieren eines \mcode{double}-Skalars mit Wert \mcode{value}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxArray *mxCreateDoubleScalar(double value);
-\end{lstlisting}
+\end{matlabin}
 \end{itemize}
 \end{frame}
 %
@@ -332,9 +332,9 @@ mxArray *mxCreateDoubleScalar(double value);
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Zugriff auf mxArray}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 double *mxGetPr(mxArray *array_zeiger)
-\end{lstlisting}
+\end{matlabin}
 R\"uckgabeargument ist ein Zeiger, der auf das erste (reelle) Element des Arrays
 \mcode{*array_ptr} zeigt. F\"ur imagin\"are Elemente \mcode{mxGetPi}. 
 \end{frame}
@@ -354,7 +354,7 @@ Es findet keine automatische \"Uberpr\"ufung der Ein- und
 % Slide
 % 
 \begin{frame}[fragile]\frametitle{C-File: ggt\_2.c (Auszug)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 /* Ueberpruefen der Anzahl von Argumenten */
   if(nrhs!=2) {
     mexErrMsgTxt("Genau 2 Input-Variablen erforderlich");
@@ -374,7 +374,7 @@ Es findet keine automatische \"Uberpr\"ufung der Ein- und
     mexErrMsgTxt("Zweiter Eingabeparameter muss 
       ein reelles Skalar sein.");
   } 
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
@@ -382,14 +382,14 @@ Es findet keine automatische \"Uberpr\"ufung der Ein- und
 \begin{frame}[fragile]\frametitle{Befehle}
 \begin{itemize}
 \item Abfragen der Zeilen- bzw. Spaltenanzahl eines \mcode{mxArrays}:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 int mxGetM(const mxArray *array_zeiger)
 int mxGetN(const mxArray *array_zeiger)
-\end{lstlisting}
+\end{matlabin}
 \item Fehlermeldung:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mexErrMsgTxt('Fehler....')
-\end{lstlisting}
+\end{matlabin}
 erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine. 
 \end{itemize}
 \end{frame}
@@ -397,9 +397,9 @@ erzeugt eine entsprechende Fehlermeldung in MATLAB und beendet die Routine.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Typ-Abfragen}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 bool mxIsDouble( mxArray *array_zeiger);
-\end{lstlisting}
+\end{matlabin}
 \begin{itemize}
  \item wahr(1): wenn \mcode{*array_zeiger} eine Matrix mit \mcode{double} oder
 \mcode{float} repr\"asentiert.
@@ -436,7 +436,7 @@ die Formel
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Programm - MATLAB}
-\begin{lstlisting}
+\begin{matlabin}
 MAX_IT = 150;
 x1 = linspace(-2.1,0.6,601);
 y1 = linspace(-1.1,1.1,401);
@@ -455,13 +455,13 @@ for i = 1:length(x1)
 end
 C = (1/MAX_IT) * C;
 contourf(x1,y1,C,20);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Routine - C (Teil I)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 #include "mex.h"
 #include <math.h>
 
@@ -476,13 +476,13 @@ int nrhs, const mxArray *prhs[] )
 
   acols = mxGetN(prhs[0]);
   bcols = mxGetN(prhs[1]);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Routine - C (Teil II)}
-\begin{lstlisting}[language=C++]  
+\begin{matlabin}[language=C++]  
   printf("\n Erzeuge (%d x %d)-Matrix \n\n",bcols,acols);
     
   /* Erzeuge Matrix fuer das Rueckgabe-Argument. */
@@ -496,13 +496,13 @@ int nrhs, const mxArray *prhs[] )
   /* Aufruf der Routine */
   mandel_c ( result, a, b, acols, bcols);
 }
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Routine - C (Teil III)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 void mandel_c( double result[], double x1[], double y1[], 
    int x1_laenge, int y1_laenge)
 {
@@ -522,13 +522,13 @@ void mandel_c( double result[], double x1[], double y1[],
     }
   }
 }
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]\frametitle{Aufruf aus MATLAB}
-\lstinputlisting{mandelbrot2.m}
+\matinput{mandelbrot2.m}
 \end{frame}
 %-------------------------------------------------
 %  Folie:
@@ -547,32 +547,32 @@ void mandel_c( double result[], double x1[], double y1[],
 %
 \begin{frame}[fragile]\frametitle{Kompilieren unter Linux}
 
-Befehle und Pfade gelten f\"ur MATLAB 7 .
+Befehle und Pfade gelten f\"ur MATLAB 2011b .
 
 \begin{itemize}
 %\item Einbinden der Shared Libraries (nur Linux, bash)
 \item Bourne Shell
-\begin{lstlisting}[language=bash]
+\begin{matlabin}[language=bash]
 export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnx86/:/usr/local/matlab2011b/sys/os/glnx86:$LD_LIBRARY_PATH
-\end{lstlisting} %$
-\begin{lstlisting}[language=bash]
+\end{matlabin} %$
+\begin{matlabin}[language=bash]
 export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnxa64/:/usr/local/matlab2011b/sys/os/glnxa64:$LD_LIBRARY_PATH
-\end{lstlisting} %$
+\end{matlabin} %$
 
 
 % \item C-Shell
-% \begin{lstlisting}[language=bash]
+% \begin{matlabin}[language=bash]
 % setenv  LD_LIBRARY_PATH \
 %   $MATLAB/bin/glnx86/:$LD_LIBRARY_PATH
-% \end{lstlisting}
+% \end{matlabin}
 \item Kompilieren von \mcode{test.c}
-\begin{lstlisting}[language=bash]
+\begin{matlabin}[language=bash]
 /usr/local/matlab2011b/bin/mex -f /usr/local/matlab2011b/bin/engopts.sh test.c
-\end{lstlisting}
+\end{matlabin}
 oder
-\begin{lstlisting}[language=bash]
+\begin{matlabin}[language=bash]
 ./compile test.c ; ./run test
-\end{lstlisting}
+\end{matlabin}
 
 \end{itemize}
 \end{frame}
@@ -582,9 +582,9 @@ oder
 \begin{frame}[fragile]\frametitle{Kompilieren unter Windows}
 \begin{itemize}
 \item Aufruf in MATLAB von
-\begin{lstlisting}[language=bash]
+\begin{matlabin}[language=bash]
 mex -f lccengmatopts.bat datei.c
-\end{lstlisting}
+\end{matlabin}
 kompiliert die Datei \mcode{datei.c}.
 \item Starten durch Ausf\"uhren von \mcode{datei.exe}.
 \item Alternativ ein DOS-Fenster \"offnen, ins richtige Verzeichnis wechseln  
@@ -598,9 +598,9 @@ kompiliert die Datei \mcode{datei.c}.
 %\begin{itemize}
 %\item Kopieren Sie die Datei \mcode{/home/matlab01/.cshrc.linux} in das
 %  Heimatverzeichnis
-%\begin{lstlisting}
+%\begin{matlabin}
 %cp /home/matlab01/.cshrc.linux ~
-%\end{lstlisting}
+%\end{matlabin}
 %\item Ãffnen Sie eine neue Shell.
 %\item In der \alert{ neuen} Shell starten Sie MATLAB.  
 %\end{itemize}
@@ -620,7 +620,7 @@ kompiliert die Datei \mcode{datei.c}.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{hilbert1.c}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 #include <stdio.h>
 #include "engine.h"
  
@@ -636,13 +636,13 @@ main(int argc, char* argv[])
      
   x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
   *mxGetPr(x_m) = n;
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 %
 %
 \begin{frame}[fragile]\frametitle{hilbert1.c (Forts.)}
-\begin{lstlisting}[language=C++]   
+\begin{matlabin}[language=C++]   
   engPutVariable(ep,"x_m",x_m);
   engEvalString(ep,"a=hilb(x_m)");
   engEvalString(ep,"semilogy(eig(a),'*')");
@@ -651,7 +651,7 @@ main(int argc, char* argv[])
   fgetc(stdin);
   engClose(ep);
 }
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
@@ -659,21 +659,21 @@ main(int argc, char* argv[])
 \begin{frame}[fragile]\frametitle{Umgang mit der MATLAB-Engine}
 \begin{itemize}
 \item Einbinden der Bibliothek 
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 #include "engine.h"
-\end{lstlisting}
+\end{matlabin}
 \item Anlegen eines Handles f\"ur die MATLAB-Engine
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 Engine *ep;
-\end{lstlisting}
+\end{matlabin}
 \item \"Offnen der MATLAB-Engine
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 engOpen(NULL) 
-\end{lstlisting} 
+\end{matlabin} 
 \item Schliessen der MATLAB-Engine: 
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 engClose(ep);
-\end{lstlisting}
+\end{matlabin}
 \end{itemize}
 \end{frame}
 %
@@ -683,13 +683,13 @@ engClose(ep);
 \begin{itemize}
 \item  Benenne die Variable 'name' in MATLAB. Die Variable wird mit den Daten
 \mcode{werte} versehen. 
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
  engPutVariable(ep,"name",werte);
-\end{lstlisting}
+\end{matlabin}
 \item Ausf\"uhren von MATLAB-Befehlen:
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 engEvalString(ep,"Befehl");
-\end{lstlisting}
+\end{matlabin}
 Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
 \end{itemize}
 \end{frame}
@@ -709,7 +709,7 @@ Startet das Kommando \mcode{Befehl} in der MATLAB-Engine \mcode{ep}.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil I)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 #include <stdio.h>
 #include "engine.h"
  
@@ -726,13 +726,13 @@ main(int argc, char* argv[])
       
   printf("\n Open MATLAB engine...\n");
   ep = engOpen(NULL);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil II)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
   x_m = mxCreateDoubleMatrix(1, 1, mxREAL);
   *mxGetPr(x_m) = n;
      
@@ -742,13 +742,13 @@ main(int argc, char* argv[])
      
   d = engGetVariable(ep, "d");
   le = engGetVariable(ep,"le");
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{hilbert2.c (Teil III)}
-\begin{lstlisting}[language=C++]     
+\begin{matlabin}[language=C++]     
   Dreal = mxGetPr(d);
   laenge = *mxGetPr(le);
     
@@ -762,7 +762,7 @@ main(int argc, char* argv[])
   mxDestroyArray(x_m);
   mxDestroyArray(d);
 }    
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
@@ -770,13 +770,13 @@ main(int argc, char* argv[])
 \begin{frame}[fragile]\frametitle{Erkl\"arungen}
 \begin{itemize}
 \item Kopieren der Variable $d$ aus dem MATLAB-Workspace in das C-Programm.
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxArray *engGetVariable(ep, "d");
-\end{lstlisting}
+\end{matlabin}
 \item Freigeben des Speichers (Wichtig!)
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 mxDestroyArray(mxArray *x_m);
-\end{lstlisting}
+\end{matlabin}
 \end{itemize}
 \end{frame}
 %
@@ -798,7 +798,7 @@ y-Richtung in 50 Punkten entsteht.
 % Slide
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil I)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 /*-----------------------------------------
  * -       plot_poisson.c
  * -----------------------------------------------*/
@@ -817,13 +817,13 @@ int plot_graph(
   double *z,   /* value at (x[i],y[j]) (row-wise)*/
   int    x_n,  /* size of array x                */
   int    y_n); /* size of array y                */
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil II)}
-\begin{lstlisting}[language=C++]
+\begin{matlabin}[language=C++]
 /*---------------------------------------------------
 -             main program                          -     
 -----------------------------------------------------*/
@@ -836,13 +836,13 @@ main(int argc, char* argv[])
   int i,j;        
   x_n = 50;
   y_n = 50;
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil III)}
-\begin{lstlisting}[language=C++]  
+\begin{matlabin}[language=C++]  
 for (i=0; i<x_n; i++)
 {
   x[i] = (double) i/(x_n-1);
@@ -861,13 +861,13 @@ for (i = 0; i<x_n; i++)
 if (plot_graph(x,y,z,x_n,y_n)==0) 
   printf("\n Ungueltiger Aufruf von 'plot_graph' \n");
 return  0; }
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil IV)}
-\begin{lstlisting}[language=C++]     
+\begin{matlabin}[language=C++]     
 /*-------- function 'plot_graph' -----------*/
 int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
 {  
@@ -886,13 +886,13 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
   x_m = mxCreateDoubleMatrix(1, x_n, mxREAL);
   y_m = mxCreateDoubleMatrix(1, y_n, mxREAL);
   z_m = mxCreateDoubleMatrix(x_n, y_n, mxREAL);
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{plot-poisson.c (Teil V)}
-\begin{lstlisting}[language=C++]     
+\begin{matlabin}[language=C++]     
   printf("Copy entries into MATLAB ...\n");
   memcpy((void *)mxGetPr(x_m), (void *) x, x_n*sizeof(double));
   memcpy((void *)mxGetPr(y_m), (void *) y, y_n*sizeof(double));
@@ -909,7 +909,7 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
   fgetc(stdin);  
   printf("\n Close MATLAB engine... \n");
   engClose(ep);  return (int) 1; }  
-\end{lstlisting}
+\end{matlabin}
 \end{frame}
 \end{document}
 

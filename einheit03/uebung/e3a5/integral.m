@@ -16,6 +16,8 @@
 N = 1; % Anzahl Unterteilungen
 TOL = 1e-4;
 err = 1;
+% Schleife um das Integral so gut zu berechnen, dass es innerhalb der TOL
+% gelangt
 while (err > TOL)
   N = N+1;
   x = (0+1/(2*N)):(1/N):(1-1/(2*N));

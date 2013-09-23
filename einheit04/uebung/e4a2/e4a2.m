@@ -1,5 +1,6 @@
 disp('*** aufgabe 2');
 clear
+% zufaellige Koordinaten
 x = rand (2000,1);
 y = rand (2000,1);
 z = sin (4*pi*x) .* cos (2*pi*y);
@@ -10,7 +11,9 @@ plot3(x,y,z,'.');
 xi = linspace(min(x),max(x),40);
 yi = linspace(min(y),max(y),40);
 [XI,YI] = meshgrid(xi,yi);
-methods ={'natural','linear','nearest'}
+
+% Iteration ueber die verschiedenen Methoden
+methods ={'natural','linear','nearest'};
 figure
 for k = 1:3
     F = TriScatteredInterp(x,y,z,methods{k});

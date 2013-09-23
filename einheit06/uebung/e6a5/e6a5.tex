@@ -1,12 +1,19 @@
 \begin{aufg}[0]
-Schauen Sie sich die Funktion \mcode{interpolation.m} aus den M-Files von der Vorlesung Einheit 04 an und nutzen sie den Profiler mit der Funktion $f(x) = x^2$.
-
+Betrachten sie das eindimensionale Integral
+\[
+\int_0^1 \phi(x)e^{-\abs{x-y}}\sin(\abs{x-y})^2 dx\,,\, \in \mathbb{R}
+\]
+für $x,y \in [0,1]$ mit der Dichte $\phi(x) \in \mathbb{R}$. Schreiben Sie das Integral für diskrete Werte um in die Gleichung 
+\[
+ A \phi = f
+\]
+mit $f(x)=\sin(x),  x \in [0,1]$ und entsprechend konstruierter Matrix $A$.
+%Weiterhin kann der Einfachheit halber angenommen werden, dass $x_i = y_i$ für alle Komponenten $i$ der Koordinatenvektoren.
 \begin{itemize}
- \item Finden Sie heraus  wo die Geschwindigkeit der Funktion (und der dort aufgerufenen, selbstgeschriebenen Funktionen) verbesserbar wäre. 
-\item Vergleichen Sie die dort genutzte Funktion \mcode{vandermonde} mit \mcode{vandermonde2} 
-(welche for-Schleifen nutzt). 
-\item Vergleichen Sie ebenso unsere selbstgebaute Polynom-Interpolation mit der von Matlab.
-\item Versuchen Sie die Gesamtlaufzeit der Funktion bei gleicher Funktionalität möglichst stark zu reduzieren.
+\item Lösen Sie das Gleichungssystem nach $\phi$.
+\item Machen Sie einen Konsistenz-Check (ist die rechte Seite rekonstruierbar?)
+\item Werten Sie das Integral für $y \in [2,4]$ aus.
+\item Plotten Sie die Werte.
 \end{itemize}
-
+%\textit{Hinweis:} für $A$ steigt $x$ in den Spalten, und $y$ in den Zeilen.
 \end{aufg}

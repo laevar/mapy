@@ -1,7 +1,4 @@
 function han = integral_gui()
-%---------------------------------------------
-%---------------------------------------------
-
 %------------------- Hauptprogram
 % erzeuge GUI
 han = erzGUI();
@@ -16,14 +13,17 @@ han.pushbutton = uicontrol(fig,'Parent',fig,'Style','pushbutton','units','normal
     'position',[0.8 0.1 0.17 0.10],'String','Aktualisieren','tag','update',...
     'Callback','integral');
 
+% Vorsicht: Die Achse wir von jedem Plot-command ueberschrieben, falls
+% nicht "hold all" gesetzt wird. Damit verschwindet auch der tag 'axesGUI'
+%Da wir ihn hier nicht benutzen ist das irrelevant.
 han.grafikachse = axes('Position',[0.1 0.3 0.6 0.65],'tag','axesGUI');
-%han.grafik = surf(A(:,:,1));
 
 han.frame1 = uipanel(fig,'units','normalized',...
     'position',[0.1 0.1 0.4 0.1]);
 han.text1 = uicontrol(fig,'style','text', 'tag','text1',...
     'units','normalized','parent',han.frame1,'position', [0.01 0.01 0.8 0.8],'String','Ergebnis = 0');
 
+% Frame fuer alle Eingabe-parameter
 han.frame2 = uipanel(fig,'units','normalized','position',[0.75 0.3 0.2 0.5]);
 han.text2 = uicontrol(fig,'style','text','parent',han.frame2,...
     'units','normalized','position', [0.05 0.9 0.9 0.1],'String','Funktion');
@@ -41,6 +41,7 @@ han.text5 = uicontrol(fig,'style','text','parent',han.frame2,...
     'units','normalized','position', [0.05 0.24 0.9 0.1],'String','N');
 han.N = uicontrol(fig,'style','edit','parent',han.frame2,'tag','N',.....
     'units','normalized','position', [0.05 0.12 0.9 0.12],'String','20');
+% Hiermit kann man Variablen in der GUI speichern
 guidata(fig,han);
 integral;
 end

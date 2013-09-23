@@ -6,8 +6,8 @@
 MAX_IT = 150;
 
 tic;
-x1 = linspace(-2.1,0.6,601);
-y1 = linspace(-1.1,1.1,401);
+x1 = linspace(-2.1,0.6,6010);
+y1 = linspace(-1.1,1.1,4010);
 
 C = zeros(length(y1),length(x1));
 for i = 1:length(x1)
@@ -36,4 +36,4 @@ toc;
 C = (1/MAX_IT) * C;
 
 % Plotten der Funktion
-contourf(x1,y1,C,20);
+%contourf(x1,y1,C,20);

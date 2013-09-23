@@ -1,7 +1,4 @@
-disp ('*** aufgabe 7');
+disp('*** aufgabe 9');
 clear
-
-A = diag (2*ones(100,1),0) + ...
-    diag (-1*ones(99,1),-1) + ...
-    diag (-1*ones(99,1),1);
-det(A)
+x = [ 1 2 3 4];
+meanv(x)

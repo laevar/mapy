@@ -1,8 +1,5 @@
-%---------------------------------
-%   lorenz_gl.m
 %  Eine Approximation der Lorenzgleichungen
 %  Gerd Rapin 08.01.2004
-%-----------------------------------------
 tspan = [0,30]; aw = [0;1;0];
 options = odeset ('AbsTol',1e-7,'RelTol',1e-4);
 [t,y] = ode45(@lorenz_rechte_seite,tspan,aw, options);

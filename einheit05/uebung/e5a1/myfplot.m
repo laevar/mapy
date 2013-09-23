@@ -7,6 +7,7 @@ function myfplot(varargin)
 N = 50;% Default-Einstellung
 anzahl_parameter = nargin; % Anz. Input-argumente
 
+% Argumente ueberpruefen
 switch anzahl_parameter 
   case 1
     f1 = varargin{1};
@@ -17,11 +18,14 @@ switch anzahl_parameter
     error('Falsche Anzahl an Input-Argumenten');
 end
 
+% uebergeben Funktion pruefen
 f = fcnchk(f1,'vectorized');
+% auswerten
 x = linspace(-1,1,N);
 [X,Y] = meshgrid (x,x);
 values = feval(f,X,Y);
 
+%plot
 figure
 surf(X,Y,values,'LineWidth',3);
 shading flat

@@ -7,7 +7,8 @@ figure
 for a = 1:20
     f = 1./(x.^2 + sqrt(a));
     plot(x,f);
-    ylim ([0.6 1]);
+    % Y-Achse festsetzen damit diese nicht springt.
+    ylim ([0 1]);
     F(a) = getframe;
 end
 % Abspielen des Movies

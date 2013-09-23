@@ -8,6 +8,7 @@ function result = integral()
 %          1 Parameter: N     (a=0,b=1)
 %          3 Parameter: N,a,b
 %----------------------------------
+%Guidata wiederholen
 han = guidata(findobj('tag','figGUI') );
  
 func = fcnchk(get(han.func,'String'),'vectorized');

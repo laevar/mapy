@@ -1,4 +1,4 @@
 disp('*** aufgabe 4');
 clear
 
-[nrrows, nrchars, mcuchar] = einlesen('text.txt');
+[nrrows, nrchars, mcuchar] = einlesen('text.txt')

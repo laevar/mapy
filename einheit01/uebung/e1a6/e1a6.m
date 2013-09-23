@@ -1,3 +1,7 @@
-disp ('*** aufgabe 6');
+disp ('*** aufgabe 8');
 clear
-a =100:2:200; b=[1 4 10] ; a (b)
+
+A = hilb(50);
+transpose(A(:,3))*ones(length(A(:,3)),1)
+%alternativ
+sum(A(:,3))

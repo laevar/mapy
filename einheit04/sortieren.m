@@ -20,7 +20,7 @@ while feof(fid)==0
 end
 fclose(fid);
 % Sortieren
-sortierungen=1; anfang=1;
+sortierungen=1;
 while sortierungen>0
     sortierungen=0;
     for k=1:anz-1

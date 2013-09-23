@@ -1,4 +1,5 @@
 disp('*** aufgabe 5');
 clear
 
-myhilbert(4)-hilb(4)
+% Berechne hilber-Matrix und pruefe deren Korrektheit
+norm(myhilbert(4)-hilb(4))

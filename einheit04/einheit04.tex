@@ -531,7 +531,6 @@ an denen sich die Maus im aktuellen Grafik-Fenster befunden hat.
 %
 % Slide
 %
-%TODO: Bezier fuer Python
 \begin{frame}[fragile]\frametitle{Bezier-Polynom}
 \alert{ \[ z (t):=\sum_{i=0}^n {\bf b}_i B_i^n(t), \quad t \in [0,1] \]}
 \begin{itemize}
@@ -676,9 +675,24 @@ fprintf( <Format>, <Argument1>, <Argument2>,...)
 
 %
 % Slide
-% TODO: Python code fehlt noch
 \begin{frame}[fragile]\frametitle{Matlab: Schreiben in Dateien - Beispiel}
 \matinput{waehrung.m}
+\end{frame}
+%
+% Slide
+\begin{frame}[fragile]\frametitle{Python: Schreiben in Dateien - Beispiel}
+  \begin{pyin}
+waehrung_name = raw_input('Umrechnung fuer welche Waehrung ?')
+print('Ein Euro entspricht wievielen {} ? '.format(waehrung_name))
+umrechnung = float(raw_input(''))
+a = [1,2,3,5,10,20,50,100,200,1000]
+fid = open('umrechnung.txt','w')
+fid.write('Umrechnungstabelle: Euro-{}\n\n'.format(waehrung_name))
+for i in a:
+  fid.write('{:7.2f} Euro = {:7.2f} {}\n'.format(i,umrechnung*i,waehrung_name))
+fid.write('\n\n Umrechnungskoeffizient: {:3.2f} \n'.format(umrechnung))
+fid.close()    
+  \end{pyin}
 \end{frame}
 %
 % Slide
@@ -745,17 +759,89 @@ fid.write('Text')
 \item Die \mcode{Größe} bestimmt das was gelesen wird, und damit auch die Dimension der Output-Matrix. \mcode{inf} bezeichnet dabei das Dateiende.
 \end{itemize}
 \end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: Lesen aus einer Datei - Beispiel}
+  \begin{pyin}
+#Datei einlesen
+fid = open('umrechnung.txt','r')
+fil = fid.read()
+fid.close()
+# Benutze regular Expressions um erste Zeile einzulesen
+res = re.search('Umrechnungstabelle: Euro-(.*)',fil)
+waehrung_name = res.group(1)
+# regular expressions fuer alle Daten
+daten = re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
+# konvertieren der liste von tuples 
+daten = array(daten,dtype=float)
+# finden des Koeffizienten 
+res = re.search('Umrechnungskoeffizient: ([\d.]+)',fil)
+umrechnung = float(res.group(1))
+#Ausgabe
+print('Umrechnung: Euro - {}: Kurs: {} \n'.format(waehrung_name,umrechnung))
+for x in daten:
+    print(' {:7.2f} Euro  = {:7.2f}'.format(x[0],x[1]))    
+  \end{pyin}
+\end{frame}
 
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Python: loadtext formatiertes Lesen}
-  dummy
+\begin{frame}[fragile]\frametitle{Python: Regular Expressions}
+Regular expressions sind eine eigene Beschreibungssprache und sehr mächtig
+zum Finden und evtl. Ersetzen in Strings (Module \isage{re}).
+
+\begin{pyin}
+reo = re.search(pattern, string)
+\end{pyin}
+Sucht im \isage{string} nach gegebenen Suchkriterien \isage{pattern}. Gibt RE-Objekt zurück falls die Suche erfolgreich ist, sonst \isage{None}
+\begin{pyin}
+liste = re.findall(pattern, string)
+\end{pyin}
+Sucht im \isage{string} nach gegebenen Suchkriterien \isage{pattern}. Gibt Liste aller gefundenen Stellen zurück.
+\begin{itemize}
+  \item \isage{reo.group(n)}: Gibt die $n$-te gefundene Gruppe als String wieder. $0$ ist der gesamte gefundene String.
+\end{itemize}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Weitere Befehle}
+\begin{frame}[fragile]\frametitle{Python: Regular Expressions - Kurzreferenz}
+
+  \begin{itemize}
+    \item \isage{.}: Findet jedes Zeichen.
+    \item \isage{*}: Finde Zeichen, Zeichenklasse oder Gruppe keinmal oder beliebig oft.
+    \item \isage{+}: Finde Zeichen, Zeichenklasse oder Gruppe einmal oder beliebig oft.
+    \item \isage{(..)}: Gruppen. Alles was darin gefunden wird kann entsprechend der $n$-ten Gruppen abgefragt werden.
+    \item \isage{[..]}: Klasse von Zeichen die gefunden werden können.
+    \item \isage{\\d}: vordefinierte Klasse von Zeichen: alle Zahlen.
+    \item \isage{\\s}: vordefinierte Klasse von Zeichen: alle Whitespaces (Leerzeichen, tabs, Returns)
+  \end{itemize}
+  Beispiel:
+  \begin{pyin}
+re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
+  \end{pyin}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: loadtext - Einlesen von Daten}
+\begin{pyin}
+array = np.loadtext(fname,delimiter=None,comments='#')
+\end{pyin}
+\begin{itemize}
+  \item \isage{fname}: Dateiname. 
+  \item \isage{delimiter}: Trennzeichen. Z.B. ',' bei kommaseparierten Tabellen. Default-Einstellung sind Leerzeichen.
+  \item \isage{comments}: Kommentarzeichen. In Python-Dateien z.B. '\#'.
+  \item \isage{array}: Rückgabewert als (multidimensionaler) array.
+\end{itemize}
+Flexibleres Einlesen: \isage{np.genfromtxt()}
+\end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Weitere Befehle für das Einlesen}
 \begin{itemize}
 \item Zeile aus der Datei mit  Handle \mcode{fid} lesen und als String zurückgeben:
 \begin{matlabin}
@@ -763,6 +849,10 @@ fgetl(fid)
 \end{matlabin}
   \begin{pyin}
 fid.readline()
+  \end{pyin}
+\item Ganze Datei lesen und als String zurückgeben:
+  \begin{pyin}
+fid.read()
   \end{pyin}
 \item Prüfen ob das Dateiende erreicht ist:
 \begin{matlabin}
@@ -867,7 +957,7 @@ def bubblesort(dateiname1, dateiname2):
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Bemerkungen}
+\begin{frame}[fragile]\frametitle{Spezialisierte Einleseroutinen}
 \begin{itemize}
 %\item Es ist auch möglich temporäre Dateien zu erzeugen.
 \item Binäre Dateien: (Matlab) \alert{\imatlab{fread}} und \alert{\imatlab{fwrite}}. (Python) open mit 'br' für <Erlaubnis>
@@ -882,25 +972,25 @@ def bubblesort(dateiname1, dateiname2):
 \end{frame}
 %
 % Slide
+%%
+%\begin{frame}[fragile]\frametitle{Matlab:  Bin\"are Daten}
+%\begin{matlabin}
+%%-------------------- beispiel_bin_data.m
+%A = hilb(10);
 %
-\begin{frame}[fragile]\frametitle{Matlab:  Bin\"are Daten}
-\begin{matlabin}
-%-------------------- beispiel_bin_data.m
-A = hilb(10);
-
-% Schreibe binaere Datei
-fwriteid = fopen('hilb10.bin','w');
-count = fwrite(fwriteid,A,'double');
-fclose = (fwriteid);
-
-% Lesen binaere Datei
-freadid = fopen('hilb10.bin','r');
-B = fread(freadid, count, 'double');
-C = reshape(B,10,10);
-
-disp(norm(A - C))
-\end{matlabin}
-\end{frame}
+%% Schreibe binaere Datei
+%fwriteid = fopen('hilb10.bin','w');
+%count = fwrite(fwriteid,A,'double');
+%fclose = (fwriteid);
+%
+%% Lesen binaere Datei
+%freadid = fopen('hilb10.bin','r');
+%B = fread(freadid, count, 'double');
+%C = reshape(B,10,10);
+%
+%disp(norm(A - C))
+%\end{matlabin}
+%\end{frame}
 %
 % Slide
 %
@@ -984,15 +1074,19 @@ end
 
 
 \begin{frame}[fragile]\frametitle{Python: Integrierter Debugger}
-fehlt
-% TODO: noch schreiben
-%\begin{itemize}
-% \item \alert{Breakpoints}: Halten das Programm an der Gegebenen Stelle an. Aktivierung: 
-% \item \alert{Debug-Modus}: 
-% \item \alert{Step} (F10) Ein Schritt weiter im gegebenen Kontext.
-% \item \alert{Step in} (F11) Ein Schritt weiter im gegebenen Kontext. Wechselt zu aufgerufenen Funktionen. 
-%\item \alert{continue} (F5) Führt das Programm normal fort.
-%\end{itemize}
+\begin{itemize}
+  \item \alert{Breakpoints}: Halten das Programm an der gegebenen Stelle an. Setzen der Stelle: (F12) in der jeweiligen Zeile.
+  \item \alert{Debug-Lauf}: (STRG+F5) Startet das Programm im Debugger und hält z.B. an Breakpoints an.
+\end{itemize}
+Debugger-Befehle:
+\begin{itemize}
+  \item \isage{up} Eine Funktionsebene hochgehen.
+  \item \isage{down} Eine Funktionsebene runtergehen.
+  \item \isage{next} Ein Schritt weiter im gegebenen Kontext.
+ \item \isage{step} Ein Schritt weiter im gegebenen Kontext. Wechselt zu aufgerufenen Funktionen. 
+\item \isage{cont} Führt das Programm normal fort (bis zum nächsten Breakpoint). Auch ganz am Anfang notwendig damit Programm startet.
+\item \isage{!command} Python-Befehl ausführen die sich mit Debugger-Befehlen überschneiden. Ansonsten kann man direkt Python-Befehle ausführen und so auch die lokalen Variablen analysieren.
+\end{itemize}
 \end{frame}
 
 

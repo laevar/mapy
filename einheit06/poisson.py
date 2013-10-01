@@ -22,16 +22,15 @@ def poissonmatrix(N,h):
     data[1,] = -2*data[1,]
     diags = [-1,0,1] 
     D2 = sparse.spdiags(data,diags,N,N)
-    locator = sparse.eye(N,N)
+    locator = -1*sparse.eye(N,N)
     A = (1/h**2)*(sparse.kron(locator,D2) + sparse.kron(D2,locator))    
     #print A.todense()
     return A
 
-
 def poisson(f,n):
     #matrix fuer Intervall [0,1]x[0,1]
     x,h = linspace(0,1,n+1,retstep=True)
-    A = poissonmatrix(n-1,1.) 
+    A = poissonmatrix(n-1,h) 
     
     
     # Erzeuge rechte Seite und Mesh
@@ -39,8 +38,8 @@ def poisson(f,n):
     F = zeros((n-1)**2)
     for i in range(0,(n-1)):
         for j in range(0,(n-1)):
-            F[i+(n-1)*j] = f(i/float(n),j/float(n))
-            mesh[:,i+(n-1)*j] = [i/float(n),j/float(n)]
+            F[i+(n-1)*j] = f((i+1)/float(n),(j+1)/float(n))
+            mesh[:,i+(n-1)*j] = [(i+1)/float(n),(j+1)/float(n)]
     # Loese das lineare System
     loes = solve(A.todense(),F)
 
@@ -53,17 +52,18 @@ def poisson(f,n):
     mesh = hstack( (mesh, vstack((x[:-1], zeros(n) ) ) ) )
 
     # Plotten
-    fig=figure()
+    fig = figure()
     ax = Axes3D(fig)    
     ax.plot(mesh[0,:],mesh[1,:],loes,'*')
 
-    fig=figure()
+    fig = figure()
     ax = Axes3D(fig) 
     [X,Y] = meshgrid(x,x)
-    Z = griddata(mesh[0,:], mesh[1,:],loes,X,Y,'linear') #TODO: kann triangulierung nicht machen..
-    ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet)
-    
-poisson(lambda x,y: x*y**4,40)
+    Z = griddata(mesh[0,:], mesh[1,:],loes,X,Y,'linear')
+    ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet,vmin=min(loes),vmax=max(loes),linewidth=0)
+    #fig.savefig('figures/poisson.pdf')
+
+poisson(lambda x,y: x*(y**4),100)
 
     
         

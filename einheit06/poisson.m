@@ -15,7 +15,7 @@ function loes = poisson (f,n)
 
 f = fcnchk(f);
 
-A = gallery('poisson',n-1); 
+A = n^2*gallery('poisson',n-1); 
 
 % Erzeuge rechte Seite und Mesh
 loes.mesh = zeros(2,(n-1)^2);

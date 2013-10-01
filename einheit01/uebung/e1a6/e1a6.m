@@ -1,4 +1,4 @@
-disp ('*** aufgabe 8');
+disp ('*** aufgabe 6');
 clear
 
 A = hilb(50);

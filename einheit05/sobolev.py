@@ -48,16 +48,23 @@ def sobnd(*args):
     return result
 
 
+
 x = linspace(-1,1,30)
 f1 = sob1d(x)
-figure()
+
+
+fig = figure()
+subplot(2,2,1)
 plot(x,f1)
 
 X,Y = meshgrid(x,x)
 f2 = sobnd(X,Y)
-fig = figure()
-ax = Axes3D(fig)
+
+ax = fig.add_subplot(2, 2, 2, projection='3d')
+ax.plot_wireframe(X ,Y ,f2,rstride=1,cstride=1,cmap=cm.jet) 
+
+ax = fig.add_subplot(2, 2, 3, projection='3d')
 ax.plot_surface(X ,Y ,f2,rstride=1,cstride=1,cmap=cm.jet) 
 
-figure()
+subplot(2, 2, 4)
 contourf(X,Y,f2,10), title('contourf')

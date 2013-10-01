@@ -383,22 +383,33 @@ subplot(2,2,4),plot(y[:,1],y[:,2]), xlabel('y_2')
 
 \subsection{Nichtlineare Gleichungen lösen und Optimierung}
 
-\begin{frame}[fragile]\frametitle{Matlab: Nichtlinearer Gleichungslöser}
+\begin{frame}[fragile]\frametitle{Nichtlinearer Gleichungslöser}
 Löst nichtlineare Gleichungen $F(x) = 0$
 \begin{matlabin}
- [<x>,<fval>] = fsolve(<fun>,<x0>,<options>)
+ [xres,fval] = fsolve(fun,x0,options)
 \end{matlabin}
+\begin{pyin}
+from scipy import optimize
+xres,info,i,mesg = optimize.fsolve(fun,x0,options)   
+\end{pyin}
+Input:
 \begin{itemize}
  \item \mcode{fun}: Function handle für $F(x)$.
 \item \mcode{x0}: Startvektor.
-\item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
+\item \mcode{options}: Struktur der options (siehe \mcode{optimset})
+\end{itemize}
+Output
+\begin{itemize}
+  \item \isage{xres}: Ergebnis.
+  \item \isage{fval}| \isage{info['fvec']}: Funktionsauswertung $f(xres)$.
+  \item \isage{options}: Liste benannter Argumente.
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Matlab: optimset}
+\begin{frame}[fragile]\frametitle{optimset und options}
 \begin{matlabin}
-<options> = optimset('<param1>',<value1>,'<param2>',<value2>,..) 
+options = optimset('param1',value1,'param2',value2,..) 
 \end{matlabin}
 \begin{itemize}
  \item \mcode{'TolFun'}: Abbruchkriterium für den Funktionswert.
@@ -406,6 +417,14 @@ Löst nichtlineare Gleichungen $F(x) = 0$
 \item \mcode{'MaxIter'}: Maximale Anzahl Iterationen.
 \item \mcode{'Display'}: Regelt Ausgabe im Commandwindow.
 \item \mcode{'Algorithm'}: Wahl des genutzten Algorithmus.
+\end{itemize}
+\begin{pyin}
+options  
+\end{pyin}
+\begin{itemize}
+  \item \isage{xtol}: Abbruchkriterium für aktuellen Punkt $x$. 
+  \item \isage{full_output}: Schalter für detaillierte Ausgabe.
+  \item \isage{maxfev}: maximale Anzahl Funktionsaufrüfe.
 \end{itemize}
 \end{frame}
 
@@ -444,7 +463,7 @@ Finde Minimum \ldots \\
 
 ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
 \begin{matlabin}
- [<x>,<fval>,<exitflag>,<output>] = fminsearch(<fun>,<x0>,<options>)
+ [x,fval,exitflag,output] = fminsearch(fun,x0,options)
 \end{matlabin}
 \begin{itemize}
  \item \mcode{fun}: Function handle.
@@ -454,7 +473,7 @@ ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
 
 mit Nebenbedingungen, multidimensional:
 \begin{matlabin}
-<x> = fmincon(<fun>,<x0>,<A>,<b>,<Aeq>,<beq>,<lb>,<ub>,<nonlcon>,<options>)
+x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
 \end{matlabin}
 
 \end{frame}
@@ -464,7 +483,7 @@ Finde Minimum \ldots \\
 
 ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
   \begin{pyin}
-fmin(<func>, <x0>, <args=()>, <xtol>=0.0001, <ftol>=0.0001, <maxiter>=None, <maxfun>=None, <full_output>=0, <disp>=1, <retall>=0, <callback>=None)
+fmin(func, x0, args=(), xtol=0.0001, ftol=0.0001, maxiter=None, maxfun=None, full_output=0, disp=1, retall=0, callback=None)
   \end{pyin}
   \begin{itemize}
     \item \isage{func}: Function handle
@@ -473,7 +492,7 @@ fmin(<func>, <x0>, <args=()>, <xtol>=0.0001, <ftol>=0.0001, <maxiter>=None, <max
   \end{itemize}
 mit Nebenbedingungen, multidimensional:
   \begin{pyin}
-fminbound(<func>, <x1>, <x2>, <args=()>, <xtol>=1e-05, <maxfun>=500, <full_output>=0, <disp>=1)    
+fminbound(func, x1, x2, args=(), xtol=1e-05, maxfun=500, full_output=0, disp=1)    
   \end{pyin}
 \end{frame}
 
@@ -493,6 +512,25 @@ Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
 \matinput{newton.m}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Python: Newtonverfahren - Implementation}
+\begin{pyin}
+def newton_example():
+    # Programm zur Loesung von x=cos(x)
+    xn = 1 # Startwert Newton
+    xr = 0.739085133215161 # wahre Loesung
+    xnlist = xn-xr # Fehlerliste 
+    for i in range(0,15):
+        xn = xn-(xn-cos(xn))/(1+sin(xn)) # Newton
+        xnlist = hstack((xnlist, xn-xr))
+    print xnlist
+    #Plotausgabe
+    semilogy(range(1,len(xnlist)+1),abs(xnlist),'r*-')
+    title('Loesung von x=cos(x)')
+    xlabel('Iterationen')
+    ylabel('Fehler im X-Wert')  
+\end{pyin}
+\end{frame}
+
 
 \begin{frame}[fragile]\frametitle{Newtonverfahren - Konvergenz}
 \begin{center}
@@ -505,7 +543,7 @@ Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
 \matinput{newton_konvergenz.m}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Python: Newtonverfahren - Implementation}
+\begin{frame}[fragile]\frametitle{Python: Newtonverfahren - Konvergenz}
   \begin{pyin}
 def newton_konvergenz():
     n = 1000
@@ -563,6 +601,7 @@ Tool um Bottlenecks und Fehler (Bugs) herauszufinden.
 
 \end{frame}
 
+\subsection{Matlab}
 \begin{frame}[fragile]\frametitle{Benutzung}
 \begin{matlabin}
 profile on 
@@ -584,16 +623,6 @@ Optionen und Kommandos:
 \matinput{profilertest.m}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Profilerwindow}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{./figures/profilertest}
-\end{center}
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{History der Funktionsaufrufe}
-\matinput{profilertest2.m}
-\end{frame}
-
 \begin{frame}[fragile]\frametitle{Profiling Poisson}
 \matinput{profile_poisson.m}
 \begin{center}
@@ -601,5 +630,44 @@ Optionen und Kommandos:
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{History der Funktionsaufrufe}
+\matinput{profilertest2.m}
+\end{frame}
+
+
+
+
+\subsection{Python}
+\begin{frame}[fragile]\frametitle{Benutzung}
+  \begin{itemize}
+    \item \alert{F10}: Startet das gegebene Programm im grafischen Profiler.
+    \item Der Profiler listet alle Funktionen in ihrer Hierarchie auf und zeigt deren Zeitverbrauch.
+    \item Das ganze Programm wird geprüft.
+    \item es wird nicht zeilenweise geprüft; nur Funktionsaufrüfe (siehe \isage{line-profiler})
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Profiling Poisson}
+\begin{center}
+\includegraphics[width=1\textwidth]{./figures/profile_poisson_py}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{line profiler}
+Der \isage{line_profiler} \url{http://pythonhosted.org/line_profiler/} kann exakt sagen, welche
+Zeilen wieviel Zeit verbraucht haben. 
+
+Dazu benutzt man einen sogenannten \isage{decorator} an die Funktion, die man prüfen möchte
+\begin{pyin}
+@profile
+def function ():
+\end{pyin}
+und ruft dann (ausserhalb von spyder) den eigentlichen Profiler auf:
+\begin{pyin}
+kernprof.py -l -v <file.py>
+\end{pyin}
+
+\end{frame}
 
 \end{document}

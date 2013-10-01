@@ -1,4 +1,4 @@
-disp ('*** aufgabe 7');
+disp ('*** aufgabe 5');
 clear
 
 A = diag (2*ones(100,1),0) + ...

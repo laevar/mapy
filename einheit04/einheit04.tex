@@ -427,9 +427,9 @@ xip = linspace (min(x),max(x),15), yip = linspace (min(y),max(y),15)
 f = inter.interp2d (xi,yi,ZI,kind='linear')  
 ZIp = f(XIp,YIp)
 \end{pyin}
-\begin{center}
-\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
-\end{center}
+%\begin{center}
+%\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
+%\end{center}
 \end{frame}
 
 \section{In- und Output}
@@ -826,9 +826,9 @@ re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Python: loadtext - Einlesen von Daten}
+\begin{frame}[fragile]\frametitle{Python: loadtxt - Einlesen von Daten}
 \begin{pyin}
-array = np.loadtext(fname,delimiter=None,comments='#')
+array = np.loadtxt(fname,delimiter=None,comments='#')
 \end{pyin}
 \begin{itemize}
   \item \isage{fname}: Dateiname. 

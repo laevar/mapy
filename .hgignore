@@ -15,10 +15,12 @@ tmp.inputs
 *.idx 
 *.bak
 *.nav
+*.fls
 *.snm
 *.toc
 *.vrb
 *.bz2
 *.pid
 *.zip
+*.pyc
 *.mexglx

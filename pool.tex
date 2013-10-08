@@ -1,0 +1,168 @@
+
+\subsection{Erste Schritte}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Erste Schritte}
+\begin{itemize}
+\item MATLAB als Taschenrechner \newline (Ergebnis wird in \mcode{ans} gespeichert.) 
+\begin{lstlisting}
+>> 1+(sin(pi/2)+ exp(2))*0.5
+ans = 5.1945
+\end{lstlisting}
+\item Eingabe von (Zeilen-)Vektoren
+\begin{lstlisting}
+>> x = [1 2 3]  
+\end{lstlisting}
+\item Transponieren und speichern in  Variable \mcode{b}
+\begin{lstlisting}
+>> b = transpose(x)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Erste Schritte II}
+\begin{itemize}
+\item Erzeugen einer Matrix
+\begin{lstlisting}
+A = [0 2 3 ; 4 5 6; 7 8 9];
+\end{lstlisting}
+\item Lösen des Gleichungssystems $A \cdot z=b$
+\begin{lstlisting}
+z = A \ b
+\end{lstlisting}
+\item Probe 
+\begin{lstlisting}
+A*z
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Erste Schritte III}
+\begin{itemize}
+\item Berechnen der Determinante von $A$
+\begin{lstlisting}
+det(A)
+\end{lstlisting}
+\item Hilfe zu \mcode{det} 
+\begin{lstlisting}
+help det 
+\end{lstlisting}
+\begin{matlab}
+DET    Determinant.
+  DET(X) is the determinant of the square matrix X.
+  Use COND instead of DET to test for matrix singularity.
+\end{matlab}
+\item Erzeugen einer Einheitsmatrix
+\begin{lstlisting}
+B = eye(3,3)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Erste Schritte IV}
+\begin{itemize}
+\item Matrizenoperationen
+\begin{lstlisting}
+A+B, A-B, A*B, inv(A)
+\end{lstlisting}
+\item Anwendung von Vektoren
+\begin{lstlisting}
+y = sqrt(x)
+\end{lstlisting}
+\begin{matlab}
+y =
+    1.0000    1.4142    1.7321 
+\end{matlab}
+
+\end{itemize}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Erste Schritte V}
+\begin{itemize}
+\item Komponentenweise Multiplikation
+\begin{lstlisting}
+y = x.*x
+\end{lstlisting}
+\begin{matlab}
+ y =
+     1     4     9 
+\end{matlab}
+
+\item Zeilenvektor mit Werten von $1$ bis $100$
+\begin{lstlisting}
+a = [1:100];
+\end{lstlisting}
+\item Berechne $\sum_{j=1}^{100} \frac{1}{j^2}$
+\begin{lstlisting}
+(1./a)*transpose(1./a)
+\end{lstlisting}
+\begin{matlab}
+ans = 1.6350 
+\end{matlab}
+\end{itemize}
+\end{frame}
+\subsection{Etwas komplexeres Beispiel}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Die Mandelbrot-Menge}
+\begin{columns}[c,onlytextwidth]
+\column{0.6\textwidth}
+\pgfimage[width=\textwidth]{../figures/mandel}
+\column{0.4\textwidth}
+Die Mandelbrot-Menge ist die Menge von Punkten $c \in \mathbb{C}$
+bei denen die Folge $(z_n)_n$, die durch
+\begin{align*} 
+z_0&:=c\\
+z_{n+1} &= z_n^2 +c, \quad n \in \mathbb{N} 
+\end{align*}
+definiert ist, beschränkt ist.
+\end{columns}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Die Mandelbrot-Menge}
+\lstinputlisting{mandel.m}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Verwendete Befehle}
+\begin{itemize}
+\item \mcode{linspace(a,b,n)}\\ ist ein Vektor mit n Einträgen der Form
+$a, a+(b-a)/(n-1), \dots ,b$
+\item \mcode{[X,Y] = meshgrid(x,y)}\\ erzeugt Matrizen 
+\begin{equation*}
+X = \left( \begin{array}{ccc} x_1 & \ldots & x_n\\  & \vdots & \\x_1 & \ldots & x_n\end{array}
+\right), \quad  Y = \left( \begin{array}{ccc} y_1 & \ldots & y_1\\  & \vdots & \\y_n & \ldots & y_n\end{array}  \right)
+\end{equation*}
+\item \mcode{C = complex(X,Y)}\\ erzeugt $C=(C(j,k))_{jk}$ mit
+$C(j,k)=X(j,k)+i \ Y(j,k)$ 
+\end{itemize}
+\end{frame}
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Verwendete Befehle}
+\begin{itemize}
+\item \mcode{B = isfinite(A)}\\ Matrix $B$ hat gleiche Gr\"o{\ss}e wie $A$. Die Einträge sind $1$, 
+wenn der entsprechende Eintrag von $B$ finit ist und $0$ sonst.  
+\item \mcode{image(x,y,A)}\\ erzeugt eine Grafik auf der Basis des Gitters
+  $(x,y)$ mit Werten $A$. Durch den entsprechenden Eintrag von $A$ wird die
+  Farbe bestimmt.  
+\item \mcode{title}\\ Überschrift der Grafik.
+\item \mcode{for}, \mcode{end}\\ 
+Schleife (Details später).
+\end{itemize}
+\end{frame}

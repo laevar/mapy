@@ -221,6 +221,60 @@ set(0,'DefaultAxesFontSize','remove')
 \end{frame}
 
 \input{gui.tex}
+
+\section{Python: GUI}
+
+\begin{frame}[fragile]{Verschiedene Ansätze}
+\begin{itemize}
+  \item \alert{(Enthought) Traits (Widgets: wx)}
+  \item wxPython (Widgets: wx)
+  \item PyQT (Widgets: QT)
+  \item tKinter (Widgets: Tk)
+\end{itemize}
+Reihenfolge subjektiv nach Präferenz und den Wünschen eines Wissenschaftlers.
+
+\end{frame}
+
+\begin{frame}[fragile]{Traits}
+Zusatz-Eigenschaften zu Python-Objekten:
+\begin{itemize}
+  \item Initialisierung
+  \item Validierung
+  \item \alert{Visualisierung}
+  \item Notification
+  \item Dokumentation
+\end{itemize}
+
+Vorteile:
+\begin{itemize}
+  \item Datenorientiert
+  \item einfache Möglichkeit Daten zu visualisieren
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Erzeugung}
+
+  \begin{pyin}
+from traits.api import HasTraits, Range, Enum
+class Visualization(HasTraits):
+      time = Range(1, 30, 1)
+      vt = Enum ('Surf','Mesh','Contour')
+  \end{pyin}
+\end{frame}
+
+\begin{frame}[fragile]{Grafische Repräsentation - TraitsUI}
+  \begin{pyin}
+from traitsui.api import View, Item, HGroup
+# the layout of the dialog created
+    view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene),
+                    height=250, width=300, show_label=False),
+                HGroup(
+                        '_', 'time','vt'
+                    ),
+                )    
+  \end{pyin}
+\end{frame}
+
 \section{Validierung}
 
 \begin{frame}{Motivation}

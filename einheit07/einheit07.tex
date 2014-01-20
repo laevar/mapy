@@ -241,7 +241,7 @@ Zusatz-Eigenschaften zu Python-Objekten:
   \item Initialisierung
   \item Validierung
   \item \alert{Visualisierung}
-  \item Notification
+  \item Benachrichtigung
   \item Dokumentation
 \end{itemize}
 
@@ -252,28 +252,180 @@ Vorteile:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Erzeugung}
+\begin{frame}[fragile]{GUI-Beispiel}
 
+Wir bauen eine ähnliche GUI wie das Matlab-Beispiel. 
+\begin{center}
+\includegraphics[width=0.5\textwidth]{./figures/traitsui_sc.png}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Erzeugung}
+Imports und Klassendefinition (Kochbuch)
   \begin{pyin}
 from traits.api import HasTraits, Range, Enum
 class Visualization(HasTraits):
-      time = Range(1, 30, 1)
-      vt = Enum ('Surf','Mesh','Contour')
+\end{pyin}
+
+Nötige Variablen mittels Traits erzeugen:
+\begin{pyin}
+      time = Range(1, 30, 1) # Range-slider
+      vt = Enum ('Surf','Mesh','Contour') #Enumeration
   \end{pyin}
+
+Auswahl Basis-Typen\\
+\begin{tabular}[c]{lll}
+  \textbf{Trait} & \textbf{Python Type} & \textbf{Default} \\\hline
+  Bool & Boolean & False \\
+  Complex & Complex number & 0+0j\\
+  Float & Floating point number & 0.0 \\
+  Int & Plain integer & 0\\
+  Str & String &  ''\\
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}[fragile]{Auswahl erweiterte Typen}
+  \begin{tabular}[c]{ll}
+    \textbf{Name} & \textbf{type} \\\hline
+    Array &  Array of values\\
+    Button & Button of some form and style \\
+    Dict & Dictionary ()\\
+    Enum & Enum of values\\
+    Instance & Klassen-Instanz (Kochbuch :-) )\\
+    Range & Von-bis in einem Slider
+  \end{tabular}
+\\\smallskip
+  {\tiny (komplette Liste und weitere Erklärung:\\ 
+  \url{http://docs.enthought.com/traits/traits_user_manual/defining.html#other-predefined-traits})}
 \end{frame}
 
 \begin{frame}[fragile]{Grafische Repräsentation - TraitsUI}
+Traits UI und Mayavi einbinden (Kochbuch)
   \begin{pyin}
-from traitsui.api import View, Item, HGroup
-# the layout of the dialog created
-    view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene),
-                    height=250, width=300, show_label=False),
-                HGroup(
-                        '_', 'time','vt'
-                    ),
-                )    
+from traitsui.api import View, Item, Group
+from tvtk.pyface.scene_editor import SceneEditor
+from mayavi.tools.mlab_scene_model import MlabSceneModel
+from mayavi.core.ui.mayavi_scene import MayaviScene
+\end{pyin}
+\alert{View} erzeugen; simple Anordnungen nutzen (Item + Gruppe)
+\begin{pyin}
+scene = Instance(MlabSceneModel, ()) # Kochbuch
+view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), height=250, width=300, show_label=False), #first Item
+            Group( #second Item
+                  'time','vt'
+                  orientation='horizontal',layout='normal'),
+            kind='live', title='simple GUI'
+            )    
   \end{pyin}
 \end{frame}
+
+\begin{frame}[fragile]{Views}
+  \alert{View} ist eine Ansicht der Traits. Es enthält
+  \begin{itemize}
+    \item \alert{Items}
+    \item \alert{Groups} (Gruppen von Items) 
+  \end{itemize}
+  \begin{pyin}
+View (<itemORgroup>[, <itemORgroup>, <settings>])
+  \end{pyin}
+
+  \isage{settings}
+  \begin{itemize}
+  \item \isage{height}: Höhe des Fensters\\
+  \item \isage{width}: Breite des Fensters\\
+  \item \isage{title}: Titel des Fensters\\
+  \item \isage{kind}: Art des Fensters
+    \begin{itemize}
+      \item \isage{'live'} : normales Fenster
+      \item \isage{'wizard'}: Wizard; updated erst bei 'Finish'
+      \item \isage{'panel'}: Einbettung in andere Fenster
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{View: Items}
+Ein Item stellt ein Trait dar und wird daher direkt mit diesem assoziiert:
+  \begin{pyin}
+Item (<traitname>[, <settings>])
+  \end{pyin}
+
+  \isage{settings}\\
+\begin{itemize}
+  \item \isage{height}: Höhe des Widgets\\
+  \item \isage{width}: Breite des Widgets\\
+  \item \isage{padding}: Extraplatz um das Widget herum\\
+  \item \isage{tooltip}: generiert einen Tooltip\\
+  \item \isage{show\_label}: Anzeige eines Labels
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{View: Groups}
+  Eine Group ist eine visuelle oder logische Einheit. Es kann selbst wieder Items und Groups enthalten.
+  \begin{pyin}
+Group(<item>[,<item>,<settings>])    
+  \end{pyin}
+\isage{settings}\\
+\begin{itemize}
+  \item \isage{orientation}: Orientierung der Unterelemente\\
+  \item \isage{layout}:  Art der Gruppierung
+\begin{itemize}
+  \item \isage{'normal'}: Hintereinanderdarstellung.\\
+  \item \isage{'flow'}: Hintereinander, aber kann wrappen.\\
+  \item \isage{'split'}: Split-Balken zwischen den Elementen.\\
+  \item \isage{'tabbed'}: Elemente in Tabs aufgeteilt.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Callbacks}
+Initialisierung der Daten und  der Klasse.
+Initiale Grafik wird in der letzten Zeile erzeugt.  
+  \begin{pyin}
+   x,y,t = np.mgrid[-1:1:(2.0/50),-1:1:(2.0/50),1:31] 
+   Z = cos(pi*t**0.5*exp(-x**2-y**2))
+   def __init__(self):
+        HasTraits.__init__(self)
+        self.plot = self.scene.mlab.surf(self.x[:,:,0],self.y[:,:,0],self.Z[:,:,0])    
+  \end{pyin}
+
+Änderung des Kamera-viewpoints, beim ersten Aktivieren (z.T. Kochbuch)
+\begin{pyin}
+   @on_trait_change('scene.activated')
+   def create_plot(self):
+        self.scene.mlab.view(45,210)
+\end{pyin}
+Mit \isage{@on_trait_change('variable'} wird eine Funktion dann ausgeführt, wenn die angegebene Variable sich geändert hat.
+\end{frame}
+
+\begin{frame}[fragile]{Callbacks II}
+% oder _time_changed () callback schreiben
+Funktion zum Plot-update, wenn sich eine der Variablen ändert (z.T. Kochbuch)
+\begin{pyin}
+    @on_trait_change('time,vt')
+    def update_plot(self):
+        self.plot.remove() # remove last image
+        if self.vt == 'Surf':
+            self.plot = self.scene.mlab.surf(self.x[:,:,0],self.y[:,:,0],self.Z[:,:,self.time-1])
+        elif self.vt == 'Mesh':
+            self.plot = self.scene.mlab.surf(self.x[:,:,0],self.y[:,:,0],self.Z[:,:,self.time-1],representation='wireframe')
+        elif self.vt == 'Contour':
+            self.plot = self.scene.mlab.contour_surf(self.x[:,:,0],self.y[:,:,0],self.Z[:,:,self.time-1],contours=15)
+        else:
+            print "Plot-Auswahl fehlgeschlagen"  
+\end{pyin}
+\end{frame}
+
+\begin{frame}[fragile]{Read from here}
+  \begin{itemize}
+    \item scientific ui generation with traits (\url{http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html})\\
+    \item Building mayavi applications (\url{http://docs.enthought.com/mayavi/mayavi/building_applications.html})\\
+    \item Traits user manual (\url{http://docs.enthought.com/traits/traits_user_manual/index.html})\\
+    \item Traits API reference  (\url{http://code.enthought.com/projects/files/ets_api/enthought.html})
+  \end{itemize}
+
+\end{frame}
+
 
 \section{Validierung}
 

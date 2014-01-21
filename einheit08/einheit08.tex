@@ -4,25 +4,24 @@
 \input{../slide_header}
 \begin{document}
 \titlepage
-
-\section{Schnittstelle zu C}
+\section{Einführung}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Schnittstellen in MATLAB}
-\begin{itemize}
-\item MATLAB l\"a{\ss}t sich mit anderen Programmiersprachen kombinieren. 
-\item Die Verkn\"upfung geschieht \"uber sogenannte \alert{Schnittstellen} (engl. interfaces). 
-\item Es existieren Schnittstellen zu C, Fortran und Java.
-\item \"Uber diese Schnittstellen können Kommandos und Daten \"ubermittelt werden.
-\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]\frametitle{Schnittstellen in MATLAB}
+%\begin{itemize}
+%\item MATLAB l\"a{\ss}t sich mit anderen Programmiersprachen kombinieren. 
+%\item Die Verkn\"upfung geschieht \"uber sogenannte \alert{Schnittstellen} (engl. interfaces). 
+%\item Es existieren Schnittstellen zu C, Fortran und Java.
+%\item \"Uber diese Schnittstellen können Kommandos und Daten \"ubermittelt werden.
+%\end{itemize}
+%\end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]\frametitle{Warum Schnittstellen zu C?}
 \begin{itemize}
-\item \alert{Wiederverwendung}: Gro{\ss}e bereits existierende C-Programme k\"onnen von MATLAB aus
+\item \alert{Wiederverwendung}: Gro{\ss}e bereits existierende C-Programme k\"onnen von  aus
   gestartet werden, ohne dass sie als $m$-Files neugeschrieben werden
   m\"ussen. 
 \item \alert{Performance}: Bottleneck Berechnungen (in der Regel Schleifen), die in MATLAB nicht
@@ -32,6 +31,8 @@
 \end{itemize}
 \end{frame}
 
+
+\section{MATLAB: Schnittstelle zu C}
 %
 % Slide
 %
@@ -911,5 +912,66 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
   engClose(ep);  return (int) 1; }  
 \end{matlabin}
 \end{frame}
+
+\section{Python: Schnittstelle zu C}
+
+%\begin{frame}[fragile]{Python C-API}
+%  ss
+%\end{frame}
+
+\begin{frame}[fragile]{Cython}
+
+  \alert{Cython} ist eine Python Spracherweiterung, die es ermöglicht\ldots
+\begin{itemize}
+  \item Python code zu kompilieren\\
+  \item C Funktionen aufzurufen\\
+  \item Variablen mit C-Typen zu deklarieren.
+\end{itemize}
+
+Sie muss kompiliert werden.
+
+\end{frame}
+
+\begin{frame}[fragile]{Minimal example}
+
+  \begin{pyin}
+cdef extern from "math.h":
+    double sin(double x)
+  \end{pyin}
+
+Mit \isage{cdef} starten Zeilen die C-Funktionen importieren oder C-Typen deklarieren.
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Kompilieren}
+
+Distutils - Ersetze \isage{<extensionname>} und \isage{<filename>.pyx}
+  \begin{pyin}
+from distutils.core import setup, Extension
+from Cython.Distutils import build_ext
+
+setup(
+        cmdclass={'build_ext': build_ext},
+        ext_modules=[Extension("<extensionname>", ["<filename>.pyx"])]
+     )
+  \end{pyin}
+Übersetzen in C-Code und kompilieren:
+  \begin{pyin}
+python setup.py build_ext --inplace
+  \end{pyin}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Mandelbrot}
+  mandel\_cy
+  1 loops, best of 3: 11.2 s per loop
+
+  python-loop
+  1 loops, best of 3: 20.7 s per loop
+
+  numpy-version?
+\end{frame}
+
 \end{document}
 

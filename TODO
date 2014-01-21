@@ -1,0 +1,73 @@
+ Mehr direkt vorprogrammieren!
+
+ einheit4: interp2d geht immer noch nicht
+
+ interface zu C in python (einheit8)
+
+------------
+
+ kurz-referenz-zettel erzeugen. 
+ eine kurze einfuehrung fuer matlab generieren bzw. bestehenden kurs entsprechend ausbauen.
+
+ vorkurs fuer z.b. numerik anbieten.  (siehe auch schabacks vorstellungen)
+
+ nette idee: labor. ganzen tag im multimediarraum abwechselnd kurze vortraege und dann direkt ausprobieren.
+
+Form:
+ bei den uebungsaufgaben und loesungen: mehr tipps was man sich da ansehen soll. Loesung: mehr dazu einfach schreiben, warum man sich das so ansehen sollte;)
+
+ folien mit kuerzeren saetzen/stichpunkten, mehr zusammenhalt sprachlich, mehr praktisch zeigen
+ das ganze besser strukturieren! Klarere abfolge von dingen, )(z.b) viele ueberschriften sind eigentlich 
+auch unsinn so.. kann ich die besser ineinander uebergehen lassen ?
+ mehr direkt vorfuehren/interaktion.
+
+Inhalt:
+ mehr optimization
+ nurbs!
+ simple finite elements!
+ weiteren vorlesungs-tag mit numerik machen ()  und/oder mehr einfuehrung fuer programmieren ansich
+ numerik 1/2 vorlesung von schaback :http://num.math.uni-goettingen.de/schaback/teaching/texte/NuMath/matlab/index.html 
+
+ Beispiel optimierung? (dlr-spiegel ? seratec?)  
+ dreieckserzeugung und delaunay ? 
+ und z.b. etwas von den inversen problemen ?   
+
+ show() doch erwaehnen, da es nur in einer variante direkt geht
+ mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
+ structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html
+
+ pyx oder volle latex-unterstuetzung fuer bilder testen
+
+ mehr aufgaben aus siam?
+ mehr kurze Vorraussetztungen fuer die Algorithmen angeben
+ mehr Technik und entsprechende Uebungen! eingebaut in entsprechenden uebungen
+
+umsortierungen:
+
+ grafik zusammen auf eine vorlesung
+ mehrdim-arrays zu datenstrukturen
+
+Einheit  5:  
+-allgemein mehr ueber Zerlegungen (cholesky, singulaerwertzerlegung) wissen!  
+
+- Theorie sobolevsche Mittelungsfunktion (siehe skript lube)
+
+Einheit 6: 
+
+-Steifigkeit?http://www1.uni-hamburg.de/W.Wiedl/Skripte/Matlab/ODE/STEIF/
+-was sind die Lorenzgleichungen ? http://de.wikipedia.org/wiki/Lorenz-Attraktor (und siehe pdf's)
+
+Einheit 7: 
+
+ visualisierung und validierung ausbauen (einheit7)
+
+ uebungen muessen noch umgebaut werden
+
+ ein paar mehr demos machen!
+
+Einheit 8: Schnittstelle zu C, Programmieren von MEX-Dateien, Compiler
+
+Einheit 9: ?
+
+
+

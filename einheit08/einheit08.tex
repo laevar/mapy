@@ -915,6 +915,7 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
 
 \section{Python: Schnittstelle zu C}
 
+\subsection{C aus Python}
 %\begin{frame}[fragile]{Python C-API}
 %  ss
 %\end{frame}
@@ -923,29 +924,41 @@ int plot_graph(double *x, double *y, double *z, int x_n, int y_n)
 
   \alert{Cython} ist eine Python Spracherweiterung, die es ermöglicht\ldots
 \begin{itemize}
-  \item Python code zu kompilieren\\
-  \item C Funktionen aufzurufen\\
-  \item Variablen mit C-Typen zu deklarieren.
+  \item C Funktionen aus Bibliotheken aufzurufen.\\
+  \item Unterstützung für C++ .
+  \item Variablen mit C-Typen zu deklarieren (und damit an Perfomance zu gewinnen)\\
+  \item Python code zu kompilieren (und damit schrittweise oder in Teilen Code zu verschnellern)
 \end{itemize}
-
-Sie muss kompiliert werden.
+Grundlegende Funktionsweise
+\begin{itemize}
+  \item Übersetzung des Python/Cython-codes in C-Code.
+  \item Kompilierung des C-Codes (in shared libraries, welche in Python als normale Module eingebunden werden können).
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]{Minimal example}
+\begin{frame}[fragile]{Minimales Beispiel - Einbinden}
 
+  Datei \isage{csin.pyx}
   \begin{pyin}
 cdef extern from "math.h":
     double sin(double x)
+def csin(arg):
+    return sin(arg)
   \end{pyin}
 
-Mit \isage{cdef} starten Zeilen die C-Funktionen importieren oder C-Typen deklarieren.
+  \begin{itemize}
+    \item  \isage{cdef}: C-Typen oder -Funktionen deklarieren.
+    \item \isage{extern}: Einbindung von Bibliotheks-Funktionen oder Typen.
+  \end{itemize}
+  \textbf{Bemerkung:} Die normale Python-Funktion ist nur nötig, damit es als Modul zugreifbar wird.
 
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Kompilieren}
 
-Distutils - Ersetze \isage{<extensionname>} und \isage{<filename>.pyx}
+  Kompilieren mit \alert{Distutils}\\ 
+Erzeuge Datei \isage{'setup.py'} und ersetze \isage{<extensionname>} und \isage{<filename>.pyx}:
   \begin{pyin}
 from distutils.core import setup, Extension
 from Cython.Distutils import build_ext
@@ -962,16 +975,132 @@ python setup.py build_ext --inplace
 
 \end{frame}
 
-
-\begin{frame}[fragile]\frametitle{Mandelbrot}
-  mandel\_cy
-  1 loops, best of 3: 11.2 s per loop
-
-  python-loop
-  1 loops, best of 3: 20.7 s per loop
-
-  numpy-version?
+\begin{frame}[fragile]\frametitle{Ausführen}
+Modul laden\ldots
+  \begin{pyin}
+    import csin
+  \end{pyin}
+\ldots und Nutzen
+  \begin{pyin}
+    print csin.csin(2)
+  \end{pyin}
 \end{frame}
+
+\begin{frame}[fragile]\frametitle{Minimales Beispiel - Performance}
+Zum Vergleich das ggt-Beispiel. Performance-Gewinn ist hier minimal aber zeigt das Prinzip: C-Typen nutzen!
+  \begin{pyin}
+def ggt(int a,int b):
+    while (a != b):
+        if (a > b):
+            a -= b
+        else:
+            b -= a
+    return a
+
+print ggt(6,9)    
+  \end{pyin}
+%Die C-Typen die man angeben kann sind die standard C-Typen.
+\end{frame}
+
+%-------------------------------------------------
+%  Folie:
+%-------------------------------------------------
+\begin{frame}[fragile]\frametitle{Mandelbrot-Menge}
+Die Mandelbrot-Menge ist die Menge von Punkten $c \in \mathbb{C}$
+bei denen die Folge $(z_n)_n$, die durch
+\[ z_0:=c, \qquad  z_{n+1} = z_n^2 +c, \quad n \in \mathbb{N}\]
+definiert ist, beschr\"ankt ist.
+\begin{itemize}
+\item Gilt $|z_n| \geq 2$, so wird die Folge divergieren.
+\item Wir benutzen dies als Abbruchkriterium.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]\frametitle{Reelle Darstellung}
+Mit $z=z_1+iz_2$, $x=x_1+ix_2$ und $c=c_1+ic_2$ ergibt sich aus
+\begin{eqnarray*}
+z_1 + i z_2 & = & z  =  x^2 + c = (x_1+ix_2)^2 + (c_1+ic_2) \\
+& = & [ x_1^2 -x_2^2 +c_1] + i[2 x_1 x_2 +c_2]
+\end{eqnarray*}
+die Formel
+\[ z_1 = x_1^2 -x_2^2 +c_1, \qquad z_2 = 2 x_1 x_2 + c_2. \]
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Mandelbrot: Python}
+  \begin{pyin}
+def mandel():
+    x1 = linspace(-2.1, 0.6, 601)
+    y1 = linspace(-1.1, 1.1, 401)
+    [X,Y] = meshgrid(x1,y1)
+
+    it_max = 50
+    Anz = zeros(X.shape)
+
+    C = (X + 1j*Y)
+    Z = copy(C) # beware: otherwise it wouldn't be a copy.
+
+    for k in range(1,it_max):
+        Z = Z**2+C
+        Anz += isfinite(Z)
+    imshow(Anz)
+    show() # noetig um das Bild neu zu malen    
+  \end{pyin}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Mandelbrot: Cython}
+  Eine Folge ausrechnen. Vollständig optimierbar.
+  \begin{pyin}
+import numpy as np  
+cimport numpy as np #  cython-support of numpy
+import scipy as sp  
+from pylab import *   
+def cython_mandel(double x,double y):
+    cdef double z_real = 0.
+    cdef double z_imag = 0.
+    cdef int i
+    cdef int max_iterations=50
+    for i in range(0, max_iterations):
+        z_real, z_imag = ( z_real*z_real - z_imag*z_imag + x,2*z_real*z_imag + y )
+        if (z_real*z_real + z_imag*z_imag) >= 4:
+            return i
+    return max_iterations    
+  \end{pyin}
+\end{frame}
+ 
+  \begin{frame}[fragile]\frametitle{Mandelbrot: Cython II}
+Python mit C-Typen. Das ist bereits deutlich besser als Standard Python!
+    \begin{pyin}
+def mandel_cy(int pointsx, int pointsy):
+    cdef np.ndarray[double,ndim=1] x = linspace(-2.1,1.2,pointsx)
+    cdef np.ndarray[double,ndim=1] y = linspace(-1.1,1.1,pointsy)
+    cdef np.ndarray[double,ndim=2] z = np.zeros([pointsx,pointsy])
+    for i in range(0,len(x)):
+        for j in range(0,len(y)):        
+            z[i,j] = cython_mandel(x[i],y[j])
+    return z      
+    \end{pyin}
+    Performance:
+    \begin{tabular}[c]{ll}
+    pure python & - (crashed) \\
+    python-loop & 20.7 s\\
+    cython-loop & 5.15 s
+  \end{tabular}
+\end{frame}
+    
+\begin{frame}[fragile]\frametitle{Literature}
+%\begin{block}{Cython}
+  \begin{thebibliography}{10}
+      \small
+    \bibitem{1} \alert{Cython documentation} Cython developers (\url{http://docs.cython.org/}),
+    \bibitem{2} \alert{SciPy-lectures: Interfacing with C}, F. Perez, E. Gouillart, G. Varoquaux, V. Haenel (\url{http://scipy-lectures.github.io/advanced/interfacing_with_c/interfacing_with_c.html#id12}),
+  \end{thebibliography}
+%\end{block}
+  
+\end{frame}
+%\begin{frame}[fragile]\frametitle{Performance}
+
+%  numpy-version?
+  
+%\end{frame}
 
 \end{document}
 

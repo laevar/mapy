@@ -45,3 +45,7 @@ title('plot_surface+contour')
 
 ml.surf(X.T,Y.T,Z)
 title('plot_surf (mayavi)')
+
+#x,y =np.mgrid[-2:2:0.1,-2:2:0.1]
+#Z = exp(-x**2-y**2)*sin(pi*x*y)
+#ml.surf(x,y,Z)

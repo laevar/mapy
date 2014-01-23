@@ -5,6 +5,7 @@ Created on Tue Jan 21 14:20:47 2014
 @author: jschulz1
 """
 import numpy as np  # NumPy (multidimensional arrays, linear algebra, ...)
+cimport numpy as np # we need this for cython-support of numpy
 import scipy as sp  # SciPy (signal and image processing library)
 from pylab import *   
 
@@ -20,12 +21,12 @@ def cython_mandel(double x,double y):
     return max_iterations
 
 def mandel_cy(int pointsx, int pointsy):
-    x = linspace(-2.1,1.2,pointsx)
-    y = linspace(-1.1,1.1,pointsy)
-    z = np.zeros([pointsx,pointsy])
-    for i,xi in enumerate(x):
-        for j,yj in enumerate(y):        
-            z[i,j] = cython_mandel(xi,yj)
+    cdef np.ndarray[double,ndim=1] x = linspace(-2.1,1.2,pointsx)
+    cdef np.ndarray[double,ndim=1] y = linspace(-1.1,1.1,pointsy)
+    cdef np.ndarray[double,ndim=2] z = np.zeros([pointsx,pointsy])
+    for i in range(0,len(x)):
+        for j in range(0,len(y)):        
+            z[i,j] = cython_mandel(x[i],y[j])
     return z
 
 #import mandel

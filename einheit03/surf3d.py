@@ -43,8 +43,11 @@ ax.view_init(20,-26)
 title('plot_surface+contour')
 #fig.savefig('figures/function_plot3d_py.pdf', format='PDF')
 
+ml.figure(bgcolor=(1,1,1)) # default bgcolor is black
 ml.surf(X.T,Y.T,Z)
 title('plot_surf (mayavi)')
+ml.axes()
+ml.colorbar()
 
 #x,y =np.mgrid[-2:2:0.1,-2:2:0.1]
 #Z = exp(-x**2-y**2)*sin(pi*x*y)

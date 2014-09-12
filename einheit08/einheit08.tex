@@ -1028,8 +1028,8 @@ die Formel
 \begin{frame}[fragile]\frametitle{Mandelbrot: Python}
   \begin{pyin}
 def mandel():
-    x1 = linspace(-2.1, 0.6, 601)
-    y1 = linspace(-1.1, 1.1, 401)
+    x1 = linspace(-2.1, 0.6, 3001)
+    y1 = linspace(-1.1, 1.1, 2001)
     [X,Y] = meshgrid(x1,y1)
 
     it_max = 50
@@ -1080,9 +1080,9 @@ def mandel_cy(int pointsx, int pointsy):
     \end{pyin}
     Performance:
     \begin{tabular}[c]{ll}
-    pure python & - (crashed) \\
-    python-loop & 20.7 s\\
-    cython-loop & 5.15 s
+    pure python & 9.43 s \\
+    python-loop & 6.02 s\\
+    cython-loop & 1.32 s
   \end{tabular}
 \end{frame}
     

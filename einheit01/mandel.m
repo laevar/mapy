@@ -4,8 +4,8 @@
 % definiert ist, beschränkt ist.
 % 
 % Das Programm mandel() gibt zu x+iy die relative Anzahl der Iterationsschritte zurück.
-x = linspace(-2.1,0.6,601);
-y = linspace(-1.1,1.1,401);
+x = linspace(-2.1,0.6,3001); %601
+y = linspace(-1.1,1.1,2001); %401
 
 [X,Y] = meshgrid(x,y);
 C = complex(X,Y);
@@ -17,7 +17,7 @@ Anz = zeros(size(Z));
 for k = 1:it_max
     Z = Z.^2+C;
     Anz = Anz + isfinite(Z); %isfinite checks if Z has finite values
-    waitbar(k/it_max);%creates waitbar for calculation
+    %waitbar(k/it_max);%creates waitbar for calculation
 end
-image(x,y,Anz);
-title('Mandelbrot Set', 'FontSize',16);
+%image(x,y,Anz);
+%title('Mandelbrot Set', 'FontSize',16);

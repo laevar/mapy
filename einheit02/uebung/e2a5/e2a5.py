@@ -30,4 +30,8 @@ def myhilbert (n):
 
 
 # Berechne hilber-Matrix und pruefe deren Korrektheit
-print myhilbert(4)
+my4 = myhilbert(4)
+my12 = myhilbert(12)
+print inv(my4)
+print inv(my12)
+print cond(my12)

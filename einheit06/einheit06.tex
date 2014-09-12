@@ -638,14 +638,17 @@ Optionen und Kommandos:
 
 
 \subsection{Python}
-\begin{frame}[fragile]\frametitle{Benutzung}
+\begin{frame}[fragile]\frametitle{Profiler}
+\begin{pyin}
+python -m cProfile <script.py>
+\end{pyin}
+Oder: 
   \begin{itemize}
     \item \alert{F10}: Startet das gegebene Programm im grafischen Profiler.
     \item Der Profiler listet alle Funktionen in ihrer Hierarchie auf und zeigt deren Zeitverbrauch.
     \item Das ganze Programm wird geprüft.
     \item es wird nicht zeilenweise geprüft; nur Funktionsaufrüfe (siehe \isage{line-profiler})
   \end{itemize}
-
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Profiling Poisson}

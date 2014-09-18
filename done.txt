@@ -2,3 +2,9 @@ DONE 2014-01-23  einheit4: interp2d geht immer noch nicht
   CLOSED: 2014-01-31 14:35:23
   :LOGBOOK:
     DONE: 2014-01-31 14:35:23
+DONE 2014-01-23  interface zu C in python (einheit8)
+  CLOSED: 2014-02-02 21:13:58
+  :LOGBOOK:
+    DONE: 2014-02-02 21:13:58
+
+

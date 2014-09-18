@@ -1,12 +1,6 @@
 # vim:ft=todo 
-
-
-DONE 2014-01-23  interface zu C in python (einheit8)
-  CLOSED: 2014-02-02 21:13:58
-  :LOGBOOK:
-    DONE: 2014-02-02 21:13:58
-
-
+TODO 2014-01-23  mehr kurze Vorraussetztungen fuer die Algorithmen angeben
+TODO 2014-01-23  mehr Technik und entsprechende Uebungen! eingebaut in entsprechenden uebungen
 TODO 2014-01-23 Form
   [] Mehr direkt vorprogrammieren!
   []  nette idee: labor. ganzen tag im multimediarraum abwechselnd kurze vortraege und dann direkt ausprobieren.
@@ -15,16 +9,8 @@ TODO 2014-01-23 Form
   [] folien mit kuerzeren saetzen/stichpunkten, mehr zusammenhalt sprachlich, mehr praktisch zeigen
  das ganze besser strukturieren! Klarere abfolge von dingen, )(z.b) viele ueberschriften sind eigentlich auch unsinn so.. kann ich die besser ineinander uebergehen lassen ?
 
-*** Inhalt ***
-TODO 2014-01-23  kurz-referenz-zettel erzeugen. 
 
-TODO 2014-02-03 introduce assert-statements for debugging purposes
-
-TODO 2014-01-23  vorkurs fuer z.b. numerik anbieten.  (siehe auch schabacks vorstellungen)
-TODO 2014-01-23  nurbs!
-TODO 2014-01-23  simple finite elements!
-TODO 2014-01-23  dreieckserzeugung und delaunay ? 
-TODO 2014-01-23  numerik 1/2 vorlesung von schaback :http://num.math.uni-goettingen.de/schaback/teaching/texte/NuMath/matlab/index.html 
+----
 
 TODO 2014-02-02 funktionale programmieren betonen und die moeglichkeiten einfuehren
 
@@ -35,12 +21,10 @@ TODO 2014-01-23  show() doch erwaehnen, da es nur in einer variante direkt geht
 TODO 2014-01-23  mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
 TODO 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html
 TODO 2014-02-02 fancy indexing
+TODO 2014-01-23  mehrdim-arrays zu datenstrukturen
 
 TODO 2014-01-23  volle latex-unterstuetzung fuer bilder testen . gnuplot-ersatz nochmal betonen tikz-export testen.
 
-TODO 2014-01-23  mehr aufgaben aus siam? euler?
-TODO 2014-01-23  mehr kurze Vorraussetztungen fuer die Algorithmen angeben
-TODO 2014-01-23  mehr Technik und entsprechende Uebungen! eingebaut in entsprechenden uebungen
 
 TODO 2014-02-02 parallelisierung und perfomance-issues total ausbauen! +einheit9
 
@@ -48,21 +32,33 @@ TODO 2014-02-02 objektorientierung einbauen
 
 TODO 2014-01-23  visualisierung und validierung ausbauen +einheit7
 
-TODO 2014-01-23  uebungen muessen noch umgebaut werden +einheit7
-
 TODO 2014-01-23  ein paar mehr demos machen! +einheit7
 
-
-
-** umsortierungen ** 
-
 TODO 2014-01-23  grafik zusammen auf eine vorlesung
-TODO 2014-01-23  mehrdim-arrays zu datenstrukturen
 
 TODO 2014-01-23 allgemein mehr ueber Zerlegungen (cholesky, singulaerwertzerlegung) wissen!  +einheit5
 TODO 2014-01-23  Theorie sobolevsche Mittelungsfunktion (siehe skript lube) +einheit5
+TODO 2014-01-23  nurbs!
+TODO 2014-01-23  simple finite elements!
+TODO 2014-01-23  dreieckserzeugung und delaunay ? 
 
+TODO 2014-02-03 introduce assert-statements for debugging purposes
 
 TODO 2014-01-23 Steifigkeit?http://www1.uni-hamburg.de/W.Wiedl/Skripte/Matlab/ODE/STEIF/ +einheit6
 TODO 2014-01-23 was sind die Lorenzgleichungen ? http://de.wikipedia.org/wiki/Lorenz-Attraktor (und siehe pdf's) +einheit6
+
+# UEBUNGEN
+
+TODO 2014-01-23  mehr aufgaben aus siam? euler?
+TODO 2014-01-23  uebungen muessen noch umgebaut werden +einheit7
+
+#Organisatorisches:
+
+TODO 2014-01-23  numerik 1/2 vorlesung von schaback :http://num.math.uni-goettingen.de/schaback/teaching/texte/NuMath/matlab/index.html 
+
+TODO 2014-01-23  kurz-referenz-zettel erzeugen. 
+
+TODO 2014-01-23  vorkurs fuer z.b. numerik anbieten.  (siehe auch schabacks vorstellungen)
+
+
 

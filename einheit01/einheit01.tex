@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 1}
-\subtitle{Einleitung, Vektoren und Matrizen}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit1 - Einleitung, Vektoren und Matrizen}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -11,7 +11,7 @@
 \item Anmeldung $\rightarrow$ StudIP \\
       \url{https://studip.uni-goettingen.de/}
 
-{\color{blue}{Einführung in Matlab und Python (Mathematische Anwendersysteme)}}
+{\color{blue}{Wissenschaftliches Rechnen mit Matlab/Python (Mathematische Anwendersysteme)}}
 \item Alle Unterlagen (Aufgabenblätter, Vorlesungsfolien, Beispiele, Musterlösungen) $\rightarrow$ StudIP
 \pause
 \begin{block}{Dozent}
@@ -19,7 +19,7 @@ Jochen Schulz\\
 NAM, Zimmer 04 (Erdgescho{\ss})\\
 \textbf{Telefon}: 39-4525\\
 \textbf{Email}: \href{mailto:schulz@math.uni-goettingen.de}{\texttt{schulz@math.uni-goettingen.de}}\\
-\textbf{XMPP}: \url{schulz@jabber.num.math.uni-goettingen.de}\\
+\textbf{XMPP}: \url{jschulz1@jabber.gwdg.de}\\
 
 \end{block}
 \end{itemize}
@@ -28,16 +28,16 @@ NAM, Zimmer 04 (Erdgescho{\ss})\\
 
 \begin{frame}{Ablauf der Veranstaltung}
 \begin{itemize}
-\item Blockveranstaltung vom  9.9 - 20.9.2013
+\item Blockveranstaltung vom  22.9 - 10.10.2014
 \item \alert{Vorlesung:} 9.15 - ca. 11.30  (MN55)
-\item \alert{Übungsbetrieb/Praktikum}: ca. 11:30 - ca. 17:00  (NAM WAP-Raum)
+\item \alert{Übungsbetrieb/Praktikum}: ca. 11:30 - ca. 17:00  (MultimediaRaum MI)
 \begin{itemize}
 \item 1 Übungszettel/Tag.
 \item Besprechung Aufgaben vom Vortag (individuell)
 \item Betreuung: Hilfestellung beim Bearbeiten der Aufgaben
 %\item Klausurzulassung: 3 beliebige markierte Aufgaben/Woche testieren lassen. 
 \end{itemize}
-\item \alert{Klausur:} 27.9.2013; 10:00 - 11:30; Anmeldung über FlexNow.
+\item \alert{Klausur:} 10.10.2014; 13:00 - 14:30
 \end{itemize}
 
 \end{frame}
@@ -168,59 +168,12 @@ New Jersey, 1997,
 %-------------------------------------------------
 \begin{frame}[fragile]{MATLAB Fenster-Aufbau}
 Starten von MATLAB: Eingabe von \mcode{matlab &} (in einem Terminal).
-\centering\includegraphics[width=0.55\textwidth]{figures/Screenshot-MATLAB}
+\centering\includegraphics[width=1\textwidth]{figures/Screenshot-MATLAB}
 
-\begin{columns}[c]
-\column{0.48\textwidth}
-\begin{itemize}
-\item \alert{Launch Pad:} Startmenü
-\item \alert{Command Window:} Befehlseingabe und Standardausgabe
-\end{itemize}
-\column{0.48\textwidth}
-\begin{itemize}
-\item \alert{Workspace:} Ansicht von Variablen und deren Art und Grösse; Ändern der
-Einträge 
-\item \alert{Grafik:} normalerweise in separaten Fenstern
-\end{itemize}
-
-\end{columns}
 \end{frame}
 
 %basis-Befehlsreferenz? clear? pfeiltasten etc. Kommentare?
-
-
-%-------------------------------------------------
-%  Folie:
-%-------------------------------------------------
-%\begin{frame}[fragile]{Command Window - Befehle }
-%\begin{itemize}
-%\item Erster Befehl
-%\begin{matlabin}
-%>> 2+2
-%ans = 4
-%\end{matlabin}
-%%\item Variable \mcode{ans} jetzt im Workspace.
-%\item Editieren alter Eingaben:  $\uparrow$, $\downarrow$ (wie
-%in Unix)
-%%\item aktuelles Verzeichnis: \mcode{pwd}
-%\item Mit \mcode{;} am Ende jeder Befehlszeile wird Standardausgabe unterdrückt.
-%\begin{matlabin}
-%>> 2+2;
-%\end{matlabin}
-%\item Hilfe zu Befehlen: \mcode{help <command>} oder \mcode{doc <command>}
-%\item Zuweisung 
-%\begin{matlabin}
-%>> a = 2+2;
-%\end{matlabin}
-%\item Funktionsaufruf 
-%\begin{matlabin}
-%>> sin(2)
-%ans = 0.9093
-%\end{matlabin}
-%\item Verlassen von MATLAB: \mcode{quit} oder \mcode{exit}
-%\end{itemize}
-%\end{frame}
-
+% vor ort zeigen
 
 %-------------------------------------------------
 %  Folie:
@@ -252,20 +205,14 @@ Einträge
 \begin{frame}[fragile]{Struktur von Skript-Files}
 \begin{itemize}
 \item Skript-Files bestehen aus einer Sequenz von Befehlen, die
-  nacheinander abgearbeitet werden. 
-%\item Am Anfang des Files als Kommentar (Alle Zeichen ab \mcode{\%}): 
-%\begin{itemize}
-%\item Name des Programms 
-%\item (kurze) Beschreibung
-%\item Autor-Informationen und Datum
-%\end{itemize}
+  nacheinander abgearbeitet werden (imperatives Programmierparadgima)
 
 \item operiert auf Variablen im \textit{Workspace}.
 
 \item Gestartet wird das Programm \mcode{name.m} durch Eingabe von
   \mcode{name}.
 
-\item Beschreibung des Skript-Files (Auch Funktion):
+\item Beschreibung des Skript-Files (oder der Funktion):
 \begin{matlabin}
 help sin
 \end{matlabin}
@@ -295,7 +242,7 @@ Soll keine Variable zurückgegeben werden, so besteht die erste Zeile aus
 function myfunction(In_1,..,In_k)
 \end{matlabin}
 \begin{itemize}
-\item Call-by-value
+\item Call-by-value (Argumente werden im Speicher kopiert)
 
 \item Variablen lokal, d.h.
 \begin{itemize}
@@ -305,24 +252,6 @@ function myfunction(In_1,..,In_k)
 \end{itemize}
 \alert{Wichtig:} Funktionsname = Dateiname.
 \end{frame}
-%----------------------------
-% Folie 
-%----------------------------
-%\begin{frame}[fragile]{Function-Files}
-%\begin{itemize}
-%\item Funktionen sind mit Kommentaren zu versehen:
-%\begin{itemize}
-%\item (kurze) Beschreibung
-%\item Input-Argumente
-%\item Output-Argumente
-%\item Autor-Informationen und Datum
-%\end{itemize}
- 
-%oder kurz \alert{ \mcode{function myfile(In_1,...,In_k)}}.
-%\end{itemize}
-%\end{frame}
-
-%\subsection{Verwaltung von Dateien}
 
 %----------------------------
 % Folie 
@@ -391,21 +320,8 @@ rmpath <pfadname>
 
 \begin{frame}[fragile]{Spyder Fenster-Aufbau}
 Starten von Spyder: Eingabe von \mcode{spyder &} (in einem Terminal).
-\centering\includegraphics[width=0.55\textwidth]{figures/Screenshot_spyder}
+\centering\includegraphics[width=1\textwidth]{figures/Screenshot_spyder}
 
-\begin{columns}[c]
-\column{0.48\textwidth}
-\begin{itemize}
-\item \alert{Editor:} Dateimanipulation
-\item \alert{Console:} Befehlseingabe und Standardausgabe
-\end{itemize}
-\column{0.48\textwidth}
-\begin{itemize}
-\item \alert{Object Inspector:} Hilfe und Variablenansicht  
-\item \alert{Grafik:} in separaten Fenstern
-\end{itemize}
-
-\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Struktur von Skript-Files}
@@ -430,10 +346,12 @@ def <name>(<Argumente>) :
 \end{pyin}
 \begin{itemize}
 \item Variablen lokal.
-\item Call-by-reference.
+\item \textsl{Call-by-reference} (Referenz zum Objekt wird übergeben)
 \item \alert{Objekt-Methoden}:\\
-Objekte besitzen Funktionen, sogenannte Objekt-Methoden.
-Ein Objekt kennt alle auf sich selbst anwendbaren Funktionen.
+  \begin{itemize}
+    \item Objekte besitzen Funktionen, sogenannte Objekt-Methoden.
+\item Ein Objekt kennt alle auf sich selbst anwendbaren Funktionen.
+  \end{itemize}
 
 \begin{pyin}
 f = 3.14
@@ -454,7 +372,7 @@ name
 Testet ob,..
 \begin{enumerate}
 \item  \alert{Variable}
-\item  \alert{Funktion} 
+\item  \alert{Funktion/Objekt} 
 \end{enumerate}
 Bei gefundenem Namen wird die Suche beendet.
 \end{frame}
@@ -586,15 +504,18 @@ Unterstrich \_ zusammengesetzt.
 \isage{12x}, \isage{p~}, \isage{x>y}, \isage{Das System}
 \end{itemize}
 \end{frame}
-\begin{frame}[fragile]{Wert eines Bezeichners}
+
+\begin{frame}[fragile]{Typen und Werte eines Bezeichners}
 \begin{itemize}
-\item Der \alert{Wert} eines Bezeichners  ist ein \alert{Objekt} eines bestimmten
+\item \alert{Datentyp}: Eigenschaften der Daten. \\
+  \textbf{Beispiel}: ganze Zahlen, Zeichenketten, Gleitkommazahlen, Listen  \ldots  
+  \begin{itemize}
+    \item Matlab: 2D-Arrays vom Typ \mcode{Double} vorherrschend
+    \item Python: \isage{integer}, \isage{float}, \isage{numpy.ndarray}, \isage{list},..
+  \end{itemize}
+\item \alert{Objekt}: Instanz (Einheit) eines Datentyps.
+\item \alert{Wert} eines Bezeichners: ein \alert{Objekt} eines bestimmten
 \alert{Datentyps}.
-\item Ein \alert{Datentyp} ist durch seine Eigenschaften gegeben. \\
-\textbf{Beispiel}: ganze Zahlen (Integers), Zeichenketten (Strings), Gleitkommazahlen (float) \ldots  
-\item Matlab: 2D-Arrays vom Typ Double vorherrschend
-\item Python: integer, float, numpy.ndarray, lists,..
-\item Ein \alert{Objekt} ist eine Instanz (Einheit) eines Datentyps.
 \end{itemize}
 \end{frame}
 
@@ -602,10 +523,8 @@ Unterstrich \_ zusammengesetzt.
     \begin{pyin}
 <bezeichner> = <wert>
     \end{pyin}   
-Zuweisung des Wertes \isage{wert} zu dem Bezeichner \isage{bez}.
+Zuweisung des Wertes \isage{wert} zu dem Bezeichner \isage{bezeichner}. Dabei wird der Typ automatisch festgelegt.
 \begin{itemize}
-\item {\color{blue} \isage{func(arg)=expr(arg)}}: Definition der Funktion \isage{func} mit dem Argument \isage{arg} und Zuweisung des Ausdrucks \isage{expr} zu (abhängig von \isage{arg})
-%\item Rückgabeparameter ist die rechte Seite (Eine Ausgabe erfolgt jedoch normalerweise nicht)
 \item \textbf{Warnung:} Unterscheiden Sie  stets zwischen dem Zuweisungsoperator {\color{blue} $=$} und
 dem logischen Operator {\color{blue} $==$}.   
 \item Löschen von Zuweisungen/Variablen.
@@ -614,11 +533,24 @@ dem logischen Operator {\color{blue} $==$}.
 \item Matlab: {\color{blue} \isage{clear <bezeichner>}}
 \end{itemize}
 \end{itemize}
+
+\textsl{Beispiel}:
+
+\begin{pyin}
+  a = 5.5
+  type (a)
+\end{pyin}
+\begin{pyout}
+  float
+\end{pyout}
+
+%\item {\color{blue} \isage{func(arg)=expr(arg)}}: Definition der Funktion \isage{func} mit dem Argument \isage{arg} und Zuweisung des Ausdrucks \isage{expr} zu (abhängig von \isage{arg})
+%%\item Rückgabeparameter ist die rechte Seite (Eine Ausgabe erfolgt jedoch normalerweise nicht)
 \end{frame}
 
 \begin{frame}[fragile]{Python: Listen und Tuple}
  \begin{itemize}
-\item Eine \alert{Liste} ist in Python mit \isage{[..,..]} gekennzeichnet (hat Ordnung) 
+\item Eine \alert{Liste} ist in Python mit \isage{[..,..]} gekennzeichnet (hat Ordnung, veränderbar (mutable)) 
 \begin{pyin}
 liste = [21,22,24,23]
 liste.sort(); liste 
@@ -626,7 +558,7 @@ liste.sort(); liste
 \begin{pyout}
  [21, 22, 23, 24]
 \end{pyout}
-\item Ein \alert{Tuple} ist in Python mit \isage{(..,..)} gekennzeichnet (hat Struktur)
+\item Ein \alert{Tuple} ist in Python mit \isage{(..,..)} gekennzeichnet (hat Struktur, nicht veränderbar (immutable))
 \begin{pyin}
 tuple = (liste[0], liste[2])
 tuple, tuple[0]
@@ -634,10 +566,6 @@ tuple, tuple[0]
 \begin{pyout}
 (( 21, 24), 21) 
 \end{pyout}
-\item Liste von ganzen Zahlen von \isage{a} bis \isage{b}
-\begin{pyin}
-range(a,b+1)
-\end{pyin}
  \end{itemize}
 \end{frame}
 
@@ -650,7 +578,7 @@ range(a,b+1)
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Vektoren I}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item Erzeugen 'per Hand'
 \begin{matlabin}
@@ -670,18 +598,23 @@ b[1]
 
 Index $\equiv$ Position im Vektor\\
 
-\alert{Achtung}: \emph{Matlab}: Indizes beginnen immer mit $1$!\\
-\emph{Python}: Indizes beginnen immer mit $0$!
+\alert{Achtung}: 
+
+\begin{itemize}
+  \item \emph{Matlab}: Indizes beginnen immer mit $1$!
+\item \emph{Python}: Indizes beginnen immer mit $0$!
+\end{itemize}
 
 \end{itemize}
 \end{frame}
 
 %
 % Slide: 
-%TODO: python-slicing mit ndgrid!
 \begin{frame}[fragile]{Matlab: Doppelpunkt - Notation}
 \mcode{x:s:z} erzeugt einen Vektor der Form 
-\[ (x,x+s,x+2s,x+3s, \ldots , z). \]
+\[ (x,x+s,x+2s,x+3s, \ldots ,z). \]
+$x + ns \leq z$ für alle $n$. 
+Schrittweite $s$ ist 1 wenn nur ein Doppelpunkt benutzt wird.
 \begin{matlabin}
 >> a = 2:11
 a =
@@ -693,22 +626,36 @@ c =
 \end{matlabin}
 \end{frame} 
 
+\begin{frame}[fragile]{Python: ogrid-Slicing}
+\isage{ogrid[x:s:z]} erzeugt einen Vektor der Form 
+\[ (x,x+s,x+2s,x+3s, \ldots , z). \]
+$x + ns \le z$ für alle $n$.
+Schrittweite $s$ ist 1 wenn nur ein Doppelpunkt benutzt wird.
+\begin{pyin}
+>>> a = ogrid[2:12]
+array([ 2,  3,  4,  5,  6,  7,  8,  9, 10, 11])
+
+>>> c = ogrid[-2:1.1:0.75]
+array([-2.  , -1.25, -0.5 ,  0.25,  1.  ])
+
+\end{pyin}
+\end{frame} 
+
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Vektoren II}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item \mcode{length(a)}(Matlab) \isage{len(a)}(Python)\\ Länge des Vektors $a$ an.
-\item \mcode{linspace(x1,x2,N)}\\ Vektor
+\item \isage{linspace(x1,x2,N)} oder \isage{ogrid[x1:x2:Nj]}\\ Vektor
 \[ x1, x1+\frac{x2-x1}{N-1}, x1+2 \frac{x2-x1}{N-1}, \dots ,x2  \]
 der Länge $N$.
-\begin{matlabin}
+\begin{pyin}
 linspace(1,2,4)
-\end{matlabin}
-\begin{matlab}
-ans =
-    1.0000    1.3333    1.6667    2.0000 
-\end{matlab}
+\end{pyin}
+\begin{pyout}
+array([ 1.  ,  1.33333333,  1.66666667,  2. ])
+\end{pyout}
 
 \item \mcode{logspace(x1,x2,N)}\\ wie \mcode{linspace}, nur logarith. Skalierung
 \end{itemize}
@@ -718,7 +665,7 @@ ans =
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Erzeugen von Matrizen}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item Erzeugen 'per Hand'
 \begin{matlabin}
@@ -746,7 +693,7 @@ ans =
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Erzeugen von Matrizen II}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item \mcode{zeros(n,m)}(Matlab) \isage{zeros((n,m))}(Python) \\$(n \times m)$- Matrix mit $0$ als Einträge.
 \item \mcode{ones(n,m)}(Matlab) \isage{ones((n,m))}(Python)\\$(n \times m)$- Matrix mit $1$ als Einträge.
@@ -772,7 +719,7 @@ Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Erzeugen von Matrizen III}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item \mcode{repmat(A,n,m)}(Matlab) \isage{tile(A,(n,m)}(Python)\\ Blockmatrix mit $(n \times m)$
   aus A bestehenden Blöcken zusammenhängen
@@ -794,8 +741,6 @@ D =
   (n+|k|)$ mit den Einträgen des Vektors $v$ (Länge $n$) auf der $k$-ten Nebendiagonalen. 
 \end{itemize}
 \end{frame}
-
-\subsection{Manipulation von Matrizen}
 %
 % Slide: 
 %
@@ -812,11 +757,20 @@ E =
      9     3     1
 \end{matlab}
 
-\item Hilbert-Matrix: \mcode{hilb}(Matlab) und \isage{scipy.linalg.hilbert}(Python)
-\item Hadamard-Matrix: \mcode{hadamard} (Matlab) und \isage{scipy.linalg.hadamard}(Python)
-\item use.
+\item Hilbert-Matrix: 
+  \begin{itemize}
+    \item \mcode{hilb}(Matlab) 
+    \item \isage{scipy.linalg.hilbert}(Python)
+  \end{itemize}
+\item Hadamard-Matrix:
+  \begin{itemize}
+    \item \mcode{hadamard} (Matlab) 
+    \item \isage{scipy.linalg.hadamard}(Python)
+  \end{itemize}
 \end{itemize}
 \end{frame}
+
+\subsection{Zugriff und Manipulation von Matrizen}
 %
 % Slide: 
 %
@@ -877,10 +831,9 @@ ans =
 A = np.array([[1,2,3],[4,5,6],[7,8,9]])
 \end{pyin}%
 \begin{pyout}
-A =
-     1     2     3
-     4     5     6
-     7     8     9 
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
 \end{pyout}%
 \end{columns}%
 \begin{columns}[t,onlytextwidth]
@@ -888,33 +841,29 @@ A =
 Abfragen eines Eintrags
 \begin{pyin}
 >>> A[1,0]
-ans =
-     4
+4
 \end{pyin}
 \column{0.45\textwidth}
 Abfrage von Blöcken
 \begin{pyin}
 >>> A[1:3,0:2]
-ans =
-     4     5     
-     7     8     
+array([ 4, 5],
+       [7, 8]])]
 \end{pyin}
 \end{columns}
 \begin{columns}[t,onlytextwidth]
 \column{0.45\textwidth}
 Abfrage einer Zeile
 \begin{pyin}
->>> A[,:]
-ans =
-     4     5     6
+>>> A[1,:]
+array([4, 5, 6])
 \end{pyin}
 \column{0.45\textwidth}
 Abfrage mehrerer Zeilen
 \begin{pyin}
 >>> A[(0,2),:]
-ans =
-     1     2     3
-     7     8     9
+array([[1, 2, 3],
+       [7, 8, 9]])
 \end{pyin}
 \end{columns}
 \end{frame}
@@ -922,36 +871,102 @@ ans =
 %
 % Slide: 
 %
-%\begin{frame}[fragile]{Löschen}
-%\begin{columns}[c]%
-%\column{0.45\textwidth}%
-%\begin{matlab}
-%A =
-%     1     2     3
-%     4     5     6
-%     7     8     9 
-%\end{matlab}%
-%\end{columns}%
-%\begin{columns}[t]
-%\column{0.45\textwidth}%
-%Löschen einer Zeile
-%\begin{matlabin}
-%>> A(2,:) = []
-%A =
-%     1     2     3
-%     7     8     9
-%\end{matlabin}
-%\column{0.45\textwidth}%
-%Löschen von Spalten
-%\begin{matlabin}
-%>> A(:,[1 3]) = []
-%A =
-%     2
-%     5
-%     8
-%\end{matlabin}
-%\end{columns}
-%\end{frame}
+\begin{frame}[fragile]{Matlab: Setzen und Löschen}
+\begin{columns}[c]%
+\column{0.45\textwidth}%
+\end{columns}%
+\begin{columns}[t]
+\column{0.45\textwidth}%
+Setzen einer Zeile
+\begin{matlabin}
+>> A(2,:) = [10,10,10]
+A =
+
+     1     2     3
+    10    10    10
+     7     8     9
+\end{matlabin}
+\column{0.45\textwidth}%
+Setzen von Spalten
+\begin{matlabin}
+>> A(:,1) = [10,10,10]
+A =
+
+    10     2     3
+    10     5     6
+    10     8     9
+\end{matlabin}
+\end{columns}
+\begin{columns}[c]%
+\column{0.45\textwidth}%
+\end{columns}%
+\begin{columns}[t]
+\column{0.45\textwidth}%
+Löschen einer Zeile
+\begin{matlabin}
+>> A(2,:) = []
+A =
+     1     2     3
+     7     8     9
+\end{matlabin}
+\column{0.45\textwidth}%
+Löschen von Spalten
+\begin{matlabin}
+>> A(:,[1 3]) = []
+A =
+     2
+     5
+     8
+\end{matlabin}
+\end{columns}
+\end{frame}
+
+%
+% Slide: 
+%
+\begin{frame}[fragile]{Python: Setzen und Löschen}
+\begin{columns}[c]%
+\column{0.45\textwidth}%
+\end{columns}%
+\begin{columns}[t]
+\column{0.45\textwidth}%
+Setzen einer Zeile
+\begin{pyin}
+>>> A[1,:] = [10,10,10]
+array([[ 1,  2,  3],
+       [10, 10, 10],
+       [ 7,  8,  9]])
+\end{pyin}
+\column{0.45\textwidth}%
+Setzen von Spalten
+\begin{pyin}
+>>> A[:,0] = [10,10,10]
+array([[10,  2,  3],
+       [10,  5,  6],
+       [10,  8,  9]])
+\end{pyin}
+\end{columns}
+\begin{columns}[c]%
+\column{0.45\textwidth}%
+\end{columns}%
+\begin{columns}[t]
+\column{0.45\textwidth}%
+Löschen einer Zeile
+\begin{pyin}
+>>> np.delete(A,1,0)
+array([[1, 2, 3],
+       [7, 8, 9]])
+\end{pyin}
+\column{0.45\textwidth}%
+Löschen von Spalten
+\begin{pyin}
+>>> np.delete(A,[0,2],1)
+array([[2],
+       [5],
+       [8]])
+\end{pyin}
+\end{columns}
+\end{frame}
 
 \subsection{Matrix- und Vektoroperationen}
 %
@@ -1015,7 +1030,7 @@ ans =
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Andere Operatoren}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item \mcode{A\\\B}(Matlab) \isage{solve(A,B)}(Python)\\ Lösung $X$ von \mcode{A*X=B}. \\
 

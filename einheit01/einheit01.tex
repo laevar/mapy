@@ -167,7 +167,7 @@ New Jersey, 1997,
 %  Folie:
 %-------------------------------------------------
 \begin{frame}[fragile]{MATLAB Fenster-Aufbau}
-Starten von MATLAB: Eingabe von \mcode{matlab &} (in einem Terminal).
+Starten von MATLAB: Eingabe von \imatlab{matlab &} (in einem Terminal).
 \centering\includegraphics[width=1\textwidth]{figures/Screenshot-MATLAB}
 
 \end{frame}
@@ -182,15 +182,15 @@ Starten von MATLAB: Eingabe von \mcode{matlab &} (in einem Terminal).
 %\begin{itemize}
 %\item Alle definierten (globalen) Variablen werden im Workspace gespeichert.
 %\item Zugriff während einer MATLAB-Sitzung.
-%\item Inhalt des Arbeitsspeichers: \mcode{whos} oder \mcode{who}
+%\item Inhalt des Arbeitsspeichers: \imatlab{whos} oder \imatlab{who}
 %\begin{matlabin}
 %>> whos
 %  Name      Size            Bytes  Class   
 %
 %  ans       1x1                 8  double    
 %\end{matlabin}
-%\item Löschen von Variablen : \mcode{clear <var>};\\
-%\mcode{clear} löscht den gesamten Arbeitsspeicher (Workspace).
+%\item Löschen von Variablen : \imatlab{clear <var>};\\
+%\imatlab{clear} löscht den gesamten Arbeitsspeicher (Workspace).
 %\end{itemize}
 %\end{frame}
 
@@ -209,8 +209,8 @@ Starten von MATLAB: Eingabe von \mcode{matlab &} (in einem Terminal).
 
 \item operiert auf Variablen im \textit{Workspace}.
 
-\item Gestartet wird das Programm \mcode{name.m} durch Eingabe von
-  \mcode{name}.
+\item Gestartet wird das Programm \imatlab{name.m} durch Eingabe von
+  \imatlab{name}.
 
 \item Beschreibung des Skript-Files (oder der Funktion):
 \begin{matlabin}
@@ -280,7 +280,7 @@ Bei gefundenem Namen wird die Suche beendet.
 %----------------------------
 \begin{frame}[fragile]{Suchpfad}
 
-Der Suchpfad (Variable \mcode{path}) enthält Verzeichnisse in einer geordneten Liste.
+Der Suchpfad (Variable \imatlab{path}) enthält Verzeichnisse in einer geordneten Liste.
 
 \begin{itemize}
 \item Abarbeitung erfolgt der Ordnung gemäss.
@@ -301,16 +301,16 @@ rmpath <pfadname>
 %----------------------------
 \begin{frame}[fragile]{Bedienung: Kurzreferenz}
 \begin{itemize}
-\item \alert{ \mcode{doc <name>}}\\ öffnet grafisches Hilfefenster zum jeweiligen Programm.
+\item \alert{ \imatlab{doc <name>}}\\ öffnet grafisches Hilfefenster zum jeweiligen Programm.
   \item \alert{F5}\\ führt offene Datei im command window aus.
   \item \alert{F9}\\ führt markierte Code-Zeilen aus.
   \item \alert{clear}\\ löscht Variablen im Workspace
-\item \alert{ \mcode{lookfor <name>}} \\ Suche nach \mcode{name} in den
+\item \alert{ \imatlab{lookfor <name>}} \\ Suche nach \imatlab{name} in den
   Kommentaren zu den Funktionen (auch: grafisches Hilfefenster).
-\item  \alert{ \mcode{what}}\\ m-Files im aktuellen Verzeichnis.
-\item  \alert{ \mcode{type <name>}}\\ Inhalt von \mcode{name.m} (Command Window).
-\item  \alert{ \mcode{which <name>}}\\ absoluter Pfad der Datei, in dem die  Funktion
-  \mcode{name} gespeichert ist. 
+\item  \alert{ \imatlab{what}}\\ m-Files im aktuellen Verzeichnis.
+\item  \alert{ \imatlab{type <name>}}\\ Inhalt von \imatlab{name.m} (Command Window).
+\item  \alert{ \imatlab{which <name>}}\\ absoluter Pfad der Datei, in dem die  Funktion
+  \imatlab{name} gespeichert ist. 
 \end{itemize}
 \end{frame}
 
@@ -319,7 +319,7 @@ rmpath <pfadname>
 
 
 \begin{frame}[fragile]{Spyder Fenster-Aufbau}
-Starten von Spyder: Eingabe von \mcode{spyder &} (in einem Terminal).
+Starten von Spyder: Eingabe von \imatlab{spyder &} (in einem Terminal).
 \centering\includegraphics[width=1\textwidth]{figures/Screenshot_spyder}
 
 \end{frame}
@@ -510,7 +510,7 @@ Unterstrich \_ zusammengesetzt.
 \item \alert{Datentyp}: Eigenschaften der Daten. \\
   \textbf{Beispiel}: ganze Zahlen, Zeichenketten, Gleitkommazahlen, Listen  \ldots  
   \begin{itemize}
-    \item Matlab: 2D-Arrays vom Typ \mcode{Double} vorherrschend
+    \item Matlab: 2D-Arrays vom Typ \imatlab{Double} vorherrschend
     \item Python: \isage{integer}, \isage{float}, \isage{numpy.ndarray}, \isage{list},..
   \end{itemize}
 \item \alert{Objekt}: Instanz (Einheit) eines Datentyps.
@@ -611,7 +611,7 @@ Index $\equiv$ Position im Vektor\\
 %
 % Slide: 
 \begin{frame}[fragile]{Matlab: Doppelpunkt - Notation}
-\mcode{x:s:z} erzeugt einen Vektor der Form 
+\imatlab{x:s:z} erzeugt einen Vektor der Form 
 \[ (x,x+s,x+2s,x+3s, \ldots ,z). \]
 $x + ns \leq z$ für alle $n$. 
 Schrittweite $s$ ist 1 wenn nur ein Doppelpunkt benutzt wird.
@@ -646,7 +646,7 @@ array([-2.  , -1.25, -0.5 ,  0.25,  1.  ])
 %
 \begin{frame}[fragile]{}
 \begin{itemize}
-\item \mcode{length(a)}(Matlab) \isage{len(a)}(Python)\\ Länge des Vektors $a$ an.
+\item \imatlab{length(a)} |  \isage{len(a)}\\ Länge des Vektors $a$ an.
 \item \isage{linspace(x1,x2,N)} oder \isage{ogrid[x1:x2:Nj]}\\ Vektor
 \[ x1, x1+\frac{x2-x1}{N-1}, x1+2 \frac{x2-x1}{N-1}, \dots ,x2  \]
 der Länge $N$.
@@ -657,7 +657,7 @@ linspace(1,2,4)
 array([ 1.  ,  1.33333333,  1.66666667,  2. ])
 \end{pyout}
 
-\item \mcode{logspace(x1,x2,N)}\\ wie \mcode{linspace}, nur logarith. Skalierung
+\item \imatlab{logspace(x1,x2,N)}\\ wie \imatlab{linspace}, nur logarith. Skalierung
 \end{itemize}
 \end{frame}
 
@@ -677,7 +677,7 @@ B = np.array([[1,3,4],[5,6,7]])
 B = matrix([[1,3,4],[5,6,7]]) 
 \end{pyin}
 
-\item \mcode{eye(n,m)}\\ $(n \times m)$-EinheitsMatrix)
+\item \imatlab{eye(n,m)}\\ $(n \times m)$-EinheitsMatrix)
 \begin{matlabin}
 eye(2,3)
 \end{matlabin}
@@ -695,8 +695,8 @@ ans =
 %
 \begin{frame}[fragile]{}
 \begin{itemize}
-\item \mcode{zeros(n,m)}(Matlab) \isage{zeros((n,m))}(Python) \\$(n \times m)$- Matrix mit $0$ als Einträge.
-\item \mcode{ones(n,m)}(Matlab) \isage{ones((n,m))}(Python)\\$(n \times m)$- Matrix mit $1$ als Einträge.
+\item \imatlab{zeros(n,m)} | \isage{zeros((n,m))} \\$(n \times m)$- Matrix mit $0$ als Einträge.
+\item \imatlab{ones(n,m)} |  \isage{ones((n,m))}\\$(n \times m)$- Matrix mit $1$ als Einträge.
 \item Blockmatrizen
 \begin{matlabin}
 C = [B zeros(2,2); eye(2,3) eye(2,2)]
@@ -721,7 +721,7 @@ Zeilenanzahl haben und Matrizen in einer Spalte dieselbe Spaltenanzahl.
 %
 \begin{frame}[fragile]{}
 \begin{itemize}
-\item \mcode{repmat(A,n,m)}(Matlab) \isage{tile(A,(n,m)}(Python)\\ Blockmatrix mit $(n \times m)$
+\item \imatlab{repmat(A,n,m)}| \isage{tile(A,(n,m)}\\ Blockmatrix mit $(n \times m)$
   aus A bestehenden Blöcken zusammenhängen
 \begin{matlabin}
 D = repmat(B,1,2) 
@@ -736,8 +736,8 @@ D =
 \end{matlab}
 
 
-%\item \mcode{blkdiag(A,B)}\\ Blockdiagonalmatrix.
-\item \mcode{diag(v,k)} \\Matrix der Größe $(n+|k|) \times
+%\item \imatlab{blkdiag(A,B)}\\ Blockdiagonalmatrix.
+\item \imatlab{diag(v,k)} \\Matrix der Größe $(n+|k|) \times
   (n+|k|)$ mit den Einträgen des Vektors $v$ (Länge $n$) auf der $k$-ten Nebendiagonalen. 
 \end{itemize}
 \end{frame}
@@ -759,12 +759,12 @@ E =
 
 \item Hilbert-Matrix: 
   \begin{itemize}
-    \item \mcode{hilb}(Matlab) 
+    \item \imatlab{hilb}(Matlab) 
     \item \isage{scipy.linalg.hilbert}(Python)
   \end{itemize}
 \item Hadamard-Matrix:
   \begin{itemize}
-    \item \mcode{hadamard} (Matlab) 
+    \item \imatlab{hadamard} (Matlab) 
     \item \isage{scipy.linalg.hadamard}(Python)
   \end{itemize}
 \end{itemize}
@@ -972,9 +972,35 @@ array([[2],
 %
 % Slide: 
 %
-\begin{frame}[fragile]{Matrizenoperationen}
+\begin{frame}[fragile]{Skalarprodukt}
+Skalarprodukt: $a b^t$\\ mit 
+Vektoren $a=(a_1, \dots ,a_n)$, $b=(b_1, \dots b_n)$ \\
+\begin{itemize}
+\item \imatlab{a*transpose(b)} | \isage{dot(a,b)}\\
+  Skalarprodukt im Code
+\end{itemize}
+Beispiel:
+\begin{matlabin}
+>> a=1:100; b=linspace(0,1,100);
+>> a*transpose(b)
+   3.3667e+03
+>> ones(1,100)*transpose(a)
+        5050
+\end{matlabin} 
+\begin{pyin}
+>>> a=linspace(1,100,100); b=linspace(0,1,100)
+>>> dot(a,b)
+3366.666666666667
+>>> dot(ones((1,100)),a)
+array([ 5050.])
+\end{pyin}
+\end{frame}
+%
+% Slide: 
+%
+\begin{frame}[fragile]{Matrix-Matrix und Matrix-Vektor}
 
-Standard-Matrix Operationen \mcode{+,-,*}
+  Standard-Matrix Operationen \imatlab{+,-,*} | \isage{+,-,dot()}
 \begin{matlabin}
 A = [1 2; 3 4]; B = 2*ones(2,2);
 \end{matlabin}
@@ -1032,93 +1058,22 @@ ans =
 %
 \begin{frame}[fragile]{}
 \begin{itemize}
-\item \mcode{A\\\B}(Matlab) \isage{solve(A,B)}(Python)\\ Lösung $X$ von \mcode{A*X=B}. \\
+\item \imatlab{.*, ./} |  \isage{*,/}\\
+\alert{Wichtig:} komponentenweise Multiplikation/Division 
+\item \imatlab{A\\\B} |  \isage{solve(A,B)}\\ Lösung $X$ von \imatlab{A*X=B}. \\
 
-\item \mcode{A/B}(Matlab) \isage{solve(A.T,B.T)}(Python)\\ Lösung $X$ von \mcode{X*A=B}.\\
+\item \imatlab{A/B} | \isage{solve(A.T,B.T)}\\ Lösung $X$ von \imatlab{X*A=B}.\\
 
-\item \mcode{inv(A)}\\ Inverse von $A$.\\
+\item \imatlab{inv(A)}\\ Inverse von $A$.\\
 
-\item \mcode{A'}(Matlab) \isage{A.conj().T}(Python)\\ komplex Transponierte von $A$. \\
+\item \imatlab{A'} | \isage{A.conj().T}\\ komplex Transponierte von $A$. \\
 
-\item \mcode{A.'}(Matlab) \isage{A.T}(Python)\\ Transponierte von $A$. \\
+\item \imatlab{A.'} |  \isage{A.T}\\ Transponierte von $A$. \\
 
-\item \mcode{A^z}(Matlab) \isage{power(A,z)}(Python)\\ (quadratische Matrizen) $\underbrace{A*A*\cdots *A}_{z-mal}$ \\
+\item \imatlab{A^z} |  \isage{power(A,z)}\\ (quadratische Matrizen) $\underbrace{A*A*\cdots *A}_{z-mal}$ \\
 
-\item \mcode{size(A)}(Matlab) \isage{A.shape}(Python)\\ Gr\"o{\ss}e einer Matrix $A$ . 
+\item \imatlab{size(A)} | \isage{A.shape}\\ Gr\"o{\ss}e einer Matrix $A$ . 
 \end{itemize}
-\end{frame}
-%
-% Slide: 
-%
-\begin{frame}[fragile]{Matlab: Punktnotation}
-\begin{matlabin}
-A = [1 2; 3 4]; B = 2*ones(2,2);
-\end{matlabin}
-\begin{itemize}
-\item $C(i,j)=A(i,j)*B(i,j)$.
-\begin{matlabin}
->> C = A.*B
-C =
-     2     4
-     6     8
-\end{matlabin}
-\item $C(i,j)=A(i,j)/B(i,j)$.
-\begin{matlabin}
->> C = A./B
-C =
-    0.5000    1.0000
-    1.5000    2.0000
-\end{matlabin}
-\end{itemize}
-\end{frame}
-%
-% Slide: 
-%
-\begin{frame}[fragile]{Matlab: Punktnotation}
-\begin{itemize}
-\item $C(i,j)=B(i,j)/A(i,j)$.
-\begin{matlabin}
->> C = A.\B
-C =
-    2.0000    1.0000
-    0.6667    0.5000
-\end{matlabin}
-\item $C(i,j)=A(i,j)^{B(i,j)}$
-\begin{matlabin}
->> C = A.^B
-C =
-     1     4
-     9    16
-\end{matlabin}
-\end{itemize}
-\alert{Achtung:} Dimension von $A$ und $B$ gleich. \\Matrizen können durch
-Skalare ersetzt werden, z.B. \mcode{ A.^2}.
-\end{frame}
-%
-% Slide: 
-%
-\begin{frame}[fragile]{Skalarprodukt}
-\begin{itemize}
- \item Vektoren $a=(a_1, \dots ,a_n)$, $b=(b_1, \dots b_n)$ \\
-\item Skalarprodukt: $a b^t$\\
-\item Summe der Einträge von $a$: $(1, \dots , 1) a^t$\\
-\end{itemize}
-Beispiel:
-\begin{matlabin}
->> a=1:100; b=linspace(0,1,100);
->> a*transpose(b)
-   3.3667e+03
->> ones(1,100)*transpose(a)
-        5050
-\end{matlabin} 
-\begin{pyin}
->>> a=linspace(1,100,100); b=linspace(0,1,100)
->>> dot(a,b)
-3366.666666666667
->>> dot(ones((1,100)),a)
-array([ 5050.])
-\end{pyin}
-\alert{Wichtig:} komponentenweise Multiplikation: \isage{*}(Python) \mcode{.*}(Matlab)!
 \end{frame}
 
 

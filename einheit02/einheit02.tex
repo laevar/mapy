@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 2}
-\subtitle{Programmieren, Datenstrukturen}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 2 - Programmieren, Datenstrukturen}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -17,25 +17,40 @@
 % - Folie
 %
 \begin{frame}[fragile]{for - Schleife}
+Wiederhole Befehle mit sich ändernder Indexvariable aus einem Indexsatz. 
 \begin{matlabin}
 for <indexvariable> = <Ausdruck>
   <Befehle>
 end
 \end{matlabin}
+Ausdruck: \mcode{start:stepsize:end} oder Vektoren, Matrizen. 
 \begin{pyin}
 for <indexvariable> in <Liste>:
   <Befehle>
 \end{pyin}
-\begin{pyin}
-[<Befehl> for <indexvariable> in <Liste>]
+Liste: Liste oder Iterierbares Objekt mit beliebigen Inhalt.\\
+Alternative: \textsl{List comprehensions} generieren Listen
+  \begin{pyin}
+[<Befehl> for <indexvariable> in <Liste> ]
 \end{pyin}
-\alert{Bemerkungen:} 
+\alert{Bemerkung:} 
 \begin{itemize}
-\item Ausdruck: \mcode{start:stepsize:end} oder Vektoren, Matrizen. 
+\item die Schleife geht alle Elemente der Liste oder des Ausdrucks durch, und führt die Befehle 
+  darauf aus. 
 \item \alert{Befehle} einrücken (Übersichtlichkeit; in Python Pflicht!) 
 \end{itemize}
 
 \end{frame}
+
+%\textsl{Beispiel}:
+% 
+%\begin{pyin}
+%[x**2 for x in range(4) if x % 2 == 0]
+%\end{pyin}
+%\begin{pyout}
+%[0, 4]
+%\end{pyout}
+
 
 %
 % - Folie
@@ -180,7 +195,7 @@ Berechne zu einem gegebenen Vektor
 %
 %
 %
-\begin{frame}[fragile]{Vandermonde-Matrix II}
+\begin{frame}[fragile]{}
   \begin{matlabin}
 function V = vandermonde2(x)
   n = length(x);
@@ -205,6 +220,43 @@ def vandermonde2(x):
 
 
 \subsection{Bedingungen}
+%
+%
+%
+\begin{frame}[fragile]{Bedingung}
+\begin{columns}[t,onlytextwidth]
+ \column{0.45\textwidth}
+Matlab
+\begin{matlabin}
+if  <Ausdruck>
+   <Befehle>
+elseif
+  <Befehle>
+else
+   <Befehle>
+end
+\end{matlabin}
+ \column{0.45\textwidth}
+Python
+\begin{pyin}
+if <Ausdruck>:
+  <Befehle>
+elif:
+  <Befehle>
+else:
+  <Befehle>
+\end{pyin}
+\end{columns}
+  \begin{pyin}
+[<Befehl> for <indexvariable> in <Liste> if <ausdruck>]
+\end{pyin}
+
+Die Befehle zwischen \mcode{if} und \mcode{end} (bzw. nach : und bis Ende Einrückung) werden ausgeführt, wenn
+der \textit{Ausdruck} wahr (\isage{True}) ist.\\
+Sonst werden die \mcode{elseif}-Bedingungen geprüft, und falls keine dieser wahr ist, wird (soweit vorhanden) der \mcode{else}-Block ausgeführt.
+
+\alert{Hinweis}: \textit{Ausdruck} ist wahr, wenn   alle Einträge von \textit{Ausdruck} ungleich $0$ sind.
+\end{frame}
 %
 %
 %
@@ -308,7 +360,7 @@ a=[1 1 1], b=[0 1 2]
 \begin{tabular}{cll}
 Operation & Bedeutung & Ergebnis\\
 \hline
-\mcode{a == b} & gleich &   \mcode{0     1     0}\\
+\mcode{a ==  b} & gleich &   \mcode{0     1     0}\\
 \mcode{a \~= b} & ungleich & \mcode{1     0     1}\\
 \mcode{a < b} & kleiner & \mcode{0     0     1}\\
 \mcode{a > b} & größer & \mcode{1     0     0}\\
@@ -327,8 +379,8 @@ gleicher Größe möglich!
 \begin{center}
 \begin{tabular}{|c|l||c|l|}
 \hline
-\mcode{\&}(Ma) \isage{and}(Py) & logisches und & \mcode{\~}(Ma) \isage{!}(Py)& logisches nicht \\
-\mcode{|}(Ma) \isage{or}(Py) & logisches oder & \mcode{xor}(Ma) & exklusives oder\\
+\mcode{\&}(Ma) \mcode{and}(Py) & logisches und & \mcode{\~}(Ma) \mcode{!}(Py)& logisches nicht \\
+\mcode{|}(Ma) \mcode{or}(Py) & logisches oder & \mcode{xor}(Ma) & exklusives oder\\
 \hline
 \end{tabular}
 \end{center}
@@ -363,40 +415,6 @@ ans =
      1     0     1
 \end{matlabin}
 \end{minipage}
-\end{frame}
-%
-%
-%
-\begin{frame}[fragile]{Bedingung}
-\begin{columns}[t,onlytextwidth]
- \column{0.45\textwidth}
-Matlab
-\begin{matlabin}
-if  <Ausdruck>
-   <Befehle>
-elseif
-  <Befehle>
-else
-   <Befehle>
-end
-\end{matlabin}
- \column{0.45\textwidth}
-Python
-\begin{pyin}
-if <Ausdruck>:
-  <Befehle>
-elif:
-  <Befehle>
-else:
-  <Befehle>
-\end{pyin}
-\end{columns}
-
-Die Befehle zwischen \mcode{if} und \mcode{end} (bzw. nach : und bis Ende Einrückung) werden ausgeführt, wenn
-der \textit{Ausdruck} wahr (\isage{True}) ist.\\
-Sonst werden die \mcode{elseif}-Bedingungen geprüft, und falls keine dieser wahr ist, wird (soweit vorhanden) der \mcode{else}-Block ausgeführt.
-
-\alert{Hinweis}: \textit{Ausdruck} ist wahr, wenn   alle Einträge von \textit{Ausdruck} ungleich $0$ sind.
 \end{frame}
 %for k in [1..3]:
 %    if k>1:
@@ -536,13 +554,13 @@ x =  0  0  0  0  5  6  7  8  9  10
 Level & Operator\\
 \hline
 1 & Exponent (\mcode{^}, \mcode{.^}), \mcode{transpose}\\
-2 & logische Verneinung (\mcode{\~},\isage{!})\\
+2 & logische Verneinung (\mcode{\~},\mcode{!})\\
 3 & Multiplikation (*,.*), Division (\mcode{/},\mcode{./},\mcode{\\}, \mcode{.\\})\\
 4 & Addition (+), Subtraktion (-)\\
 5 & Doppelpunktoperator (:)\\
-6 & Vergleichsoperatoren (\mcode{<},\mcode{>},\mcode{<=},\mcode{>=},\mcode{==},\mcode{\~=},\isage{!=})\\ 
-7 & Logisches und (\mcode{\&}, \isage{and})\\
-8 & Logisches oder (\mcode{|}, \isage{or})\\
+6 & Vergleichsoperatoren (\mcode{<},\mcode{>},\mcode{<=},\mcode{>=},\mcode{==},\mcode{\~=},\mcode{!=})\\ 
+7 & Logisches und (\mcode{\&}, \mcode{and})\\
+8 & Logisches oder (\mcode{|}, \mcode{or})\\
 \hline
 \end{tabular}\\[0.5cm]
 {\scriptsize Bei gleicher Rangfolge wird von links nach rechts ausgewertet. \\
@@ -770,30 +788,33 @@ ans =   NaN
 % Folie
 %
 \begin{frame}[fragile]{Umgang mit NaN und       Inf  }
+  Matlab:
 \begin{itemize}
-\item Mit Hilfe von \alert{ \mcode{isinf}} und \alert{ \mcode{isnan}} kann auf
-$\infty$ bzw. NaN getestet werden.
+\item \alert{ \mcode{isinf}} und \alert{ \mcode{isnan}} testen auf
+$\infty$ bzw. NaN.
  \begin{matlabin}
 isnan(0/0), isinf(1.2*realmax)
 \end{matlabin}
 \begin{matlab}
 ans =   1  ans =   1
 \end{matlab}
-\item Matlab: Test auf NaN durch $==$ ist nicht m\"oglich
-\begin{matlabin}
-0/0 == NaN
-\end{matlabin}
-\begin{matlab}
-ans =     0
-\end{matlab}
-\item Matlab: Bei Inf ist der Test durch $==$  m\"oglich!
-\begin{matlabin}
-(1.2*realmax)==Inf
-\end{matlabin}
-\begin{matlab}
-ans =     1
-\end{matlab}
 \end{itemize}
+Python:
+\begin{itemize}
+  \item brauchen Modul \textsl{NumPy}\\
+    \begin{pyin}
+import numpy as np
+    \end{pyin}
+  \item \isage{np.isinf} und  \isage{np.isnan} testen auf
+    $\infty$ bzw. NaN.
+    \begin{pyin}
+np.isinf(sys.float_info.max*1.1)      
+    \end{pyin}
+    \begin{pyout}
+True      
+    \end{pyout}
+\end{itemize}
+
 \end{frame}
 %
 % Folie
@@ -844,18 +865,18 @@ ans =     1
 %
 % Folie
 %
-\begin{frame}[fragile]{Darstellungsformate am Beispiel $1/7$}
-\begin{tabular}{ll}
-\alert{ \mcode{format short}} &  0.1429 \\
-\alert{ \mcode{format short e} }& 1.4286e-01\\
-\alert{ \mcode{format short g} }&0.14286\\
-\alert{ \mcode{format long} }& 0.14285714285714\\
-\alert{ \mcode{format long g} }& 0.142857142857143\\
-\alert{ \mcode{format long e} }& 1.428571428571428e-01\\
-\end{tabular}
-
-Das Default-Format ist \mcode{short}. 
-\end{frame}
+%\begin{frame}[fragile]{Darstellungsformate am Beispiel $1/7$}
+%\begin{tabular}{ll}
+%\alert{ \mcode{format short}} &  0.1429 \\
+%\alert{ \mcode{format short e} }& 1.4286e-01\\
+%\alert{ \mcode{format short g} }&0.14286\\
+%\alert{ \mcode{format long} }& 0.14285714285714\\
+%\alert{ \mcode{format long g} }& 0.142857142857143\\
+%\alert{ \mcode{format long e} }& 1.428571428571428e-01\\
+%\end{tabular}
+%
+%Das Default-Format ist \mcode{short}. 
+%\end{frame}
 
 
 \begin{frame}[fragile]{Beispiel - Berechnung von $e$}
@@ -998,7 +1019,7 @@ mit $i=\sqrt{-1}$.
 % Folie
 %
 \begin{frame}[fragile]{Matlab: Structures}
-(Python: Listen oder Wörterbücher)\\
+%(Python: Listen oder Wörterbücher)\\
 \alert{Structures:}\\
 Strukturen sind eine Möglichkeit verschiedene Objekte in einer
 Datenstruktur zu bündeln.\\[1cm]
@@ -1019,7 +1040,7 @@ komp_Zahl =
 %
 % Folie
 %
-\begin{frame}[fragile]{Matlab: Structures II}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item Alternativ können Strukturen durch
 \begin{matlabin}
@@ -1055,7 +1076,7 @@ C =
 %
 % Folie
 %
-\begin{frame}[fragile]{Matlab: Befehle für Cell Arrays}
+\begin{frame}[fragile]{}
 \begin{itemize}
 \item Zugriff auf Cell-Arrays:\\ 
 \begin{columns}[c]
@@ -1104,6 +1125,37 @@ b 1.2
 \end{pyout}
 \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]{Python: strukturierte array}
+  \textbf{Datentypen für Arrays (\isage{dtypes})}
+  \begin{itemize}
+    \item Types: \isage{int} , \isage{uint} , \isage{float}, \isage{complex}, \isage{string} \ldots
+    \item Character Codes : '<typechar><bytes>' : 'i4', 'u4', 'f8', 'c16', 'S25'
+    \item typecast: \isage{<object>.astype(<type>)}
+  \end{itemize}
+Beispiel:
+  \begin{pyin}
+b = np.array([5, 12345, 'test'],dtype='S4')
+  \end{pyin}
+\begin{pyout}
+array(['5', '1234', 'test'], dtype='|S4')
+\end{pyout}
+\textbf{Typen definieren}
+\begin{pyin}
+dt = np.dtype('i4',(2,2)) # 2x2 integer array
+\end{pyin}
+\textbf{Strukturierte Arrays}
+\begin{pyin}
+ct = zeros(6, dtype=[('name','S40'),('pop','u4') ])
+ct[0]['name'] = 'Auckland'
+ct[0]['pop'] = 1418000; ct[0]
+\end{pyin}
+\begin{pyout}
+('Auckland', 1418000L)
+\end{pyout}
+\end{frame}
+
+
 
 
 \subsection{Chars und Strings}

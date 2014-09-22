@@ -11,38 +11,41 @@ TODO 2014-01-23 Form
 
 
 ----
+TODO 2014-09-22 scons macht keine zips..
+TODO 2014-02-02 fancy indexing
+TODO 2014-01-23  mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
 
 TODO 2014-02-02 funktionale programmieren betonen und die moeglichkeiten einfuehren
+
+TODO 2014-01-23  nurbs! +einheit4
 
 TODO 2014-01-23  Beispiel optimierung? (dlr-spiegel ? seratec?) schoebel fragen 
 TODO 2014-01-23  und z.b. etwas von den inversen problemen ?   
 
-TODO 2014-01-23  show() doch erwaehnen, da es nur in einer variante direkt geht
-TODO 2014-01-23  mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
-TODO 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html
-TODO 2014-02-02 fancy indexing
-TODO 2014-01-23  mehrdim-arrays zu datenstrukturen
+DONE 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html: Übungsaufgabe machen
+  CLOSED: 2014-09-22 19:39:55
+  :LOGBOOK:
+    DONE: 2014-09-22 19:39:55
+    WAITING: 2014-09-22 19:39:54
 
 TODO 2014-01-23  volle latex-unterstuetzung fuer bilder testen . gnuplot-ersatz nochmal betonen tikz-export testen.
 
 
 TODO 2014-02-02 parallelisierung und perfomance-issues total ausbauen! +einheit9
+TODO 2014-02-03 introduce assert-statements for debugging purposes 
+TODO 2014-09-22 profiling +einheit8
 
 TODO 2014-02-02 objektorientierung einbauen
 
 TODO 2014-01-23  visualisierung und validierung ausbauen +einheit7
-
 TODO 2014-01-23  ein paar mehr demos machen! +einheit7
 
-TODO 2014-01-23  grafik zusammen auf eine vorlesung
 
 TODO 2014-01-23 allgemein mehr ueber Zerlegungen (cholesky, singulaerwertzerlegung) wissen!  +einheit5
 TODO 2014-01-23  Theorie sobolevsche Mittelungsfunktion (siehe skript lube) +einheit5
-TODO 2014-01-23  nurbs!
 TODO 2014-01-23  simple finite elements!
 TODO 2014-01-23  dreieckserzeugung und delaunay ? 
 
-TODO 2014-02-03 introduce assert-statements for debugging purposes
 
 TODO 2014-01-23 Steifigkeit?http://www1.uni-hamburg.de/W.Wiedl/Skripte/Matlab/ODE/STEIF/ +einheit6
 TODO 2014-01-23 was sind die Lorenzgleichungen ? http://de.wikipedia.org/wiki/Lorenz-Attraktor (und siehe pdf's) +einheit6

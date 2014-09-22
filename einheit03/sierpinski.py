@@ -31,4 +31,4 @@ ecke3 = array([0.5, sqrt(3)/2])
 figure
 sierpinski (ecke1 ,ecke2 ,ecke3 , level)
 title ('Sierpinski Dreieck , Level ={}'.format(level))
-
+show()

@@ -7,7 +7,7 @@
 %Automatischer Zeilenumbruch ist aktiviert
 \usepackage{listings}
 %\usepackage[framed]{mcode}
-%\usepackage{mcode}
+\usepackage{mcode}
 % This command allows you to typeset syntax highlighted Matlab
 % code ``inline''.
 % mcode fuer matlab
@@ -27,7 +27,7 @@
 
 \lstdefinelanguage{fooHaskell} {%
   basicstyle=\footnotesize\ttfamily,%
-  commentstyle=\slshape\color{gray},%
+  commentstyle=\slshape\color[gray][1.0],%
   keywordstyle=\bfseries,%\color{KW4},
   frame=single,
   breaklines=true,
@@ -94,22 +94,23 @@
 
 
 \lstdefinelanguage{fooMatlab} {%
+language=matlab,
 backgroundcolor=\color[gray]{0.9},
 breaklines=true,
 basicstyle=\ttfamily\small,
 %otherkeywords={ =},
-%keywordstyle=\color{blue},
-%stringstyle=\color{darkgreen},
+keywordstyle=\color{blue},
+stringstyle=\color{darkgreen},
 showstringspaces=false,
-%emph={for, while, if, elif, else, not, and, or, printf, break, continue, return, end, function},
-%emphstyle=\color{blue},
-%emph={[2]True, False, None, self, NaN, NULL},
-%emphstyle=[2]\color{key},
+emph={for, while, if, elif, else, not, and, or, printf, break, continue, return, end, function},
+emphstyle=\color{blue},
+emph={[2]True, False, None, NaN, Inf},
+emphstyle=[2]\color{key},
 %emph={[3]from, import, as},
 %emphstyle=[3]\color{blue},
-%upquote=true,
+upquote=true,
 %morecomment=[s]{"""}{"""},
-%commentstyle=\color{gray}\slshape,
+commentstyle=\color{gray}\slshape,
 %framexleftmargin=1mm, framextopmargin=1mm, 
 %title=\tiny matlab,
 frame=single,

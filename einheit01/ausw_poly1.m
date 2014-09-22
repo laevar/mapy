@@ -8,6 +8,6 @@ function y = ausw_poly1(a,x)
 %  Gerd Rapin      1.11.2003
 %------------------------------------------------------
 
-n = length(a);
-aux_vector = x.^(0:n-1);
-y = aux_vector*transpose(a);
+n = length(a)
+aux_vector = x.^(0:n-1)
+y = aux_vector*transpose(a)

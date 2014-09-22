@@ -8,3 +8,13 @@ DONE 2014-01-23  interface zu C in python (einheit8)
     DONE: 2014-02-02 21:13:58
 
 
+DONE 2014-01-23  show() doch erwaehnen, da es nur in einer variante direkt geht
+  CLOSED: 2014-09-22 18:36:53
+  :LOGBOOK:
+    DONE: 2014-09-22 18:36:53
+    WAITING: 2014-09-22 18:36:52
+DONE 2014-01-23  grafik zusammen auf eine vorlesung
+  CLOSED: 2014-09-22 18:59:23
+  :LOGBOOK:
+    DONE: 2014-09-22 18:59:23
+    WAITING: 2014-09-22 18:59:22

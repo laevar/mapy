@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 3}
-\subtitle{Rekursionen, Grafik}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 3 - Rekursionen, Grafik}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -25,21 +25,34 @@ Bei jedem Aufruf wird ein neuer lokaler Workspace erzeugt.\\[1cm]
 % Slide
 %
 \begin{frame}[fragile]{Fakult"at - rekursiv}
-\matinput{fak.m}
+\begin{matlabin}
+function res = fak(n)
+if (n == 1)
+    res = 1;
+else
+    res = n*fak(n-1);
+end
+\end{matlabin}
 \begin{pyin}
 def fak(n):
-    if (n == 1):
-        res = 1
-    else:
-        res = n*fak(n -1)
-    return res
+  if (n == 1):
+    res = 1
+  else:
+   res = n*fak(n -1)
+  return res
 \end{pyin}
 \end{frame}
 %
 % Slide
 %
 \begin{frame}[fragile]{Fakult"at - direkt}
-\matinput{fak_it.m}
+\begin{matlabin}
+function fak = fak_it(n)
+fak = 1;
+for i = 1:n
+  fak = fak*i;
+end;
+\end{matlabin}
 \begin{pyin}
 def fak_it(n):
     fak = 1
@@ -54,7 +67,7 @@ def fak_it(n):
 \begin{frame}[fragile]{Fakult"at - Zeitvergleich}
 \matinput{fak_vergleich.m}
 \begin{pyin}
-%timeit fak_it(20)
+%timeit fak_it(200)
 \end{pyin}
 \end{frame}
 %
@@ -74,13 +87,13 @@ end;
 \end{matlabin}
 \begin{pyin}
 def ggt_rekursiv(a,b):
-    if a != b:
-        if a>b:
-            a -= b
-        else:
-            b -= a
-        return ggt_rekursiv(a,b)
-    return a
+  if a != b:
+    if a>b:
+      a -= b
+    else:
+      b -= a
+    return ggt_rekursiv(a,b)
+  return a
 \end{pyin}
 \end{frame}
 %
@@ -148,6 +161,7 @@ ecke3 = array([0.5, sqrt(3)/2])
 figure
 sierpinski (ecke1 ,ecke2 ,ecke3 , level)
 title ('Sierpinski Dreieck , Level ={}'.format(level))    
+show()
   \end{pyin}
 \end{frame}
 \begin{frame}[fragile]{Python: Implementierung}
@@ -192,6 +206,7 @@ plot(x,y1)
  \column{0.5\textwidth}
 \pgfimage[width=\textwidth]{figures/grafik_1}
 \end{columns}
+\alert{Hinweis:} in Python muss häufig \isage{show()} ausgeführt werden um die Grafiken darzustellen.
 \end{frame}
 % 
 % Slide
@@ -225,8 +240,8 @@ markiert.
   y (gelb), k (schwarz), w (weiß)\\
 \alert{ Marker} & o (Kreis), * (Stern), . (Punkt), + (Plus), x (Kreuz), s
   (Quadrat), d (Raute),... \\
-\alert{ Linien-Stil} &  - (durchgezogene Linie), \imatlab{--} (gestrichelte
-  Linie), \imatlab{:} (gepunktete Linie), \imatlab{-.} (Strich-Punkt Linie)\\
+\alert{ Linien-Stil} &  - (durchgezogene Linie), \mcode{--} (gestrichelte
+  Linie), \mcode{:} (gepunktete Linie), \mcode{-.} (Strich-Punkt Linie)\\
 \end{tabular}
 
 Läßt man den Linien-Stil weg, so werden die Punkte nicht verbunden.
@@ -305,18 +320,18 @@ plot(x,p1,'r:',x,p2,'g--',x,p3,'b-.',x,p4,'m-','LineWidth',2)
 % 
 \begin{frame}[fragile]{Achseneinstellungen}
 \begin{tabular}{p{5cm}p{6cm}}
-\imatlab{axis([x1 x2 y1 y2])} & Setzen der $x$- und $y$-Achsen
+\mcode{axis([x1 x2 y1 y2])} & Setzen der $x$- und $y$-Achsen
 Grenzen\\
-\imatlab{axis auto}| \isage{axis('auto')} & Rückkehr zu Default Achsen Grenzen\\
-\imatlab{axis equal}| \isage{axis('equal')}& Gleiche Dateneinheiten auf allen Achsen\\
-\imatlab{axis off}| \isage{axis('off')}& Enfernen der Achsen\\
-\imatlab{axis square}| \isage{axis('square')}& quadratische Achsen-Box\\
-\imatlab{axis tight}| \isage{axis('tight')}& Achsen Grenzen werden passend zu den Daten
+\mcode{axis auto}| \mcode{axis('auto')} & Rückkehr zu Default Achsen Grenzen\\
+\mcode{axis equal}| \mcode{axis('equal')}& Gleiche Dateneinheiten auf allen Achsen\\
+\mcode{axis off}| \mcode{axis('off')}& Enfernen der Achsen\\
+\mcode{axis square}| \mcode{axis('square')}& quadratische Achsen-Box\\
+\mcode{axis tight}| \mcode{axis('tight')}& Achsen Grenzen werden passend zu den Daten
 gewählt. \\
-\imatlab{xlim([x1 x2])} & Setzen der $x$-Achse\\
-\imatlab{ylim([y1 y2])} & Setzen der $y$-Achse\\
-\imatlab{grid on}| \isage{grid('on')} & Gitter aktivieren\\
-\imatlab{box on}, \imatlab{box off}  | \isage{box('on')} \isage{box('off')}& Box um die Grafik
+\mcode{xlim([x1 x2])} & Setzen der $x$-Achse\\
+\mcode{ylim([y1 y2])} & Setzen der $y$-Achse\\
+\mcode{grid on}| \mcode{grid('on')} & Gitter aktivieren\\
+\mcode{box on}, \mcode{box off}  | \mcode{box('on')} \mcode{box('off')}& Box um die Grafik
 legen, Box entfernen
 \end{tabular}
 \end{frame}
@@ -328,15 +343,19 @@ legen, Box entfernen
 % 
 \begin{frame}[fragile]{Beschriften der Grafik}
 \begin{itemize}
-\item Titel:  \alert{ \imatlab{title('Titel')}}
-\item Achsenbeschriftung:  \alert{ \imatlab{xlabel('Text')}},
+\item Titel: \\ 
+\alert{ \imatlab{title('Titel')}}
+\item Achsenbeschriftung:\\
+\alert{ \imatlab{xlabel('Text')}},
   \alert{ \imatlab{ylabel('Text')}} 
-\item Legende(Matlab): \alert{ \imatlab{legend('Text1','Text2',...,nr)}} \\
+\item Legende(Matlab):\\
+\alert{ \imatlab{legend('Text1','Text2',...,nr)}} \\
 {\scriptsize \alert{ nr} gibt die Position der Legendenbox in der Grafik an:
   -1 (rechts vom Plot), 0 'bester' Ort, 1 oben rechts (default), 2
   oben links, 3 unten links, 4 unten rechts. }
-\item Legende(Python): \alert{\isage{legend( ('Text1','Text2',..),loc='<locationstr>' )}}
-\item zusätzlicher Text: \alert{ \imatlab{text(x,y,'Text')}}\\ Plaziert
+\item Legende(Python):\\ 
+\alert{\isage{legend( ('Text1','Text2',..),loc='<locationstr>' )}}
+\item zusätzlicher Text:\\ \alert{ \imatlab{text(x,y,'Text')}}\\ Plaziert
   'Text' an die Position $(x,y)$ bzgl. der Werte auf der $x$-
   bzw. $y$-Achse. 
 \end{itemize}

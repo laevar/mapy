@@ -20,4 +20,7 @@ def fak(n):
         res = n*fak(n -1)
     return res
     
-#%timeit fak_it(20)
+
+    
+#%timeit fak_it(200)
+#print fak_it(200)

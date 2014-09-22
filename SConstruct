@@ -9,56 +9,50 @@ def cleanfiles(targetdir,auxfiletypes):
 
 
 #auxilary files to delete when cleaning up
-#auxfiletypes = ['.log','.bak', '.aux','.bbl', '.blg' ,'.idx' ,'.brf' ,'.out' ,'.nlo' ,'.nls' ,'.ilg' ,'.ind' ,'.lof', '.lot','.toc']
+auxfiletypes = ['.log','.bak', '.aux','.bbl', '.blg' ,'.idx' ,'.brf' ,'.out' ,'.nlo' ,'.nls' ,'.ilg' ,'.ind' ,'.lof', '.lot','.toc']
 
-targets =  ['einheit01','einheit02','einheit03','einheit04','einheit05','einheit06','einheit07','einheit08']
 
 # creating environment
 env = Environment(ENV = os.environ, PDFLATEX = 'xelatex')
 
-# Look in sage-directory for .sty files
+# Look in main-directory for .sty files
 env['ENV']['TEXINPUTS'] = ":.:" + os.getcwd()
 
 # debug output..
 print "BUILD_TARGETS is", map(str, BUILD_TARGETS)
 
-env.Alias('klausur1', 'klausuren/2012/klausur1')
-env.Alias('klausur2', 'klausuren/2012/klausur2')
+def PhonyTargets(env = None, **kw):
+  if not env: env = DefaultEnvironment()
+  for target,action in kw.items():
+    env.AlwaysBuild(env.Alias(target, [], action))
 
-# setting default target
-#Default('einheit01')
-
+PhonyTargets(ZIPS = 'zip ')
 
 
 # build environments for the units
-for t in targets:
-    # file for quicksheet
-    if t == 'quicksheet':
-        file = 'quicksheet.tex'
-    elif t == 'klausur1':
-        # file for exams
-        file = 'klausuren/2012/klausur1/klausur1.tex'
-        env.Alias('')
-    elif t == 'klausur2':
-        file = 'klausuren/2012/klausur2/klausur2.tex'
-    elif t == 'script':
-        file = 'script/script.tex'
-    else:
-        # files for units
-        file = t + '/' + t + '.tex'
-        env.PDF(file)
-        file = t + '/uebung/aufgaben_einh' + t[-2:] + '.tex'
-        subprocess.call('rm '+t+'/mfiles'+t[-2:]+'.zip',shell=True)
-        subprocess.call('zip -9r '+t+'/mfiles'+t[-2:]+'.zip '+t+'/*.m '+t+'/*.c',shell=True)
-        subprocess.call('zip -9r '+t+'/pyfiles'+t[-2:]+'.zip '+t+'/*.py '+'/*.pyx ',shell=True)
+quick = env.PDF('quicksheet.tex')
+Alias ('quick',quick)
+Default (quick)
+    
+script = env.PDF('script/script.tex')
+Alias ('script',script)
+
+
+targets =  ['einheit01','einheit02','einheit03','einheit04','einheit05','einheit06','einheit07','einheit08']
+for t in targets:    
+  # files for units
+  lect = t + '/' + t + '.tex'
+  env.PDF(lect)
+  exer = t + '/uebung/aufgaben_einh' + t[-2:] + '.tex'
+  env.PDF(exer)
+  env.Zip(t+'.zip', t+'/*.m '+t+'/*.py '+t+'/uebung/*.pdf '+t+'/*.pdf '+t+'/*.c')
+
+  #dir = os.path.dirname(lect)
+  #if dir == '': 
+  #    dir = '.'
+  #print dir
+  #env.Clean(t, cleanfiles(dir,auxfiletypes))
  
-    # add builder for path
-    env.PDF(file)
-    dir = os.path.dirname(file)
-    #if dir == '': 
-    #    dir = '.'
-    #print dir
-    #env.Clean(t, cleanfiles(dir,auxfiletypes))
 
 
 
@@ -85,9 +79,4 @@ for t in targets:
 #
 #    env['MAKEINDEX']      = 'makeindex'
 
-#TODO: extractaufg : 
-
-#TODO: convertslides : 
-
-#TODO: exec ssh -t -L 8000:localhost:8000 $1@login.num.math.uni-goettingen.de sh -c 'hostname; exec ~/sagelocal port=8000'
 

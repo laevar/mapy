@@ -18,3 +18,14 @@ DONE 2014-01-23  grafik zusammen auf eine vorlesung
   :LOGBOOK:
     DONE: 2014-09-22 18:59:23
     WAITING: 2014-09-22 18:59:22
+DONE 2014-09-22 scons macht keine zips..
+  CLOSED: 2014-09-23 17:11:16
+  :LOGBOOK:
+    DONE: 2014-09-23 17:11:16
+    WAITING: 2014-09-23 17:11:15
+DONE 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html: Übungsaufgabe machen
+  CLOSED: 2014-09-22 19:39:55
+  :LOGBOOK:
+    DONE: 2014-09-22 19:39:55
+    WAITING: 2014-09-22 19:39:54
+

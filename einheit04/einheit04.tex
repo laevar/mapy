@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 4}
-\subtitle{Polynome u. Interpolation, In- Output, Debugging}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 04 - Polynome u. Interpolation, In- Output, Debugging}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -43,7 +43,7 @@ b=\left( \begin{array}{c}
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Polynomiale Interpolation II}
+\begin{frame}[fragile]\frametitle{}
 Suche ein Polynom vom Grad n
 \[ p(x)= p_0 +p_1 x +p_2 x^2 +p_3 x^3+ \dots +p_n x^n,  \]
  dass durch die  $n+1$ Punkte $(x_i,y_i)_{i=0}^n$
@@ -64,14 +64,14 @@ mit \mcode{x=linspace(-5,5,13)} und $y_i=\frac{1}{1+x_i^2}$.
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Matlab: eigene Interpolation I}
+\begin{frame}[fragile]\frametitle{Matlab: eigene Interpolation}
 \matinput{interpol2.m}
 \end{frame}
 
 % 
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Matlab: eigene Interpolation II}
+\begin{frame}[fragile]\frametitle{}
 \matinput{interpol3.m}
 \end{frame}
 \begin{frame}[fragile]{Python: eigene Interpolation}
@@ -309,36 +309,6 @@ x,y,z=loadtxt('seamount.csv',delimiter=',',unpack=True)
 %
 % Slide
 % 
-\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
-\begin{matlabin}
-xi = linspace(min(x),max(x),40);
-yi = linspace(min(y),max(y),40);
-[XI,YI] = meshgrid(xi,yi);
-F = TriScatteredInterp(x,y,z,'linear');
-ZI = F(XI,YI);
-surf(XI,YI,ZI)
-\end{matlabin}
-\begin{center}
-\includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data_plot}
-\end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Python: Beispiel}
-\begin{pyin}
-xi = linspace (min(x),max(x),40)
-yi = linspace (min(y),max(y),40)
-[XI ,YI] = meshgrid (xi ,yi)
-ZI = sp.griddata ((x,y),z,(XI,YI),method='linear')
-fig = figure() , ax = Axes3D(fig)
-ax.plot_surface(XI ,YI ,ZI,rstride=1,cstride=1) 
-\end{pyin}
-\begin{center}
-\includegraphics[width=0.5\textwidth]{figures/scattered_data_plot_py}
-\end{center}
-\end{frame}
-%
-% Slide
-% 
 \begin{frame}[fragile]\frametitle{Unstrukturierte Gitter Interpolieren}
 \begin{matlabin}
 F = TriScatteredInterp(<x>,<y>,<z>,<methode>);
@@ -380,13 +350,43 @@ ZI = sp.interpolate.griddata ((<x>,<y>),<z>,(<XI>,<YI>),method='<methode>')
 %
 % Slide
 % 
+\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
+\begin{matlabin}
+xi = linspace(min(x),max(x),40);
+yi = linspace(min(y),max(y),40);
+[XI,YI] = meshgrid(xi,yi);
+F = TriScatteredInterp(x,y,z,'linear');
+ZI = F(XI,YI);
+surf(XI,YI,ZI)
+\end{matlabin}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/beispiel_scattered_data_plot}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Python: Beispiel}
+\begin{pyin}
+xi = linspace (min(x),max(x),40)
+yi = linspace (min(y),max(y),40)
+[XI ,YI] = meshgrid (xi ,yi)
+ZI = sp.griddata ((x,y),z,(XI,YI),method='linear')
+fig = figure() , ax = Axes3D(fig)
+ax.plot_surface(XI ,YI ,ZI,rstride=1,cstride=1) 
+\end{pyin}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figures/scattered_data_plot_py}
+\end{center}
+\end{frame}
+%
+% Slide
+% 
 \begin{frame}[fragile]\frametitle{Auf beliebigen Punkten Interpolieren}
 \begin{matlabin}
 ZI = interp2(<X>,<Y>,<Z>,<XI>,<YI>,<method>)
 \end{matlabin}
 \begin{pyin}
-f=sp.interpolate.interp2d(<XI>,<YI>,<ZI>,kind='<method>')
-ZI= f(XIp,YIp)
+f = sp.interpolate.RectBivariateSpline(<x>,<y>,<Z>)
+ZI = f(XI,YI)
 \end{pyin}
 \begin{itemize}
 \item Allgemein sind $X,Y,Z$ Matrizen. Dabei ist $Z(i,j)$ der Funktionswert an
@@ -394,6 +394,8 @@ ZI= f(XIp,YIp)
 \item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
   ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
 \item Art des Interpolierens (method):
+Python: bikubische Splines\\
+Matlab:
 \begin{itemize}
 % \item \mcode{'nearest'}: st\"uckweise konstant
  \item \mcode{'linear'}: linear
@@ -419,17 +421,16 @@ surf(XIp,YIp,ZIp)
 
 %
 % Slide
-% TODO: interp2 stuerzt mit den gegeben daten immer noch ab...
-\begin{frame}[fragile]\frametitle{Python: Interp2 - Beispiel}
+\begin{frame}[fragile]\frametitle{Python: RectBivariateSpline - Beispiel}
 \begin{pyin}
-xip = linspace (min(x),max(x),15), yip = linspace (min(y),max(y),15)
+xip = linspace (min(x),max(x) ,15), yip = linspace (min(y),max(y) ,15)
 [XIp ,YIp] = meshgrid (xip ,yip)
-f = inter.interp2d (xi,yi,ZI,kind='linear')  
-ZIp = f(XIp,YIp)
+f = inter.RectBivariateSpline(xi,yi,np.nan_to_num(ZI))
+ZIp = f(xip,yip)
 \end{pyin}
-%\begin{center}
-%\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
-%\end{center}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
+\end{center}
 \end{frame}
 
 \section{In- und Output}

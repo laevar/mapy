@@ -36,6 +36,6 @@ xlim([-6,6])
 grid('on')
 box('on')
 legend(('Interpolationspunkte','Interpolierende von f','$f(x)=1/(1+x^2)$'),loc='best')
-
+show()
 
 

@@ -11,9 +11,9 @@ TODO 2014-01-23 Form
 
 
 ----
-TODO 2014-09-22 scons macht keine zips..
 TODO 2014-02-02 fancy indexing
 TODO 2014-01-23  mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
+
 
 TODO 2014-02-02 funktionale programmieren betonen und die moeglichkeiten einfuehren
 
@@ -21,12 +21,6 @@ TODO 2014-01-23  nurbs! +einheit4
 
 TODO 2014-01-23  Beispiel optimierung? (dlr-spiegel ? seratec?) schoebel fragen 
 TODO 2014-01-23  und z.b. etwas von den inversen problemen ?   
-
-DONE 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.org/doc/numpy/user/basics.rec.html: Übungsaufgabe machen
-  CLOSED: 2014-09-22 19:39:55
-  :LOGBOOK:
-    DONE: 2014-09-22 19:39:55
-    WAITING: 2014-09-22 19:39:54
 
 TODO 2014-01-23  volle latex-unterstuetzung fuer bilder testen . gnuplot-ersatz nochmal betonen tikz-export testen.
 
@@ -46,6 +40,8 @@ TODO 2014-01-23  Theorie sobolevsche Mittelungsfunktion (siehe skript lube) +ein
 TODO 2014-01-23  simple finite elements!
 TODO 2014-01-23  dreieckserzeugung und delaunay ? 
 
+TODO 2014-09-23 fuer python modul-importe wenigstens kurz erklaeren! +einheit1
+TODO 2014-09-23 arange richtig einfuehren. +einheit1
 
 TODO 2014-01-23 Steifigkeit?http://www1.uni-hamburg.de/W.Wiedl/Skripte/Matlab/ODE/STEIF/ +einheit6
 TODO 2014-01-23 was sind die Lorenzgleichungen ? http://de.wikipedia.org/wiki/Lorenz-Attraktor (und siehe pdf's) +einheit6

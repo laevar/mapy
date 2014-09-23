@@ -21,18 +21,11 @@ env['ENV']['TEXINPUTS'] = ":.:" + os.getcwd()
 # debug output..
 print "BUILD_TARGETS is", map(str, BUILD_TARGETS)
 
-def PhonyTargets(env = None, **kw):
-  if not env: env = DefaultEnvironment()
-  for target,action in kw.items():
-    env.AlwaysBuild(env.Alias(target, [], action))
-
-PhonyTargets(ZIPS = 'zip ')
 
 
 # build environments for the units
 quick = env.PDF('quicksheet.tex')
 Alias ('quick',quick)
-Default (quick)
     
 script = env.PDF('script/script.tex')
 Alias ('script',script)
@@ -45,16 +38,20 @@ for t in targets:
   env.PDF(lect)
   exer = t + '/uebung/aufgaben_einh' + t[-2:] + '.tex'
   env.PDF(exer)
-  env.Zip(t+'.zip', t+'/*.m '+t+'/*.py '+t+'/uebung/*.pdf '+t+'/*.pdf '+t+'/*.c')
-
+  files = Glob(t+'/*.m') + Glob(t+'/*.py') + Glob(t+'/uebung/*.pdf') + Glob(t+'/*.pdf') + Glob(t+'/*.c')
+  zipper = env.Zip(t+'/'+t+'.zip',files)
   #dir = os.path.dirname(lect)
   #if dir == '': 
   #    dir = '.'
   #print dir
   #env.Clean(t, cleanfiles(dir,auxfiletypes))
- 
 
+def PhonyTargets(env = None, **kw):
+  if not env: env = DefaultEnvironment()
+  for target,action in kw.items():
+    env.AlwaysBuild(env.Alias(target, [], action))
 
+PhonyTargets(ZIPS = 'zip ')
 
 #TODO: nachbearbeitung pdf2pdf damit drucken funktioniert..
 

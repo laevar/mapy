@@ -11,10 +11,10 @@ import matplotlib as mpl         # Matplotlib (2D/3D plotting library)
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt  # Matplotlib's pyplot: MATLAB-like syntax
 from pylab import *              # Matplotlib's pylab interface
-from scipy.interpolate import interp1d
+from scipy.interpolate import interp1d,interp2d
 
-x = arange(-2,2,0.1)
-y = polyval ([1,-1,0,1],x)
+x = arange(-1,1,0.1)
+y = polyval ([1.,-1.,0,1],x)
 plot(x,y,'r--',linewidth=3)
 
 print roots([1,-1,0,1])
@@ -53,3 +53,4 @@ subplot(2,3,5), plot(x,y,'ro',z,y3,'b-.',linewidth=3), title('kubische Interpol.
 f4=interp1d(x,y,kind='nearest')
 y5=f4(z)
 subplot(2,3,6), plot(x,y,'ro',z,y5,'b-.',linewidth=3), title('konst. Approx.');
+show()

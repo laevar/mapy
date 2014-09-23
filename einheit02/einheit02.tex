@@ -138,7 +138,7 @@ bei geeignetem Startwert $x_0$.  \\
 % Plot 1
 x = linspace(0,1.5,50);
 y = cos(x);
-plot(x,x,x,y,'LineWidth',3),
+plot(x,x,x,y,'LineWidth',3);
 axis([-0.1 1.5 -0.1 1.1]);
 hold on;
 pause; % stoppt bis eine Taste gedrückt wird
@@ -230,7 +230,7 @@ Matlab
 \begin{matlabin}
 if  <Ausdruck>
    <Befehle>
-elseif
+elseif <Ausdruck>
   <Befehle>
 else
    <Befehle>
@@ -241,7 +241,7 @@ Python
 \begin{pyin}
 if <Ausdruck>:
   <Befehle>
-elif:
+elif <Ausdruck>:
   <Befehle>
 else:
   <Befehle>

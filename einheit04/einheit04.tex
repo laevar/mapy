@@ -393,7 +393,7 @@ ZI = f(XI,YI)
   $(X(i,j),Y(i,j))$. $X$ und $Y$ sind in der Regel durch \mcode{meshgrid} erzeugt. 
 \item Es wird an den Stellen $(XI(i,j),YI(i,j))$ interpoliert. Das Ergebnis
   ist $ZI(i,j)$. Die Einträge von $XI$ bzw. $YI$ k\"onnen beliebig sein. 
-\item Art des Interpolierens (method):
+\item Art des Interpolierens (method):\\
 Python: bikubische Splines\\
 Matlab:
 \begin{itemize}
@@ -429,7 +429,7 @@ f = inter.RectBivariateSpline(xi,yi,np.nan_to_num(ZI))
 ZIp = f(xip,yip)
 \end{pyin}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{figures/beispiel_interp2_pyplot}
+\includegraphics[width=0.6\textwidth]{figures/beispiel_rectspline_py}
 \end{center}
 \end{frame}
 
@@ -485,8 +485,8 @@ ein = input('Text'[,'s'])
 \begin{pyin}
 ein = raw_input('Text')  
 \end{pyin}
-Eingabe vom Benutzer abfragen und 'Text' anzeigen. Die Eingabe durch Return abschliessen. (Matlab: Option 's' erwartet ein String).
-
+'Text' anzeigen, Eingabe vom Benutzer abfragen, durch Return abschliessen. (Matlab: Option 's' erwartet ein String).
+\textsl{Beispiel}:
 \begin{matlabin}
 2*input('Bitte geben Sie den Startwert ein: ')
 \end{matlabin}
@@ -511,15 +511,15 @@ f = sin(x)*cos(x)
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{ginput}
-Das Kommando 
+\begin{frame}[fragile]\frametitle{grafische Eingabe}
+Maus abfragen
 \begin{matlabin}
 [x,y] = ginput(n)
 \end{matlabin}
 \begin{pyin}
 coord = ginput(n)  
 \end{pyin}
-gibt die Koordinaten der $n$ Maus-Klicks als Vektoren $x$ und $y$ bzw. als Liste von xy-Tuplen zurück, 
+Rückgabe: Koordinaten der $n$ Maus-Klicks als Vektoren $x$ und $y$ bzw. Liste von xy-Tuplen, 
 an denen sich die Maus im aktuellen Grafik-Fenster befunden hat.  
 \begin{itemize}
   \item \mcode{[x,y]=ginput}| \isage{ginput(0)} sammelt so lange Daten ein, bis die
@@ -545,7 +545,7 @@ an denen sich die Maus im aktuellen Grafik-Fenster befunden hat.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Matlab: Bezier-Polynom}
+\begin{frame}[fragile]\frametitle{}
 \begin{center}\includegraphics[width=0.8\textwidth]{figures/bezier}\end{center}
 \end{frame}
 %
@@ -673,28 +673,6 @@ fprintf( <Format>, <Argument1>, <Argument2>,...)
   \end{itemize}
 
 \end{frame}
-
-%
-% Slide
-\begin{frame}[fragile]\frametitle{Matlab: Schreiben in Dateien - Beispiel}
-\matinput{waehrung.m}
-\end{frame}
-%
-% Slide
-\begin{frame}[fragile]\frametitle{Python: Schreiben in Dateien - Beispiel}
-  \begin{pyin}
-waehrung_name = raw_input('Umrechnung fuer welche Waehrung ?')
-print('Ein Euro entspricht wievielen {} ? '.format(waehrung_name))
-umrechnung = float(raw_input(''))
-a = [1,2,3,5,10,20,50,100,200,1000]
-fid = open('umrechnung.txt','w')
-fid.write('Umrechnungstabelle: Euro-{}\n\n'.format(waehrung_name))
-for i in a:
-  fid.write('{:7.2f} Euro = {:7.2f} {}\n'.format(i,umrechnung*i,waehrung_name))
-fid.write('\n\n Umrechnungskoeffizient: {:3.2f} \n'.format(umrechnung))
-fid.close()    
-  \end{pyin}
-\end{frame}
 %
 % Slide
 %
@@ -728,21 +706,43 @@ Ist  die Datei nicht zu öffnen, so ist \mcode{fid=-1}.
 %
 \begin{frame}[fragile]\frametitle{Weitere Kommandos}
 \begin{itemize}
-\item In Datei Schreiben
+  \item In Datei mit handle \isage{fid} Schreiben
 \begin{matlabin}
-fprintf( <Datei-Handle>, <Format>, <Argument1>, <Argument2>,..)
+fprintf( fid, <Format>, <Argument1>, <Argument2>,..)
 \end{matlabin}
 \begin{pyin}
 fid.write('Text')
 \end{pyin}
-  \item \imatlab{fclose(fid)} | \isage{fid.close()} schliesst die Datei mit dem Handle \mcode{fid}
+  \item Datei mit Handle \mcode{fid} schliessen.
+\begin{matlabin}
+fclose(fid)
+\end{matlabin}
+\begin{pyin}
+fid.close() 
+\end{pyin}
 \end{itemize}
+\end{frame}
+
+%
+% Slide
+\begin{frame}[fragile]\frametitle{}
+\matinput{waehrung.m}
 \end{frame}
 %
 % Slide
-%
-\begin{frame}[fragile]\frametitle{Matlab: Lesen aus einer Datei - Beispiel}
-\matinput{waehrung_auslesen.m}
+\begin{frame}[fragile]\frametitle{Python: Schreiben in Dateien - Beispiel}
+  \begin{pyin}
+waehrung_name = raw_input('Umrechnung fuer welche Waehrung ?')
+print('Ein Euro entspricht wievielen {} ? '.format(waehrung_name))
+umrechnung = float(raw_input(''))
+a = [1,2,3,5,10,20,50,100,200,1000]
+fid = open('umrechnung.txt','w')
+fid.write('Umrechnungstabelle: Euro-{}\n\n'.format(waehrung_name))
+for i in a:
+  fid.write('{:7.2f} Euro = {:7.2f} {}\n'.format(i,umrechnung*i,waehrung_name))
+fid.write('\n\n Umrechnungskoeffizient: {:3.2f} \n'.format(umrechnung))
+fid.close()    
+  \end{pyin}
 \end{frame}
 %
 % Slide
@@ -763,29 +763,9 @@ fid.write('Text')
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Python: Lesen aus einer Datei - Beispiel}
-  \begin{pyin}
-#Datei einlesen
-fid = open('umrechnung.txt','r')
-fil = fid.read()
-fid.close()
-# Benutze regular Expressions um erste Zeile einzulesen
-res = re.search('Umrechnungstabelle: Euro-(.*)',fil)
-waehrung_name = res.group(1)
-# regular expressions fuer alle Daten
-daten = re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
-# konvertieren der liste von tuples 
-daten = array(daten,dtype=float)
-# finden des Koeffizienten 
-res = re.search('Umrechnungskoeffizient: ([\d.]+)',fil)
-umrechnung = float(res.group(1))
-#Ausgabe
-print('Umrechnung: Euro - {}: Kurs: {} \n'.format(waehrung_name,umrechnung))
-for x in daten:
-    print(' {:7.2f} Euro  = {:7.2f}'.format(x[0],x[1]))    
-  \end{pyin}
+\begin{frame}[fragile]\frametitle{Matlab: Lesen aus einer Datei - Beispiel}
+\matinput{waehrung_auslesen.m}
 \end{frame}
-
 %
 % Slide
 %
@@ -824,6 +804,32 @@ Sucht im \isage{string} nach gegebenen Suchkriterien \isage{pattern}. Gibt Liste
 re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
   \end{pyin}
 \end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: Lesen aus einer Datei - Beispiel}
+  \begin{pyin}
+#Datei einlesen
+fid = open('umrechnung.txt','r')
+fil = fid.read()
+fid.close()
+# Benutze regular Expressions um erste Zeile einzulesen
+res = re.search('Umrechnungstabelle: Euro-(.*)',fil)
+waehrung_name = res.group(1)
+# regular expressions fuer alle Daten
+daten = re.findall('([\d.]+) Euro =\s*([\d.]+)',fil)
+# konvertieren der liste von tuples 
+daten = array(daten,dtype=float)
+# finden des Koeffizienten 
+res = re.search('Umrechnungskoeffizient: ([\d.]+)',fil)
+umrechnung = float(res.group(1))
+#Ausgabe
+print('Umrechnung: Euro - {}: Kurs: {} \n'.format(waehrung_name,umrechnung))
+for x in daten:
+    print(' {:7.2f} Euro  = {:7.2f}'.format(x[0],x[1]))    
+  \end{pyin}
+\end{frame}
+
 %
 % Slide
 %
@@ -1031,11 +1037,14 @@ an, in welcher Funktion der Fehler liegt.}
 %
 \begin{frame}[fragile]\frametitle{Matlab: Fehler abfangen}
 \begin{itemize}
-\item \alert{Fehlermeldungen}
+\item \alert{Fehlermeldungen und Abbruch}
 \begin{matlabin}
 error(<text>) 
 \end{matlabin}
-Bricht das Programm ab. Insbesondere die Eingabeparameter sollten auf Fehler geprüft werden.
+\begin{pyin}
+assert <expression>, <text>  
+\end{pyin}
+Insbesondere die Eingabeparameter sollten auf Fehler geprüft werden.
 \item \alert{Warnungen}
 \begin{matlabin}
 warning(<text>)
@@ -1046,12 +1055,9 @@ Programm wird fortgesetzt.
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Matlab: Beispiel}
+\begin{frame}[fragile]\frametitle{Beispiel Fehler}
 \begin{matlabin}
 function interpolation(f1,N)
-\end{matlabin}
-\alert{ \centering{$\cdots$}}\\
-\begin{matlabin}
 %----------------- Fehlerbehandlung
 if (round(abs(N)) ~= N) | (N==0)
     error(strcat('Bitte fuer die Anzahl der Stuetzstellen',...
@@ -1061,6 +1067,11 @@ if ~ischar(f1)
     error('Bitte fuer die Funktion einen String verwenden');
 end
 \end{matlabin}
+  \begin{pyin}
+def interpolation(f1,N):
+    assert callable(f1), "Bitte eine Funktion übergeben"
+    assert (round (abs(N)) == N) and (N!=0), "Bitte eine natürliche Zahl verwenden"
+  \end{pyin}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Matlab: Integrierter Debugger}

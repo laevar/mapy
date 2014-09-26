@@ -11,7 +11,7 @@ function result = integral()
 %Guidata wiederholen
 han = guidata(findobj('tag','figGUI') );
  
-func = fcnchk(get(han.func,'String'),'vectorized');
+func = inline(get(han.func,'String'));
 N = str2double(get(han.N,'String'));
 a = str2num(get(han.a,'String'));
 b = str2num(get(han.b,'String'));

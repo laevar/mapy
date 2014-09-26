@@ -68,3 +68,4 @@ ax.plot_surface(X ,Y ,f2,rstride=1,cstride=1,cmap=cm.jet)
 
 subplot(2, 2, 4)
 contourf(X,Y,f2,10), title('contourf')
+show()

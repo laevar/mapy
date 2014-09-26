@@ -358,24 +358,31 @@ legen, Box entfernen
 \item zusätzlicher Text:\\ \alert{ \imatlab{text(x,y,'Text')}}\\ Plaziert
   'Text' an die Position $(x,y)$ bzgl. der Werte auf der $x$-
   bzw. $y$-Achse. 
+\item Eigenschaften für den Text. z.B. Ändern der Schriftgröße: \imatlab{title('Titel','FontSize', 20)}| \isage{title('Titel',fontsize=20)}.
 \end{itemize}
 \end{frame}
 % 
 % Slide
 % 
-\begin{frame}[fragile]{Bemerkungen zur Beschriftung}
+\begin{frame}[fragile]{\LaTeX{} in Beschriftungen}
 \begin{itemize}
   \item  \alert{Matlab:} In den strings kann direkt eine abgespeckte \LaTeX-Notation verwendet werden. (nahezu vollständige 
-\LaTeX-Unterstützung: latex-interpreter). 
+\LaTeX-Unterstützung: latex-interpreter). \\
 Beispiele: 
 \begin{itemize} \item \imatlab{\\alpha} $\Rightarrow$ $\alpha$
 \item \imatlab{sin^\{3/2\}(x)} $\Rightarrow$ $\sin^{3/2}(x)$ .
 \item \imatlab{title('f(x) = \\frac\{1\}\{x^2+a\}','interpreter','latex')}
 $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
 \end{itemize}
-\item \alert{Python:} der Mathemodus in den üblichen \$\$ kann benutzt werden. Für die PDF-Ausgabe kann man vollständigen \LaTeX-Umfang nutzen.
-\item Ändern der Schriftgröße, z.B. \imatlab{title('Titel','FontSize', 20)}| \isage{title('Titel',fontsize=20)}.
-\item Auflistung aller modifizierbaren Texteigenschaften: \imatlab{doc text_props}(Matlab)
+\item \alert{Python:} der Mathemodus (eingeschlossen in \$) kann benutzt werden. Für die PDF-Ausgabe kann man vollständigen \LaTeX-Umfang nutzen. \\
+  \alert{Wichtig}: 
+  \begin{itemize}
+    \item String-flag 'r' setzen (Damit \LaTeX-Befehle funktionieren) 
+      \item bei .format geschweifte Klammern mit doppelten Klammern escapen. 
+  \end{itemize}
+Beispiel: \\ 
+\isage{r'$\\frac\{\{1\}\}\{\{x\}\}$ mit x = \{\}'.format(x)}
+%\item Auflistung aller modifizierbaren Texteigenschaften: \imatlab{doc text_props}(Matlab)
 \end{itemize}
 \end{frame}
 % 
@@ -384,7 +391,7 @@ $\Rightarrow$ $f(x) = \frac{1}{x^2+a}$
 \begin{frame}[fragile]{Beispiel - Legendre Polynome II}
 \begin{matlabin}[basicstyle=\scriptsize]
 title('Legendre Polynome','FontSize', 20)
-xlabel('x','FontSize', 20); ylabel('p_n(x)','FontSize', 20)
+xlabel(r'x','FontSize', 20); ylabel(r'p_n(x)','FontSize', 20)
 text(0,0.45,'Maximum')
 legend('n=1','n=2','n=3','n=4',4)
 grid on, box on;
@@ -544,7 +551,7 @@ result = sum(y)*(1/N)
 for i in arange(1.,N+1):
     fill_between([(i-1)/N, i/N],[((i-0.5)/N)**3,  ((i-0.5)/N)**3],facecolor='r')
 plot(arange(0,1,0.01),array(arange(0,1,0.01))**3,linewidth=3)
-title('\int_0^1 x^3 = {} fuer N = {}'.format(result,N),fontsize=20)    
+title(r'$\int_0^1 x^3$ = {} fuer N = {}'.format(result,N),fontsize=20)    
   \end{pyin}
 \end{frame}
 
@@ -572,9 +579,6 @@ title('\int_0^1 x^3 = {} fuer N = {}'.format(result,N),fontsize=20)
 \item Streifenansichten \alert{ \imatlab{slice}}
 \end{itemize}
 \end{itemize}
-\alert{ \imatlab{mesh(X,Y,Z)}} z.B. stellt für Matrizen $X,Y,Z \in
-\mathbb{R}^{n \times k}$ die Punkte 
-\[\alert{  (X(i,j), Y(i,j), Z(i,j))} \quad \mbox{dar.}\]
 \end{frame}
 
 \begin{frame}[fragile]{Python: Dreidimensionale Grafiken}
@@ -594,8 +598,15 @@ Import-Zeile: \isage{from mpl_toolkits.mplot3d import Axes3D}
 % Slide
 % 
 \begin{frame}[fragile]{3D Kurven}
-Bei gegebenen Vektoren $x=(x_i)_{i=1}^n$, $y=(y_i)_{i=1}^n$,
-$z=(z_i)_{i=1}^n$ erzeugt \alert{ \imatlab{plot3(x,y,z)}} einen Plot der die Punkte
+  \begin{matlabin}
+plot3(x,y,z)   
+  \end{matlabin}
+  \begin{pyin}
+plot(x,y,z)   
+  \end{pyin}
+
+mit Vektoren $x=(x_i)_{i=1}^n$, $y=(y_i)_{i=1}^n$, $z=(z_i)_{i=1}^n$ 
+erzeugt Plot der die Punkte
 $(x_i,y_i,z_i)$ und $(x_{i+1},y_{i+1},z_{i+1})$ miteinander
 verbindet. \\
 \begin{center}\includegraphics[width=0.6\textwidth]{figures/plot3d_py}\end{center}
@@ -630,13 +641,13 @@ title('Beispiel: 3D Kurve mit plot',fontsize=15)
 % Slide
 % 
 \begin{frame}[fragile]{Blickwinkel}
-  \centering \imatlab{view(az,el)}(Matlab)| \isage{Axes3D.view_init(el,az)}(Python)
-\begin{itemize}
-\item \alert{ \imatlab{az}} ist die horiz. Rotation in Grad (Def. \alert{
-  $-37.5$}) 
-\item \alert{ \imatlab{el}} ist die vertikale Rotation in Grad (Def. \alert{
-  $30$})
-\end{itemize}
+  \begin{matlabin}
+view(az,el)
+  \end{matlabin}
+  \begin{pyin}
+Axes3D.view_init(el,az)
+  \end{pyin}
+\alert{ \imatlab{az}}:  horiz. Rot. (Grad) (Def. \alert{  $-37.5$}) | \alert{ \imatlab{el}} vertikale Rot. (Grad) (Def. \alert{ $30$})
 \begin{center}\includegraphics[width=0.6\textwidth]{figures/beispiel_plot3_2}\end{center}
 \end{frame}
 % 
@@ -651,69 +662,6 @@ Darstellung von Funktionen
 \textbf{Beispiel:}\\
 \alert{ \[ f(x,y):=\exp(-x^2-y^2)\sin(\pi x y) \]}
 \end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]{Matlab: Funktionenplot}
-\hfil\includegraphics[width=0.8\textwidth]{figures/beispiel_function_plot_3d}\hfil
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]{Matlab: Funktionenplot - Implementation}
-\begin{matlabin}
-% Erzeugen des Gitters
-x = linspace(-2,2,30);
-y = linspace(-2,2,30);
-[X,Y] = meshgrid(x,y);
-% Funktionswerte
-Z = exp(-X.^2-Y.^2).*sin(pi*X.*Y);
-
-% verschiedenen Darstellungen
-subplot(2,2,1),
- mesh(X,Y,Z), title('mesh');
-subplot(2,2,2),
- surf(X,Y,Z), title('surf');
-subplot(2,2,3),
- contour(X,Y,Z,10), title('contour');
-subplot(2,2,4),
- surfc(X,Y,Z);
- view(-26,20), title('surfc');
-\end{matlabin}
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]{Python: Funktionenplot}
-\hfil\includegraphics[width=0.8\textwidth]{figures/function_plot3d_py}\hfil
-\end{frame}
-
-% 
-% Slide
-% 
-\begin{frame}[fragile]{Python: Funktionenplot - Implementation}
-  \begin{pyin}
-x = linspace(-2,2,30)
-y = linspace(-2,2,30)
-[X,Y] = meshgrid(x,y)
-Z = exp(-X**2-Y**2)*sin(pi*X*Y)
-fig=figure()
-ax = fig.add_subplot(2, 2, 1, projection='3d')
-ax.plot_wireframe(X,Y,Z),title('plot_wireframe')
-
-ax = fig.add_subplot(2, 2, 2, projection='3d')
-ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet,linewidth=0),title('plot_surface')
-
-subplot(2, 2, 3)
-contour(X,Y,Z,10), title('contour')
-
-ax = fig.add_subplot(2, 2, 4, projection='3d') 
-ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet)
-ax.contour(X, Y, Z, zdir='z', offset=-0.5)
-ax.view_init(20,-26),title('plot_surface + contour')    
-  \end{pyin}
-\end{frame}
-
 % 
 % Slide
 % 
@@ -738,7 +686,7 @@ fig.add_subplot(<n>, <m>, <k>, projection='3d')
 % 
 % Slide
 % 
-\begin{frame}[fragile]{meshgrid}
+\begin{frame}[fragile]{meshgrid und mesh}
 Zu Vektoren $x=(x_i)_{i=1}^k$, $y=(y_j)_{j=1}^n$ erzeugt 
 \begin{matlabin}
 [X,Y]=meshgrid(x,y)
@@ -748,7 +696,79 @@ eine Kopie des Vektors $x$ ist und $Y$ als Spalten den Vektor $y$
 enthält. \\
 Dann hat \alert{ \imatlab{Z=X.*Y}} die Komponenten 
 \[ Z(i,j)=x(j)*y(i). \]
+
+
+\begin{matlabin}
+mesh(X,Y,Z)
+\end{matlabin}
+z.B. stellt für Matrizen $X,Y,Z \in
+\mathbb{R}^{n \times k}$ die Punkte 
+\[\alert{  (X(i,j), Y(i,j), Z(i,j))} \] 
+mit einem Liniengitter dar.
 \end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]{Matlab: Funktionenplot}
+\hfil\includegraphics[width=0.8\textwidth]{figures/beispiel_function_plot_3d}\hfil
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]{}
+\begin{matlabin}
+% Erzeugen des Gitters
+x = linspace(-2,2,30);
+y = linspace(-2,2,30);
+[X,Y] = meshgrid(x,y);
+% Funktionswerte
+Z = exp(-X.^2-Y.^2).*sin(pi*X.*Y);
+
+% verschiedenen Darstellungen
+subplot(2,2,1),
+ mesh(X,Y,Z), title('mesh');
+subplot(2,2,2),
+ surf(X,Y,Z), title('surf');
+subplot(2,2,3),
+ contour(X,Y,Z,10), title('contour');
+subplot(2,2,4),
+ surfc(X,Y,Z);
+ view(-26,20), title('surfc');
+\end{matlabin}
+\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]{Python: Funktionenplot}
+\hfil\includegraphics[width=1\textwidth]{figures/function_plot3d_py}\hfil
+\end{frame}
+
+% 
+% Slide
+% 
+\begin{frame}[fragile]{}
+  \begin{pyin}
+x = linspace(-2,2,30)
+y = linspace(-2,2,30)
+[X,Y] = meshgrid(x,y)
+Z = exp(-X**2-Y**2)*sin(pi*X*Y)
+fig=figure()
+ax = fig.add_subplot(2, 2, 1, projection='3d')
+ax.plot_wireframe(X,Y,Z),title('plot_wireframe')
+
+ax = fig.add_subplot(2, 2, 2, projection='3d')
+ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet,linewidth=0),title('plot_surface')
+
+subplot(2, 2, 3)
+contour(X,Y,Z,10), title('contour')
+
+ax = fig.add_subplot(2, 2, 4, projection='3d') 
+ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet)
+ax.contour(X, Y, Z, zdir='z', offset=-0.5)
+ax.view_init(20,-26),title('plot_surface + contour')    
+  \end{pyin}
+\end{frame}
+
 
 %\end{frame}
 % 
@@ -793,6 +813,35 @@ Dann hat \alert{ \imatlab{Z=X.*Y}} die Komponenten
 % meshz(X,Y,Z), title('f(x,y)=x^2 y');
 %\end{matlabin}
 %\end{frame}
+% 
+% Slide
+% 
+\begin{frame}[fragile]{Contour-Befehle}
+    \begin{matlabin}
+[C,h] = contour(X,Y,Z,n)}
+    \end{matlabin} 
+zeichnet f\"ur $n\in \mathbb{N}$  $n$-Konturlinien. Ist $n$ ein Vektor, werden Konturlinien zu den Werten in
+  dem Vektor $n$ geplottet.
+  \begin{matlabin}
+contourf(X,Y,Z,n)
+  \end{matlabin}
+Wie \imatlab{contour} mit ausgefüllten Flächen.
+  \begin{matlabin}
+clabel(C,h)   
+  \end{matlabin}
+  \begin{pyin}
+clabel(C, inline=1)   
+  \end{pyin}
+beschriftet die Konturlinien, deren Werte in $C$
+  gespeichert sind und die zum Grafik-Handle $h$ gehören.
+  \begin{matlabin}
+contour3(X,Y,Z,n)   
+  \end{matlabin}
+  \begin{pyin}
+Axes3D.contour(X,Y,Z,n)   
+  \end{pyin}
+  zeichnet jede Konturlinie auf einer anderen H\"ohe.
+\end{frame}
 
 % 
 % Slide
@@ -803,27 +852,8 @@ Dann hat \alert{ \imatlab{Z=X.*Y}} die Komponenten
 % 
 % Slide
 % 
-\begin{frame}[fragile]{Matlab: Contour Plots - Listing}
+\begin{frame}[fragile]{}
 \matinput{contour_plot.m}
-\end{frame}
-% 
-% Slide
-% 
-\begin{frame}[fragile]{Contour-Befehle}
-\begin{itemize}
-  \item \imatlab{[C,h] = contour(X,Y,Z,n)}| \isage{C = contour(X,Y,Z,n)}\\ 
-    zeichnet f\"ur $n\in \mathbb{N}$
-  $n$-Konturlinien. Ist $n$ ein Vektor, werden Konturlinien zu den Werten in
-  dem Vektor $n$ geplottet. (C sind die Konturlinien und h ist das Grafik-handle).
-\item \imatlab{contourf(X,Y,Z,n)}\\
-  funktioniert wie \imatlab{contour} nur das die Flächen
-  zwischen den Konturlinien ausgefüllt werden.
-\item \imatlab{clabel(C,h)} (Matlab)| \isage{clabel(C, inline=1)}(Python)\\ 
-  beschriftet die Konturlinien, deren Werte in $C$
-  gespeichert sind und die zum Grafik-Handle $h$ gehören.
-\item \imatlab{contour3(X,Y,Z,n)}| \isage{Axes3D.contour(X,Y,Z,n)}(Python)\\  
-  zeichnet jede Konturlinie auf einer anderen H\"ohe.
-\end{itemize}
 \end{frame}
 % 
 % Slide
@@ -834,7 +864,7 @@ Dann hat \alert{ \imatlab{Z=X.*Y}} die Komponenten
 % 
 % Slide
 % 
-\begin{frame}[fragile]{Python: Contour Plots - Listing}
+\begin{frame}[fragile]{}
   \begin{pyin}
 # Erzeugen des Gitters
 x = linspace(-2,2,30)
@@ -910,20 +940,25 @@ ml.pipeline.image_plane_widget(ml.pipeline.scalar_field(V), plane_orientation='y
 % Slide
 % 
 \begin{frame}[fragile]{Matlab: Erstellen einer Animation/Videos}
-\begin{itemize}
-\item \alert{\imatlab{F(j)=getframe}}\\
+  \begin{matlabin}
+F(j)=getframe
+  \end{matlabin}
 aktuelle Grafik in das Array $F$ speichern.
-\item \alert{\imatlab{movie(F,n,fps)}}\\
+  \begin{matlabin}
+movie(F,n,fps)
+  \end{matlabin}
 Sequenz der Bilder $F$ darstellen. wobei $n$ die Anzahl der Wiederholungen angibt und $fps$ der
   gezeigten Frames pro Sekunde entspricht (Default: $n=1$, $fps=12$). 
-
-\item \alert{\imatlab{movie2avi(F,Dateiname)}}\\
-Speichern des Movies in AVI Format: \end{itemize}
+  \begin{matlabin}
+movie2avi(F,Dateiname)
+  \end{matlabin}
+Speichern des Movies in AVI Format
 \end{frame}
 % 
 % Slide
 % 
 \begin{frame}[fragile]{Python: Animation-Beispiel}
+Keine direkten Animationsbefehle. Manuell:
   \begin{pyin}
 [X,Y] = meshgrid(arange(-1,1,0.05),arange(-1,1,0.05))
 fig = figure()

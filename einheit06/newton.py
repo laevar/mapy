@@ -15,18 +15,19 @@ from pylab import *              # Matplotlib's pylab interface
 
 def newton_example():
     # Programm zur Loesung von x=cos(x)
-    xn = 1 # Startwert Newton
     xr = 0.739085133215161 # wahre Loesung
-    xnlist = xn-xr # Fehlerliste 
-    for i in range(0,15):
-        xn = xn-(xn-cos(xn))/(1+sin(xn)) # Newton
-        xnlist = hstack((xnlist, xn-xr))
+    anzit = 15
+    xn = zeros(anzit+1)
+    xn[0] = 1# Startwert Newton
+    for i in range(0,anzit):
+        xn[i+1] = xn[i]-(xn[i]-cos(xn[i]))/(1+sin(xn[i])) # Newton
+    xnlist = abs(xn-xr) # Fehlerliste 
     print xnlist
     #Plotausgabe
-    semilogy(range(1,len(xnlist)+1),abs(xnlist),'r*-')
-    title('Loesung von x=cos(x)')
+    semilogy(range(0,anzit+1),xnlist,'r*-')
+    title('Loesung von $x=cos(x)$')
     xlabel('Iterationen')
-    ylabel('Fehler im X-Wert')
+    ylabel('Fehler im $x$-Wert')
 
 
 def newton_konvergenz():
@@ -44,9 +45,10 @@ def newton_konvergenz():
     imshow(V)
     colorbar()
     title('Konvergenzverhalten Newton')
-    xlabel('x'),ylabel('i*y')
+    xlabel('$x$'),ylabel('$i*y$')
     return V
 
+newton_example()
 V = newton_konvergenz()
 show()
 print roots([1, 0, 0, -1])

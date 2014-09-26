@@ -13,8 +13,6 @@ function loes = poisson (f,n)
 %          mesh  2xn Matrix der Gitterpunkte
 %---------------------------------------------------
 
-f = fcnchk(f);
-
 A = n^2*gallery('poisson',n-1); 
 
 % Erzeuge rechte Seite und Mesh

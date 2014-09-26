@@ -38,7 +38,7 @@ for t in targets:
   env.PDF(lect)
   exer = t + '/uebung/aufgaben_einh' + t[-2:] + '.tex'
   env.PDF(exer)
-  files = Glob(t+'/*.m') + Glob(t+'/*.py') + Glob(t+'/uebung/*.pdf') + Glob(t+'/*.pdf') + Glob(t+'/*.c')
+  files = Glob(t+'/*.m') + Glob(t+'/*.py') + Glob(t+'/uebung/*.pdf') + Glob(t+'/*.pdf') + Glob(t+'/*.c') + Glob(t+'/uebung/*.dat')
   zipper = env.Zip(t+'/'+t+'.zip',files)
   #dir = os.path.dirname(lect)
   #if dir == '': 

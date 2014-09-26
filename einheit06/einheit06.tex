@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 6}
-\subtitle{Numerische Mathematik, Profiler}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 06 - Numerische Mathematik, Profiler}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -112,7 +112,6 @@ A & := & \frac{1}{h^2} tridiag(-I_{N-1}, T, -I_{N-1}) \in \mathbb{R}^{(N-1)^2
 \begin{frame}[fragile]\frametitle{Matlab: Implementierung}
 \begin{matlabin}
 function loes = poisson (f,n)
-f = fcnchk(f);
 A = gallery('poisson',n-1); 
 % Erzeuge rechte Seite und Mesh
 loes.mesh = zeros(2,(n-1)^2);
@@ -167,9 +166,9 @@ def poisson(f,n):
     mesh = hstack( (mesh, vstack((ones(n), x[1:])) ) )
     mesh = hstack( (mesh, vstack((x[:-1], ones(n)) ) ) )
     mesh = hstack( (mesh, vstack((x[:-1], zeros(n)) ) ) )
-    fig=figure(), ax = Axes3D(fig)    
-    ax.plot(mesh[0,:],mesh[1,:],loes,'*')
-    fig=figure(), ax = Axes3D(fig) 
+    fig=figure(), ax = Axes3D(fig) , [X,Y]=meshgrid(x,x)
+    Z = griddata(mesh[0,:], mesh[1,:],loes,X,Y,'linear')
+    ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=cm.jet,vmin=min(loes),vmax=max(loes),linewidth=0)
   \end{pyin}
 \end{frame}
 
@@ -189,14 +188,14 @@ Sei $I \subset \mathbb{R}$ ein Intervall. Bei einer gewöhnlichen Dgl. sucht man
 \alert{ \[ \frac{d}{dt}y(t)=f(t,y(t)), t\in I\quad y(t_0)=y_0, \]}
 wobei $y_0 \in \mathbb{R}^n$ ein vorgegebener Anfangswert an $t_0\in I$
 und $f:I \times \mathbb{R}^n \longrightarrow \mathbb{R}^n$ die
-rechte Seite ist. Au{\ss}erdem sei $ \frac{d}{dt}y(t) :=(\frac{\partial
+rechte Seite ist. Au{\ss}erdem sei 
+\[\frac{d}{dt}y(t) :=\left(\frac{\partial
   y_1(t)}{\partial t}, \dots, \frac{\partial
-  y_n(t)}{\partial t})^t$. \\
-\alert{Beispiele:}\\
-{\scriptsize
+  y_n(t)}{\partial t}\right)^t\] 
+\textsl{analytische Beispiele:}\\
 $\frac{d}{dt} y(t) = y(t), \ y(t_0)=y_0$, \quad L\"osung:
 $y(t)=y_0 e^{t-t_0}$\\
-$\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+\cos(x)>0$ }
+$\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+\cos(x)>0$
 \end{frame}
 %
 % Slide
@@ -205,7 +204,7 @@ $\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+
 L\"ose f\"ur $0 \leq t \leq 3$ die Dgl.
 \alert{ \[ \frac{d}{dt} y(t) = -y(t)-5e^{-t}\sin5t, \quad y(0)=1. \]}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{./figures/loesung_dgl1} 
+\includegraphics[width=0.6\textwidth]{./figures/loesung_dgl1} 
 \end{center}
 \end{frame}
 
@@ -459,8 +458,10 @@ fvec: [ -1.50035540e-12]
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Matlab: Ableitungsfrei / Nebenbedingungen}
-Finde Minimum \ldots \\
+Finde Minimum \ldots 
 
+\begin{itemize}
+  \item 
 ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
 \begin{matlabin}
  [x,fval,exitflag,output] = fminsearch(fun,x0,options)
@@ -471,16 +472,19 @@ ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
 \item \mcode{options}: Struktur der options (siehe \mcode{optimset}).
 \end{itemize}
 
-mit Nebenbedingungen, multidimensional:
+\item mit Nebenbedingungen, multidimensional:
 \begin{matlabin}
 x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options)
 \end{matlabin}
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]{Python: Ableitungsfrei / Nebenbedingungen}
-Finde Minimum \ldots \\
+Finde Minimum \ldots 
 
+\begin{itemize}
+  \item 
 ohne Nebenbedingungen, multidimensional (Nelder-Mead-Simplex):
   \begin{pyin}
 fmin(func, x0, args=(), xtol=0.0001, ftol=0.0001, maxiter=None, maxfun=None, full_output=0, disp=1, retall=0, callback=None)
@@ -490,10 +494,11 @@ fmin(func, x0, args=(), xtol=0.0001, ftol=0.0001, maxiter=None, maxfun=None, ful
     \item \isage{x0}: Start-wert/-vektor
     \item \isage{xtol}, \isage{ftol}: Abbruch-Toleranz in $x$ und $func$.
   \end{itemize}
-mit Nebenbedingungen, multidimensional:
+\item mit Nebenbedingungen, multidimensional:
   \begin{pyin}
 fminbound(func, x1, x2, args=(), xtol=1e-05, maxfun=500, full_output=0, disp=1)    
   \end{pyin}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Newtonverfahren}
@@ -516,18 +521,16 @@ Funktionen $f:\mathbb{R}^n \mapsto \mathbb{R}^n$
 \begin{pyin}
 def newton_example():
     # Programm zur Loesung von x=cos(x)
-    xn = 1 # Startwert Newton
     xr = 0.739085133215161 # wahre Loesung
-    xnlist = xn-xr # Fehlerliste 
-    for i in range(0,15):
-        xn = xn-(xn-cos(xn))/(1+sin(xn)) # Newton
-        xnlist = hstack((xnlist, xn-xr))
+    anzit = 15
+    xn = zeros(anzit+1)
+    xn[0] = 1# Startwert Newton
+    for i in range(0,anzit):
+        xn[i+1] = xn[i]-(xn[i]-cos(xn[i]))/(1+sin(xn[i])) # Newton
+    xnlist = abs(xn-xr) # Fehlerliste 
     print xnlist
     #Plotausgabe
-    semilogy(range(1,len(xnlist)+1),abs(xnlist),'r*-')
-    title('Loesung von x=cos(x)')
-    xlabel('Iterationen')
-    ylabel('Fehler im X-Wert')  
+    semilogy(range(0,anzit+1),xnlist,'r*-')  
 \end{pyin}
 \end{frame}
 

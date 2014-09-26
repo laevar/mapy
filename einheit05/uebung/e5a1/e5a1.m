@@ -1,5 +1,5 @@
 disp('*** aufgabe 1');
 clear all
 
-myfplot('sin(x)*sin(y)');
-myfplot('sin(x)*sin(y)',5);
+myfplot(@(x,y) sin(x).*sin(y));
+myfplot(@(x,y) sin(x).*sin(y),5);

@@ -3,27 +3,14 @@ outfile=loesungen_mat.tex
 outfilepy=loesungen_py.tex
 rm $outfile $outfilepy
 #a2ps -r -A -3 -M A4 einheit0*/uebung/*.m -o $outfile
-echo "\documentclass[a4paper,10pt,DIV15]{scrartcl}
-\usepackage[psamsfonts]{amssymb}
-\usepackage{amsmath}
-\usepackage[svgnames]{xcolor} %color definitions
-\input{common_header.tex}
-\begin{document}
-\begin{center}
-\textbf{\LARGE Einf\"uhrung in MATLAB}\\
-\end{center}
-\begin{minipage}{6cm}
-Jochen Schulz
-\end{minipage}\hfill
-
-" >> $outfile
-cp $outfile $outfilepy
+cp ./loesungen_temp.tex $outfile
+cp ./loesungen_temp.tex $outfilepy
 
 for einh in einheit0*; do
     echo "****" $einh
 	nr=$(echo $einh | sed 's/[a-z]//g')
 	rm $einh/uebung/loesungen$nr.zip
-	zip -9r $einh/uebung/loesungen$nr.zip $einh/uebung/e*
+	zip -9r $einh/uebung/loesungen$nr.zip $einh/uebung/e* -x \*.tex
 	echo "\section{$einh}" >> $outfile
 	echo "\section{$einh}" >> $outfilepy
 	echo "\setcounter{zaehler}{0}" >> $outfile

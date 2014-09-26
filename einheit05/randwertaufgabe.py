@@ -31,6 +31,7 @@ def randwertaufgabe(n):
     # Darstellen der Loesung
     z = hstack((0, z_i, 0))
     plot(x,z,'r*-');
+    show()
     #plot(x_i,exp(x_i))
 
 randwertaufgabe(41)

@@ -19,11 +19,11 @@ switch anzahl_parameter
 end
 
 % uebergeben Funktion pruefen
-f = fcnchk(f1,'vectorized');
+f = f1;
 % auswerten
 x = linspace(-1,1,N);
 [X,Y] = meshgrid (x,x);
-values = feval(f,X,Y);
+values = f(X,Y);
 
 %plot
 figure

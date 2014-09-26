@@ -29,3 +29,19 @@ DONE 2014-01-23  structured arrays (array (dtype)) einfuehren http://docs.scipy.
     DONE: 2014-09-22 19:39:55
     WAITING: 2014-09-22 19:39:54
 
+DONE 2014-02-03 introduce assert-statements for debugging purposes +einheit4 
+  CLOSED: 2014-09-25 11:19:34
+  :LOGBOOK:
+    DONE: 2014-09-25 11:19:34
+    WAITING: 2014-09-25 11:19:30
+DONE 2014-09-26 fcnchk und inline functions entfernen und durch reine lambda-functionsm ersetzen +einheit5
+  CLOSED: 2014-09-26 18:04:09
+  :LOGBOOK:
+    DONE: 2014-09-26 18:04:09
+    WAITING: 2014-09-26 18:04:08
+
+DONE 2014-01-23 allgemein mehr ueber Zerlegungen (cholesky, singulaerwertzerlegung) wissen!  +einheit5
+  CLOSED: 2014-09-26 11:59:15
+  :LOGBOOK:
+    DONE: 2014-09-26 11:59:15
+    WAITING: 2014-09-26 11:59:15

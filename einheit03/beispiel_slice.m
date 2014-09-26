@@ -3,7 +3,7 @@ x = linspace(-2 ,2 ,180);
 V = exp(-X.^2-Y.^2) .* sin(pi*X.*Y.*Z);
 sx = [-0.5  ] ; sy = [ -1, 1 ] ;
 sz = [ ] ;
-%slice (X,Y, Z,V ,sx ,sy ,sz );
+slice (X,Y, Z,V ,sx ,sy ,sz );
 alpha (0.8 ) % Transparency
 shading interp
-isosurface (X,Y,Z,V)
+%isosurface (X,Y,Z,V)

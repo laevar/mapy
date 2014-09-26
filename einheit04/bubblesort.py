@@ -58,8 +58,8 @@ def bubblesort(dateiname1, dateiname2):
                sortierungen += 1
    # Datei schreiben
    fid = open(dateiname2,'w')
-   for k in range(1,len(inhalt)):
-       fid.write('{}'.format(inhalt[k]))
+   for k in inhalt:
+       fid.write('{}'.format(k))
     
    fid.close()
 

@@ -23,4 +23,5 @@ result = sum(y)*(1./N)
 for i in arange(1.,N+1):
     fill_between([(i-1)/N, i/N],[((i-0.5)/N)**3,  ((i-0.5)/N)**3],facecolor='r')
 plot(arange(0,1,0.01),arange(0,1,0.01)**3,linewidth=3)
-title('$\int_0^1 x^3$ = {} fuer N = {}'.format(result,N),fontsize=20)
+title(r'$\int_0^1 x^3$ = {} fuer N = {}'.format(result,N),fontsize=20)
+show()

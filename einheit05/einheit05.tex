@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 5}
-\subtitle{Mehrdimensionale Arrays, Funktionen, Numerische lineare Algebra, Dünnbesetzte Matrizen}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 5 - Mehrdimensionale Arrays, Funktionen, Numerische lineare Algebra, Dünnbesetzte Matrizen}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -43,6 +43,9 @@ A = concatenate((ones((4,3))[...,None],ones((4,3))[...,None]), axis=2)
 \begin{matlabin}
 reshape(X,n1,..,ns)
 \end{matlabin}
+\begin{pyin}
+reshape(X,(n1,..,ns))  
+\end{pyin}
 Der Befehl liest $X$ spaltenweise
 aus, und schreibt die Elemente spaltenweise in ein $(n_1, \dots,
 n_s)$-Array. 
@@ -68,6 +71,9 @@ Intern werden Arrays als Spalten abgespeichert. Zugriff durch linearen
 \begin{matlabin}
 B = reshape(1:12,2,3,2)
 \end{matlabin}
+\begin{pyin}
+B = reshape(arange(1,13),(2,3,2))  
+\end{pyin}
 \begin{matlab}
 B(:,:,1) =
      1     3     5
@@ -125,8 +131,7 @@ ans =
 \begin{itemize}
 \item normal
 \item anonym/lambda
-\item (Matlab) inline 
-\item (Matlab) string 
+\item inline/eval
 \end{itemize}
 \item (Matlab) Funktionen werden in einem eigenen {\it Workspace} verwaltet.
 \item (Matlab) Beim ersten Aufruf speichert MATLAB die Funktion im Workspace bis MATLAB
@@ -167,7 +172,7 @@ quad(Sinus,0,1)
 %
 \begin{frame}[fragile]\frametitle{Anonyme Funktion}
 \begin{matlabin}
- @(<x>) <funktion(x)>
+@(<x>) <funktion(x)>
 \end{matlabin}
 \begin{pyin}
 lambda <x> : <funktion(x)>  
@@ -199,40 +204,18 @@ ans = 6.0000, ans = 24.0000
 \end{itemize}
 \end{frame}
 
-%
-% Slide
-%
-%\begin{frame}[fragile]\frametitle{String-Funktionen}
-%\begin{matlabin}
-%<fun> = '<funktions-string>' 
-%\end{matlabin}
-
-%\begin{itemize}
-%\item Eingabe als String: 
-%\begin{matlabin}
-%a = 'exp(z)-1+z'
-%\end{matlabin}
-%\item Plotten der zugeh\"origen Funktion 
-%\begin{matlabin}
-%ezplot(a,[-1 1]) 
-%\end{matlabin}
-%\item Konvertieren zwischen Strings und Funktionen: \alert{
-%  \imatlab{str2func}}, \alert{ \imatlab{func2str}} 
-%\end{itemize}
-%\alert{Bemerkung:} \\
-%Funktionen gegeben als Strings sind im allgemeinen zu vermeiden!
-%Besser andere Konstrukte (wie Inline-Funktionen) benutzen!
-%\end{frame}
-
-
 
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Matlab: Inline-Funktionen}
+\begin{frame}[fragile]\frametitle{Funktionen aus strings}
+  \textsl{Hinweis}: i.a. nur normale oder lambda-Funktionen nutzen.
 \begin{matlabin}
-<fun> =  inline('<funktions-string>')
+<fun> = inline('<funktions-string>')
 \end{matlabin}
+\begin{pyin}
+<fun> = eval('<funktions-string')
+\end{pyin}
 
 \textbf{Beispiele:} \\
 \begin{columns}[t]
@@ -242,58 +225,58 @@ a = 'exp(z) - 1 + z';
 f = inline(a)
 \end{matlabin}
 \begin{matlab}
-f =
-     Inline function:
+f =  Inline function:
      f(z) = exp(z)-1+z
 \end{matlab}
 \begin{matlabin}
-g = inline('x+y^2','x','y')
+g = inline('x+y^2','x','y'); g(1,2)
 \end{matlabin}
 \begin{matlab}
-g =
-     Inline function:
-     g(x,y) = x+y^2
+ans = 5
 \end{matlab}
 \column{0.48\textwidth}
-\begin{matlabin}
-f(1),g(1,2),a(2)
-\end{matlabin}
-\begin{matlab}
-ans =
-    2.7183
-ans =
-     5
-ans =
-     x
-\end{matlab}
+\begin{pyin}
+a = 'exp(z) - 1 + z';  z = 1
+eval(a)
+\end{pyin}
+\begin{pyout}
+2.7182818284590451  
+\end{pyout}
+\begin{pyin}
+x = 1; y = 2
+eval('x+y**2')
+\end{pyin}
+\begin{pyout}
+5  
+\end{pyout}
 \end{columns}
 \end{frame}
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Matlab: Befehle f\"ur inline-Funktionen}
-\begin{itemize}
-\item Auswertung der Funktion  \imatlab{fun} an der Stelle $(x1,..,xn)$. 
-\begin{matlabin}
-feval(<fun>,<x1>,..,<xn>)
-\end{matlabin}
-\imatlab{fun} ist dabei
-  entweder ein Funktionsname oder ein Function-Handle. 
-\item Wandlung eines Strings \imatlab{g} in eine Inline-Funktion (vgl. \imatlab{inline}). 
-\begin{matlabin}
-f = fcnchk(<g>) 
-\end{matlabin}
-Ist \imatlab{g} ein
-  Function-Handle oder eine Inline-Funktion so ist $f = g$.  
-
-\item Strings- oder Inline-Funktionen \imatlab{f} \textsl{vektorisieren}
-\begin{matlabin}
-vectorize(<f>)
-\end{matlabin}
-d.h. \imatlab{'*'} $\Rightarrow$ \imatlab{'.*'} , \imatlab{'^'} $\Rightarrow$ \imatlab{'.^'}, usw. 
-
-\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]\frametitle{Matlab: Befehle f\"ur inline-Funktionen}
+%\begin{itemize}
+%\item Auswertung der Funktion  \imatlab{fun} an der Stelle $(x1,..,xn)$. 
+%\begin{matlabin}
+%feval(<fun>,<x1>,..,<xn>)
+%\end{matlabin}
+%\imatlab{fun} ist dabei
+%  entweder ein Funktionsname oder ein Function-Handle. 
+%\item Wandlung eines Strings \imatlab{g} in eine Inline-Funktion (vgl. \imatlab{inline}). 
+%\begin{matlabin}
+%f = fcnchk(<g>) 
+%\end{matlabin}
+%Ist \imatlab{g} ein
+%  Function-Handle oder eine Inline-Funktion so ist $f = g$.  
+%
+%\item Strings- oder Inline-Funktionen \imatlab{f} \textsl{vektorisieren}
+%\begin{matlabin}
+%vectorize(<f>)
+%\end{matlabin}
+%d.h. \imatlab{'*'} $\Rightarrow$ \imatlab{'.*'} , \imatlab{'^'} $\Rightarrow$ \imatlab{'.^'}, usw. 
+%
+%\end{itemize}
+%\end{frame}
 
 \subsection{Ein-/Ausgabe - Argumente}
 %
@@ -349,7 +332,7 @@ if anzahl_parameter ~= [0 1 3]
 end
 \end{matlabin}
 \end{frame}
-\begin{frame}[fragile]\frametitle{Matlab: varargin Beispiel}
+\begin{frame}[fragile]\frametitle{}
 \begin{matlabin}
 x = (a+(b-a)/(2*N)):(b-a)/N:(b-(b-a)/(2*N));
 y = x.^3;
@@ -433,9 +416,9 @@ if anzahl_parameter ~= [1 2 4]
     error('Falsche Anzahl an Input-Argumenten');
 end;
 % eventuelle Umwandlung von Strings
-f = fcnchk(varargin{1},'vectorized'); 
+f = varargin{1}; 
 x = (a+(b-a)/(2*N)):(b-a)/N:(b-(b-a)/(2*N));
-y = feval(f,x);  
+y = f(x);  
 \end{matlabin}
 \end{frame}
 
@@ -681,7 +664,14 @@ ans =
 Seien $A \in \mathbb{C}^{n\times n}$ und $b \in \mathbb{C}^n$. Das
 lineare Gleichungssystem 
 { \[ A x=b \]}
-wird gelöst durch  \imatlab{ x=A\\b}| \isage{solve(A,b)}.\\
+wird gelöst durch  
+\begin{matlabin}
+x=A\b
+\end{matlabin}
+\begin{pyin}
+solve(A,b)
+\end{pyin}
+\textsl{Beispiel}:
 
 \begin{matlabin}
 x = ones(5,1); H = hilb(5); b = H*x; y = (H\b)'
@@ -872,10 +862,16 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 \end{block}
 
 \begin{itemize}
-\item {}\imatlab{x=eig(A)}\\ berechnet die Eigenwerte von $A$ und schreibt
+\item 
+  \begin{matlabin}
+x=eig(A)
+  \end{matlabin}
+  berechnet die Eigenwerte von $A$ und schreibt
   sie in den Vektor $x$.
 \item
-  {}\imatlab{[V,D]=eig(A)}\\
+  \begin{matlabin}
+[V,D]=eig(A)
+  \end{matlabin}
   $D$ ist eine Diagonalmatrix mit den Eigenwerten auf der
   Diagonalen. Die Spalten von $V$ bilden die zugehörigen Eigenvektoren. 
 \end{itemize}
@@ -885,14 +881,20 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %
 \begin{frame}[fragile]\frametitle{Weitere Zerlegungen}
 \begin{itemize}
-\item \alert{QR-Zerlegung}: \imatlab{[Q,R]=qr(A)}\\
+\item \alert{QR-Zerlegung}: 
+  \begin{matlabin}
+[Q,R]=qr(A)
+  \end{matlabin}
   $m \times n$- Matrix $A$ eine Zerlegung { $A=QR$} erzeugt,
   ($Q$ eine unitäre $m \times m$-Matrix, $R$ eine obere $m \times n$ Dreiecksmatrix).
 %Die QR-Zerlegung spielt in vielen Verfahren der numerischen Mathematik  eine wichtige Rolle, 
 %beispielsweise um eine orthogonale oder unitäre Basis zu bestimmen oder um lineare Ausgleichsprobleme 
 %zu behandeln. 
 %QR-Algorithmus zur Berechnung aller Eigenwerte einer Matrix.
-\item \alert{Singulärwertzerlegung}: \imatlab{[U,S,V]=svd(A)}\\
+\item \alert{Singulärwertzerlegung}: 
+  \begin{matlabin}
+[U,S,V]=svd(A)
+  \end{matlabin}
   { $A=U \Sigma V^*$}. 
   ($\Sigma \subset \mathbb{C}^{m \times n}$ eine Diagonalmatrix \\
   $U \subset \mathbb{C}^{m \times m}$, $V \subset  \mathbb{C}^{n \times n}$ unitäre Matrizen). 
@@ -905,7 +907,10 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 %bestimmten rechteckigen Mustern und natürlich, je größer (und je quadratischer) das Bild ist. Dies ist eine mögliche Anwendung 
 %von Modellreduktion. Das Weglassen von kleinen Singulärwerten ist ein verlustbehaftetes Modellreduktionsverfahren.
 
-\item \alert{Cholesky-Zerlegung}: \imatlab{R=chol(A)}| \isage{R=cholesky(A)}\\
+\item \alert{Cholesky-Zerlegung}: 
+  \begin{matlabin}
+R=chol(A) | R=cholesky(A)
+  \end{matlabin}
   { $A=R^*R$} zu einer hermiteschen, positiv definiten Matrix
   $A$ ($R$ ist eine obere Dreiecksmatrix mit reellen, positiven
   Diagonalelementen). 
@@ -965,38 +970,7 @@ dass  $Ax = \lambda x$ gilt. $x$ heißt Eigenvektor.
 % 
 % Slide 
 %
-\begin{frame}[fragile]\frametitle{Beispiel}
-\begin{matlabin}
-A = 2*diag(ones(10,1),0) ...
-       - diag(ones(9,1),-1) ...
-       - diag(ones(9,1),1);
-B = sparse(A)
-\end{matlabin}
-\begin{matlab}
-B =   (1,1)        2
-      (2,1)       -1
-      (1,2)       -1
-      (2,2)        2
-\end{matlab}
-\begin{pyin}
-import scipy.sparse as sparse
-A = 2*diag(ones((10,)),0)+diag(ones((9,)),-1)+diag(ones((9,)),1)
-sparse.csr_matrix(A)
-\end{pyin}
-\begin{pyout}
-<10x10 sparse matrix of type '<type 'numpy.float64'>'
-  with 28 stored elements in Compressed Sparse Row format>
-\end{pyout}
-%\begin{matlab}
-%  Name      Size           Bytes  Class
-%  A        10x10             800  double array
-%  B        10x10             380  sparse array
-%\end{matlab}
-\end{frame}
-% 
-% Slide 
-%
-\begin{frame}[fragile]\frametitle{Einige Befehle}
+\begin{frame}[fragile]\frametitle{}
 \begin{itemize}
 \item Erzeugung einer d\"unnbesetzten Matrix
   der Gr\"osse $n \times m$. Alle Eintr\"age sind $0$.
@@ -1028,6 +1002,37 @@ spy(A)
 % 
 % Slide 
 %
+\begin{frame}[fragile]\frametitle{Beispiel}
+\begin{matlabin}
+A = 2*diag(ones(10,1),0) ...
+       - diag(ones(9,1),-1) ...
+       - diag(ones(9,1),1);
+B = sparse(A)
+\end{matlabin}
+\begin{matlab}
+B =   (1,1)        2
+      (2,1)       -1
+      (1,2)       -1
+      (2,2)        2
+\end{matlab}
+\begin{pyin}
+import scipy.sparse as sparse
+A = 2*diag(ones((10,)),0)+diag(ones((9,)),-1)+diag(ones((9,)),1)
+sparse.csr_matrix(A)
+\end{pyin}
+\begin{pyout}
+<10x10 sparse matrix of type '<type 'numpy.float64'>'
+  with 28 stored elements in Compressed Sparse Row format>
+\end{pyout}
+%\begin{matlab}
+%  Name      Size           Bytes  Class
+%  A        10x10             800  double array
+%  B        10x10             380  sparse array
+%\end{matlab}
+\end{frame}
+% 
+% Slide 
+%
 \begin{frame}[fragile]\frametitle{Dichte und d\"unnbesetzte Matrizen}
 \begin{itemize}
 \item Konvertierung der d\"unnbesetzten Matrix $A$ in eine dichtbesetzte Matrix $B$ .
@@ -1053,7 +1058,7 @@ scipy.sparse.linalg.eigs(A,k)
 % 
 % Slide 
 %
-\begin{frame}[fragile]\frametitle{D\"unnbesetzte Matrizen}
+\begin{frame}[fragile]\frametitle{}
 \begin{itemize}
 \item Norm- und Konditionsberechnung:
 \begin{matlabin}

@@ -24,7 +24,7 @@ def sierpinski(ecke1,ecke2,ecke3,level):
         sierpinski(ecke12,ecke2,ecke23,level-1)
         sierpinski(ecke13,ecke23,ecke3,level-1)
         
-level = 1
+level = 4
 ecke1 = array([0,0])
 ecke2 = array([1,0])
 ecke3 = array([0.5, sqrt(3)/2])

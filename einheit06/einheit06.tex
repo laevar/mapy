@@ -86,7 +86,9 @@ u(h,2h) & u(2h,2h) & \hdots & u((N-1)h,2h)\\
 u(h,h), & u(2h,h) & \hdots & u((N-1)h,h)\\
 \end{array} \]
 }
-ergibt Vektor $U_{i+(N-1)(j-1)}=u_{i,j}$.
+ergibt Vektor $U_{i+(N-1)(j-1)}=u_{i,j}$ 
+
+(erst x inkrementieren, dann y inkrementieren)
 \end{itemize}
 \end{frame}
 %
@@ -200,46 +202,6 @@ $\frac{d}{dt} y(t) = e^y \sin(t)$, \quad L\"osung: $y(t)=-\log( \cos(x)+C)$, $C+
 %
 % Slide
 %
-\begin{frame}[fragile]\frametitle{Skalares Beispiel}
-L\"ose f\"ur $0 \leq t \leq 3$ die Dgl.
-\alert{ \[ \frac{d}{dt} y(t) = -y(t)-5e^{-t}\sin5t, \quad y(0)=1. \]}
-\begin{center}
-\includegraphics[width=0.6\textwidth]{./figures/loesung_dgl1} 
-\end{center}
-\end{frame}
-
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Matlab: Skalares Beispiel}
-Die rechte Seite als eigene Funktion:
-\matinput{rechte_seite1.m}
-Ausrechnen und Plotten
-\matinput{dgl_example.m}
-\end{frame}
-
-%
-% Slide
-%
-\begin{frame}[fragile]\frametitle{Python: Skalares Beispiel}
-  \begin{pyin}
-from scipy.integrate import odeint
-def rechte_seite1(y,t):
-    """rechte_seite1   ODE Beispiel
-       z  =rechte_seite1(t,y)"""
-    return -y -5*exp(-t)*sin(5*t)
-
-tspan =  linspace(0,3,20)
-aw = 1
-y = odeint(rechte_seite1,aw,tspan,printmessg=True)
-plot(tspan,y,'r*--',linewidth=3,markersize=15)
-xlabel('t'), ylabel('y(t)')    
-  \end{pyin}
-\end{frame}
-
-%
-% Slide
-%
 \begin{frame}[fragile]\frametitle{Matlab: ode45 - explizites Runge-Kutta} 
 \begin{matlabin}
 [<t>,<y>] = ode45(<@fun>, <tspan>, <aw>, <options>)
@@ -318,6 +280,46 @@ options = odeset('AbsTol',1e-7,'RelTol',1e-4)
   \item \isage{r.succesful()}: Wahrheitswert über Erfolg der Integration. 
 \end{itemize}
 \end{frame}
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Skalares Beispiel}
+L\"ose f\"ur $0 \leq t \leq 3$ die Dgl.
+\alert{ \[ \frac{d}{dt} y(t) = -y(t)-5e^{-t}\sin5t, \quad y(0)=1. \]}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{./figures/loesung_dgl1} 
+\end{center}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Matlab: Skalares Beispiel}
+Die rechte Seite als eigene Funktion:
+\matinput{rechte_seite1.m}
+Ausrechnen und Plotten
+\matinput{dgl_example.m}
+\end{frame}
+
+%
+% Slide
+%
+\begin{frame}[fragile]\frametitle{Python: Skalares Beispiel}
+  \begin{pyin}
+from scipy.integrate import odeint
+def rechte_seite1(y,t):
+    """rechte_seite1   ODE Beispiel
+       z  =rechte_seite1(t,y)"""
+    return -y -5*exp(-t)*sin(5*t)
+
+tspan =  linspace(0,3,20)
+aw = 1
+y = odeint(rechte_seite1,aw,tspan,printmessg=True)
+plot(tspan,y,'r*--',linewidth=3,markersize=15)
+xlabel('t'), ylabel('y(t)')    
+  \end{pyin}
+\end{frame}
+
 
 \subsection{Lorenz-Gleichungen}
 %
@@ -370,6 +372,7 @@ subplot(2,2,2),plot(y[:,0],y[:,1]), xlabel('y_1')
 subplot(2,2,3),plot(y[:,0],y[:,2]), xlabel('y_1')
 subplot(2,2,4),plot(y[:,1],y[:,2]), xlabel('y_2')
   \end{pyin}
+'dopri5': Runge-kutta Verfahren der Ordnung (4)5 (Dormand \& Prince). 
 \end{frame}
 %
 % Slide
@@ -661,7 +664,7 @@ Oder:
 \end{frame}
 
 \begin{frame}[fragile]{line profiler}
-Der \isage{line_profiler} \url{http://pythonhosted.org/line_profiler/} kann exakt sagen, welche
+Der \isage{line_profiler} (\url{http://pythonhosted.org/line_profiler/}) kann exakt sagen, welche
 Zeilen wieviel Zeit verbraucht haben. 
 
 Dazu benutzt man einen sogenannten \isage{decorator} an die Funktion, die man prüfen möchte
@@ -674,6 +677,21 @@ und ruft dann (ausserhalb von spyder) den eigentlichen Profiler auf:
 kernprof.py -l -v <file.py>
 \end{pyin}
 
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{pyin}
+ Time  Per Hit   % Time  Line Contents
+======================================
+   11     11.0      0.3      data = np.ones((3, N))
+   13     13.0      0.3      data[1,] = -2*data[1,]
+    1      1.0      0.0      diags = [-1,0,1] 
+  133    133.0      3.5      D2 = sparse.spdiags(data,diags,N,N)
+  169    169.0      4.5      locator = -1*sparse.eye(N,N)
+ 1826   1826.0     48.5      A = (1/h**2)*(sparse.kron(locator,D2) + sparse.kron(D2,locator))    
+ 1609   1609.0     42.7      print A.todense()
+    
+  \end{pyin}
 \end{frame}
 
 \end{document}

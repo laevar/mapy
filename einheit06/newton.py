@@ -22,7 +22,7 @@ def newton_example():
     for i in range(0,anzit):
         xn[i+1] = xn[i]-(xn[i]-cos(xn[i]))/(1+sin(xn[i])) # Newton
     xnlist = abs(xn-xr) # Fehlerliste 
-    print xnlist
+    #print xnlist
     #Plotausgabe
     semilogy(range(0,anzit+1),xnlist,'r*-')
     title('Loesung von $x=cos(x)$')

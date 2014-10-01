@@ -1,5 +1,5 @@
 #!/bin/bash
 #. /usr/local/matlab2011b/bin/engopts.sh 
-export LD_LIBRARY_PATH=/usr/local/matlab2011b/bin/glnxa64/:/usr/local/matlab2011b/sys/os/glnxa64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/matlabR2014a/bin/glnxa64/:/usr/local/matlabR2014a/sys/os/glnxa64:$LD_LIBRARY_PATH
 
 ./$*

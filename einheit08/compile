@@ -1,2 +1,2 @@
 #!/bin/bash
-/usr/local/matlab2011b/bin/mex -v -f /usr/local/matlab2011b/bin/engopts.sh $*
+/usr/local/matlabR2014a/bin/mex -v -f /usr/local/matlabR2014a/bin/engopts.sh $*

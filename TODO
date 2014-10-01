@@ -11,12 +11,26 @@ TODO 2014-01-23 Form
 
 
 ----
+
+TODO 2014-09-30 komplettes pdf von der Vorlesung genieren.
+TODO 2014-09-29 Uebungsfaugebn python Zettel 6 fehlen!
+
 TODO 2014-02-02 fancy indexing
 TODO 2014-01-23  mgrid/ogrid etc.  als alternative zu (a)range/meshgrid nutzen!
-TODO 2014-09-22 profiling ueberarbeiten +einheit6
-
-TODO 2014-02-02 funktionale programmieren betonen und die moeglichkeiten einfuehren
 TODO 2014-02-02 parallelisierung und perfomance-issues total ausbauen! +einheit9
+
+
+TODO 2014-01-23  visualisierung und validierung ausbauen +einheit7 -> einheit3 und Rekursion spaeter bei funktional?
+TODO 2014-01-23  ein paar mehr demos machen! +einheit7
+
+TODO 2014-10-01 Einheiten umbauen in sections!
+TODO 2014-10-01 Matlab Python-tag am Ende um die speziellen Eigenschaften hervorzuheben. evtl. auch andere Tage speziell Matlab und speziell Python.
+TODO 2014-02-02 funktionale programmieren betonen und die moeglichkeiten einfuehren
+TODO 2014-02-02 objektorientierung einbauen
+TODO 2014-10-01 decorators
+
+TODO 2014-09-29 sobolovsche Funktion ist doch gar nicht multidimensional!? +einheit5
+
 TODO 2014-01-23  nurbs! +einheit4
 
 TODO 2014-01-23  Beispiel optimierung? (dlr-spiegel ? seratec?) schoebel fragen 
@@ -24,11 +38,6 @@ TODO 2014-01-23  und z.b. etwas von den inversen problemen ?
 
 TODO 2014-01-23  volle latex-unterstuetzung fuer bilder testen . gnuplot-ersatz nochmal betonen tikz-export testen.
 
-
-TODO 2014-01-23  visualisierung und validierung ausbauen +einheit7
-TODO 2014-01-23  ein paar mehr demos machen! +einheit7
-
-TODO 2014-02-02 objektorientierung einbauen
 
 TODO 2014-01-23  Theorie sobolevsche Mittelungsfunktion (siehe skript lube) +einheit5
 TODO 2014-01-23  simple finite elements!

@@ -45,3 +45,9 @@ DONE 2014-01-23 allgemein mehr ueber Zerlegungen (cholesky, singulaerwertzerlegu
   :LOGBOOK:
     DONE: 2014-09-26 11:59:15
     WAITING: 2014-09-26 11:59:15
+DONE 2014-09-22 profiling ueberarbeiten +einheit6
+  CLOSED: 2014-09-29 19:31:50
+  :LOGBOOK:
+    DONE: 2014-09-29 19:31:50
+    WAITING: 2014-09-29 19:31:50
+

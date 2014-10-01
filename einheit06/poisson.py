@@ -15,6 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from pylab import *              # Matplotlib's pylab interface
 
 
+@profile
 def poissonmatrix(N,h):
     """ Poisson matrix 2D"""
     # Second-Derivative Matrix

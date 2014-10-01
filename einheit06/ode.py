@@ -41,3 +41,4 @@ while r.successful() and r.t < tmax:
 
 plot(t,y,'b*--',linewidth=3,markersize=15)
 xlabel('t'), ylabel('y(t)')
+show()

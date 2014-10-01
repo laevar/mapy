@@ -9,6 +9,6 @@ profile off
 close all
 tic
 profile on -history -timer cpu
-interpolation(@(x) x.^2,1000)
+interpolation(@(x) x.^2,100)
 profile viewer
 toc

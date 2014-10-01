@@ -1,6 +1,6 @@
 \documentclass[hyperref={xetex}]{beamer}
-\title{Einführung in Matlab und Python - Einheit 8}
-\subtitle{Schnittstelle zu C}
+\title{Wissenschaftliches Rechnen mit Matlab/Python}
+\subtitle{Einheit 8 - Schnittstelle zu C}
 \input{../slide_header}
 \begin{document}
 \titlepage
@@ -1095,6 +1095,77 @@ def mandel_cy(int pointsx, int pointsy):
   \end{thebibliography}
 %\end{block}
   
+\end{frame}
+
+\section{Parallelisierung und Performance}
+
+\begin{frame}[fragile]\frametitle{NumPy-tricks}
+Use sliced arrays instead of loops.
+
+\textbf{Example:} 1D-distance:
+\begin{pyin}
+a = randn(1000000)
+d = zeros(a.shape[0]-1)
+\end{pyin}
+Loop:
+\begin{pyin}
+for i in range(0,len(d)):
+    d[i] = a[i]-a[i+1]
+\end{pyin}
+Numpy-slices:
+\begin{pyin}
+d[:] = a[:-1]-a[1:]
+\end{pyin}
+    \begin{tabular}[c]{ll}
+pure python loop & 0.993635177612 s\\
+numpy slicing & 0.00627207756042 s\\
+matlab loop &  0.053599 s
+  \end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Parallelisierung}
+  \begin{itemize}
+    \item Unter der Haube (z.B. BLAS-Bibliothek bei \isage{dot()})
+    \item mehrere Prozesse (\isage{import multiprocessing})
+    \item MPI (meisten Möglichkeiten) (e.g. \isage{import mpi4py})
+    \item mehrere Threads (für nicht CPU-lastige Aufgaben)
+  \end{itemize}
+  \textbf{Hinweis:} MPI und Multi Prozesse können interaktiv in IPython benutzt werden!
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Multiprocessing}
+  2 Prozesse in einem \textsl{Pool} starten.
+  \begin{pyin}
+from multiprocessing import Pool
+p = Pool(2)
+  \end{pyin}
+  Den \textsl{Pool} in einer Schleife nutzen:
+\begin{pyin}
+def f(x):
+    return sin(x) + x + exp(x)
+p.map(f,x)  
+\end{pyin}
+\textbf{Anmerkung}: Das Beispiel ist Akademisch: viel langsamer als normale Schleife/Map (Overhead). 
+Man braucht wesentlich mehr Arbeit in \isage{f} um effizient zu sein.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Multiprocessing für Mandelbrot}
+Ein bisschen weniger Akademisch. 
+Remember the cython-enhanced calculation of the Mandelbrot-set.
+\begin{pyin}
+def f(xi):
+    zrow = zeros(y.shape[0])
+    for j,yj in enumerate(y):
+         zrow[j] = mandel.cython_mandel(xi,yj)
+    return zrow  
+p = Pool(2) # start Pool of 2 processes
+zdum = p.map(f,x) # parallel map
+z = vstack(zdum) # create the final matrix
+\end{pyin}
+We are nearly as fast as the cython-loop in this case.
+\begin{pyin}
+z = mandel.mandel_cy(pointsx,pointsy)  
+\end{pyin}
 \end{frame}
 %\begin{frame}[fragile]\frametitle{Performance}
 

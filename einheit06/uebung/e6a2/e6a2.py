@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep 15 19:16:19 2013
+Created on Tue Sep 30 11:48:29 2014
 
 @author: jschulz1
 """
@@ -13,12 +13,12 @@ import matplotlib.pyplot as plt  # Matplotlib's pyplot: MATLAB-like syntax
 from mpl_toolkits.mplot3d import Axes3D
 from pylab import *              # Matplotlib's pylab interface
 
-def lorenz_rhs(t,y):
-    return array([[10*(y[1]-y[0])], [28*y[0]-y[1]-y[0]*y[2]], [y[0]*y[1]-8*y[2]/3]])
+def dgl_rhs(t,y):
+    return array([[y[0]-y[0]*y[1]], [-y[1]+y[1]*y[0]] ])
 
 
-y = array([0,1,0])
-r = ode(lorenz_rhs)
+y = array([0.5,0.5])
+r = ode(dgl_rhs)
 r.set_initial_value(y, 0)
 r.set_integrator('dopri5',atol=1e-7,rtol=1e-4)
 tmax = 30
@@ -30,11 +30,6 @@ while r.successful() and r.t < tmax:
     y = vstack( (y, r.y) )
 
 fig = figure(figsize=(16,10))
-ax = fig.add_subplot(2, 2, 1, projection='3d')
-ax.plot(y[:,0],y[:,1],y[:,2])
+plot(y[:,0],y[:,1])
 xlabel('t'), ylabel('y(t)')
-subplot(2,2,2),plot(y[:,0],y[:,1]), xlabel('$y_1$'), ylabel('$y_2$');
-subplot(2,2,3),plot(y[:,0],y[:,2]), xlabel('$y_1$'), ylabel('$y_3$');
-subplot(2,2,4),plot(y[:,1],y[:,2]), xlabel('$y_2$'), ylabel('$y_3$');
 show()
-#fig.savefig('lorenz.pdf',scale=2)

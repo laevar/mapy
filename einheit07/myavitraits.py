@@ -31,7 +31,7 @@ class Visualization(HasTraits):
         # create initial plot. self.scene.mlab is a complete mlab-reference
         self.plot = self.scene.mlab.surf(self.x[:,:,0],self.y[:,:,0],self.Z[:,:,0])
         
-    # when the scene is actiaveted change the camera viewpoint    
+    # when the scene is activated change the camera viewpoint    
     @on_trait_change('scene.activated')
     def create_plot(self):
         self.scene.mlab.view(45,210)
